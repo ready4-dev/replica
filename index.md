@@ -1,0 +1,21 @@
+# template
+
+## Do Something Related to Mental Health Economic Modelling
+
+A description of what this model module library does. Mention that it is
+developed with the ready4 framework
+(<https://ready4-dev.github.io/ready4/>). If a development version, you
+may wish to note that the software has been made available as part of
+the process of testing and documenting the library. You can also direct
+users with any questions about the library to the maintainer’s email
+address (supply email here).
+
+To install a development version of this software, run the following
+commands in your R console:
+
+``` r
+
+utils::install.packages("devtools")
+
+devtools::install_github("ready4-dev/template")
+```

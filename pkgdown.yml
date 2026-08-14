@@ -1,0 +1,9 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  template: template.html
+last_built: 2026-08-14T09:01Z
+urls:
+  reference: https://ready4-dev.github.io/template/reference
+  article: https://ready4-dev.github.io/template/articles
