@@ -1,0 +1,5 @@
+agent_id,neighb_code,age,gender,household_position,household_id
+A001,N1,40,Male,Parent,SSH000000
+A002,N1,35,Female,Parent,SSH000000
+A003,N2,50,Male,Parent,SSH000001
+A004,N2,45,Female,Parent,SSH000001

@@ -1,0 +1,199 @@
+library(testthat)
+library(data.table)
+
+test_that(
+  "groupChildren matches Python",
+  {
+    
+    set.seed(123)
+    
+    py_sizes <- read.csv(
+      "Export/GenSynthPopR/parity/reference_data/group_children_sizes.csv"
+    )
+    
+    py_agents <- read.csv(
+      "Export/GenSynthPopR/parity/reference_data/group_children_agents.csv"
+    )
+    
+    pop <- data.table(
+      
+      agent_id = c(
+        "C001",
+        "C002",
+        "C003",
+        "C004"
+      ),
+      
+      age = c(
+        10,
+        11,
+        17,
+        18
+      ),
+      
+      gender = c(
+        "Male",
+        "Female",
+        "Male",
+        "Female"
+      ),
+      
+      household_position = c(
+        "Child",
+        "Child",
+        "Child",
+        "Child"
+      )
+      
+    )
+    
+    hh <- HouseholdType(
+      "Family"
+    )
+    
+    hh <- addMembers(
+      hh,
+      household_position = "Child",
+      position_identifier = "child",
+      amount = 2,
+      backup_position_identifiers =
+        character()
+    )
+    
+    hh <- updateState(
+      hh,
+      pop,
+      "household_position"
+    )
+    
+    hh@sampled_agents <- character()
+    
+    child_position <- getPositionForName(
+      hh,
+      "child"
+    )
+    groups <- groupChildren(
+      hh,
+      rep(
+        TRUE,
+        nrow(pop)
+      ),
+      child_position
+    )
+    
+    updated_hh <- attr(
+      groups,
+      "object"
+    )
+    expect_equal(
+      
+      sort(
+        extract_group_sizes(
+          groups
+        )
+      ),
+      
+      sort(
+        py_sizes$
+          group_size
+      )
+      
+    )
+    expect_equal(
+      
+      sort(
+        updated_hh@
+          sampled_agents
+      ),
+      
+      sort(
+        py_agents$
+          agent_id
+      )
+      
+    )
+    expect_true(
+      
+      setequal(
+        
+        updated_hh@
+          sampled_agents,
+        
+        pop$
+          agent_id
+        
+      )
+      
+    )
+    expect_equal(
+      
+      length(
+        updated_hh@
+          sampled_agents
+      ),
+      
+      length(
+        
+        unique(
+          
+          updated_hh@
+            sampled_agents
+          
+        )
+        
+      )
+      
+    )
+    expect_equal(
+      
+      nrow(
+        
+        getRemainingAgentsInPosition(
+          updated_hh,
+          "Child"
+        )
+        
+      ),
+      
+      0
+      
+    )
+    expect_true(
+      
+      all(
+        
+        sapply(
+          groups,
+          length
+        ) == 2
+        
+      )
+      
+    )
+    age_spreads <- sapply(
+      
+      groups,
+      
+      function(ids) {
+        
+        ages <- pop[
+          agent_id %in% ids,
+          age
+        ]
+        
+        max(ages) -
+          min(ages)
+        
+      }
+      
+    )
+    
+    expect_true(
+      all(
+        age_spreads <= 1
+      )
+    )
+    
+  }
+)
+    

@@ -1,4 +1,4 @@
-url: https://ready4-dev.github.io/template/
+url: https://ready4-dev.github.io/replica/
 
 template:
   bootstrap: 5
@@ -6,10 +6,6 @@ template:
 
 home:
   links:
-  - text: Manual - User (PDF)
-    href: https://github.com/ready4-dev/template/releases/download/Documentation_0.0/template_User.pdf
-  - text: Manual - Developer (PDF)
-    href: https://github.com/ready4-dev/template/releases/download/Documentation_0.0/template_Developer.pdf
   - text: Framework
     href:  https://ready4-dev.github.io/ready4/
 development:
@@ -17,4 +13,4 @@ development:
 reference:
 - title: "Functions"
 - contents:
-  - get_this_from_that
+  - calculateFractions
