@@ -2,26 +2,26 @@
 
 ## Authors
 
-- **Author1Given Author1Family**. Author, maintainer.
-  [](https://orcid.org/0000-0000-0000-0000)
+- **Matthew Hamilton**. Author, maintainer.
+  [](https://orcid.org/0000-0001-7407-9194)
 
 - **CopyrightHolder**. Copyright holder.
 
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/ready4-dev/template/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/ready4-dev/replica/blob/main/inst/CITATION)
 
-Author1Given Author1Family \<name@example.com\> \[aut and cre\]
-(\<https://orcid.org/0000-0000-0000-0000\>) (2024). template: Do
-Something Related to Mental Health Economic Modelling. Version
-0.0.0.9003. https://doi.org/10.5281/zenodo.5606250
+Matthew Hamilton \<matthew.hamilton1@monash.edu\> \[aut and cre\]
+(\<https://orcid.org/0000-0001-7407-9194\>) (2026). replica: Create
+Synthetic Populations For Use In Mental Health Economic Models. Version
+0.0.0.9003. https://doi.org/10.5281/zenodo.XXXXXXX
 
     @Manual{,
-      doi = {10.5281/zenodo.5606250},
-      title = {template: Do Something Related to Mental Health Economic Modelling},
-      author = {Author1Given Author1Family <name@example.com> [aut, cre] (<https://orcid.org/0000-0000-0000-0000>)},
-      year = {2024},
+      doi = {10.5281/zenodo.XXXXXXX},
+      title = {replica: Create Synthetic Populations For Use In Mental Health Economic Models},
+      author = {Matthew Hamilton <matthew.hamilton1@monash.edu [aut, cre] (<https://orcid.org/0000-0001-7407-91940>)},
+      year = {2026},
       note = {R package version 0.0.0.9003},
-      url = {https://ready4-dev.github.io/template/},
+      url = {https://ready4-dev.github.io/replica/},
     }
