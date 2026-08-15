@@ -20,4 +20,5 @@ bibentry(
   " The authors of this library should be the primary attribution for the underlying algorithm used in this library. ",
   "See their work at: https://link.springer.com/article/10.1007/s10458-024-09680-7"
   )
+  )
 )
