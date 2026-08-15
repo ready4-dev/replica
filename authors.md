@@ -15,7 +15,12 @@ Source:
 Matthew Hamilton \<matthew.hamilton1@monash.edu\> \[aut and cre\]
 (\<https://orcid.org/0000-0001-7407-9194\>) (2026). replica: Create
 Synthetic Populations For Use In Mental Health Economic Models. Version
-0.0.0.9003. https://doi.org/10.5281/zenodo.XXXXXXX
+0.0.0.9003. https://doi.org/10.5281/zenodo.XXXXXXX Note: This R library
+is currently mostly a port of an existing python library:
+https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python/tree/main
+The authors of this library should be the primary attribution for the
+underlying algorithm used in this library. See their work at:
+https://link.springer.com/article/10.1007/s10458-024-09680-7
 
     @Manual{,
       doi = {10.5281/zenodo.XXXXXXX},
