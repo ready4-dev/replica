@@ -26,12 +26,12 @@ reference:
   - HouseholdType
 - title: "Methods"
 - contents:
-  - addHouseholdType-HouseholdGrouper
-  - addMargins-ConditionalAttributeAdder
-  - addMembers-HouseholdType
-  - agentToHousehold-HouseholdType
-  - createFromMembers-HouseholdType
-  - getPositionForName-HouseholdType
-  - householdsToDataFrame-HouseholdType
-  - updateState-HouseholdType
-  - verify-ConditionalAttributeAdder
+  - starts_with("addHouseholdType")
+  - starts_with("addMargins")
+  - starts_with("addMembers")
+  - starts_with("agentToHousehold")
+  - starts_with("createFromMembers")
+  - starts_with("getPositionForName")
+  - starts_with("householdsToDataFrame")
+  - starts_with("updateState")
+  - starts_with("verify")
