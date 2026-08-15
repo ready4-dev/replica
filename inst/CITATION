@@ -14,6 +14,10 @@ bibentry(
   "."),
   paste0(sprintf("Version %s", meta$Version),"."),
   paste0("https://doi.org/",
-"10.5281/zenodo.XXXXXXX")
+  "10.5281/zenodo.XXXXXXX"),
+  paste0("Note: This R library is currently mostly a port of an existing python library: ",
+  "https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python/tree/main",
+  " The authors of this library should be the primary attribution for the underlying algorithm used in this library. ",
+  "See their work at: https://link.springer.com/article/10.1007/s10458-024-09680-7"
   )
 )
