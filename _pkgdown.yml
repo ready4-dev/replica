@@ -13,4 +13,25 @@ development:
 reference:
 - title: "Functions"
 - contents:
+  - age_to_age_group
   - calculateFractions
+  - calculateGroupCounts
+  - createHouseholdWithId
+  - groupChildren
+  - pairPartners
+- title: "S4 Classes"
+- contents:
+  - ConditionalAttributeAdder
+  - HouseholdGrouper
+  - HouseholdType
+- title: "Methods"
+- contents:
+  - addHouseholdType-HouseholdGrouper
+  - addMargins-ConditionalAttributeAdder
+  - addMembers-HouseholdType
+  - agentToHousehold-HouseholdType
+  - createFromMembers-HouseholdType
+  - getPositionForName-HouseholdType
+  - householdsToDataFrame-HouseholdType
+  - updateState-HouseholdType
+  - verify-ConditionalAttributeAdder
