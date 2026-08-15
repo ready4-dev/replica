@@ -18,12 +18,18 @@ reference:
   - calculateGroupCounts
   - createHouseholdWithId
   - groupChildren
+  - parse_age_gap
   - pairPartners
+  - prepareContingencyTable
+  - synthetic_population_to_contingency
 - title: "S4 Classes"
 - contents:
   - ConditionalAttributeAdder
+  - ConditionalAttributeAdder-class
   - HouseholdGrouper
+  - HouseholdGrouper-class
   - HouseholdType
+  - HouseholdType-class
 - title: "Methods"
 - contents:
   - starts_with("addHouseholdType")
@@ -33,5 +39,7 @@ reference:
   - starts_with("createFromMembers")
   - starts_with("getPositionForName")
   - starts_with("householdsToDataFrame")
+  - run,ConditionalAttributeAdder-method
+  - runHouseholdGrouper,HouseholdGrouper-method
   - starts_with("updateState")
   - starts_with("verify")
