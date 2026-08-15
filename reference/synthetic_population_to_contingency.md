@@ -56,7 +56,7 @@ The resulting contingency table contains one row for each unique
 combination of the specified attributes together with a `count` column
 indicating the number of agents in that group.
 
-This function is used extensively throughout GenSynthPopR for:
+This function is used extensively throughout replica for:
 
 - Constructing validation tables.
 

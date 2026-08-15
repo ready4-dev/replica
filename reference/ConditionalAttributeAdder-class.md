@@ -26,7 +26,7 @@ Missing contingency groups can be handled using configurable strategies:
 
   Stop with an error.
 
-ConditionalAttributeAdder forms the core of the GenSynthPopR
+ConditionalAttributeAdder forms the core of the replica
 attribute-generation workflow.
 
 The object:

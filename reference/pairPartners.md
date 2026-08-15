@@ -39,7 +39,7 @@ The updated `HouseholdType` object is attached as:
 ## Details
 
 This function is one of the core household-generation algorithms in
-GenSynthPopR and is typically called indirectly via `createFromMembers`.
+replica and is typically called indirectly via `createFromMembers`.
 
 Couples are created by:
 
