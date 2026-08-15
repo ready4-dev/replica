@@ -27,8 +27,10 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 Imports: 
+    data.table,
     lifecycle,
     magrittr,
     methods,
+    mipfp,
     purrr,
     rlang
