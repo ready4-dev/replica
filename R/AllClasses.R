@@ -50,7 +50,7 @@
 #' conditioning group is absent from the contingency table.
 #'
 #' @details
-#' ConditionalAttributeAdder forms the core of the GenSynthPopR
+#' ConditionalAttributeAdder forms the core of the replica
 #' attribute-generation workflow.
 #'
 #' The object:

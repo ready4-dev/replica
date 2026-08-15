@@ -460,7 +460,7 @@ parse_age_gap <- function(x) {
 #' a \code{count} column indicating the number of agents in
 #' that group.
 #'
-#' This function is used extensively throughout GenSynthPopR
+#' This function is used extensively throughout replica
 #' for:
 #'
 #' \itemize{

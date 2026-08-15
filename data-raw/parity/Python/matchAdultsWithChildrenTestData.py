@@ -160,7 +160,7 @@ for household_id, household in hh_type.households.items():
 households_df = pd.DataFrame(rows)
 
 households_df.to_csv(
-    "Export/GenSynthPopR/parity/reference_data/match_adults_with_children_households.csv",
+    "inst/reference_data/match_adults_with_children_households.csv",
     index=False
 )
 
@@ -185,7 +185,7 @@ assigned_df = pd.DataFrame({
 })
 
 assigned_df.to_csv(
-    "Export/GenSynthPopR/parity/reference_data/match_adults_with_children_agents.csv",
+    "inst/reference_data/match_adults_with_children_agents.csv",
     index=False
 )
 

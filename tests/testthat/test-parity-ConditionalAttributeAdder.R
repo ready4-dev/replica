@@ -5,7 +5,7 @@ test_that(
     set.seed(123)
     
     python_result <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/conditional_attribute_adder.csv"
+      system.file("reference_data","conditional_attribute_adder.csv", package = "replica")
     )
     
     population <- data.table(

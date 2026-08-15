@@ -37,7 +37,7 @@ distributions.
 }
 \details{
 This function is one of the core household-generation
-algorithms in GenSynthPopR and is typically called
+algorithms in replica and is typically called
 indirectly via \code{\link{createFromMembers}}.
 
 Couples are created by:

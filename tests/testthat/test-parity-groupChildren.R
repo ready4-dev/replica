@@ -8,11 +8,11 @@ test_that(
     set.seed(123)
     
     py_sizes <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/group_children_sizes.csv"
-    )
+      system.file("reference_data","group_children_sizes.csv", package = "replica")
+         )
     
     py_agents <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/group_children_agents.csv"
+      system.file("reference_data","group_children_agents.csv", package = "replica")
     )
     
     pop <- data.table(

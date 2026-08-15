@@ -10,12 +10,12 @@ test_that(
     #
     
     py_households <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/match_adults_with_children_households.csv",
+      system.file("reference_data","match_adults_with_children_households.csv", package = "replica"),
       stringsAsFactors = FALSE
     )
     
     py_agents <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/match_adults_with_children_agents.csv",
+      system.file("reference_data","match_adults_with_children_agents.csv", package = "replica"),
       stringsAsFactors = FALSE
     )
     

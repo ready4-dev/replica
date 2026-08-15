@@ -53,7 +53,7 @@ unique combination of the specified attributes together with
 a \code{count} column indicating the number of agents in
 that group.
 
-This function is used extensively throughout GenSynthPopR
+This function is used extensively throughout replica
 for:
 
 \itemize{

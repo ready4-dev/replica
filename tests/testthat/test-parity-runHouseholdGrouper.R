@@ -12,12 +12,12 @@ test_that(
     #
     
     py_population <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/household_grouper_population.csv",
+      system.file("reference_data","household_grouper_population.csv", package = "replica"),
       stringsAsFactors = FALSE
     )
     
     py_households <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/household_grouper_households.csv",
+      system.file("reference_data","household_grouper_households.csv", package = "replica"),
       stringsAsFactors = FALSE
     )
     

@@ -74,12 +74,12 @@ group_sizes = [len(g) for g in groups]
 pd.DataFrame({
     "group_size": group_sizes
 }).to_csv(
-    "Export/GenSynthPopR/parity/reference_data/group_children_sizes.csv",
+    "inst/reference_data/group_children_sizes.csv",
     index=False
 )
 pd.DataFrame({
     "agent_id": hh_type.sampled_agents
 }).to_csv(
-    "Export/GenSynthPopR/parity/reference_data/group_children_agents.csv",
+    "inst/reference_data/group_children_agents.csv",
     index=False
 )

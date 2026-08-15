@@ -5,7 +5,7 @@ test_that(
     set.seed(123)
     
     py <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/create_singles.csv"
+      system.file("reference_data","create_singles.csv", package = "replica")
     )
     
     pop <- data.table(

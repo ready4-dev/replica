@@ -69,6 +69,6 @@ pd.DataFrame({
     "sampled_agents":
         hh_type.sampled_agents
 }).to_csv(
-    "Export/GenSynthPopR/parity/reference_data/create_singles.csv",
+    "inst/reference_data/create_singles.csv",
     index=False
 )

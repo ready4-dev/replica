@@ -119,22 +119,22 @@ synthetic_population, synthetic_households = (
 # --------------------------------------------------
 
 synthetic_population.reset_index().to_csv(
-    "Export/GenSynthPopR/parity/reference_data/household_grouper_population.csv",
+    "inst/reference_data/household_grouper_population.csv",
     index=False
 )
 
 synthetic_households.reset_index().to_csv(
-    "Export/GenSynthPopR/parity/reference_data/household_grouper_households.csv"
+    "inst/reference_data/household_grouper_households.csv"
 )
 
 print("Files written:")
 
 print(
-    "Export/GenSynthPopR/parity/reference_data/"
+    "inst/reference_data/"
     "household_grouper_population.csv"
 )
 
 print(
-    "Export/GenSynthPopR/parity/reference_data/"
+    "inst/reference_data/"
     "household_grouper_households.csv"
 )

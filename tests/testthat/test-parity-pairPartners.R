@@ -7,15 +7,15 @@ test_that(
     set.seed(123)
     
     py_agents <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/pair_partners_sampled.csv"
+      system.file("reference_data","pair_partners_sampled.csv", package = "replica")
     )
     
     py_age_gaps <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/pair_partners_age_gaps.csv"
+      system.file("reference_data","pair_partners_age_gaps.csv", package = "replica")
     )
     
     py_gender_pairs <- read.csv(
-      "Export/GenSynthPopR/parity/reference_data/pair_partners_genders.csv"
+      system.file("reference_data","pair_partners_genders.csv", package = "replica")
     )
     
     #

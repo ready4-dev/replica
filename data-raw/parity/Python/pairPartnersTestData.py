@@ -79,7 +79,7 @@ pd.DataFrame({
     "sampled_agents":
         hh_type.sampled_agents
 }).to_csv(
-    "Export/GenSynthPopR/parity/reference_data/pair_partners_sampled.csv",
+    "inst/reference_data/pair_partners_sampled.csv",
     index=False
 )
 # Export Age Gaps
@@ -94,7 +94,7 @@ for p1, p2 in couples:
 pd.DataFrame({
     "age_gap": age_gaps
 }).to_csv(
-    "Export/GenSynthPopR/parity/reference_data/pair_partners_age_gaps.csv",
+    "inst/reference_data/pair_partners_age_gaps.csv",
     index=False
 )
 
@@ -110,6 +110,6 @@ for p1, p2 in couples:
 pd.DataFrame({
     "pair": genders
 }).to_csv(
-    "Export/GenSynthPopR/parity/reference_data/pair_partners_genders.csv",
+    "inst/reference_data/pair_partners_genders.csv",
     index=False
 )
