@@ -69,7 +69,7 @@ when contingency tables contain zero-count groups.
 [`getGroupFractions`](https://ready4-dev.github.io/replica/reference/getGroupFractions.md),
 [`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md),
 [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-`run`
+[`run`](https://ready4-dev.github.io/replica/reference/run.md)
 
 ## Examples
 
@@ -77,9 +77,6 @@ when contingency tables contain zero-count groups.
 library(data.table)
 #> 
 #> Attaching package: ‘data.table’
-#> The following object is masked from ‘package:replica’:
-#> 
-#>     :=
 #> The following object is masked from ‘package:base’:
 #> 
 #>     %notin%
@@ -116,7 +113,11 @@ calculateFractions(
   target_attribute =
     "education"
 )
-#> Error in `[.data.table`(dt, , `:=`(fraction, {    total <- sum(count)    if (total == 0) {        rep(0, .N)    }    else {        count/total    }}), by = groups): [ was called on a data.table in an environment that is not data.table-aware (i.e. cedta()), but ':=' was used, implying the owner of this call really intended for data.table methods to be called. See vignette('datatable-importing') for details on properly importing data.table.
+#>    age_group gender education count fraction
+#>       <char> <char>    <char> <num>    <num>
+#> 1:     18-64   Male    Degree    45     0.45
+#> 2:     18-64   Male   Diploma    25     0.25
+#> 3:     18-64   Male    School    30     0.30
 
 dt <- data.table(
   gender = c(
@@ -141,5 +142,9 @@ calculateFractions(
   group_by = "gender",
   target_attribute = "education"
 )
-#> Error in `[.data.table`(dt, , `:=`(fraction, {    total <- sum(count)    if (total == 0) {        rep(0, .N)    }    else {        count/total    }}), by = groups): [ was called on a data.table in an environment that is not data.table-aware (i.e. cedta()), but ':=' was used, implying the owner of this call really intended for data.table methods to be called. See vignette('datatable-importing') for details on properly importing data.table.
+#>    gender education count fraction
+#>    <char>    <char> <num>    <num>
+#> 1: Female    Degree     0        0
+#> 2: Female   Diploma     0        0
+#> 3: Female    School     0        0
 ```

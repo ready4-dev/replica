@@ -85,35 +85,39 @@ discourage unrealistic parent-child age combinations.
 
 ``` r
 # Candidate inside preferred range
+if (FALSE) { # \dontrun{
 score_suitability_by_age_disparity(
   partner_age = 30,
   age_start = 25,
   age_end = 35
 )
-#> Error in score_suitability_by_age_disparity(partner_age = 30, age_start = 25,     age_end = 35): could not find function "score_suitability_by_age_disparity"
+} # }
 
 # Candidate too young
+if (FALSE) { # \dontrun{
 score_suitability_by_age_disparity(
   partner_age = 20,
   age_start = 25,
   age_end = 35
 )
-#> Error in score_suitability_by_age_disparity(partner_age = 20, age_start = 25,     age_end = 35): could not find function "score_suitability_by_age_disparity"
+} # }
 
 # Candidate too old
+if (FALSE) { # \dontrun{
 score_suitability_by_age_disparity(
   partner_age = 40,
   age_start = 25,
   age_end = 35
 )
-#> Error in score_suitability_by_age_disparity(partner_age = 40, age_start = 25,     age_end = 35): could not find function "score_suitability_by_age_disparity"
+} # }
 
 # Candidate violates strict lower bound
+if (FALSE) { # \dontrun{
 score_suitability_by_age_disparity(
   partner_age = 12,
   age_start = 20,
   age_end = 25,
   strict_lower_bound = 14
 )
-#> Error in score_suitability_by_age_disparity(partner_age = 12, age_start = 20,     age_end = 25, strict_lower_bound = 14): could not find function "score_suitability_by_age_disparity"
+} # }
 ```

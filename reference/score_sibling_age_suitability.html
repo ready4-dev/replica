@@ -69,7 +69,7 @@ siblings already assigned to the sibling group.</p></dd>
     <p>Lower scores indicate a closer age match and therefore a more
 suitable sibling candidate.</p>
 <p>This function is used internally by
-<code><a href="findSiblingFromPool.html">findSiblingFromPool</a></code> during sibling-group
+findSiblingFromPool during sibling-group
 construction.</p>
 <p>If the candidate age exactly matches one of the reference
 ages, a score of <code>10</code> is returned.</p>
@@ -79,20 +79,19 @@ between the candidate and any reference age.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="findSiblingFromPool.html">findSiblingFromPool</a></code>,
-<code><a href="groupChildren.html">groupChildren</a></code></p></div>
+    <div class="dont-index"><p><code><a href="groupChildren.html">groupChildren</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">score_sibling_age_suitability</span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="fu">score_sibling_age_suitability</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  age <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  reference_ages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fl">8</span>,</span></span>
 <span class="r-in"><span>    <span class="fl">12</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in score_sibling_age_suitability(age = 10, reference_ages = c(8,     12)):</span> could not find function "score_sibling_age_suitability"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">score_sibling_age_suitability</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  age <span class="op">=</span> <span class="fl">15</span>,</span></span>
@@ -101,7 +100,7 @@ between the candidate and any reference age.</p>
 <span class="r-in"><span>    <span class="fl">12</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in score_sibling_age_suitability(age = 15, reference_ages = c(8,     12)):</span> could not find function "score_sibling_age_suitability"</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

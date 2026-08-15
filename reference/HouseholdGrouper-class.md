@@ -31,9 +31,11 @@ Household generation typically proceeds as follows:
     [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
     objects.
 
-3.  Register the household types using `addHouseholdType`.
+3.  Register the household types using
+    [`addHouseholdType`](https://ready4-dev.github.io/replica/reference/addHouseholdType.md).
 
-4.  Execute household generation using `runHouseholdGrouper`.
+4.  Execute household generation using
+    [`run`](https://ready4-dev.github.io/replica/reference/run.md).
 
 During execution:
 
@@ -85,7 +87,8 @@ Results are returned as:
 
 [`HouseholdGrouper`](https://ready4-dev.github.io/replica/reference/HouseholdGrouper.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md),
-`addHouseholdType`, `runHouseholdGrouper`
+[`addHouseholdType`](https://ready4-dev.github.io/replica/reference/addHouseholdType.md),
+[`run`](https://ready4-dev.github.io/replica/reference/run.md)
 
 ## Examples
 
@@ -102,7 +105,7 @@ hg <- addHouseholdType(
   hh
 )
 
-result <- runHouseholdGrouper(
+result <- run(
   hg
 )
 

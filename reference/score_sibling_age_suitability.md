@@ -29,9 +29,8 @@ A numeric suitability score.
 Lower scores indicate a closer age match and therefore a more suitable
 sibling candidate.
 
-This function is used internally by
-[`findSiblingFromPool`](https://ready4-dev.github.io/replica/reference/findSiblingFromPool.md)
-during sibling-group construction.
+This function is used internally by findSiblingFromPool during
+sibling-group construction.
 
 If the candidate age exactly matches one of the reference ages, a score
 of `10` is returned.
@@ -43,12 +42,12 @@ Lower scores correspond to stronger sibling similarity.
 
 ## See also
 
-[`findSiblingFromPool`](https://ready4-dev.github.io/replica/reference/findSiblingFromPool.md),
 [`groupChildren`](https://ready4-dev.github.io/replica/reference/groupChildren.md)
 
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 score_sibling_age_suitability(
   age = 10,
   reference_ages = c(
@@ -56,7 +55,6 @@ score_sibling_age_suitability(
     12
   )
 )
-#> Error in score_sibling_age_suitability(age = 10, reference_ages = c(8,     12)): could not find function "score_sibling_age_suitability"
 
 score_sibling_age_suitability(
   age = 15,
@@ -65,5 +63,5 @@ score_sibling_age_suitability(
     12
   )
 )
-#> Error in score_sibling_age_suitability(age = 15, reference_ages = c(8,     12)): could not find function "score_sibling_age_suitability"
+} # }
 ```

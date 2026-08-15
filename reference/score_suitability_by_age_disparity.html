@@ -123,37 +123,41 @@ combinations.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Candidate inside preferred range</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu">score_suitability_by_age_disparity</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  partner_age <span class="op">=</span> <span class="fl">30</span>,</span></span>
 <span class="r-in"><span>  age_start <span class="op">=</span> <span class="fl">25</span>,</span></span>
 <span class="r-in"><span>  age_end <span class="op">=</span> <span class="fl">35</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in score_suitability_by_age_disparity(partner_age = 30, age_start = 25,     age_end = 35):</span> could not find function "score_suitability_by_age_disparity"</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Candidate too young</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu">score_suitability_by_age_disparity</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  partner_age <span class="op">=</span> <span class="fl">20</span>,</span></span>
 <span class="r-in"><span>  age_start <span class="op">=</span> <span class="fl">25</span>,</span></span>
 <span class="r-in"><span>  age_end <span class="op">=</span> <span class="fl">35</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in score_suitability_by_age_disparity(partner_age = 20, age_start = 25,     age_end = 35):</span> could not find function "score_suitability_by_age_disparity"</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Candidate too old</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu">score_suitability_by_age_disparity</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  partner_age <span class="op">=</span> <span class="fl">40</span>,</span></span>
 <span class="r-in"><span>  age_start <span class="op">=</span> <span class="fl">25</span>,</span></span>
 <span class="r-in"><span>  age_end <span class="op">=</span> <span class="fl">35</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in score_suitability_by_age_disparity(partner_age = 40, age_start = 25,     age_end = 35):</span> could not find function "score_suitability_by_age_disparity"</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Candidate violates strict lower bound</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="fu">score_suitability_by_age_disparity</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  partner_age <span class="op">=</span> <span class="fl">12</span>,</span></span>
 <span class="r-in"><span>  age_start <span class="op">=</span> <span class="fl">20</span>,</span></span>
 <span class="r-in"><span>  age_end <span class="op">=</span> <span class="fl">25</span>,</span></span>
 <span class="r-in"><span>  strict_lower_bound <span class="op">=</span> <span class="fl">14</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in score_suitability_by_age_disparity(partner_age = 12, age_start = 20,     age_end = 25, strict_lower_bound = 14):</span> could not find function "score_suitability_by_age_disparity"</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

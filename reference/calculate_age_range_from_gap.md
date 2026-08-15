@@ -67,7 +67,7 @@ This behaviour mirrors the original GenSynthPop implementation.
 
 ## See also
 
-`parseAgeGap`,
+[`parseAgeGap`](https://ready4-dev.github.io/replica/reference/parseAgeGap.md),
 [`score_suitability_by_age_disparity`](https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
 [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md)
@@ -80,19 +80,34 @@ calculate_age_range_from_gap(
   gap_start = -5,
   gap_end = 5
 )
-#> Error in calculate_age_range_from_gap(age = 40, gap_start = -5, gap_end = 5): could not find function "calculate_age_range_from_gap"
+#> $age_start
+#> [1] 35
+#> 
+#> $age_end
+#> [1] 45
+#> 
 
 calculate_age_range_from_gap(
   age = 40,
   gap_start = 5,
   gap_end = 15
 )
-#> Error in calculate_age_range_from_gap(age = 40, gap_start = 5, gap_end = 15): could not find function "calculate_age_range_from_gap"
+#> $age_start
+#> [1] 45
+#> 
+#> $age_end
+#> [1] 55
+#> 
 
 calculate_age_range_from_gap(
   age = 40,
   gap_start = -10,
   gap_end = -5
 )
-#> Error in calculate_age_range_from_gap(age = 40, gap_start = -10, gap_end = -5): could not find function "calculate_age_range_from_gap"
+#> $age_start
+#> [1] 30
+#> 
+#> $age_end
+#> [1] 35
+#> 
 ```

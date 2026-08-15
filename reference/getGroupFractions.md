@@ -40,21 +40,21 @@ probabilities using
 and returns the resulting fractions indexed by the target attribute and
 any relevant margin variables.
 
-This function is used internally by `run` during conditional attribute
-assignment.
+This function is used internally by
+[`run`](https://ready4-dev.github.io/replica/reference/run.md) during
+conditional attribute assignment.
 
 Fractions are calculated separately within each conditioning group.
 
 The result is subsequently used by:
 
-- [`getAgentValuesFromFractions`](https://ready4-dev.github.io/replica/reference/getAgentValuesFromFractions.md)
-
 - [`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md)
 
-- `run`
+- [`run`](https://ready4-dev.github.io/replica/reference/run.md)
 
-If margin constraints have been supplied using `addMargins`, the
-returned table will also include the corresponding margin variables.
+If margin constraints have been supplied using
+[`addMargins`](https://ready4-dev.github.io/replica/reference/addMargins.md),
+the returned table will also include the corresponding margin variables.
 
 The function automatically removes duplicate index names when margins
 overlap with the target attribute.
@@ -63,9 +63,8 @@ overlap with the target attribute.
 
 [`calculateFractions`](https://ready4-dev.github.io/replica/reference/calculateFractions.md),
 [`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md),
-[`getAgentValuesFromFractions`](https://ready4-dev.github.io/replica/reference/getAgentValuesFromFractions.md),
 [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-`run`
+[`run`](https://ready4-dev.github.io/replica/reference/run.md)
 
 ## Examples
 

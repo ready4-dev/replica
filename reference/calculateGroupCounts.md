@@ -50,8 +50,6 @@ distributions must be converted into agent-level assignments.
 
 It is used by:
 
-- [`getAgentValuesFromFractions`](https://ready4-dev.github.io/replica/reference/getAgentValuesFromFractions.md)
-
 - [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md)
 
 - [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
@@ -60,7 +58,6 @@ It is used by:
 
 ## See also
 
-[`getAgentValuesFromFractions`](https://ready4-dev.github.io/replica/reference/getAgentValuesFromFractions.md),
 [`calculateFractions`](https://ready4-dev.github.io/replica/reference/calculateFractions.md),
 [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)

@@ -73,15 +73,18 @@ The constructor:
 4.  Creates an empty `household_id` column if one does not already
     exist.
 
-Household types are subsequently registered using `addHouseholdType`.
+Household types are subsequently registered using
+[`addHouseholdType`](https://ready4-dev.github.io/replica/reference/addHouseholdType.md).
 
-The resulting object is typically executed using `runHouseholdGrouper`.
+The resulting object is typically executed using
+[`run`](https://ready4-dev.github.io/replica/reference/run.md).
 
 ## See also
 
 [`HouseholdGrouper-class`](https://ready4-dev.github.io/replica/reference/HouseholdGrouper-class.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md),
-`addHouseholdType`, `runHouseholdGrouper`
+[`addHouseholdType`](https://ready4-dev.github.io/replica/reference/addHouseholdType.md),
+[`run`](https://ready4-dev.github.io/replica/reference/run.md)
 
 ## Examples
 

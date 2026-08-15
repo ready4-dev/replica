@@ -101,7 +101,7 @@ implementation.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code>parseAgeGap</code>,
+    <div class="dont-index"><p><code><a href="parseAgeGap.html">parseAgeGap</a></code>,
 <code><a href="score_suitability_by_age_disparity.html">score_suitability_by_age_disparity</a></code>,
 <code><a href="findCoupleCandidates.html">findCoupleCandidates</a></code>,
 <code><a href="pairPartners.html">pairPartners</a></code></p></div>
@@ -114,21 +114,36 @@ implementation.</p>
 <span class="r-in"><span>  gap_start <span class="op">=</span> <span class="op">-</span><span class="fl">5</span>,</span></span>
 <span class="r-in"><span>  gap_end <span class="op">=</span> <span class="fl">5</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in calculate_age_range_from_gap(age = 40, gap_start = -5, gap_end = 5):</span> could not find function "calculate_age_range_from_gap"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $age_start</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $age_end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">calculate_age_range_from_gap</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  age <span class="op">=</span> <span class="fl">40</span>,</span></span>
 <span class="r-in"><span>  gap_start <span class="op">=</span> <span class="fl">5</span>,</span></span>
 <span class="r-in"><span>  gap_end <span class="op">=</span> <span class="fl">15</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in calculate_age_range_from_gap(age = 40, gap_start = 5, gap_end = 15):</span> could not find function "calculate_age_range_from_gap"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $age_start</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $age_end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">calculate_age_range_from_gap</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  age <span class="op">=</span> <span class="fl">40</span>,</span></span>
 <span class="r-in"><span>  gap_start <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  gap_end <span class="op">=</span> <span class="op">-</span><span class="fl">5</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in calculate_age_range_from_gap(age = 40, gap_start = -10, gap_end = -5):</span> could not find function "calculate_age_range_from_gap"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $age_start</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $age_end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

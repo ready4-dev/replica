@@ -18,70 +18,67 @@ synthetic_population_to_contingency(
 
   A synthetic population stored as a data.frame or `data.table`.
 
-  Each row should correspond to a single agent.
-
 - columns:
 
-  Character vector containing the attributes to include in the
+  Character vector identifying the variables to include in the
   contingency table.
 
-  If `NULL`, all columns are used.
+  If `NULL`, all available variables are used.
 
 - full_crosstab:
 
-  Logical value indicating whether missing combinations should be
-  explicitly included.
+  Logical value indicating whether all possible combinations of factor
+  levels should be represented.
 
   If:
 
-  FALSE
+  `FALSE`
 
   :   Only observed combinations are returned.
 
-  TRUE
+  `TRUE`
 
-  :   Missing combinations are included with a count of zero.
+  :   Missing combinations are included with `count = 0`.
 
 ## Value
 
-A contingency table containing:
-
-- The requested grouping variables.
-
-- A `count` column.
+A contingency table containing the supplied grouping variables and a
+`count` column.
 
 ## Details
 
-The resulting contingency table contains one row for each unique
-combination of the specified attributes together with a `count` column
-indicating the number of agents in that group.
+The resulting table contains one row for each unique combination of the
+supplied attributes together with a `count` column indicating the number
+of synthetic agents belonging to that group.
 
-This function is used extensively throughout replica for:
+This function is one of the core analytical utilities in replica and is
+used for:
 
-- Constructing validation tables.
+- Validation of synthetic populations.
 
-- Computing marginal distributions.
+- Comparison with reference contingency tables.
 
-- Comparing synthetic populations against target contingency tables.
+- Goodness-of-fit assessment.
 
-- Statistical goodness-of-fit testing.
+- Calculation of marginal distributions.
 
-For each unique combination of the selected attributes, the function
-counts the number of agents in the synthetic population belonging to
-that combination.
+- Python-parity testing.
 
-When `full_crosstab = TRUE`, the function generates a complete
-cross-classification of all observed levels and assigns zero counts to
-combinations that do not occur in the population.
+The function aggregates the synthetic population by the supplied
+variables and counts the number of agents in each resulting group.
 
-This behaviour is particularly useful when preparing data for iterative
-proportional fitting (IPF) or statistical validation procedures.
+When `full_crosstab = TRUE`, a complete cross-classification of all
+observed factor levels is generated and any absent combinations receive
+a count of zero.
+
+This behaviour is particularly useful when comparing synthetic
+populations against reference distributions.
 
 ## See also
 
-`get_margin_series_from_synthetic_population`,
-`get_margin_frames_from_synthetic_population`,
-`validate_synthetic_population_fit`, `calculate_z_squared_score`
+[`validate_synthetic_population_fit`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md),
+[`calculate_z_squared_score`](https://ready4-dev.github.io/replica/reference/calculate_z_squared_score.md),
+[`prepareContingencyTable`](https://ready4-dev.github.io/replica/reference/prepareContingencyTable.md)
 
 ## Examples
 
@@ -106,7 +103,9 @@ synthetic_population_to_contingency(
     "education"
   )
 )
-#> Error in .(count = .N): could not find function "."
+#>   gender education count
+#> 1   Male    Degree     2
+#> 2 Female    School     1
 
 synthetic_population_to_contingency(
   population,
@@ -116,5 +115,9 @@ synthetic_population_to_contingency(
   ),
   full_crosstab = TRUE
 )
-#> Error in .(count = .N): could not find function "."
+#>   gender education count
+#> 1 Female    Degree     0
+#> 2 Female    School     1
+#> 3   Male    Degree     2
+#> 4   Male    School     0
 ```

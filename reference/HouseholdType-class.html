@@ -63,16 +63,16 @@ households from an existing synthetic population.</p>
 </ul><p>Household generation typically proceeds as follows:</p>
 <ol><li><p>Create a <code>HouseholdType</code>.</p></li>
 <li><p>Define household positions using
-<code>addMembers</code>.</p></li>
+<code><a href="addMembers.html">addMembers</a></code>.</p></li>
 <li><p>Configure distributions.</p></li>
 <li><p>Attach a synthetic population using
-<code>updateState</code>.</p></li>
+<code><a href="updateState.html">updateState</a></code>.</p></li>
 <li><p>Generate households using
-<code>createFromMembers</code>.</p></li>
+<code><a href="createFromMembers.html">createFromMembers</a></code>.</p></li>
 </ol><p>Generated households are stored internally and can be
 exported using:</p>
-<ul><li><p><code>agentToHousehold</code></p></li>
-<li><p><code>householdsToDataFrame</code></p></li>
+<ul><li><p><code><a href="agentToHousehold.html">agentToHousehold</a></code></p></li>
+<li><p><code><a href="householdsToDataFrame.html">householdsToDataFrame</a></code></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a></h2>
@@ -85,7 +85,7 @@ type.</p></dd>
 
 <dt><code>positions</code></dt>
 <dd><p>List of household-position definitions
-created via <code>addMembers</code>.</p></dd>
+created via <code><a href="addMembers.html">addMembers</a></code>.</p></dd>
 
 
 <dt><code>position_identifiers</code></dt>
@@ -135,10 +135,10 @@ population.</p></dd>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="HouseholdType.html">HouseholdType</a></code>,
 <code><a href="HouseholdGrouper.html">HouseholdGrouper</a></code>,
-<code>addMembers</code>,
-<code>createFromMembers</code>,
-<code>agentToHousehold</code>,
-<code>householdsToDataFrame</code></p></div>
+<code><a href="addMembers.html">addMembers</a></code>,
+<code><a href="createFromMembers.html">createFromMembers</a></code>,
+<code><a href="agentToHousehold.html">agentToHousehold</a></code>,
+<code><a href="householdsToDataFrame.html">householdsToDataFrame</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -149,7 +149,7 @@ population.</p></dd>
 <span class="r-in"><span>  <span class="st">"Family"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu">addMembers</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="addMembers.html">addMembers</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">hh</span>,</span></span>
 <span class="r-in"><span>  household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span></span>
 <span class="r-in"><span>  position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span></span>
@@ -157,7 +157,7 @@ population.</p></dd>
 <span class="r-in"><span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu">addMembers</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="addMembers.html">addMembers</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">hh</span>,</span></span>
 <span class="r-in"><span>  household_position <span class="op">=</span> <span class="st">"Child"</span>,</span></span>
 <span class="r-in"><span>  position_identifier <span class="op">=</span> <span class="st">"child"</span>,</span></span>

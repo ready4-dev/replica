@@ -21,8 +21,9 @@ groupChildren(object, mask, child_position)
 
 - child_position:
 
-  Position definition returned by `getPositionForName` for the `"child"`
-  role.
+  Position definition returned by
+  [`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md)
+  for the `"child"` role.
 
 ## Value
 
@@ -50,14 +51,15 @@ The algorithm:
 - Selects an initial child.
 
 - Iteratively finds the most age-similar sibling using
-  [`findSiblingFromPool`](https://ready4-dev.github.io/replica/reference/findSiblingFromPool.md).
+  findSiblingFromPool.
 
 - Creates sibling groups of the required size.
 
 - Marks assigned children as unavailable for future household
   generation.
 
-This method is typically called indirectly through `createFromMembers`
+This method is typically called indirectly through
+[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md)
 during household generation.
 
 The number of children per sibling group is determined by the `amount`
@@ -67,14 +69,12 @@ Children are assigned exactly once. Assigned children are recorded in
 `sampled_agents` and removed from the pool of eligible children.
 
 Age similarity between children is evaluated using
-[`score_sibling_age_suitability`](https://ready4-dev.github.io/replica/reference/score_sibling_age_suitability.md).
+score_sibling_age_suitability.
 
 ## See also
 
-[`findSiblingFromPool`](https://ready4-dev.github.io/replica/reference/findSiblingFromPool.md),
-[`score_sibling_age_suitability`](https://ready4-dev.github.io/replica/reference/score_sibling_age_suitability.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
-`createFromMembers`,
+[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
 
 ## Examples

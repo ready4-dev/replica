@@ -63,7 +63,8 @@ A `ConditionalAttributeAdder` object.
 The resulting object stores the synthetic population, contingency table
 and assignment settings required for conditional attribute generation.
 
-After construction, the object is typically executed using `run`.
+After construction, the object is typically executed using
+[`run`](https://ready4-dev.github.io/replica/reference/run.md).
 
 During execution, the object:
 
@@ -91,11 +92,14 @@ Missing contingency groups may be handled as follows:
 
   Stop with an error if a required group is missing.
 
-Margin constraints can be added after construction using `addMargins`.
+Margin constraints can be added after construction using
+[`addMargins`](https://ready4-dev.github.io/replica/reference/addMargins.md).
 
 ## See also
 
-`run`, `addMargins`, `verify`,
+[`run`](https://ready4-dev.github.io/replica/reference/run.md),
+[`addMargins`](https://ready4-dev.github.io/replica/reference/addMargins.md),
+[`verify`](https://ready4-dev.github.io/replica/reference/verify.md),
 [`prepareContingencyTable`](https://ready4-dev.github.io/replica/reference/prepareContingencyTable.md),
 [`ConditionalAttributeAdder-class`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder-class.md)
 

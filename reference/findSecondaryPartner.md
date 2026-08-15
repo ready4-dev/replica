@@ -93,17 +93,16 @@ Candidate suitability is determined using:
 
 More advanced workflows may use backup-position replacement logic via:
 
-- `findOppositeGenderReplacementForCandidate`
+- [`findOppositeGenderReplacementForCandidate`](https://ready4-dev.github.io/replica/reference/findOppositeGenderReplacementForCandidate.md)
 
-- `switchHouseholdPositions`
+- [`switchHouseholdPositions`](https://ready4-dev.github.io/replica/reference/switchHouseholdPositions.md)
 
 ## See also
 
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
 [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
-[`score_suitability_by_age_disparity`](https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.md),
-`findOppositeGenderReplacementForCandidate`
+[`findOppositeGenderReplacementForCandidate`](https://ready4-dev.github.io/replica/reference/findOppositeGenderReplacementForCandidate.md)
 
 ## Examples
 

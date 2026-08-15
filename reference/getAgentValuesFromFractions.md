@@ -39,8 +39,9 @@ The function:
 3.  Randomises the resulting values to avoid systematic ordering
     effects.
 
-This function is used internally by `run` during conditional attribute
-assignment.
+This function is used internally by
+[`run`](https://ready4-dev.github.io/replica/reference/run.md) during
+conditional attribute assignment.
 
 Fractions are first converted into integer counts using
 [`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md).
@@ -86,11 +87,12 @@ The returned vector is randomly permuted before being returned.
 [`calculateFractions`](https://ready4-dev.github.io/replica/reference/calculateFractions.md),
 [`getGroupFractions`](https://ready4-dev.github.io/replica/reference/getGroupFractions.md),
 [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-`run`
+[`run`](https://ready4-dev.github.io/replica/reference/run.md)
 
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 fractions <- c(
   Degree = 0.50,
   Diploma = 0.30,
@@ -101,11 +103,11 @@ values <- getAgentValuesFromFractions(
   fractions,
   group_size = 10
 )
-#> Error in getAgentValuesFromFractions(fractions, group_size = 10): could not find function "getAgentValuesFromFractions"
 
 length(values)
-#> Error: object 'values' not found
+} # }
 
+if (FALSE) { # \dontrun{
 fractions <- c(
   Degree = 0.45,
   Diploma = 0.25,
@@ -116,5 +118,5 @@ getAgentValuesFromFractions(
   fractions,
   group_size = 20
 )
-#> Error in getAgentValuesFromFractions(fractions, group_size = 20): could not find function "getAgentValuesFromFractions"
+} # }
 ```

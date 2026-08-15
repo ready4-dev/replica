@@ -71,7 +71,7 @@ The function:
     [`calculate_age_range_from_gap`](https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.md).
 
 5.  Computes a suitability score for every candidate using
-    [`score_suitability_by_age_disparity`](https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.md).
+    score_suitability_by_age_disparity.
 
 6.  Returns candidates sorted from best to worst match.
 
@@ -86,7 +86,6 @@ age-gap range.
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
 [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
 [`calculate_age_range_from_gap`](https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.md),
-[`score_suitability_by_age_disparity`](https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.md)
 
 ## Examples
 

@@ -91,10 +91,12 @@ A `HouseholdType` defines:
 
 - Parent-child age-gap distributions.
 
-Household structures are subsequently configured using `addMembers`.
+Household structures are subsequently configured using
+[`addMembers`](https://ready4-dev.github.io/replica/reference/addMembers.md).
 
 After construction, household-position requirements should be specified
-using `addMembers`.
+using
+[`addMembers`](https://ready4-dev.github.io/replica/reference/addMembers.md).
 
 Example:
 
@@ -127,7 +129,8 @@ for household generation.
 
 [`HouseholdType-class`](https://ready4-dev.github.io/replica/reference/HouseholdType-class.md),
 [`HouseholdGrouper`](https://ready4-dev.github.io/replica/reference/HouseholdGrouper.md),
-`addMembers`, `createFromMembers`
+[`addMembers`](https://ready4-dev.github.io/replica/reference/addMembers.md),
+[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md)
 
 ## Examples
 

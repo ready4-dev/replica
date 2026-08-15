@@ -83,7 +83,7 @@ returns:
 ## See also
 
 [`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md),
-`multicolumn_to_attribute_values`
+[`multicolumn_to_attribute_values`](https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.md)
 
 ## Examples
 

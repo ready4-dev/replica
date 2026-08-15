@@ -70,7 +70,8 @@ configurable strategies:
 
   Stop with an error if required groups are missing.
 
-This function is typically invoked automatically by `run` before
+This function is typically invoked automatically by
+[`run`](https://ready4-dev.github.io/replica/reference/run.md) before
 conditional attribute assignment begins.
 
 The function compares all unique combinations of `group_by` variables
@@ -97,7 +98,7 @@ handling sparse input data.
 ## See also
 
 [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-`run`,
+[`run`](https://ready4-dev.github.io/replica/reference/run.md),
 [`calculateFractions`](https://ready4-dev.github.io/replica/reference/calculateFractions.md),
 [`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md)
 

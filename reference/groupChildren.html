@@ -62,7 +62,7 @@ child grouping.</p></dd>
 
 <dt id="arg-child-position">child_position<a class="anchor" aria-label="anchor" href="#arg-child-position"></a></dt>
 <dd><p>Position definition returned by
-<code>getPositionForName</code> for the <code>"child"</code>
+<code><a href="getPositionForName.html">getPositionForName</a></code> for the <code>"child"</code>
 role.</p></dd>
 
 </dl></div>
@@ -86,26 +86,24 @@ specification stored in a <code>HouseholdType</code> object.</p>
 ordering effects.</p></li>
 <li><p>Selects an initial child.</p></li>
 <li><p>Iteratively finds the most age-similar sibling using
-<code><a href="findSiblingFromPool.html">findSiblingFromPool</a></code>.</p></li>
+findSiblingFromPool.</p></li>
 <li><p>Creates sibling groups of the required size.</p></li>
 <li><p>Marks assigned children as unavailable for future
 household generation.</p></li>
 </ul><p>This method is typically called indirectly through
-<code>createFromMembers</code> during household generation.</p>
+<code><a href="createFromMembers.html">createFromMembers</a></code> during household generation.</p>
 <p>The number of children per sibling group is determined by
 the <code>amount</code> element of the child-position definition.</p>
 <p>Children are assigned exactly once. Assigned children are
 recorded in <code>sampled_agents</code> and removed from the pool
 of eligible children.</p>
 <p>Age similarity between children is evaluated using
-<code><a href="score_sibling_age_suitability.html">score_sibling_age_suitability</a></code>.</p>
+score_sibling_age_suitability.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="findSiblingFromPool.html">findSiblingFromPool</a></code>,
-<code><a href="score_sibling_age_suitability.html">score_sibling_age_suitability</a></code>,
-<code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code>,
-<code>createFromMembers</code>,
+    <div class="dont-index"><p><code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code>,
+<code><a href="createFromMembers.html">createFromMembers</a></code>,
 <code><a href="HouseholdType.html">HouseholdType</a></code></p></div>
     </div>
 
@@ -113,7 +111,7 @@ of eligible children.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">child_position</span> <span class="op">&lt;-</span> <span class="fu">getPositionForName</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">child_position</span> <span class="op">&lt;-</span> <span class="fu"><a href="getPositionForName.html">getPositionForName</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">hh</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"child"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

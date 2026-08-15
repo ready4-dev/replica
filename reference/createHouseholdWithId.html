@@ -57,7 +57,7 @@ HouseholdType object."><meta property="og:image" content="https://ready4-dev.git
 
 <dt id="arg-position">position<a class="anchor" aria-label="anchor" href="#arg-position"></a></dt>
 <dd><p>Household-position definition returned by
-<code>getPositionForName</code>.</p></dd>
+<code><a href="getPositionForName.html">getPositionForName</a></code>.</p></dd>
 
 
 <dt id="arg-id-offset">id_offset<a class="anchor" aria-label="anchor" href="#arg-id-offset"></a></dt>
@@ -89,8 +89,7 @@ the form:</p>
 <li><p>Members associated with the supplied household role.</p></li>
 </ul><p>This function is used internally during household generation
 by:</p>
-<ul><li><p><code>createSingles</code></p></li>
-<li><p><code><a href="pairPartners.html">pairPartners</a></code></p></li>
+<ul><li><p><code><a href="pairPartners.html">pairPartners</a></code></p></li>
 <li><p><code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code></p></li>
 </ul><p>The household is stored in the <code>households</code> slot.</p>
 <p>Each household contains:</p>
@@ -110,8 +109,7 @@ sprintf("SSH<!-- %06d", id_offset) -->
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code>getPositionForName</code>,
-<code>createSingles</code>,
+    <div class="dont-index"><p><code><a href="getPositionForName.html">getPositionForName</a></code>,
 <code><a href="pairPartners.html">pairPartners</a></code>,
 <code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code>,
 <code><a href="HouseholdType.html">HouseholdType</a></code></p></div>
@@ -125,7 +123,7 @@ sprintf("SSH<!-- %06d", id_offset) -->
 <span class="r-in"><span>  <span class="st">"CoupleOnly"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu">addMembers</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="addMembers.html">addMembers</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">hh</span>,</span></span>
 <span class="r-in"><span>  household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span></span>
 <span class="r-in"><span>  position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span></span>
@@ -133,7 +131,7 @@ sprintf("SSH<!-- %06d", id_offset) -->
 <span class="r-in"><span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">adult_position</span> <span class="op">&lt;-</span> <span class="fu">getPositionForName</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">adult_position</span> <span class="op">&lt;-</span> <span class="fu"><a href="getPositionForName.html">getPositionForName</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">hh</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"adult"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

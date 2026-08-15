@@ -39,7 +39,8 @@ The updated `HouseholdType` object is attached as:
 ## Details
 
 This function is one of the core household-generation algorithms in
-replica and is typically called indirectly via `createFromMembers`.
+replica and is typically called indirectly via
+[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md).
 
 Couples are created by:
 
@@ -63,7 +64,8 @@ Couple composition is controlled by:
 
 - `couple_age_distribution`
 
-Age-gap specifications are interpreted using `parseAgeGap`.
+Age-gap specifications are interpreted using
+[`parseAgeGap`](https://ready4-dev.github.io/replica/reference/parseAgeGap.md).
 
 Candidate partners are selected using:
 
@@ -81,7 +83,8 @@ prevent subsequent reassignment.
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
-`parseAgeGap`, `createSingles`, `createFromMembers`,
+[`parseAgeGap`](https://ready4-dev.github.io/replica/reference/parseAgeGap.md),
+[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
 
 ## Examples

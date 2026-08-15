@@ -57,25 +57,26 @@ contingency table.</p>
 
 <dl><dt id="arg-df-synthetic-population">df_synthetic_population<a class="anchor" aria-label="anchor" href="#arg-df-synthetic-population"></a></dt>
 <dd><p>A synthetic population stored
-as a data.frame or <code>data.table</code>.</p>
-<p>Each row should correspond to a single agent.</p></dd>
+as a data.frame or <code>data.table</code>.</p></dd>
 
 
 <dt id="arg-columns">columns<a class="anchor" aria-label="anchor" href="#arg-columns"></a></dt>
-<dd><p>Character vector containing the attributes to
+<dd><p>Character vector identifying the variables to
 include in the contingency table.</p>
-<p>If <code>NULL</code>, all columns are used.</p></dd>
+<p>If <code>NULL</code>, all available variables are used.</p></dd>
 
 
 <dt id="arg-full-crosstab">full_crosstab<a class="anchor" aria-label="anchor" href="#arg-full-crosstab"></a></dt>
-<dd><p>Logical value indicating whether missing
-combinations should be explicitly included.</p>
+<dd><p>Logical value indicating whether all
+possible combinations of factor levels should be represented.</p>
 <p>If:</p>
-<dl><dt>FALSE</dt>
+<dl><dt><code>FALSE</code></dt>
 <dd><p>Only observed combinations are returned.</p></dd>
 
-<dt>TRUE</dt>
-<dd><p>Missing combinations are included with a count of zero.</p></dd>
+
+<dt><code>TRUE</code></dt>
+<dd><p>Missing combinations are included with
+<code>count = 0</code>.</p></dd>
 
 
 </dl></dd>
@@ -83,40 +84,37 @@ combinations should be explicitly included.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A contingency table containing:</p>
-<ul><li><p>The requested grouping variables.</p></li>
-<li><p>A <code>count</code> column.</p></li>
-</ul></div>
+    <p>A contingency table containing the supplied
+grouping variables and a <code>count</code> column.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The resulting contingency table contains one row for each
-unique combination of the specified attributes together with
-a <code>count</code> column indicating the number of agents in
-that group.</p>
-<p>This function is used extensively throughout replica
-for:</p>
-<ul><li><p>Constructing validation tables.</p></li>
-<li><p>Computing marginal distributions.</p></li>
-<li><p>Comparing synthetic populations against target
-contingency tables.</p></li>
-<li><p>Statistical goodness-of-fit testing.</p></li>
-</ul><p>For each unique combination of the selected attributes, the
-function counts the number of agents in the synthetic
-population belonging to that combination.</p>
-<p>When <code>full_crosstab = TRUE</code>, the function generates a
-complete cross-classification of all observed levels and
-assigns zero counts to combinations that do not occur in the
-population.</p>
-<p>This behaviour is particularly useful when preparing data
-for iterative proportional fitting (IPF) or statistical
-validation procedures.</p>
+    <p>The resulting table contains one row for each unique
+combination of the supplied attributes together with a
+<code>count</code> column indicating the number of synthetic
+agents belonging to that group.</p>
+<p>This function is one of the core analytical utilities in
+replica and is used for:</p>
+<ul><li><p>Validation of synthetic populations.</p></li>
+<li><p>Comparison with reference contingency tables.</p></li>
+<li><p>Goodness-of-fit assessment.</p></li>
+<li><p>Calculation of marginal distributions.</p></li>
+<li><p>Python-parity testing.</p></li>
+</ul><p>The function aggregates the synthetic population by the
+supplied variables and counts the number of agents in each
+resulting group.</p>
+<p>When <code>full_crosstab = TRUE</code>, a complete
+cross-classification of all observed factor levels is
+generated and any absent combinations receive a count of
+zero.</p>
+<p>This behaviour is particularly useful when comparing
+synthetic populations against reference distributions.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code>get_margin_series_from_synthetic_population</code>,
-<code>get_margin_frames_from_synthetic_population</code>,
-<code>validate_synthetic_population_fit</code>,
-<code>calculate_z_squared_score</code></p></div>
+    <div class="dont-index"><p><code><a href="validate_synthetic_population_fit.html">validate_synthetic_population_fit</a></code>,
+<code><a href="calculate_z_squared_score.html">calculate_z_squared_score</a></code>,
+<code><a href="prepareContingencyTable.html">prepareContingencyTable</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -141,7 +139,9 @@ validation procedures.</p>
 <span class="r-in"><span>    <span class="st">"education"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .(count = .N):</span> could not find function "."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gender education count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Male    Degree     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Female    School     1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">synthetic_population_to_contingency</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">population</span>,</span></span>
@@ -151,7 +151,11 @@ validation procedures.</p>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  full_crosstab <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .(count = .N):</span> could not find function "."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gender education count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Female    Degree     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Female    School     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Male    Degree     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Male    School     0</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

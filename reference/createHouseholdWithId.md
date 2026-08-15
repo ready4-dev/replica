@@ -17,7 +17,8 @@ createHouseholdWithId(object, position, id_offset, agents)
 
 - position:
 
-  Household-position definition returned by `getPositionForName`.
+  Household-position definition returned by
+  [`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md).
 
 - id_offset:
 
@@ -50,8 +51,6 @@ The newly-created household stores:
 
 This function is used internally during household generation by:
 
-- `createSingles`
-
 - [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md)
 
 - [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
@@ -76,7 +75,7 @@ Household identifiers are generated using:
 
 ## See also
 
-`getPositionForName`, `createSingles`,
+[`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md),
 [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
