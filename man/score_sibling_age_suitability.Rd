@@ -24,7 +24,7 @@ Lower scores indicate a closer age match and therefore a more
 suitable sibling candidate.
 
 This function is used internally by
-\code{\link{findSiblingFromPool}} during sibling-group
+findSiblingFromPool during sibling-group
 construction.
 
 If the candidate age exactly matches one of the reference
@@ -36,6 +36,7 @@ between the candidate and any reference age.
 Lower scores correspond to stronger sibling similarity.
 }
 \examples{
+\dontrun{
 score_sibling_age_suitability(
   age = 10,
   reference_ages = c(
@@ -51,10 +52,10 @@ score_sibling_age_suitability(
     12
   )
 )
+}
 
 }
 \seealso{
-\code{\link{findSiblingFromPool}},
 \code{\link{groupChildren}}
 }
 \keyword{internal}

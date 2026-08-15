@@ -243,7 +243,7 @@ age_to_age_group <- function(
 #' \code{\link{findCoupleCandidates}},
 #' \code{\link{pairPartners}}
 #'
-#' @keywords internal
+#' @export
 calculate_age_range_from_gap <- function(
     age,
     gap_start,
@@ -267,6 +267,58 @@ calculate_age_range_from_gap <- function(
   )
   
 }
+#' Generate Multiple Margin Tables from a Synthetic Population
+#'
+#' Creates a collection of marginal distributions from a
+#' synthetic population.
+#'
+#' This function is useful when multiple margin tables are
+#' required for:
+#'
+#' \itemize{
+#'   \item Validation.
+#'   \item Iterative proportional fitting (IPF).
+#'   \item Statistical reporting.
+#' }
+#'
+#' @param df_synth_pop A synthetic population stored as
+#' a data.frame or \code{data.table}.
+#'
+#' @param margins List of variable names defining the
+#' requested margins.
+#'
+#' Each list entry specifies the variables that will be
+#' aggregated together.
+#'
+#' @return A list of margin tables.
+#'
+#' @details
+#' For each entry in \code{margin_names}, the function computes
+#' the corresponding marginal distribution and returns the
+#' collection as a named list.
+#'
+#' This utility is commonly used when preparing inputs for IPF
+#' workflows and validating synthetic populations against known
+#' marginals.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' margins <- get_margin_frames_from_synthetic_population(
+#'   population,
+#'   list(
+#'     "gender",
+#'     "age_group"
+#'   )
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{get_margin_series_from_synthetic_population}},
+#' \code{\link{ConditionalAttributeAdder}}
+#'
+#' @export
 get_margin_frames_from_synthetic_population <- function(
     df_synth_pop,
     margins
@@ -293,6 +345,59 @@ get_margin_frames_from_synthetic_population <- function(
     )
   )
 }
+#' Extract a Margin Distribution from a Synthetic Population
+#'
+#' Calculates a marginal distribution for one or more variables
+#' in a synthetic population.
+#'
+#' The resulting margin can be used for:
+#'
+#' \itemize{
+#'   \item Validation.
+#'   \item Comparison with external data sources.
+#'   \item Iterative proportional fitting (IPF).
+#'   \item Diagnostic reporting.
+#' }
+#'
+#' @param df_synth_pop A synthetic population stored as
+#' a data.frame or \code{data.table}.
+#'
+#' @param margins Character vector identifying the
+#' variables that define the margin.
+#'
+#' @return A data frame containing the requested grouping
+#' variables and a \code{count} column.
+#'
+#' @details
+#' The function aggregates the synthetic population over the
+#' supplied variables and counts the number of agents in each
+#' resulting category.
+#'
+#' Unlike
+#' \code{\link{synthetic_population_to_contingency}},
+#' this function is intended specifically for marginal
+#' distributions rather than higher-dimensional contingency
+#' tables.
+#'
+#' @examples
+#' population <- data.frame(
+#'   gender = c(
+#'     "Male",
+#'     "Male",
+#'     "Female"
+#'   )
+#' )
+#'
+#' get_margin_series_from_synthetic_population(
+#'   population,
+#'   "gender"
+#' )
+#'
+#' @seealso
+#' \code{\link{get_margin_frames_from_synthetic_population}},
+#' \code{\link{synthetic_population_to_contingency}}
+#'
+#' @export
 get_margin_series_from_synthetic_population <- function(
     df_synth_pop,
     margins
@@ -319,6 +424,75 @@ get_margin_series_from_synthetic_population <- function(
   
   results
 }
+#' Convert Multiple Columns to Attribute Combinations
+#'
+#' Creates combined attribute values from multiple columns in a
+#' synthetic population or contingency table.
+#'
+#' This function is useful when constructing composite grouping
+#' variables from several demographic attributes.
+#'
+#' Examples include:
+#'
+#' \itemize{
+#'   \item Age-group and gender combinations.
+#'   \item Education and employment combinations.
+#'   \item Geographic and demographic combinations.
+#' }
+#'
+#' @param df Input data frame or data.table.
+#'
+#' @param attr_name Character string specifying the name of the
+#' generated attribute.
+#'
+#' @param columns Character vector containing the columns to
+#' convert.
+#'
+#' @return A character vector containing combined attribute
+#' values.
+#'
+#' @details
+#' Values from the supplied columns are combined into a single
+#' string representation for each row.
+#'
+#' The resulting values can be used as:
+#'
+#' \itemize{
+#'   \item Composite identifiers.
+#'   \item Grouping variables.
+#'   \item Keys for matching and aggregation.
+#' }
+#'
+#' This function is used internally by several utilities in
+#' replica but may also be useful for user-defined reporting and
+#' validation workflows.
+#'
+#' @examples
+#' df <- data.frame(
+#'   Degree = c(50, 20),
+#'   Diploma = c(30, 10),
+#'   School = c(20, 70),
+#'   gender = c(
+#'     "Male",
+#'     "Female"
+#'   )
+#' )
+#'
+#' multicolumn_to_attribute_values(
+#'   df = df,
+#'   attr_name = "education",
+#'   columns = c(
+#'     "Degree",
+#'     "Diploma",
+#'     "School"
+#'   )
+#' )
+#'
+#' @seealso
+#' \code{\link{synthetic_population_to_contingency}},
+#' \code{\link{get_margin_series_from_synthetic_population}}
+#'
+#' @export
 multicolumn_to_attribute_values <- function(
     df,
     attr_name,
@@ -341,180 +515,66 @@ multicolumn_to_attribute_values <- function(
     value.name = "count"
   )
 }
-#' Parse an Age-Gap Specification
-#'
-#' Converts an age-gap specification into numeric lower and
-#' upper bounds.
-#'
-#' Age-gap specifications are used throughout the household
-#' generation workflow to define acceptable age differences
-#' between:
-#'
-#' \itemize{
-#'   \item Partners.
-#'   \item Parents and children.
-#' }
-#'
-#' Supported formats include:
-#'
-#' \preformatted{
-#' "20-30"
-#' "-5-5"
-#' "-10--5"
-#' "-10-5"
-#' }
-#'
-#' @param age_gap Character string specifying an age-gap range.
-#'
-#' @return A named numeric vector containing:
-#'
-#' \describe{
-#'   \item{lower}{
-#'     Lower age-gap bound.
-#'   }
-#'   \item{upper}{
-#'     Upper age-gap bound.
-#'   }
-#' }
-#'
-#' @details
-#' Positive values indicate that the comparison individual is
-#' expected to be older.
-#'
-#' Negative values indicate that the comparison individual is
-#' expected to be younger.
-#'
-#' Examples:
-#'
-#' \describe{
-#'   \item{\code{"20-30"}}{
-#'     Parent should be between 20 and 30 years older than the
-#'     child.
-#'   }
-#'
-#'   \item{\code{"-5-5"}}{
-#'     Partner may be up to 5 years younger or 5 years older.
-#'   }
-#'
-#'   \item{\code{"-10--5"}}{
-#'     Partner should be between 5 and 10 years younger.
-#'   }
-#'
-#'   \item{\code{"-10-5"}}{
-#'     Partner may be up to 10 years younger or up to 5 years
-#'     older.
-#'   }
-#' }
-#'
-#' Invalid age-gap strings generate an error.
-#'
-#' @examples
-#' parseAgeGap("20-30")
-#'
-#' parseAgeGap("-5-5")
-#'
-#' parseAgeGap("-10--5")
-#'
-#' parseAgeGap("-10-5")
-#'
-#' @seealso
-#' \code{\link{pairPartners}},
-#' \code{\link{matchAdultsWithChildren}},
-#' \code{\link{calculate_age_range_from_gap}}
-#'
-#' @export
-parse_age_gap <- function(x) {
-  
-  nums <-
-    as.numeric(
-      regmatches(
-        x,
-        gregexpr(
-          "-?\\d+",
-          x
-        )[[1]]
-      )
-    )
-  
-  if (length(nums) != 2) {
-    stop(
-      sprintf(
-        "Unable to parse age-gap string '%s'",
-        x
-      )
-    )
-  }
-  
-  list(
-    lower = nums[1],
-    upper = nums[2]
-  )
-}
 #' Convert a Synthetic Population to a Contingency Table
 #'
 #' Converts an agent-level synthetic population into a
 #' contingency table.
 #'
-#' The resulting contingency table contains one row for each
-#' unique combination of the specified attributes together with
-#' a \code{count} column indicating the number of agents in
-#' that group.
+#' The resulting table contains one row for each unique
+#' combination of the supplied attributes together with a
+#' \code{count} column indicating the number of synthetic
+#' agents belonging to that group.
 #'
-#' This function is used extensively throughout replica
-#' for:
+#' This function is one of the core analytical utilities in
+#' replica and is used for:
 #'
 #' \itemize{
-#'   \item Constructing validation tables.
-#'   \item Computing marginal distributions.
-#'   \item Comparing synthetic populations against target
-#'         contingency tables.
-#'   \item Statistical goodness-of-fit testing.
+#'   \item Validation of synthetic populations.
+#'   \item Comparison with reference contingency tables.
+#'   \item Goodness-of-fit assessment.
+#'   \item Calculation of marginal distributions.
+#'   \item Python-parity testing.
 #' }
 #'
 #' @param df_synthetic_population A synthetic population stored
 #' as a data.frame or \code{data.table}.
 #'
-#' Each row should correspond to a single agent.
-#'
-#' @param columns Character vector containing the attributes to
+#' @param columns Character vector identifying the variables to
 #' include in the contingency table.
 #'
-#' If \code{NULL}, all columns are used.
+#' If \code{NULL}, all available variables are used.
 #'
-#' @param full_crosstab Logical value indicating whether missing
-#' combinations should be explicitly included.
+#' @param full_crosstab Logical value indicating whether all
+#' possible combinations of factor levels should be represented.
 #'
 #' If:
 #'
 #' \describe{
-#'   \item{FALSE}{
+#'   \item{\code{FALSE}}{
 #'     Only observed combinations are returned.
 #'   }
-#'   \item{TRUE}{
-#'     Missing combinations are included with a count of zero.
+#'
+#'   \item{\code{TRUE}}{
+#'     Missing combinations are included with
+#'     \code{count = 0}.
 #'   }
 #' }
 #'
-#' @return A contingency table containing:
-#'
-#' \itemize{
-#'   \item The requested grouping variables.
-#'   \item A \code{count} column.
-#' }
+#' @return A contingency table containing the supplied
+#' grouping variables and a \code{count} column.
 #'
 #' @details
-#' For each unique combination of the selected attributes, the
-#' function counts the number of agents in the synthetic
-#' population belonging to that combination.
+#' The function aggregates the synthetic population by the
+#' supplied variables and counts the number of agents in each
+#' resulting group.
 #'
-#' When \code{full_crosstab = TRUE}, the function generates a
-#' complete cross-classification of all observed levels and
-#' assigns zero counts to combinations that do not occur in the
-#' population.
+#' When \code{full_crosstab = TRUE}, a complete
+#' cross-classification of all observed factor levels is
+#' generated and any absent combinations receive a count of
+#' zero.
 #'
-#' This behaviour is particularly useful when preparing data
-#' for iterative proportional fitting (IPF) or statistical
-#' validation procedures.
+#' This behaviour is particularly useful when comparing
+#' synthetic populations against reference distributions.
 #'
 #' @examples
 #' population <- data.frame(
@@ -549,10 +609,9 @@ parse_age_gap <- function(x) {
 #' )
 #'
 #' @seealso
-#' \code{\link{get_margin_series_from_synthetic_population}},
-#' \code{\link{get_margin_frames_from_synthetic_population}},
 #' \code{\link{validate_synthetic_population_fit}},
-#' \code{\link{calculate_z_squared_score}}
+#' \code{\link{calculate_z_squared_score}},
+#' \code{\link{prepareContingencyTable}}
 #'
 #' @export
 synthetic_population_to_contingency <- function(
@@ -592,7 +651,7 @@ synthetic_population_to_contingency <- function(
   names(all_levels) <- columns
   
   full_grid <- do.call(
-    CJ,
+    data.table::CJ,
     c(all_levels, sorted = FALSE)
   )
   

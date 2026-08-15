@@ -33,7 +33,7 @@ Household generation typically proceeds as follows:
 \item Register the household types using
 \code{\link{addHouseholdType}}.
 \item Execute household generation using
-\code{\link{runHouseholdGrouper}}.
+\code{\link{run}}.
 }
 
 During execution:
@@ -94,7 +94,7 @@ hg <- addHouseholdType(
   hh
 )
 
-result <- runHouseholdGrouper(
+result <- run(
   hg
 )
 
@@ -105,5 +105,5 @@ result <- runHouseholdGrouper(
 \code{\link{HouseholdGrouper}},
 \code{\link{HouseholdType}},
 \code{\link{addHouseholdType}},
-\code{\link{runHouseholdGrouper}}
+\code{\link{run}}
 }

@@ -23,7 +23,6 @@
 #' by:
 #'
 #' \itemize{
-#'   \item \code{\link{createSingles}}
 #'   \item \code{\link{pairPartners}}
 #'   \item \code{\link{matchAdultsWithChildren}}
 #' }
@@ -99,7 +98,6 @@
 #'
 #' @seealso
 #' \code{\link{getPositionForName}},
-#' \code{\link{createSingles}},
 #' \code{\link{pairPartners}},
 #' \code{\link{matchAdultsWithChildren}},
 #' \code{\link{HouseholdType}}
@@ -264,7 +262,7 @@ createSingles <- function(
 #'         range using \code{\link{calculate_age_range_from_gap}}.
 #'   \item Computes a suitability score for every candidate
 #'         using
-#'         \code{\link{score_suitability_by_age_disparity}}.
+#'         score_suitability_by_age_disparity.
 #'   \item Returns candidates sorted from best to worst match.
 #' }
 #'
@@ -304,7 +302,6 @@ createSingles <- function(
 #' \code{\link{findSecondaryPartner}},
 #' \code{\link{pairPartners}},
 #' \code{\link{calculate_age_range_from_gap}},
-#' \code{\link{score_suitability_by_age_disparity}}
 #'
 #' @keywords internal
 findCoupleCandidates <- function(
@@ -382,6 +379,56 @@ findCoupleCandidates <- function(
   ]
   
 }
+#' Find a Replacement Candidate of the Opposite Gender
+#'
+#' Identifies an available candidate of the opposite gender that
+#' most closely resembles a supplied candidate.
+#'
+#' This function supports fallback partner-matching behaviour
+#' within replica when the preferred gender composition cannot
+#' be achieved directly from the primary candidate pool.
+#'
+#' @param object A \code{\link{HouseholdType}} object.
+#'
+#' @param wrong_candidate Candidate requiring replacement.
+#'
+#' @param mask Logical eligibility mask.
+#'
+#' @param position Household-position category to search.
+#'
+#' @return A single-row data frame or data.table containing the
+#' selected replacement candidate.
+#'
+#' Returns \code{NULL} if no suitable replacement exists.
+#'
+#' @details
+#' Candidate selection is restricted to agents who:
+#'
+#' \itemize{
+#'   \item Occupy the specified household-position category.
+#'   \item Have the opposite gender.
+#'   \item Have not already been assigned.
+#' }
+#'
+#' Candidates are ranked according to a simple similarity score
+#' based on matching demographic and household characteristics.
+#'
+#' @examples
+#' \dontrun{
+#' replacement <-
+#'   findOppositeGenderReplacementForCandidate(
+#'     hh,
+#'     wrong_candidate,
+#'     mask,
+#'     "SingleAdult"
+#'   )
+#' }
+#'
+#' @seealso
+#' \code{\link{switchHouseholdPositions}},
+#' \code{\link{findSecondaryPartner}}
+#'
+#' @keywords internal
 findOppositeGenderReplacementForCandidate <- function(
     object,
     wrong_candidate,
@@ -543,7 +590,6 @@ findOppositeGenderReplacementForCandidate <- function(
 #' @seealso
 #' \code{\link{findSecondaryPartner}},
 #' \code{\link{getRemainingAgentsInPosition}},
-#' \code{\link{createSingles}},
 #' \code{\link{pairPartners}}
 #'
 #' @keywords internal
@@ -689,7 +735,6 @@ findPrimaryPartner <- function(
 #' \code{\link{findPrimaryPartner}},
 #' \code{\link{findCoupleCandidates}},
 #' \code{\link{pairPartners}},
-#' \code{\link{score_suitability_by_age_disparity}},
 #' \code{\link{findOppositeGenderReplacementForCandidate}}
 #'
 #' @keywords internal
@@ -741,7 +786,7 @@ findSecondaryPartner <- function(
 #' on age similarity to one or more already-selected siblings.
 #'
 #' The suitability of a candidate is evaluated using
-#' \code{\link{score_sibling_age_suitability}}.
+#' score_sibling_age_suitability.
 #'
 #' Candidates with ages closest to the existing sibling ages
 #' receive the highest priority.
@@ -792,9 +837,10 @@ findSecondaryPartner <- function(
 #'
 #' @seealso
 #' \code{\link{groupChildren}},
-#' \code{\link{score_sibling_age_suitability}}
 #'
+#' @rdname findSiblingFromPool
 #' @keywords internal
+#' @noRd
 findSiblingFromPool <- function(
     pool,
     mask,
@@ -899,7 +945,6 @@ getHouseholdIds <- function(
 #' \itemize{
 #'   \item \code{\link{findPrimaryPartner}}
 #'   \item \code{\link{findSecondaryPartner}}
-#'   \item \code{\link{createSingles}}
 #'   \item \code{\link{pairPartners}}
 #' }
 #'
@@ -943,10 +988,8 @@ getHouseholdIds <- function(
 #' }
 #'
 #' @seealso
-#' \code{\link{maskWithRemainingAgents}},
 #' \code{\link{findPrimaryPartner}},
 #' \code{\link{findSecondaryPartner}},
-#' \code{\link{createSingles}},
 #' \code{\link{pairPartners}},
 #' \code{\link{HouseholdType}}
 #'
@@ -1001,7 +1044,7 @@ getRemainingAgentsInPosition <- function( # Make method
 #'         ordering effects.
 #'   \item Selects an initial child.
 #'   \item Iteratively finds the most age-similar sibling using
-#'         \code{\link{findSiblingFromPool}}.
+#'         findSiblingFromPool.
 #'   \item Creates sibling groups of the required size.
 #'   \item Marks assigned children as unavailable for future
 #'         household generation.
@@ -1039,7 +1082,7 @@ getRemainingAgentsInPosition <- function( # Make method
 #' of eligible children.
 #'
 #' Age similarity between children is evaluated using
-#' \code{\link{score_sibling_age_suitability}}.
+#' score_sibling_age_suitability.
 #'
 #' @examples
 #' \dontrun{
@@ -1063,8 +1106,6 @@ getRemainingAgentsInPosition <- function( # Make method
 #' }
 #'
 #' @seealso
-#' \code{\link{findSiblingFromPool}},
-#' \code{\link{score_sibling_age_suitability}},
 #' \code{\link{matchAdultsWithChildren}},
 #' \code{\link{createFromMembers}},
 #' \code{\link{HouseholdType}}
@@ -1212,7 +1253,7 @@ groupChildren <- function(
 #' @param object A \code{HouseholdType} object.
 #'
 #' @param parents List of adult groups generated by
-#' \code{\link{createSingles}} or \code{\link{pairPartners}}.
+#' createSingles() or \code{\link{pairPartners}}.
 #'
 #' @param children List of sibling groups generated by
 #' \code{\link{groupChildren}}.
@@ -1240,7 +1281,7 @@ groupChildren <- function(
 #' child age.
 #'
 #' Parent suitability is evaluated using
-#' \code{\link{score_suitability_by_age_disparity}}.
+#' score_suitability_by_age_disparity.
 #'
 #' A minimum age difference between parents and children is
 #' enforced through the \code{strict_lower_bound} mechanism.
@@ -1269,11 +1310,9 @@ groupChildren <- function(
 #' }
 #'
 #' @seealso
-#' \code{\link{createSingles}},
 #' \code{\link{pairPartners}},
 #' \code{\link{groupChildren}},
 #' \code{\link{createHouseholdWithId}},
-#' \code{\link{score_suitability_by_age_disparity}},
 #' \code{\link{HouseholdType}}
 #'
 #' @keywords internal
@@ -1621,7 +1660,6 @@ matchAdultsWithChildren <- function(
 #' \code{\link{findSecondaryPartner}},
 #' \code{\link{findCoupleCandidates}},
 #' \code{\link{parseAgeGap}},
-#' \code{\link{createSingles}},
 #' \code{\link{createFromMembers}},
 #' \code{\link{HouseholdType}}
 #'
@@ -1759,6 +1797,88 @@ pairPartners <- function(
   couples
   
 }
+#' Parse an Age-Gap Specification
+#'
+#' Converts an age-gap specification into numeric lower and
+#' upper bounds.
+#'
+#' Age-gap specifications are used throughout the household
+#' generation workflow to define acceptable age differences
+#' between:
+#'
+#' \itemize{
+#'   \item Partners.
+#'   \item Parents and children.
+#' }
+#'
+#' Supported formats include:
+#'
+#' \preformatted{
+#' "20-30"
+#' "-5-5"
+#' "-10--5"
+#' "-10-5"
+#' }
+#'
+#' @param age_gap Character string specifying an age-gap range.
+#'
+#' @return A named numeric vector containing:
+#'
+#' \describe{
+#'   \item{lower}{
+#'     Lower age-gap bound.
+#'   }
+#'   \item{upper}{
+#'     Upper age-gap bound.
+#'   }
+#' }
+#'
+#' @details
+#' Positive values indicate that the comparison individual is
+#' expected to be older.
+#'
+#' Negative values indicate that the comparison individual is
+#' expected to be younger.
+#'
+#' Examples:
+#'
+#' \describe{
+#'   \item{\code{"20-30"}}{
+#'     Parent should be between 20 and 30 years older than the
+#'     child.
+#'   }
+#'
+#'   \item{\code{"-5-5"}}{
+#'     Partner may be up to 5 years younger or 5 years older.
+#'   }
+#'
+#'   \item{\code{"-10--5"}}{
+#'     Partner should be between 5 and 10 years younger.
+#'   }
+#'
+#'   \item{\code{"-10-5"}}{
+#'     Partner may be up to 10 years younger or up to 5 years
+#'     older.
+#'   }
+#' }
+#'
+#' Invalid age-gap strings generate an error.
+#'
+#' @examples
+#' parseAgeGap("20-30")
+#'
+#' parseAgeGap("-5-5")
+#'
+#' parseAgeGap("-10--5")
+#'
+#' parseAgeGap("-10-5")
+#'
+#' @seealso
+#' \code{\link{pairPartners}},
+#' \code{\link{matchAdultsWithChildren}},
+#' \code{\link{calculate_age_range_from_gap}}
+#'
+#' @export
 parseAgeGap <- function(
     age_gap
 ) {
@@ -1798,7 +1918,7 @@ parseAgeGap <- function(
 #' suitable sibling candidate.
 #'
 #' This function is used internally by
-#' \code{\link{findSiblingFromPool}} during sibling-group
+#' findSiblingFromPool during sibling-group
 #' construction.
 #'
 #' @param age Numeric age of the candidate sibling.
@@ -1818,6 +1938,7 @@ parseAgeGap <- function(
 #' Lower scores correspond to stronger sibling similarity.
 #'
 #' @examples
+#' \dontrun{
 #' score_sibling_age_suitability(
 #'   age = 10,
 #'   reference_ages = c(
@@ -1833,9 +1954,9 @@ parseAgeGap <- function(
 #'     12
 #'   )
 #' )
+#' }
 #'
 #' @seealso
-#' \code{\link{findSiblingFromPool}},
 #' \code{\link{groupChildren}}
 #'
 #' @keywords internal
@@ -1919,36 +2040,44 @@ score_sibling_age_suitability <- function(
 #'
 #' @examples
 #' # Candidate inside preferred range
+#' \dontrun{
 #' score_suitability_by_age_disparity(
 #'   partner_age = 30,
 #'   age_start = 25,
 #'   age_end = 35
 #' )
+#' }
 #'
 #' @examples
 #' # Candidate too young
+#' \dontrun{
 #' score_suitability_by_age_disparity(
 #'   partner_age = 20,
 #'   age_start = 25,
 #'   age_end = 35
 #' )
+#' }
 #'
 #' @examples
 #' # Candidate too old
+#' \dontrun{
 #' score_suitability_by_age_disparity(
 #'   partner_age = 40,
 #'   age_start = 25,
 #'   age_end = 35
 #' )
+#' }
 #'
 #' @examples
 #' # Candidate violates strict lower bound
+#' \dontrun{
 #' score_suitability_by_age_disparity(
 #'   partner_age = 12,
 #'   age_start = 20,
 #'   age_end = 25,
 #'   strict_lower_bound = 14
 #' )
+#' }
 #'
 #' @seealso
 #' \code{\link{calculate_age_range_from_gap}},
@@ -1986,6 +2115,47 @@ score_suitability_by_age_disparity <- function(
   
   partner_age - age_end
 }
+#' Exchange Household Positions Between Agents
+#'
+#' Swaps household-position classifications between two agents
+#' in a synthetic population.
+#'
+#' This function supports fallback partner-matching logic in
+#' replica when suitable candidates are unavailable within the
+#' preferred household-position pool.
+#'
+#' @param object A \code{\link{HouseholdType}} object.
+#'
+#' @param agent_1 Identifier of the first agent.
+#'
+#' @param agent_2 Identifier of the second agent.
+#'
+#' @return An updated \code{\link{HouseholdType}} object.
+#'
+#' @details
+#' The function:
+#'
+#' \enumerate{
+#'   \item Retrieves both agents.
+#'   \item Exchanges their household-position values.
+#'   \item Updates the stored synthetic population.
+#' }
+#'
+#' Both agents must belong to the same neighbourhood.
+#'
+#' @examples
+#' \dontrun{
+#' hh <- switchHouseholdPositions(
+#'   hh,
+#'   "A001",
+#'   "A002"
+#' )
+#' }
+#'
+#' @seealso
+#' \code{\link{findOppositeGenderReplacementForCandidate}}
+#'
+#' @keywords internal
 switchHouseholdPositions <- function(
     object,
     agent_1,

@@ -47,7 +47,6 @@ This function is used internally during household generation
 by:
 
 \itemize{
-\item \code{\link{createSingles}}
 \item \code{\link{pairPartners}}
 \item \code{\link{matchAdultsWithChildren}}
 }
@@ -109,7 +108,6 @@ names(hh@households)
 }
 \seealso{
 \code{\link{getPositionForName}},
-\code{\link{createSingles}},
 \code{\link{pairPartners}},
 \code{\link{matchAdultsWithChildren}},
 \code{\link{HouseholdType}}

@@ -2,7 +2,7 @@ library(testthat)
 library(data.table)
 
 test_that(
-  "runHouseholdGrouper assigns all agents to households",
+  "run-HouseholdGrouper assigns all agents to households",
   {
     
     #
@@ -96,7 +96,7 @@ test_that(
     # Execute workflow
     #
     
-    result <- runHouseholdGrouper(
+    result <- run(
       hg
     )
     
@@ -259,10 +259,10 @@ population <- data.table(
   
 )
 test_that(
-  "runHouseholdGrouper preserves all agents exactly once",
+  "run-HouseholdGrouper preserves all agents exactly once",
   {
     
-    result <- runHouseholdGrouper(
+    result <- run(
       hg
     )
     
@@ -284,7 +284,7 @@ test_that(
   "synthetic household table internally consistent",
   {
     
-    result <- runHouseholdGrouper(
+    result <- run(
       hg
     )
     

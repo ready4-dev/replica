@@ -83,6 +83,7 @@ The returned vector is randomly permuted before being
 returned.
 }
 \examples{
+\dontrun{
 fractions <- c(
   Degree = 0.50,
   Diploma = 0.30,
@@ -95,7 +96,9 @@ values <- getAgentValuesFromFractions(
 )
 
 length(values)
+}
 
+\dontrun{
 fractions <- c(
   Degree = 0.45,
   Diploma = 0.25,
@@ -106,6 +109,7 @@ getAgentValuesFromFractions(
   fractions,
   group_size = 20
 )
+}
 
 }
 \seealso{

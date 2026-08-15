@@ -12,70 +12,65 @@ synthetic_population_to_contingency(
 }
 \arguments{
 \item{df_synthetic_population}{A synthetic population stored
-as a data.frame or \code{data.table}.
+as a data.frame or \code{data.table}.}
 
-Each row should correspond to a single agent.}
-
-\item{columns}{Character vector containing the attributes to
+\item{columns}{Character vector identifying the variables to
 include in the contingency table.
 
-If \code{NULL}, all columns are used.}
+If \code{NULL}, all available variables are used.}
 
-\item{full_crosstab}{Logical value indicating whether missing
-combinations should be explicitly included.
+\item{full_crosstab}{Logical value indicating whether all
+possible combinations of factor levels should be represented.
 
 If:
 
 \describe{
-\item{FALSE}{
+\item{\code{FALSE}}{
 Only observed combinations are returned.
 }
-\item{TRUE}{
-Missing combinations are included with a count of zero.
+
+\item{\code{TRUE}}{
+Missing combinations are included with
+\code{count = 0}.
 }
 }}
 }
 \value{
-A contingency table containing:
-
-\itemize{
-\item The requested grouping variables.
-\item A \code{count} column.
-}
+A contingency table containing the supplied
+grouping variables and a \code{count} column.
 }
 \description{
 Converts an agent-level synthetic population into a
 contingency table.
 }
 \details{
-The resulting contingency table contains one row for each
-unique combination of the specified attributes together with
-a \code{count} column indicating the number of agents in
-that group.
+The resulting table contains one row for each unique
+combination of the supplied attributes together with a
+\code{count} column indicating the number of synthetic
+agents belonging to that group.
 
-This function is used extensively throughout replica
-for:
+This function is one of the core analytical utilities in
+replica and is used for:
 
 \itemize{
-\item Constructing validation tables.
-\item Computing marginal distributions.
-\item Comparing synthetic populations against target
-contingency tables.
-\item Statistical goodness-of-fit testing.
+\item Validation of synthetic populations.
+\item Comparison with reference contingency tables.
+\item Goodness-of-fit assessment.
+\item Calculation of marginal distributions.
+\item Python-parity testing.
 }
 
-For each unique combination of the selected attributes, the
-function counts the number of agents in the synthetic
-population belonging to that combination.
+The function aggregates the synthetic population by the
+supplied variables and counts the number of agents in each
+resulting group.
 
-When \code{full_crosstab = TRUE}, the function generates a
-complete cross-classification of all observed levels and
-assigns zero counts to combinations that do not occur in the
-population.
+When \code{full_crosstab = TRUE}, a complete
+cross-classification of all observed factor levels is
+generated and any absent combinations receive a count of
+zero.
 
-This behaviour is particularly useful when preparing data
-for iterative proportional fitting (IPF) or statistical
-validation procedures.
+This behaviour is particularly useful when comparing
+synthetic populations against reference distributions.
 }
 \examples{
 population <- data.frame(
@@ -110,8 +105,7 @@ synthetic_population_to_contingency(
 
 }
 \seealso{
-\code{\link{get_margin_series_from_synthetic_population}},
-\code{\link{get_margin_frames_from_synthetic_population}},
 \code{\link{validate_synthetic_population_fit}},
-\code{\link{calculate_z_squared_score}}
+\code{\link{calculate_z_squared_score}},
+\code{\link{prepareContingencyTable}}
 }

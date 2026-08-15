@@ -454,7 +454,7 @@ setValidity(
 #'   \item Register the household types using
 #'         \code{\link{addHouseholdType}}.
 #'   \item Execute household generation using
-#'         \code{\link{runHouseholdGrouper}}.
+#'         \code{\link{run}}.
 #' }
 #'
 #' During execution:
@@ -488,7 +488,7 @@ setValidity(
 #'   hh
 #' )
 #'
-#' result <- runHouseholdGrouper(
+#' result <- run(
 #'   hg
 #' )
 #'
@@ -498,7 +498,7 @@ setValidity(
 #' \code{\link{HouseholdGrouper}},
 #' \code{\link{HouseholdType}},
 #' \code{\link{addHouseholdType}},
-#' \code{\link{runHouseholdGrouper}}
+#' \code{\link{run}}
 #'
 #' @export
 setClass(
@@ -658,7 +658,7 @@ setValidity(
 #' \code{\link{addHouseholdType}}.
 #'
 #' The resulting object is typically executed using
-#' \code{\link{runHouseholdGrouper}}.
+#' \code{\link{run}}.
 #'
 #' @examples
 #' \dontrun{
@@ -685,7 +685,7 @@ setValidity(
 #' \code{\link{HouseholdGrouper-class}},
 #' \code{\link{HouseholdType}},
 #' \code{\link{addHouseholdType}},
-#' \code{\link{runHouseholdGrouper}}
+#' \code{\link{run}}
 #'
 #' @export
 HouseholdGrouper <- function(

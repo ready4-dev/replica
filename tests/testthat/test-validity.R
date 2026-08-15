@@ -274,7 +274,7 @@ test_that(
   }
 )
 test_that(
-  "runHouseholdGrouper requires household types",
+  "run-HouseholdGrouper requires household types",
   {
     
     pop <- data.table(
@@ -297,7 +297,7 @@ test_that(
     )
     
     expect_error(
-      runHouseholdGrouper(hg)
+      run(hg)
     )
     
   }

@@ -14,11 +14,15 @@ reference:
 - title: "Functions"
 - contents:
   - age_to_age_group
+  - calculate_age_range_from_gap
   - calculateFractions
   - calculateGroupCounts
   - createHouseholdWithId
+  - get_margin_frames_from_synthetic_population
+  - get_margin_series_from_synthetic_population
   - groupChildren
-  - parse_age_gap
+  - multicolumn_to_attribute_values
+  - parseAgeGap
   - pairPartners
   - prepareContingencyTable
   - synthetic_population_to_contingency
@@ -40,6 +44,6 @@ reference:
   - starts_with("getPositionForName")
   - starts_with("householdsToDataFrame")
   - run,ConditionalAttributeAdder-method
-  - runHouseholdGrouper,HouseholdGrouper-method
+  - run,HouseholdGrouper-method
   - starts_with("updateState")
   - starts_with("verify")

@@ -215,7 +215,6 @@ calculateFractions <- function(
 #' It is used by:
 #'
 #' \itemize{
-#'   \item \code{\link{getAgentValuesFromFractions}}
 #'   \item \code{\link{pairPartners}}
 #'   \item \code{\link{matchAdultsWithChildren}}
 #'   \item Conditional attribute assignment workflows
@@ -246,7 +245,6 @@ calculateFractions <- function(
 #' )
 #'
 #' @seealso
-#' \code{\link{getAgentValuesFromFractions}},
 #' \code{\link{calculateFractions}},
 #' \code{\link{pairPartners}},
 #' \code{\link{matchAdultsWithChildren}}
@@ -361,7 +359,7 @@ expect_household_sizes_correct <- function(
     function(x) length(x$all)
   )
   
-  expect_equal(
+  testthat::expect_equal(
     households$hh_size,
     as.integer(expected_sizes)
   )
@@ -602,6 +600,7 @@ fitContingencyIPF <- function(
 #' returned.
 #'
 #' @examples
+#' \dontrun{
 #' fractions <- c(
 #'   Degree = 0.50,
 #'   Diploma = 0.30,
@@ -614,8 +613,10 @@ fitContingencyIPF <- function(
 #' )
 #'
 #' length(values)
+#' }
 #'
 #' @examples
+#' \dontrun{
 #' fractions <- c(
 #'   Degree = 0.45,
 #'   Diploma = 0.25,
@@ -626,6 +627,7 @@ fitContingencyIPF <- function(
 #'   fractions,
 #'   group_size = 20
 #' )
+#' }
 #'
 #' @seealso
 #' \code{\link{calculateGroupCounts}},
@@ -699,7 +701,6 @@ getAgentValuesFromFractions <- function(
 #' The result is subsequently used by:
 #'
 #' \itemize{
-#'   \item \code{\link{getAgentValuesFromFractions}}
 #'   \item \code{\link{calculateGroupCounts}}
 #'   \item \code{\link{run}}
 #' }
@@ -738,7 +739,6 @@ getAgentValuesFromFractions <- function(
 #' @seealso
 #' \code{\link{calculateFractions}},
 #' \code{\link{calculateGroupCounts}},
-#' \code{\link{getAgentValuesFromFractions}},
 #' \code{\link{ConditionalAttributeAdder}},
 #' \code{\link{run}}
 #'

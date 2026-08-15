@@ -87,4 +87,3 @@ calculate_age_range_from_gap(
 \code{\link{findCoupleCandidates}},
 \code{\link{pairPartners}}
 }
-\keyword{internal}

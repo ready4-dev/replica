@@ -69,7 +69,7 @@ Household types are subsequently registered using
 \code{\link{addHouseholdType}}.
 
 The resulting object is typically executed using
-\code{\link{runHouseholdGrouper}}.
+\code{\link{run}}.
 }
 \examples{
 \dontrun{
@@ -97,5 +97,5 @@ hg <- HouseholdGrouper(
 \code{\link{HouseholdGrouper-class}},
 \code{\link{HouseholdType}},
 \code{\link{addHouseholdType}},
-\code{\link{runHouseholdGrouper}}
+\code{\link{run}}
 }

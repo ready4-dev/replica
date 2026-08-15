@@ -112,7 +112,6 @@ couples <- pairPartners(
 \code{\link{findSecondaryPartner}},
 \code{\link{findCoupleCandidates}},
 \code{\link{parseAgeGap}},
-\code{\link{createSingles}},
 \code{\link{createFromMembers}},
 \code{\link{HouseholdType}}
 }

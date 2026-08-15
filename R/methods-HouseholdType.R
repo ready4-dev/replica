@@ -1,84 +1,4 @@
-#' Add Household Members to a HouseholdType
-#'
-#' Defines one component of a household structure used during
-#' synthetic household generation.
-#'
-#' This method specifies:
-#'
-#' \itemize{
-#'   \item The household position (for example, \code{"Parent"} or \code{"Child"}).
-#'   \item A position identifier used internally by the household generation
-#'         algorithms (for example, \code{"adult"} or \code{"child"}).
-#'   \item The number of agents required for that position.
-#'   \item Optional backup positions that may be used when suitable agents
-#'         cannot be found in the primary position pool.
-#' }
-#'
-#' Multiple calls to \code{addMembers()} can be used to define complex
-#' household structures.
-#'
-#' For example, a household consisting of two parents and two children can
-#' be defined by:
-#'
-#' \preformatted{
-#' hh <- addMembers(
-#'   hh,
-#'   household_position = "Parent",
-#'   position_identifier = "adult",
-#'   amount = 2,
-#'   backup_position_identifiers = character()
-#' )
-#'
-#' hh <- addMembers(
-#'   hh,
-#'   household_position = "Child",
-#'   position_identifier = "child",
-#'   amount = 2,
-#'   backup_position_identifiers = character()
-#' )
-#' }
-#'
-#' @param object A \code{HouseholdType} object.
-#'
-#' @param household_position Character vector identifying one or more
-#' household-position values in the synthetic population.
-#'
-#' @param position_identifier Internal identifier used by the household
-#' generation algorithms. Typical values are \code{"adult"} and \code{"child"}.
-#'
-#' @param amount Number of agents required for this position.
-#'
-#' @param backup_position_identifiers Character vector of alternative
-#' household-position categories that may be used when insufficient
-#' suitable agents are available in the primary pool.
-#'
-#' @return An updated \code{HouseholdType} object.
-#'
-#' @examples
-#' hh <- HouseholdType("Family")
-#'
-#' hh <- addMembers(
-#'   hh,
-#'   household_position = "Parent",
-#'   position_identifier = "adult",
-#'   amount = 2,
-#'   backup_position_identifiers = character()
-#' )
-#'
-#' hh <- addMembers(
-#'   hh,
-#'   household_position = "Child",
-#'   position_identifier = "child",
-#'   amount = 2,
-#'   backup_position_identifiers = character()
-#' )
-#'
-#' @seealso
-#' \code{\link{createFromMembers}},
-#' \code{\link{updateState}},
-#' \code{\link{HouseholdType}}
-#'
-#' @export
+#' @rdname addMembers
 setMethod(
   "addMembers",
   signature(object = "HouseholdType"),
@@ -111,80 +31,7 @@ setMethod(
     object
   }
 )
-#' Assign Household Identifiers to Agents
-#'
-#' Writes household identifiers from the household structures
-#' stored within a \code{HouseholdType} object back into the
-#' associated synthetic population.
-#'
-#' Each agent belonging to a generated household receives the
-#' corresponding household identifier in the
-#' \code{household_id} column of the synthetic population.
-#'
-#' This method is typically called after household generation
-#' and before household-level summary tables are created using
-#' \code{\link{householdsToDataFrame}}.
-#'
-#' @param object A \code{HouseholdType} object.
-#'
-#' @return An updated \code{HouseholdType} object containing
-#' household identifiers in the synthetic population stored in
-#' the \code{df_synth_pop} slot.
-#'
-#' @details
-#' Household membership is obtained from the
-#' \code{households} slot.
-#'
-#' For each household:
-#'
-#' \itemize{
-#'   \item Agents listed in \code{household$all} are identified.
-#'   \item The household identifier is written to the
-#'         \code{household_id} column of the synthetic population.
-#' }
-#'
-#' After this method executes, each assigned agent can be linked
-#' directly to a synthetic household using:
-#'
-#' \preformatted{
-#' object@df_synth_pop$household_id
-#' }
-#'
-#' @examples
-#' \dontrun{
-#'
-#' hh <- HouseholdType(
-#'   "CoupleOnly"
-#' )
-#'
-#' hh@households <- list(
-#'
-#'   SSH000001 = list(
-#'     all = c(
-#'       "A001",
-#'       "A002"
-#'     )
-#'   )
-#'
-#' )
-#'
-#' hh <- agentToHousehold(
-#'   hh
-#' )
-#'
-#' head(
-#'   hh@df_synth_pop
-#' )
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{householdsToDataFrame}},
-#' \code{\link{createHouseholdWithId}},
-#' \code{\link{checkIntegrity}},
-#' \code{\link{HouseholdType}}
-#'
-#' @export
+#' @rdname agentToHousehold
 setMethod(
   "agentToHousehold",
   signature(object = "HouseholdType"),
@@ -300,102 +147,7 @@ setMethod(
     
   }
 )
-#' Create Households from Household Members
-#'
-#' Executes the household-construction workflow for a single
-#' \code{\link{HouseholdType}}.
-#'
-#' Depending on the household structure, this method:
-#'
-#' \itemize{
-#'   \item Creates single-adult households using
-#'         \code{\link{createSingles}}.
-#'   \item Creates couples using
-#'         \code{\link{pairPartners}}.
-#'   \item Groups children using
-#'         \code{\link{groupChildren}}.
-#'   \item Matches adults and children using
-#'         \code{\link{matchAdultsWithChildren}}.
-#'   \item Creates household records and household identifiers.
-#' }
-#'
-#' This method forms the core execution step of the
-#' \code{\link{HouseholdType}} workflow and is typically
-#' invoked by \code{\link{runHouseholdGrouper}}.
-#'
-#' @param object A \code{\link{HouseholdType}} object.
-#'
-#' @param mask Logical vector identifying agents eligible for
-#' household construction.
-#'
-#' @param id_offset Integer household identifier offset used
-#' to generate unique household IDs.
-#'
-#' @return A list containing:
-#'
-#' \describe{
-#'   \item{object}{
-#'     Updated \code{\link{HouseholdType}} object containing
-#'     newly-created household records.
-#'   }
-#'   \item{id_offset}{
-#'     Updated household identifier offset.
-#'   }
-#' }
-#'
-#' @details
-#' Household creation proceeds in several stages.
-#'
-#' First, adult groups are created:
-#'
-#' \itemize{
-#'   \item If the household requires two adults, couples are
-#'         created using \code{\link{pairPartners}}.
-#'   \item Otherwise, single-adult households are created using
-#'         \code{\link{createSingles}}.
-#' }
-#'
-#' If a child role has been defined:
-#'
-#' \itemize{
-#'   \item Children are grouped into sibling sets using
-#'         \code{\link{groupChildren}}.
-#'   \item Adult groups are matched to child groups using
-#'         \code{\link{matchAdultsWithChildren}}.
-#' }
-#'
-#' If no child role has been defined, adult households are
-#' created directly.
-#'
-#' Newly-created households are stored in the
-#' \code{households} slot of the returned object.
-#'
-#' @examples
-#' \dontrun{
-#'
-#' result <- createFromMembers(
-#'   hh,
-#'   mask = rep(
-#'     TRUE,
-#'     nrow(pop)
-#'   ),
-#'   id_offset = 1
-#' )
-#'
-#' hh <- result$object
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{createSingles}},
-#' \code{\link{pairPartners}},
-#' \code{\link{groupChildren}},
-#' \code{\link{matchAdultsWithChildren}},
-#' \code{\link{createHouseholdWithId}},
-#' \code{\link{runHouseholdGrouper}},
-#' \code{\link{HouseholdType}}
-#'
-#' @export
+#' @rdname createFromMembers
 setMethod(
   "createFromMembers",
   signature(object = "HouseholdType"),
@@ -582,6 +334,57 @@ setMethod(
   }
   
 )
+#' Identify Agents Eligible for Adult Roles
+#'
+#' Creates a logical mask identifying agents whose
+#' household-position values correspond to adult household roles
+#' defined within a \code{\link{HouseholdType}} object.
+#'
+#' This utility is used throughout the household-generation
+#' workflow in replica when constructing:
+#'
+#' \itemize{
+#'   \item Single-adult households.
+#'   \item Couple households.
+#'   \item Family households.
+#' }
+#'
+#' @param object A \code{\link{HouseholdType}} object.
+#'
+#' @param strict Logical value controlling behaviour when no
+#' adult position has been defined.
+#'
+#' If:
+#'
+#' \describe{
+#'   \item{\code{TRUE}}{
+#'     An error is raised.
+#'   }
+#'   \item{\code{FALSE}}{
+#'     A logical vector of \code{FALSE} values is returned.
+#'   }
+#' }
+#'
+#' @return A logical vector indicating which agents belong to
+#' configured adult household positions.
+#'
+#' @details
+#' Adult positions are determined from the household-position
+#' definition registered under:
+#'
+#' \preformatted{
+#' position_identifier = "adult"
+#' }
+#'
+#' @examples
+#' \dontrun{
+#' adult_mask <- getBaseAdultMask(hh)
+#' }
+#'
+#' @seealso
+#' \code{\link{getPositionForName}}
+#'
+#' @keywords internal
 setMethod(
   "getBaseAdultMask",
   signature(object = "HouseholdType"),
@@ -631,6 +434,39 @@ setMethod(
   }
   
 )
+#' Identify Agents Eligible for Child Roles
+#'
+#' Creates a logical mask identifying agents whose
+#' household-position values correspond to child household roles
+#' defined in a \code{\link{HouseholdType}} object.
+#'
+#' This utility is used by the household-generation workflow in
+#' replica when constructing sibling groups and family
+#' households.
+#'
+#' @param object A \code{\link{HouseholdType}} object.
+#'
+#' @return A logical vector indicating which agents belong to
+#' configured child household positions.
+#'
+#' @details
+#' Child positions are determined from the household-position
+#' definition registered under:
+#'
+#' \preformatted{
+#' position_identifier = "child"
+#' }
+#'
+#' @examples
+#' \dontrun{
+#' child_mask <- getBaseChildMask(hh)
+#' }
+#'
+#' @seealso
+#' \code{\link{groupChildren}},
+#' \code{\link{matchAdultsWithChildren}}
+#'
+#' @keywords internal
 setMethod(
   "getBaseChildMask",
   signature(object = "HouseholdType"),
@@ -665,89 +501,7 @@ setMethod(
   }
   
 )
-#' Retrieve a Household Position Definition
-#'
-#' Returns a household-position definition stored within a
-#' \code{HouseholdType} object.
-#'
-#' Household positions are created using
-#' \code{\link{addMembers}} and describe the structure of a
-#' household type.
-#'
-#' Typical position identifiers include:
-#'
-#' \itemize{
-#'   \item \code{"adult"}
-#'   \item \code{"child"}
-#' }
-#'
-#' The returned object contains:
-#'
-#' \describe{
-#'   \item{position_identifier}{
-#'     Internal role identifier.
-#'   }
-#'   \item{position}{
-#'     Household-position value(s) in the synthetic population.
-#'   }
-#'   \item{amount}{
-#'     Number of agents required for the role.
-#'   }
-#'   \item{backup_position_identifiers}{
-#'     Alternative position categories that may be used if
-#'     suitable agents cannot be found in the primary pool.
-#'   }
-#' }
-#'
-#' This method is used extensively throughout the household
-#' generation workflow by:
-#'
-#' \itemize{
-#'   \item \code{\link{createSingles}}
-#'   \item \code{\link{pairPartners}}
-#'   \item \code{\link{groupChildren}}
-#'   \item \code{\link{matchAdultsWithChildren}}
-#'   \item \code{\link{createFromMembers}}
-#' }
-#'
-#' @param object A \code{HouseholdType} object.
-#'
-#' @param position Character string identifying the required
-#' household role.
-#'
-#' @return A list describing the requested household position.
-#'
-#' @examples
-#' \dontrun{
-#'
-#' hh <- HouseholdType(
-#'   "Family"
-#' )
-#'
-#' hh <- addMembers(
-#'   hh,
-#'   household_position = "Parent",
-#'   position_identifier = "adult",
-#'   amount = 2,
-#'   backup_position_identifiers = character()
-#' )
-#'
-#' adult_position <- getPositionForName(
-#'   hh,
-#'   "adult"
-#' )
-#'
-#' adult_position$amount
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{addMembers}},
-#' \code{\link{createSingles}},
-#' \code{\link{pairPartners}},
-#' \code{\link{HouseholdType}}
-#'
-#' @export
+#' @rdname getPositionForName
 setMethod(
   "getPositionForName",
   signature(object = "HouseholdType"),
@@ -778,76 +532,7 @@ setMethod(
   }
   
 )
-#' Convert Household Structures to a Data Frame
-#'
-#' Constructs a household-level data frame from the households
-#' stored within a \code{HouseholdType} object.
-#'
-#' Each row of the returned data frame represents a single
-#' synthetic household and contains:
-#'
-#' \itemize{
-#'   \item Household identifier.
-#'   \item Neighbourhood code.
-#'   \item Household type.
-#'   \item Household size.
-#' }
-#'
-#' This method is typically called after household generation
-#' has completed and household identifiers have been assigned to
-#' agents via \code{\link{agentToHousehold}}.
-#'
-#' @param object A \code{HouseholdType} object.
-#'
-#' @return A data frame containing one row per synthetic
-#' household.
-#'
-#' @details
-#' Household size is calculated as the number of agents listed
-#' in the household's \code{all} member vector.
-#'
-#' The neighbourhood code is obtained from the first agent in
-#' each household and is assumed to be common to all household
-#' members.
-#'
-#' If no households have been created, an empty data frame with
-#' the expected columns is returned.
-#'
-#' Returned columns include:
-#'
-#' \describe{
-#'   \item{household_id}{
-#'     Unique household identifier.
-#'   }
-#'   \item{neighb_code}{
-#'     Neighbourhood code associated with the household.
-#'   }
-#'   \item{hh_type}{
-#'     Household type.
-#'   }
-#'   \item{hh_size}{
-#'     Number of agents assigned to the household.
-#'   }
-#' }
-#'
-#' @examples
-#' \dontrun{
-#'
-#' households <- householdsToDataFrame(
-#'   hh
-#' )
-#'
-#' head(households)
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{agentToHousehold}},
-#' \code{\link{createHouseholdWithId}},
-#' \code{\link{runHouseholdGrouper}},
-#' \code{\link{HouseholdType}}
-#'
-#' @export
+#' @rdname householdsToDataFrame
 setMethod(
   "householdsToDataFrame",
   signature(object = "HouseholdType"),
@@ -916,6 +601,51 @@ setMethod(
   }
   
 )
+#' Filter to Agents Not Yet Assigned
+#'
+#' Applies an eligibility mask and removes agents already
+#' assigned during synthetic household generation.
+#'
+#' This function is a core integrity safeguard in replica and
+#' helps ensure that each synthetic agent is assigned to at most
+#' one household.
+#'
+#' @param object A \code{\link{HouseholdType}} object.
+#'
+#' @param df Candidate-agent data frame or data.table.
+#'
+#' @param mask Logical vector identifying currently eligible
+#' agents.
+#'
+#' @return A filtered data frame or data.table containing only
+#' agents that remain available for assignment.
+#'
+#' @details
+#' Agents recorded in:
+#'
+#' \preformatted{
+#' object@sampled_agents
+#' }
+#'
+#' are excluded from the returned candidate set.
+#'
+#' This function is used extensively by candidate-selection
+#' routines throughout replica.
+#'
+#' @examples
+#' \dontrun{
+#' remaining <- maskWithRemainingAgents(
+#'   hh,
+#'   hh@df_synth_pop,
+#'   rep(TRUE, nrow(hh@df_synth_pop))
+#' )
+#' }
+#'
+#' @seealso
+#' \code{\link{getRemainingAgentsInPosition}},
+#' \code{\link{findPrimaryPartner}}
+#'
+#' @keywords internal
 setMethod(
   "maskWithRemainingAgents",
   signature(object = "HouseholdType"),
@@ -946,85 +676,7 @@ setMethod(
   
 )
 
-#' Update the Internal HouseholdType State
-#'
-#' Attaches the current synthetic population and the household
-#' position column to a \code{HouseholdType} object.
-#'
-#' This method is typically called by household-generation
-#' workflows such as \code{\link{runHouseholdGrouper}} prior to
-#' household construction.
-#'
-#' The synthetic population stored by this method is subsequently
-#' used by:
-#'
-#' \itemize{
-#'   \item \code{\link{createSingles}}
-#'   \item \code{\link{pairPartners}}
-#'   \item \code{\link{groupChildren}}
-#'   \item \code{\link{matchAdultsWithChildren}}
-#'   \item \code{\link{agentToHousehold}}
-#' }
-#'
-#' @param object A \code{HouseholdType} object.
-#'
-#' @param df_synth_pop A data frame or data.table containing the
-#' synthetic population.
-#'
-#' @param household_position_column Character string identifying
-#' the column containing household-position classifications such
-#' as \code{"Parent"}, \code{"Child"}, or
-#' \code{"SingleAdult"}.
-#'
-#' @return An updated \code{HouseholdType} object.
-#'
-#' @details
-#' The supplied synthetic population is stored internally in the
-#' \code{df_synth_pop} slot.
-#'
-#' The supplied household-position column name is stored in the
-#' \code{household_position_column} slot and used throughout the
-#' household-generation workflow.
-#'
-#' @examples
-#' \dontrun{
-#'
-#' library(data.table)
-#'
-#' pop <- data.table(
-#'   agent_id = c(
-#'     "A001",
-#'     "A002"
-#'   ),
-#'   household_position = c(
-#'     "Parent",
-#'     "Parent"
-#'   )
-#' )
-#'
-#' hh <- HouseholdType(
-#'   "CoupleOnly"
-#' )
-#'
-#' hh <- updateState(
-#'   hh,
-#'   pop,
-#'   "household_position"
-#' )
-#'
-#' hh@household_position_column
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{HouseholdType}},
-#' \code{\link{createSingles}},
-#' \code{\link{pairPartners}},
-#' \code{\link{groupChildren}},
-#' \code{\link{matchAdultsWithChildren}},
-#' \code{\link{runHouseholdGrouper}}
-#'
-#' @export
+#' @rdname updateState
 setMethod(
   "updateState",
   signature(object = "HouseholdType"),

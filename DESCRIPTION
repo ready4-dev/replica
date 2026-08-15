@@ -32,5 +32,4 @@ Imports:
     magrittr,
     methods,
     mipfp,
-    purrr,
     rlang

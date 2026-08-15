@@ -24,19 +24,6 @@ NULL
 #' @seealso [lifecycle::deprecated()]
 NULL
 
-#' Non standard evaluation assignment function
-#'
-#' Import of := function, implementing [rlang::dyn-dots()]. See rlang package documentation for detailed description.
-#'
-#' @importFrom rlang :=
-#' @name :=
-#' @rdname nseequals
-#' @export
-#' @keywords internal
-#' @returns Does not return a value. Used to implement non standard evaluation within a dynamic dots context.
-#' @seealso [rlang::dyn-dots()]
-NULL
-
 #' Dot Data function
 #'
 #' Import of [rlang::.data()]. See rlang package documentation for detailed description.
@@ -48,4 +35,9 @@ NULL
 #' @keywords internal
 #' @returns Does not return a value. A pronoun for use in data-masked functions.
 #' @seealso [rlang::.data()]
+NULL
+
+#' @importFrom data.table data.table
+#' @importFrom data.table as.data.table
+#' @importFrom data.table copy
 NULL

@@ -58,7 +58,7 @@ positions.
 range using \code{\link{calculate_age_range_from_gap}}.
 \item Computes a suitability score for every candidate
 using
-\code{\link{score_suitability_by_age_disparity}}.
+score_suitability_by_age_disparity.
 \item Returns candidates sorted from best to worst match.
 }
 
@@ -99,6 +99,5 @@ candidates[
 \code{\link{findSecondaryPartner}},
 \code{\link{pairPartners}},
 \code{\link{calculate_age_range_from_gap}},
-\code{\link{score_suitability_by_age_disparity}}
 }
 \keyword{internal}

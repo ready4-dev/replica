@@ -74,33 +74,41 @@ combinations.
 }
 \examples{
 # Candidate inside preferred range
+\dontrun{
 score_suitability_by_age_disparity(
   partner_age = 30,
   age_start = 25,
   age_end = 35
 )
+}
 
 # Candidate too young
+\dontrun{
 score_suitability_by_age_disparity(
   partner_age = 20,
   age_start = 25,
   age_end = 35
 )
+}
 
 # Candidate too old
+\dontrun{
 score_suitability_by_age_disparity(
   partner_age = 40,
   age_start = 25,
   age_end = 35
 )
+}
 
 # Candidate violates strict lower bound
+\dontrun{
 score_suitability_by_age_disparity(
   partner_age = 12,
   age_start = 20,
   age_end = 25,
   strict_lower_bound = 14
 )
+}
 
 }
 \seealso{

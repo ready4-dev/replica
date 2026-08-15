@@ -42,7 +42,6 @@ conditioning group.
 The result is subsequently used by:
 
 \itemize{
-\item \code{\link{getAgentValuesFromFractions}}
 \item \code{\link{calculateGroupCounts}}
 \item \code{\link{run}}
 }
@@ -81,7 +80,6 @@ fractions
 \seealso{
 \code{\link{calculateFractions}},
 \code{\link{calculateGroupCounts}},
-\code{\link{getAgentValuesFromFractions}},
 \code{\link{ConditionalAttributeAdder}},
 \code{\link{run}}
 }

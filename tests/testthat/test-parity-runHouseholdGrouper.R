@@ -2,7 +2,7 @@ library(testthat)
 library(data.table)
 
 test_that(
-  "runHouseholdGrouper matches Python",
+  "run-HouseholdGrouper matches Python",
   {
     
     set.seed(123)
@@ -108,7 +108,7 @@ test_that(
     # Run R workflow
     #
     
-    result <- runHouseholdGrouper(
+    result <- run(
       hg
     )
     

@@ -52,7 +52,6 @@ assignments.
 It is used by:
 
 \itemize{
-\item \code{\link{getAgentValuesFromFractions}}
 \item \code{\link{pairPartners}}
 \item \code{\link{matchAdultsWithChildren}}
 \item Conditional attribute assignment workflows
@@ -83,7 +82,6 @@ calculateGroupCounts(
 
 }
 \seealso{
-\code{\link{getAgentValuesFromFractions}},
 \code{\link{calculateFractions}},
 \code{\link{pairPartners}},
 \code{\link{matchAdultsWithChildren}}

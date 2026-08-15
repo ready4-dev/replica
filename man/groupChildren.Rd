@@ -44,7 +44,7 @@ The algorithm:
 ordering effects.
 \item Selects an initial child.
 \item Iteratively finds the most age-similar sibling using
-\code{\link{findSiblingFromPool}}.
+findSiblingFromPool.
 \item Creates sibling groups of the required size.
 \item Marks assigned children as unavailable for future
 household generation.
@@ -61,7 +61,7 @@ recorded in \code{sampled_agents} and removed from the pool
 of eligible children.
 
 Age similarity between children is evaluated using
-\code{\link{score_sibling_age_suitability}}.
+score_sibling_age_suitability.
 }
 \examples{
 \dontrun{
@@ -86,8 +86,6 @@ groups
 
 }
 \seealso{
-\code{\link{findSiblingFromPool}},
-\code{\link{score_sibling_age_suitability}},
 \code{\link{matchAdultsWithChildren}},
 \code{\link{createFromMembers}},
 \code{\link{HouseholdType}}

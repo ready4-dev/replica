@@ -1,77 +1,4 @@
-#' Add a HouseholdType to a HouseholdGrouper
-#'
-#' Registers a \code{\link{HouseholdType}} object with a
-#' \code{\link{HouseholdGrouper}}.
-#'
-#' Household types define the structures that will be generated
-#' during the household-generation workflow.
-#'
-#' Multiple household types may be added to the same grouper,
-#' allowing different household structures to be constructed
-#' within a single synthetic population.
-#'
-#' @param object A \code{HouseholdGrouper} object.
-#'
-#' @param household_type A \code{\link{HouseholdType}} object.
-#'
-#' @return An updated \code{HouseholdGrouper} object.
-#'
-#' @details
-#' Added household types are stored internally in the
-#' \code{household_types} slot.
-#'
-#' During execution,
-#' \code{\link{runHouseholdGrouper}} iterates over all
-#' registered household types and applies their corresponding
-#' household-generation rules.
-#'
-#' Typical workflow:
-#'
-#' \enumerate{
-#'   \item Create a \code{HouseholdGrouper}.
-#'   \item Create one or more \code{HouseholdType} objects.
-#'   \item Register the household types using
-#'         \code{addHouseholdType()}.
-#'   \item Execute household generation using
-#'         \code{\link{runHouseholdGrouper}}.
-#' }
-#'
-#' Household types are applied in the order in which they are
-#' added.
-#'
-#' @examples
-#' \dontrun{
-#'
-#' hg <- HouseholdGrouper(
-#'   df_synth_pop = pop,
-#'   group_by = "neighb_code"
-#' )
-#'
-#' hh <- HouseholdType(
-#'   "CoupleHousehold"
-#' )
-#'
-#' hh <- addMembers(
-#'   hh,
-#'   household_position = "Parent",
-#'   position_identifier = "adult",
-#'   amount = 2,
-#'   backup_position_identifiers = character()
-#' )
-#'
-#' hg <- addHouseholdType(
-#'   hg,
-#'   hh
-#' )
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{HouseholdGrouper}},
-#' \code{\link{HouseholdType}},
-#' \code{\link{runHouseholdGrouper}}
-#'
-#' @export
+#' @rdname addHouseholdType
 setMethod(
   "addHouseholdType",
   signature(object = "HouseholdGrouper"),
@@ -90,103 +17,18 @@ setMethod(
     object
   }
 )
-#' Run Household Generation
+#' @rdname run
 #'
-#' Executes the complete household-generation workflow for a
-#' synthetic population.
+#' @section HouseholdGrouper Method:
 #'
-#' This method coordinates one or more
-#' \code{\link{HouseholdType}} objects and generates synthetic
-#' households according to their configured structures,
-#' partner-matching distributions and parent-child matching
-#' distributions.
+#' Executes the complete household-generation workflow.
 #'
-#' Household generation may include:
+#' Typical usage:
 #'
-#' \itemize{
-#'   \item Single-adult household creation.
-#'   \item Couple formation.
-#'   \item Child grouping.
-#'   \item Parent-child matching.
-#'   \item Household identifier assignment.
-#' }
-#'
-#' @param object A \code{\link{HouseholdGrouper}} object.
-#'
-#' @return A list containing:
-#'
-#' \describe{
-#'   \item{synthetic_population}{
-#'     Synthetic population with household identifiers assigned.
-#'   }
-#'   \item{synthetic_households}{
-#'     Household-level summary table.
-#'   }
-#'   \item{object}{
-#'     Updated \code{\link{HouseholdGrouper}} object.
-#'   }
-#' }
-#'
-#' @details
-#' The workflow proceeds through the following stages:
-#'
-#' \enumerate{
-#'
-#'   \item Update each registered
-#'         \code{\link{HouseholdType}} with the current
-#'         synthetic population.
-#'
-#'   \item Partition the synthetic population according to
-#'         the grouping variables specified by
-#'         \code{group_by}.
-#'
-#'   \item Generate households independently within each
-#'         grouping combination using
-#'         \code{\link{createFromMembers}}.
-#'
-#'   \item Validate household assignments using
-#'         \code{\link{checkIntegrity}}.
-#'
-#'   \item Assign household identifiers to agents using
-#'         \code{\link{agentToHousehold}}.
-#'
-#'   \item Construct a household-level summary table using
-#'         \code{\link{householdsToDataFrame}}.
-#'
-#' }
-#'
-#' Household identifiers are generated sequentially using the
-#' current household offset.
-#'
-#' The returned synthetic population and household table are
-#' suitable for downstream analysis, simulation and validation.
-#'
-#' @examples
-#' \dontrun{
-#'
+#' \preformatted{
 #' hg <- HouseholdGrouper(
 #'   df_synth_pop = pop,
 #'   group_by = "neighb_code"
-#' )
-#'
-#' hh <- HouseholdType(
-#'   "CoupleHousehold"
-#' )
-#'
-#' hh <- addMembers(
-#'   hh,
-#'   household_position = "Parent",
-#'   position_identifier = "adult",
-#'   amount = 2,
-#'   backup_position_identifiers = character()
-#' )
-#'
-#' hh@couple_gender_distribution <- c(
-#'   "Male|Female" = 1
-#' )
-#'
-#' hh@couple_age_distribution <- c(
-#'   "-5-5" = 1
 #' )
 #'
 #' hg <- addHouseholdType(
@@ -194,30 +36,21 @@ setMethod(
 #'   hh
 #' )
 #'
-#' result <- runHouseholdGrouper(
-#'   hg
-#' )
-#'
-#' synthetic_population <-
-#'   result$synthetic_population
-#'
-#' synthetic_households <-
-#'   result$synthetic_households
-#'
+#' result <- run(hg)
 #' }
 #'
-#' @seealso
-#' \code{\link{HouseholdGrouper}},
-#' \code{\link{HouseholdType}},
-#' \code{\link{addHouseholdType}},
-#' \code{\link{createFromMembers}},
-#' \code{\link{agentToHousehold}},
-#' \code{\link{householdsToDataFrame}},
-#' \code{\link{checkIntegrity}}
+#' The method:
 #'
-#' @export
+#' \enumerate{
+#'   \item Updates registered HouseholdType objects.
+#'   \item Creates adult households.
+#'   \item Groups children.
+#'   \item Creates family households.
+#'   \item Assigns household identifiers.
+#'   \item Produces a household summary table.
+#' }
 setMethod(
-  "runHouseholdGrouper",
+  "run",
   signature(object = "HouseholdGrouper"),
   
   function(object) {

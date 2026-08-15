@@ -64,7 +64,6 @@ This function is used by:
 \itemize{
 \item \code{\link{findPrimaryPartner}}
 \item \code{\link{findSecondaryPartner}}
-\item \code{\link{createSingles}}
 \item \code{\link{pairPartners}}
 }
 
@@ -107,10 +106,8 @@ candidates <- getRemainingAgentsInPosition(
 
 }
 \seealso{
-\code{\link{maskWithRemainingAgents}},
 \code{\link{findPrimaryPartner}},
 \code{\link{findSecondaryPartner}},
-\code{\link{createSingles}},
 \code{\link{pairPartners}},
 \code{\link{HouseholdType}}
 }

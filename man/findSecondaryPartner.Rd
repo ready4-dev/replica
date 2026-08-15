@@ -108,7 +108,6 @@ secondary_partner <- findSecondaryPartner(
 \code{\link{findPrimaryPartner}},
 \code{\link{findCoupleCandidates}},
 \code{\link{pairPartners}},
-\code{\link{score_suitability_by_age_disparity}},
 \code{\link{findOppositeGenderReplacementForCandidate}}
 }
 \keyword{internal}
