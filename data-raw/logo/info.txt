@@ -1,14 +1,14 @@
 
 Hope you enjoy your new logo, here are the people that
 made your beautiful logo happen :)
-font name: Unique
-font link: http://www.1001fonts.com/unique-font.html
-font author: artmaker
-font author site: https://www.behance.net/artmaker
+font name: Rajdhani-Medium
+font link: https://fonts.google.com/specimen/Rajdhani
+font author: Indian Type Foundry
+font author site: https://www.indiantypefoundry.com/
 
 
-icon designer: ProSymbols
-icon designer link: /prosymbols
+icon designer: undefined
+icon designer link: undefined
         
-{"bg-gradient-0":"#410FF8","bg-gradient-1":"#410FF8","icon":"#ffffff","font":"#ffffff","slogan":"#ffffff"}
+{"bg":"#EFEEEB","icon-gradient-0":"#0978A6","icon-gradient-1":"#FB9447","font":"#1F1E1A","slogan":"#33322e"}
       

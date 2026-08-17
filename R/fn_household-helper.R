@@ -1693,6 +1693,18 @@ pair_partners <- function(
   
   for (pair_name in names(gender_counts)) {
     
+    
+    ## TEMP##
+    cat(
+      "\nPair:",
+      pair_name,
+      "\nPrimary gender:",
+      first_gender,
+      "\nSecondary gender:",
+      second_gender,
+      "\n"
+    )
+    ##END##
     count <- gender_counts[[pair_name]]
     
     pair_parts <- strsplit(
@@ -1727,6 +1739,7 @@ pair_partners <- function(
       for (i in seq_len(gap_count)) {
         
         primary_partner <-
+          
           findPrimaryPartner(
             object,
             group_mask,
@@ -1734,13 +1747,21 @@ pair_partners <- function(
             parent_position$backup_position_identifiers,
             first_gender
           )
+        ##TEMP
+        print(primary_partner)
         
-        object@sampled_agents <- c(
-          object@sampled_agents,
-          primary_partner$agent_id
-        )
+        #
+        # No primary candidate available
+        #
+        
+        if (is.null(primary_partner)) {
+          
+          next
+          
+        }
         
         secondary_partner <-
+          
           findSecondaryPartner(
             object = object,
             mask = group_mask,
@@ -1753,6 +1774,13 @@ pair_partners <- function(
             gap_end = gap_end,
             gender = second_gender
           )
+        ##TEMP
+        print(secondary_partner)
+        
+        #
+        #
+        # No compatible partner available
+        #
         
         if (is.null(secondary_partner)) {
           
@@ -1760,8 +1788,14 @@ pair_partners <- function(
           
         }
         
+        #
+        # Only sample agents once a valid
+        # couple has actually been formed.
+        #
+        
         object@sampled_agents <- c(
           object@sampled_agents,
+          primary_partner$agent_id,
           secondary_partner$agent_id
         )
         

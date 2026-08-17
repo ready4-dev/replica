@@ -819,6 +819,76 @@ getGroupMask <- function(
   
   mask
 }
+make_couple_household <- function(
+    gender_distribution = c(
+      "Male|Female" = 1
+    ),
+    age_distribution = c(
+      "-5-5" = 1
+    )
+) {
+  
+  pop <- data.table(
+    
+    agent_id = c(
+      "A001",
+      "A002",
+      "A003",
+      "A004"
+    ),
+    
+    age = c(
+      40,
+      35,
+      50,
+      45
+    ),
+    
+    gender = c(
+      "Male",
+      "Female",
+      "Male",
+      "Female"
+    ),
+    
+    household_position = c(
+      "Parent",
+      "Parent",
+      "Parent",
+      "Parent"
+    )
+    
+  )
+  
+  hh <- HouseholdType(
+    "CoupleHousehold"
+  )
+  
+  hh <- addMembers(
+    hh,
+    household_position = "Parent",
+    position_identifier = "adult",
+    amount = 2,
+    backup_position_identifiers = character()
+  )
+  
+  hh <- updateState(
+    hh,
+    pop,
+    "household_position"
+  )
+  
+  hh@couple_gender_distribution <-
+    gender_distribution
+  
+  hh@couple_age_distribution <-
+    age_distribution
+  
+  hh@sampled_agents <- character()
+  
+  hh
+  
+}
 prepare_contingency_table <- function(
     contingency,
     synth_pop,
