@@ -64,7 +64,7 @@ This function is used by:
 \itemize{
 \item \code{\link{findPrimaryPartner}}
 \item \code{\link{findSecondaryPartner}}
-\item \code{\link{pairPartners}}
+\item \code{\link{pair_partners}}
 }
 
 and provides the candidate pools used by household-matching
@@ -108,7 +108,7 @@ candidates <- getRemainingAgentsInPosition(
 \seealso{
 \code{\link{findPrimaryPartner}},
 \code{\link{findSecondaryPartner}},
-\code{\link{pairPartners}},
+\code{\link{pair_partners}},
 \code{\link{HouseholdType}}
 }
 \keyword{internal}

@@ -1,51 +1,49 @@
 library(data.table)
+population <- data.table(
+  
+  agent_id = 1:20,
+  
+  gender = c(
+    rep("Male", 10),
+    rep("Female", 10)
+  ),
+  
+  age_group = rep(
+    "18-64",
+    20
+  )
+  
+)
 
+contingency <- data.table(
+  
+  age_group = c(
+    rep("18-64", 6)
+  ),
+  
+  gender = c(
+    rep("Male", 3),
+    rep("Female", 3)
+  ),
+  
+  education = c(
+    "Degree",
+    "Diploma",
+    "School",
+    "Degree",
+    "Diploma",
+    "School"
+  ),
+  
+  count = c(
+    50, 30, 20,
+    50, 30, 20
+  )
+  
+)
 test_that(
   "target attribute added",
   {
-    
-    population <- data.table(
-      
-      agent_id = 1:20,
-      
-      gender = c(
-        rep("Male", 10),
-        rep("Female", 10)
-      ),
-      
-      age_group = rep(
-        "18-64",
-        20
-      )
-      
-    )
-    
-    contingency <- data.table(
-      
-      age_group = c(
-        rep("18-64", 6)
-      ),
-      
-      gender = c(
-        rep("Male", 3),
-        rep("Female", 3)
-      ),
-      
-      education = c(
-        "Degree",
-        "Diploma",
-        "School",
-        "Degree",
-        "Diploma",
-        "School"
-      ),
-      
-      count = c(
-        50, 30, 20,
-        50, 30, 20
-      )
-      
-    )
     
     adder <- ConditionalAttributeAdder(
       synth_pop = population,
@@ -198,7 +196,7 @@ test_that(
     
     expect_error(
       
-      prepareContingencyTable(
+      prepare_contingency_table(
         contingency,
         population,
         c(
@@ -256,7 +254,7 @@ test_that(
   "overall strategy uses overall distribution",
   {
     
-    expanded <- prepareContingencyTable(
+    expanded <- prepare_contingency_table(
       contingency,
       population,
       c(
@@ -287,7 +285,7 @@ test_that(
   "borrow strategy uses nearest available distribution",
   {
     
-    expanded <- prepareContingencyTable(
+    expanded <- prepare_contingency_table(
       contingency,
       population,
       c(
@@ -340,7 +338,7 @@ test_that(
       
     )
     
-    result <- calculateFractions(
+    result <- calculate_fractions(
       dt,
       group_by = "gender",
       target_attribute = "education"
@@ -508,7 +506,7 @@ test_that(
   "overall and borrow strategies use different distributions",
   {
     
-    overall <- prepareContingencyTable(
+    overall <- prepare_contingency_table(
       contingency,
       population,
       c(
@@ -519,7 +517,7 @@ test_that(
       strategy = "overall"
     )
     
-    borrow <- prepareContingencyTable(
+    borrow <- prepare_contingency_table(
       contingency,
       population,
       c(

@@ -82,8 +82,8 @@ calculate_age_range_from_gap(
 
 }
 \seealso{
-\code{\link{parseAgeGap}},
+\code{\link{parse_age_gap}},
 \code{\link{score_suitability_by_age_disparity}},
 \code{\link{findCoupleCandidates}},
-\code{\link{pairPartners}}
+\code{\link{pair_partners}}
 }

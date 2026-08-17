@@ -79,7 +79,7 @@
 #'   )
 #' )
 #'
-#' calculateFractions(
+#' calculate_fractions(
 #'   dt,
 #'   group_by = c(
 #'     "age_group",
@@ -108,7 +108,7 @@
 #'   )
 #' )
 #'
-#' calculateFractions(
+#' calculate_fractions(
 #'   dt,
 #'   group_by = "gender",
 #'   target_attribute = "education"
@@ -116,13 +116,13 @@
 #'
 #' @seealso
 #' \code{\link{getGroupFractions}},
-#' \code{\link{calculateGroupCounts}},
+#' \code{\link{calculate_group_counts}},
 #' \code{\link{ConditionalAttributeAdder}},
 #' \code{\link{run}}
 #'
 #' @export
 
-calculateFractions <- function(
+calculate_fractions <- function(
     dt,
     group_by,
     target_attribute,
@@ -215,7 +215,7 @@ calculateFractions <- function(
 #' It is used by:
 #'
 #' \itemize{
-#'   \item \code{\link{pairPartners}}
+#'   \item \code{\link{pair_partners}}
 #'   \item \code{\link{matchAdultsWithChildren}}
 #'   \item Conditional attribute assignment workflows
 #' }
@@ -227,7 +227,7 @@ calculateFractions <- function(
 #'   School = 0.30
 #' )
 #'
-#' calculateGroupCounts(
+#' calculate_group_counts(
 #'   fractions,
 #'   10
 #' )
@@ -239,18 +239,18 @@ calculateFractions <- function(
 #'   C = 0.34
 #' )
 #'
-#' calculateGroupCounts(
+#' calculate_group_counts(
 #'   fractions,
 #'   100
 #' )
 #'
 #' @seealso
-#' \code{\link{calculateFractions}},
-#' \code{\link{pairPartners}},
+#' \code{\link{calculate_fractions}},
+#' \code{\link{pair_partners}},
 #' \code{\link{matchAdultsWithChildren}}
 #'
 #' @export
-calculateGroupCounts <- function(
+calculate_group_counts <- function(
     fractions,
     n_agents_total
 ) {
@@ -534,7 +534,7 @@ fitContingencyIPF <- function(
 #'
 #' \enumerate{
 #'   \item Converts fractions into integer counts using
-#'         \code{\link{calculateGroupCounts}}.
+#'         \code{\link{calculate_group_counts}}.
 #'   \item Expands the counts into individual target-attribute
 #'         values.
 #'   \item Randomises the resulting values to avoid systematic
@@ -557,7 +557,7 @@ fitContingencyIPF <- function(
 #'
 #' @details
 #' Fractions are first converted into integer counts using
-#' \code{\link{calculateGroupCounts}}.
+#' \code{\link{calculate_group_counts}}.
 #'
 #' For example:
 #'
@@ -630,8 +630,8 @@ fitContingencyIPF <- function(
 #' }
 #'
 #' @seealso
-#' \code{\link{calculateGroupCounts}},
-#' \code{\link{calculateFractions}},
+#' \code{\link{calculate_group_counts}},
+#' \code{\link{calculate_fractions}},
 #' \code{\link{getGroupFractions}},
 #' \code{\link{ConditionalAttributeAdder}},
 #' \code{\link{run}}
@@ -643,7 +643,7 @@ getAgentValuesFromFractions <- function(
 ) {
   
   counts <-
-    calculateGroupCounts(
+    calculate_group_counts(
       fractions,
       group_size
     )
@@ -673,7 +673,7 @@ getAgentValuesFromFractions <- function(
 #'
 #' The function converts contingency-table counts into
 #' conditional probabilities using
-#' \code{\link{calculateFractions}} and returns the resulting
+#' \code{\link{calculate_fractions}} and returns the resulting
 #' fractions indexed by the target attribute and any relevant
 #' margin variables.
 #'
@@ -701,7 +701,7 @@ getAgentValuesFromFractions <- function(
 #' The result is subsequently used by:
 #'
 #' \itemize{
-#'   \item \code{\link{calculateGroupCounts}}
+#'   \item \code{\link{calculate_group_counts}}
 #'   \item \code{\link{run}}
 #' }
 #'
@@ -737,8 +737,8 @@ getAgentValuesFromFractions <- function(
 #' }
 #'
 #' @seealso
-#' \code{\link{calculateFractions}},
-#' \code{\link{calculateGroupCounts}},
+#' \code{\link{calculate_fractions}},
+#' \code{\link{calculate_group_counts}},
 #' \code{\link{ConditionalAttributeAdder}},
 #' \code{\link{run}}
 #'
@@ -748,7 +748,7 @@ getGroupFractions <- function(
     dt
 ) {
   
-  dt <- calculateFractions(
+  dt <- calculate_fractions(
     dt,
     object@group_by,
     object@target_attribute,
@@ -819,7 +819,7 @@ getGroupMask <- function(
   
   mask
 }
-prepareContingencyTable <- function(
+prepare_contingency_table <- function(
     contingency,
     synth_pop,
     group_by,
@@ -1193,7 +1193,7 @@ prepareContingencyTable <- function(
 #'   )
 #' )
 #'
-#' expanded <- prepareContingencyTable(
+#' expanded <- prepare_contingency_table(
 #'   contingency = contingency,
 #'   synth_pop = population,
 #'   group_by = c(
@@ -1209,11 +1209,11 @@ prepareContingencyTable <- function(
 #' @seealso
 #' \code{\link{ConditionalAttributeAdder}},
 #' \code{\link{run}},
-#' \code{\link{calculateFractions}},
+#' \code{\link{calculate_fractions}},
 #' \code{\link{synthetic_population_to_contingency}}
 #'
 #' @export
-prepareContingencyTable <- function(
+prepare_contingency_table <- function(
     contingency,
     synth_pop,
     group_by,

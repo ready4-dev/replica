@@ -10,7 +10,7 @@ test_that(
       C = 0.34
     )
     
-    counts <- calculateGroupCounts(
+    counts <- calculate_group_counts(
       fractions,
       100
     )
@@ -63,7 +63,7 @@ test_that(
       C = 0.30
     )
     
-    counts <- calculateGroupCounts(
+    counts <- calculate_group_counts(
       fractions,
       10
     )
@@ -105,7 +105,7 @@ test_that(
       A = 1
     )
     
-    counts <- calculateGroupCounts(
+    counts <- calculate_group_counts(
       fractions,
       25
     )
@@ -135,7 +135,7 @@ test_that(
       C = 0.30
     )
     
-    counts <- calculateGroupCounts(
+    counts <- calculate_group_counts(
       fractions,
       10
     )
@@ -160,7 +160,7 @@ test_that(
     
     expect_error(
       
-      calculateGroupCounts(
+      calculate_group_counts(
         c(
           A = NA,
           B = 0.5
@@ -179,7 +179,7 @@ test_that(
     
     expect_error(
       
-      calculateGroupCounts(
+      calculate_group_counts(
         c(
           A = NaN,
           B = 0.5
@@ -195,7 +195,7 @@ test_that(
   "zero agents handled correctly",
   {
     
-    counts <- calculateGroupCounts(
+    counts <- calculate_group_counts(
       c(
         A = 0.5,
         B = 0.5

@@ -29,7 +29,7 @@ The function:
 
 \enumerate{
 \item Converts fractions into integer counts using
-\code{\link{calculateGroupCounts}}.
+\code{\link{calculate_group_counts}}.
 \item Expands the counts into individual target-attribute
 values.
 \item Randomises the resulting values to avoid systematic
@@ -40,7 +40,7 @@ This function is used internally by
 \code{\link{run}} during conditional attribute assignment.
 
 Fractions are first converted into integer counts using
-\code{\link{calculateGroupCounts}}.
+\code{\link{calculate_group_counts}}.
 
 For example:
 
@@ -113,8 +113,8 @@ getAgentValuesFromFractions(
 
 }
 \seealso{
-\code{\link{calculateGroupCounts}},
-\code{\link{calculateFractions}},
+\code{\link{calculate_group_counts}},
+\code{\link{calculate_fractions}},
 \code{\link{getGroupFractions}},
 \code{\link{ConditionalAttributeAdder}},
 \code{\link{run}}

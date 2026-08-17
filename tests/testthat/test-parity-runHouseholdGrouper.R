@@ -186,11 +186,11 @@ test_that(
       )
       
     )
-    cat("R agent IDs:\n")
-    print(sort(r_population$agent_id))
-    
-    cat("Python agent IDs:\n")
-    print(sort(py_population$agent_id))
+    # cat("R agent IDs:\n")
+    # print(sort(r_population$agent_id))
+    # 
+    # cat("Python agent IDs:\n")
+    # print(sort(py_population$agent_id))
     expect_true(
       
       setequal(

@@ -69,7 +69,7 @@ head(
 }
 \seealso{
 \code{\link{householdsToDataFrame}},
-\code{\link{createHouseholdWithId}},
+\code{\link{create_household_with_id}},
 \code{\link{run}},
 \code{\link{HouseholdType}}
 }

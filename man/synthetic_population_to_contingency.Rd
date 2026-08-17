@@ -107,5 +107,5 @@ synthetic_population_to_contingency(
 \seealso{
 \code{\link{validate_synthetic_population_fit}},
 \code{\link{calculate_z_squared_score}},
-\code{\link{prepareContingencyTable}}
+\code{\link{prepare_contingency_table}}
 }

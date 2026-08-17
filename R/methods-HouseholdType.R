@@ -170,7 +170,7 @@ setMethod(
     
     if (adult_position$amount == 2) {
       
-      parents <- pairPartners(
+      parents <- pair_partners(
         object,
         mask
       )
@@ -198,7 +198,7 @@ setMethod(
           "child"
         )
       
-      children <- groupChildren(
+      children <- group_children(
         object,
         mask,
         child_position
@@ -222,17 +222,17 @@ setMethod(
       
       id_offset <- result$id_offset
       
-      cat(
-        "Created",
-        length(object@households),
-        "households\n"
-      )
+      # cat(
+      #   "Created",
+      #   length(object@households),
+      #   "households\n"
+      # )
       
     } else {
       
-      cat(
-        "Creating households without children\n"
-      )
+      # cat(
+      #   "Creating households without children\n"
+      # )
       
       for (parent in parents) {
         
@@ -241,21 +241,21 @@ setMethod(
           function(x) x[[1]]
         )
         
-        object <- createHouseholdWithId(
+        object <- create_household_with_id(
           object,
           adult_position,
           id_offset,
           agent_ids
         )
         
-        cat(
-          "Created HH",
-          sprintf(
-            "SSH%06d",
-            id_offset
-          ),
-          "\n"
-        )
+        # cat(
+        #   "Created HH",
+        #   sprintf(
+        #     "SSH%06d",
+        #     id_offset
+        #   ),
+        #   "\n"
+        # )
         
         id_offset <- id_offset + 1
         
@@ -463,7 +463,7 @@ setMethod(
 #' }
 #'
 #' @seealso
-#' \code{\link{groupChildren}},
+#' \code{\link{group_children}},
 #' \code{\link{matchAdultsWithChildren}}
 #'
 #' @keywords internal

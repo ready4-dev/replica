@@ -305,7 +305,7 @@ setGeneric(
 #'
 #' @seealso
 #' \code{\link{householdsToDataFrame}},
-#' \code{\link{createHouseholdWithId}},
+#' \code{\link{create_household_with_id}},
 #' \code{\link{run}},
 #' \code{\link{HouseholdType}}
 #'
@@ -382,8 +382,8 @@ setGeneric(
 #' }
 #'
 #' @seealso
-#' \code{\link{pairPartners}},
-#' \code{\link{groupChildren}},
+#' \code{\link{pair_partners}},
+#' \code{\link{group_children}},
 #' \code{\link{matchAdultsWithChildren}}
 #'
 #' @rdname createFromMembers
@@ -488,8 +488,8 @@ setGeneric(
 #' This method is used by:
 #'
 #' \itemize{
-#'   \item \code{\link{pairPartners}}
-#'   \item \code{\link{groupChildren}}
+#'   \item \code{\link{pair_partners}}
+#'   \item \code{\link{group_children}}
 #'   \item \code{\link{matchAdultsWithChildren}}
 #' }
 #'
@@ -611,7 +611,7 @@ setGeneric(
 #'
 #' @seealso
 #' \code{\link{agentToHousehold}},
-#' \code{\link{createHouseholdWithId}},
+#' \code{\link{create_household_with_id}},
 #' \code{\link{HouseholdType}}
 #'
 #' @rdname householdsToDataFrame

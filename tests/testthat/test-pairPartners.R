@@ -61,10 +61,10 @@ hh@couple_age_distribution <- c(
 
 hh@sampled_agents <- character()
 test_that(
-  "pairPartners creates expected number of couples",
+  "pair_partners creates expected number of couples",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -83,7 +83,7 @@ test_that(
   "updated HouseholdType attached",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -107,7 +107,7 @@ test_that(
   "all adults assigned",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -138,7 +138,7 @@ test_that(
   "no duplicate assignments",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -173,7 +173,7 @@ test_that(
   "gender distribution respected",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -199,7 +199,7 @@ test_that(
   "age gap constraints respected",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -227,7 +227,7 @@ test_that(
   "no adults remain available",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -256,7 +256,7 @@ test_that(
   "each couple contains two adults",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,
@@ -279,7 +279,7 @@ test_that(
   "all source agents appear exactly once",
   {
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(
         TRUE,

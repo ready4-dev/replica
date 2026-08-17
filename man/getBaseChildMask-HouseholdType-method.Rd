@@ -37,7 +37,7 @@ child_mask <- getBaseChildMask(hh)
 
 }
 \seealso{
-\code{\link{groupChildren}},
+\code{\link{group_children}},
 \code{\link{matchAdultsWithChildren}}
 }
 \keyword{internal}

@@ -111,6 +111,6 @@ result <- adder@synth_pop
 \code{\link{run}},
 \code{\link{addMargins}},
 \code{\link{verify}},
-\code{\link{prepareContingencyTable}},
+\code{\link{prepare_contingency_table}},
 \code{\link{ConditionalAttributeAdder-class}}
 }

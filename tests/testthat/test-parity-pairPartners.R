@@ -1,7 +1,7 @@
 library(data.table)
 
 test_that(
-  "pairPartners matches Python",
+  "pair_partners matches Python",
   {
     
     set.seed(123)
@@ -90,7 +90,7 @@ test_that(
     # Run R implementation
     #
     
-    couples <- pairPartners(
+    couples <- pair_partners(
       hh,
       rep(TRUE, nrow(pop))
     )

@@ -2,7 +2,7 @@ library(testthat)
 library(data.table)
 
 test_that(
-  "groupChildren matches Python",
+  "group_children matches Python",
   {
     
     set.seed(123)
@@ -72,7 +72,7 @@ test_that(
       hh,
       "child"
     )
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,

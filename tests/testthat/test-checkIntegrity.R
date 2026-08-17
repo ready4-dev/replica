@@ -249,7 +249,7 @@ test_that(
       "adult"
     )
     
-    hh <- createHouseholdWithId(
+    hh <- create_household_with_id(
       hh,
       adult_position,
       1,
@@ -337,7 +337,7 @@ test_that(
       "adult"
     )
     
-    hh <- createHouseholdWithId(
+    hh <- create_household_with_id(
       hh,
       adult_position,
       1,

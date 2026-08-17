@@ -58,12 +58,12 @@ child_position <- getPositionForName(
   "child"
 )
 test_that(
-  "groupChildren creates expected number of sibling groups",
+  "group_children creates expected number of sibling groups",
   {
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,
@@ -85,7 +85,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,
@@ -119,7 +119,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,
@@ -157,7 +157,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,
@@ -189,7 +189,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,
@@ -219,7 +219,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,
@@ -267,7 +267,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,
@@ -308,7 +308,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- groupChildren(
+    groups <- group_children(
       hh,
       rep(
         TRUE,

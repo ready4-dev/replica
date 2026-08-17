@@ -29,7 +29,7 @@ contingency table for use during attribute assignment.
 \details{
 The function converts contingency-table counts into
 conditional probabilities using
-\code{\link{calculateFractions}} and returns the resulting
+\code{\link{calculate_fractions}} and returns the resulting
 fractions indexed by the target attribute and any relevant
 margin variables.
 
@@ -42,7 +42,7 @@ conditioning group.
 The result is subsequently used by:
 
 \itemize{
-\item \code{\link{calculateGroupCounts}}
+\item \code{\link{calculate_group_counts}}
 \item \code{\link{run}}
 }
 
@@ -78,8 +78,8 @@ fractions
 
 }
 \seealso{
-\code{\link{calculateFractions}},
-\code{\link{calculateGroupCounts}},
+\code{\link{calculate_fractions}},
+\code{\link{calculate_group_counts}},
 \code{\link{ConditionalAttributeAdder}},
 \code{\link{run}}
 }

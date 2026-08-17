@@ -85,6 +85,6 @@ head(households)
 }
 \seealso{
 \code{\link{agentToHousehold}},
-\code{\link{createHouseholdWithId}},
+\code{\link{create_household_with_id}},
 \code{\link{HouseholdType}}
 }

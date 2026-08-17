@@ -67,7 +67,7 @@ hh <- result$object
 
 }
 \seealso{
-\code{\link{pairPartners}},
-\code{\link{groupChildren}},
+\code{\link{pair_partners}},
+\code{\link{group_children}},
 \code{\link{matchAdultsWithChildren}}
 }

@@ -77,7 +77,7 @@ setMethod(
     
     object@contingency <-
       
-      prepareContingencyTable(
+      prepare_contingency_table(
         
         contingency =
           object@contingency,
@@ -156,7 +156,7 @@ setMethod(
       
       #
       # This should never happen now
-      # because prepareContingencyTable()
+      # because prepare_contingency_table()
       # has already handled missing groups.
       #
       
@@ -166,7 +166,7 @@ setMethod(
         
         stop(
           paste(
-            "prepareContingencyTable failed to create contingency group:",
+            "prepare_contingency_table failed to create contingency group:",
             paste(
               unlist(group_values),
               collapse = ", "

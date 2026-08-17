@@ -44,7 +44,7 @@ requirements currently being considered.
 
 This function is used internally by
 \code{\link{findSecondaryPartner}} and
-\code{\link{pairPartners}}.
+\code{\link{pair_partners}}.
 
 The function:
 
@@ -97,7 +97,7 @@ candidates[
 \seealso{
 \code{\link{findPrimaryPartner}},
 \code{\link{findSecondaryPartner}},
-\code{\link{pairPartners}},
+\code{\link{pair_partners}},
 \code{\link{calculate_age_range_from_gap}},
 }
 \keyword{internal}

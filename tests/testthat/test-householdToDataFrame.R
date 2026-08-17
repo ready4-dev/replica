@@ -47,7 +47,7 @@ test_that(
       "adult"
     )
     
-    hh <- createHouseholdWithId(
+    hh <- create_household_with_id(
       hh,
       adult_position,
       1,
@@ -57,7 +57,7 @@ test_that(
       )
     )
     
-    hh <- createHouseholdWithId(
+    hh <- create_household_with_id(
       hh,
       adult_position,
       2,
@@ -246,6 +246,9 @@ test_that(
 test_that(
   "hh_size matches stored household membership",
   {
+    hh <- HouseholdType(
+      "CoupleOnly"
+    )
     
     households <- householdsToDataFrame(
       hh

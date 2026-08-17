@@ -5,7 +5,6 @@
 #' @importFrom magrittr %>%
 #' @name %>%
 #' @rdname pipe
-#' @export
 #' @keywords internal
 #' @returns The type of return from this function depends on the left hand side and right hand side arguments supplied to it. In principle, any type of returned object is feasible.
 #' @seealso [magrittr::%>%()]
@@ -18,7 +17,6 @@ NULL
 #' @importFrom lifecycle deprecated
 #' @name deprecated
 #' @rdname deprecated
-#' @export
 #' @keywords internal
 #' @returns Does not return a value as the function is used to signal that a function argument has been deprecated.
 #' @seealso [lifecycle::deprecated()]
@@ -31,7 +29,6 @@ NULL
 #' @importFrom rlang .data
 #' @name .data
 #' @rdname dotdata
-#' @export
 #' @keywords internal
 #' @returns Does not return a value. A pronoun for use in data-masked functions.
 #' @seealso [rlang::.data()]

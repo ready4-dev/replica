@@ -16,16 +16,16 @@ reference:
   - age_to_age_group
   - calculate_age_range_from_gap
   - calculate_z_squared_score
-  - calculateFractions
-  - calculateGroupCounts
-  - createHouseholdWithId
+  - calculate_fractions
+  - calculate_group_counts
+  - create_household_with_id
   - get_margin_frames_from_synthetic_population
   - get_margin_series_from_synthetic_population
-  - groupChildren
+  - group_children
   - multicolumn_to_attribute_values
-  - parseAgeGap
-  - pairPartners
-  - prepareContingencyTable
+  - parse_age_gap
+  - pair_partners
+  - prepare_contingency_table
   - synthetic_population_to_contingency
   - validate_synthetic_population_fit
 - title: "S4 Classes"

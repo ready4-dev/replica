@@ -85,6 +85,6 @@ candidate <- findPrimaryPartner(
 \seealso{
 \code{\link{findSecondaryPartner}},
 \code{\link{getRemainingAgentsInPosition}},
-\code{\link{pairPartners}}
+\code{\link{pair_partners}}
 }
 \keyword{internal}

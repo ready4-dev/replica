@@ -77,5 +77,5 @@ conditioning group is absent from the contingency table.}
 \code{\link{run}},
 \code{\link{addMargins}},
 \code{\link{verify}},
-\code{\link{prepareContingencyTable}}
+\code{\link{prepare_contingency_table}}
 }

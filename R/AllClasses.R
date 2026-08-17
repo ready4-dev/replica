@@ -68,7 +68,7 @@
 #' \code{\link{run}},
 #' \code{\link{addMargins}},
 #' \code{\link{verify}},
-#' \code{\link{prepareContingencyTable}}
+#' \code{\link{prepare_contingency_table}}
 #'
 #' @export
 setClass(
@@ -191,7 +191,7 @@ setClass(
 #' \code{\link{run}},
 #' \code{\link{addMargins}},
 #' \code{\link{verify}},
-#' \code{\link{prepareContingencyTable}},
+#' \code{\link{prepare_contingency_table}},
 #' \code{\link{ConditionalAttributeAdder-class}}
 #'
 #' @export

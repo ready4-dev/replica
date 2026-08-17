@@ -1,82 +1,80 @@
 library(testthat)
 library(data.table)
+#
+# Create population
+#
 
+pop <- data.table(
+  
+  agent_id = c(
+    "A001",
+    "A002",
+    "A003",
+    "A004"
+  ),
+  
+  neighb_code = c(
+    "N1",
+    "N1",
+    "N2",
+    "N2"
+  ),
+  
+  age = c(
+    40,
+    35,
+    50,
+    45
+  ),
+  
+  gender = c(
+    "Male",
+    "Female",
+    "Male",
+    "Female"
+  ),
+  
+  household_position = c(
+    "Parent",
+    "Parent",
+    "Parent",
+    "Parent"
+  ),
+  
+  household_id = NA_character_
+  
+)
+
+#
+# Create household type
+#
+
+hh <- HouseholdType(
+  "CoupleHousehold"
+)
+
+hh <- addMembers(
+  hh,
+  household_position = "Parent",
+  position_identifier = "adult",
+  amount = 2,
+  backup_position_identifiers = character()
+)
+
+#
+# Configure distributions
+#
+
+hh@couple_gender_distribution <- c(
+  "Male|Female" = 1
+)
+
+hh@couple_age_distribution <- c(
+  "-5-5" = 1
+)
 test_that(
   "run-HouseholdGrouper assigns all agents to households",
   {
-    
-    #
-    # Create population
-    #
-    
-    pop <- data.table(
-      
-      agent_id = c(
-        "A001",
-        "A002",
-        "A003",
-        "A004"
-      ),
-      
-      neighb_code = c(
-        "N1",
-        "N1",
-        "N2",
-        "N2"
-      ),
-      
-      age = c(
-        40,
-        35,
-        50,
-        45
-      ),
-      
-      gender = c(
-        "Male",
-        "Female",
-        "Male",
-        "Female"
-      ),
-      
-      household_position = c(
-        "Parent",
-        "Parent",
-        "Parent",
-        "Parent"
-      ),
-      
-      household_id = NA_character_
-      
-    )
-    
-    #
-    # Create household type
-    #
-    
-    hh <- HouseholdType(
-      "CoupleHousehold"
-    )
-    
-    hh <- addMembers(
-      hh,
-      household_position = "Parent",
-      position_identifier = "adult",
-      amount = 2,
-      backup_position_identifiers = character()
-    )
-    
-    #
-    # Configure distributions
-    #
-    
-    hh@couple_gender_distribution <- c(
-      "Male|Female" = 1
-    )
-    
-    hh@couple_age_distribution <- c(
-      "-5-5" = 1
-    )
     
     #
     # Create grouper
@@ -262,6 +260,16 @@ test_that(
   "run-HouseholdGrouper preserves all agents exactly once",
   {
     
+    hg <- HouseholdGrouper(
+      df_synth_pop = population,
+      group_by = "neighb_code"
+    )
+    
+    hg <- addHouseholdType(
+      hg,
+      hh
+    )
+
     result <- run(
       hg
     )
@@ -283,6 +291,15 @@ test_that(
 test_that(
   "synthetic household table internally consistent",
   {
+    hg <- HouseholdGrouper(
+      df_synth_pop = population,
+      group_by = "neighb_code"
+    )
+    
+    hg <- addHouseholdType(
+      hg,
+      hh
+    )
     
     result <- run(
       hg

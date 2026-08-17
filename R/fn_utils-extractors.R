@@ -238,10 +238,10 @@ age_to_age_group <- function(
 #' )
 #'
 #' @seealso
-#' \code{\link{parseAgeGap}},
+#' \code{\link{parse_age_gap}},
 #' \code{\link{score_suitability_by_age_disparity}},
 #' \code{\link{findCoupleCandidates}},
-#' \code{\link{pairPartners}}
+#' \code{\link{pair_partners}}
 #'
 #' @export
 calculate_age_range_from_gap <- function(
@@ -611,7 +611,7 @@ multicolumn_to_attribute_values <- function(
 #' @seealso
 #' \code{\link{validate_synthetic_population_fit}},
 #' \code{\link{calculate_z_squared_score}},
-#' \code{\link{prepareContingencyTable}}
+#' \code{\link{prepare_contingency_table}}
 #'
 #' @export
 synthetic_population_to_contingency <- function(

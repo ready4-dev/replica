@@ -72,8 +72,8 @@ workflow.
 This method is used by:
 
 \itemize{
-\item \code{\link{pairPartners}}
-\item \code{\link{groupChildren}}
+\item \code{\link{pair_partners}}
+\item \code{\link{group_children}}
 \item \code{\link{matchAdultsWithChildren}}
 }
 

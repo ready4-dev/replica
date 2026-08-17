@@ -2,6 +2,7 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^data-raw$
 ^data-raw/DATASET\.R$
 ^data-raw/fns/get\.R$
 ^data-raw/logo/cover\.png$
