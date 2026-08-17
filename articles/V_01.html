@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Generating Synthetic Households with replica • replica</title>
+<title>Generating Synthetic Households • replica</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Generating Synthetic Households with replica">
+<meta property="og:title" content="Generating Synthetic Households">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -40,7 +40,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Households with replica</a></li>
+<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Households</a></li>
+    <li><a class="dropdown-item" href="../articles/V_02.html">Assigning Attributes Using Contingency Tables</a></li>
   </ul>
 </li>
       </ul>
@@ -61,7 +62,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Generating Synthetic Households with replica</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Generating Synthetic Households</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ready4-dev/replica/blob/main/vignettes/V_01.Rmd" class="external-link"><code>vignettes/V_01.Rmd</code></a></small>
@@ -77,7 +78,7 @@
 is still undergoing active development and testing. It should be used
 only for exploratory purposes.</strong></p>
 <div class="section level2">
-<h2 id="generating-synthetic-households-with-replica">Generating synthetic households with replica<a class="anchor" aria-label="anchor" href="#generating-synthetic-households-with-replica"></a>
+<h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
 <p>Many synthetic population generation workflows produce individual
 agents but do not generate the household relationships needed by
@@ -106,7 +107,7 @@ or more household definitions to a synthetic population.</p>
 synthetic households.</p>
 </div>
 <div class="section level2">
-<h2 id="supplying-a-synthetic-population-of-individuals">Supplying a synthetic population of individuals<a class="anchor" aria-label="anchor" href="#supplying-a-synthetic-population-of-individuals"></a>
+<h2 id="supply-a-synthetic-population-of-individual-agents">Supply a synthetic population of individual agents<a class="anchor" aria-label="anchor" href="#supply-a-synthetic-population-of-individual-agents"></a>
 </h2>
 <p>This vignette assumes that we have already created a synthetic
 population of individual agents. The following code generates an
@@ -167,7 +168,7 @@ types of roles each agent may occupy within a household.</p>
 defined. In this example all agents are potential parents.</p>
 </div>
 <div class="section level2">
-<h2 id="creating-a-household-type">Creating a household type<a class="anchor" aria-label="anchor" href="#creating-a-household-type"></a>
+<h2 id="create-a-household-type">Create a household type<a class="anchor" aria-label="anchor" href="#create-a-household-type"></a>
 </h2>
 <p>A household type specifies a household structure that we plan to
 generate. Here we create a simple couple household.</p>
@@ -179,7 +180,7 @@ generate. Here we create a simple couple household.</p>
 specify the household members that form this household type.</p>
 </div>
 <div class="section level2">
-<h2 id="defining-household-membership">Defining household membership<a class="anchor" aria-label="anchor" href="#defining-household-membership"></a>
+<h2 id="define-household-membership">Define household membership<a class="anchor" aria-label="anchor" href="#define-household-membership"></a>
 </h2>
 <p>The addMembers() method defines the roles that must be filled when
 constructing a household. In this example, a couple household requires
@@ -214,7 +215,7 @@ to different source datasets.</p>
 <p>The household definition is now complete.</p>
 </div>
 <div class="section level2">
-<h2 id="defining-houshold-matching-rules">Defining houshold matching rules<a class="anchor" aria-label="anchor" href="#defining-houshold-matching-rules"></a>
+<h2 id="define-houshold-matching-rules">Define houshold matching rules<a class="anchor" aria-label="anchor" href="#define-houshold-matching-rules"></a>
 </h2>
 <p>Household construction often requires demographic matching rules. For
 example:</p>
@@ -234,7 +235,7 @@ pairs in which the age gap between partners is within 5 years.</p>
 gaps range from five years younger to five years older.</p>
 </div>
 <div class="section level2">
-<h2 id="creating-a-household-grouper">Creating a household grouper<a class="anchor" aria-label="anchor" href="#creating-a-household-grouper"></a>
+<h2 id="create-a-household-grouper">Create a household grouper<a class="anchor" aria-label="anchor" href="#create-a-household-grouper"></a>
 </h2>
 <p>A HouseholdGrouper coordinates household generation across an entire
 synthetic population.</p>
@@ -247,7 +248,7 @@ boundaries within which household generation will occur.</p>
 neighbourhood.</p>
 </div>
 <div class="section level2">
-<h2 id="registering-household-types">Registering household types<a class="anchor" aria-label="anchor" href="#registering-household-types"></a>
+<h2 id="register-household-types">Register household types<a class="anchor" aria-label="anchor" href="#register-household-types"></a>
 </h2>
 <p>A HouseholdGrouper may contain multiple household types.</p>
 <p>For example, a realistic population might contain:</p>
@@ -262,7 +263,7 @@ neighbourhood.</p>
 <p>The grouper now knows how to generate couple households.</p>
 </div>
 <div class="section level2">
-<h2 id="running-household-generation">Running household generation<a class="anchor" aria-label="anchor" href="#running-household-generation"></a>
+<h2 id="run-household-generation">Run household generation<a class="anchor" aria-label="anchor" href="#run-household-generation"></a>
 </h2>
 <p>Once household types have been registered, the complete
 household-generation workflow can be executed using run().</p>
@@ -286,7 +287,7 @@ distributions.</li>
 household-level outputs.</p>
 </div>
 <div class="section level2">
-<h2 id="inspecting-output">Inspecting output<a class="anchor" aria-label="anchor" href="#inspecting-output"></a>
+<h2 id="inspect-output">Inspect output<a class="anchor" aria-label="anchor" href="#inspect-output"></a>
 </h2>
 <p>The result now contains both agent-level and household-level
 outputs.</p>
@@ -303,7 +304,7 @@ summarises the resulting household structures.</p>
 <p>Together these outputs allow analyses to be performed at both the
 individual and household level.</p>
 <div class="section level3">
-<h3 id="inspecting-household-assignments">Inspecting household assignments<a class="anchor" aria-label="anchor" href="#inspecting-household-assignments"></a>
+<h3 id="inspect-household-assignments">Inspect household assignments<a class="anchor" aria-label="anchor" href="#inspect-household-assignments"></a>
 </h3>
 <p>The agent-level output now contains household identifiers.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -318,7 +319,7 @@ individual and household level.</p>
 synthetic household.</p>
 </div>
 <div class="section level3">
-<h3 id="inspecting-household-level-summaries">Inspecting household-level summaries<a class="anchor" aria-label="anchor" href="#inspecting-household-level-summaries"></a>
+<h3 id="inspec-household-level-summaries">Inspec household-level summaries<a class="anchor" aria-label="anchor" href="#inspec-household-level-summaries"></a>
 </h3>
 <p>The household summary table provides one row per household.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -331,7 +332,7 @@ generated household structures.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="validating-household-integrity">Validating Household Integrity<a class="anchor" aria-label="anchor" href="#validating-household-integrity"></a>
+<h2 id="validate-household-integrity">Validate household integrity<a class="anchor" aria-label="anchor" href="#validate-household-integrity"></a>
 </h2>
 <p>The household-generation workflow automatically performs validation
 checks.</p>
@@ -351,7 +352,7 @@ checks.</p>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="family-households">Family Households<a class="anchor" aria-label="anchor" href="#family-households"></a>
+<h2 id="create-family-households">Create family households<a class="anchor" aria-label="anchor" href="#create-family-households"></a>
 </h2>
 <p>The previous example generated households containing adults only.</p>
 <p>In practice, many synthetic populations will require more complex
@@ -389,14 +390,14 @@ automatically:</p>
 child and all components.</p>
 </div>
 <div class="section level2">
-<h2 id="how-the-workflow-fits-together">How the Workflow Fits Together<a class="anchor" aria-label="anchor" href="#how-the-workflow-fits-together"></a>
+<h2 id="how-the-workflow-fits-together">How the workflow fits together<a class="anchor" aria-label="anchor" href="#how-the-workflow-fits-together"></a>
 </h2>
 <p>The overall workflow can be summarised as:</p>
 <p>HouseholdType ↓ addMembers ↓ HouseholdGrouper ↓ addHouseholdType ↓
 run ↓ Synthetic Population + Synthetic Households</p>
 </div>
 <div class="section level2">
-<h2 id="key-takeaways">Key Takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways"></a>
+<h2 id="key-takeaways">Key takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways"></a>
 </h2>
 <p>In this vignette we:</p>
 <ul>
