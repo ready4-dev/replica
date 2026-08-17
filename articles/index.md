@@ -2,6 +2,6 @@
 
 ### All vignettes
 
-- [UNKNOWN
-  TITLE](https://ready4-dev.github.io/replica/articles/household-generation.md):
-- [replica](https://ready4-dev.github.io/replica/articles/template.md):
+- [replica](https://ready4-dev.github.io/replica/articles/replica.md):
+- [Generating Synthetic Households with
+  replica](https://ready4-dev.github.io/replica/articles/V_01.md):

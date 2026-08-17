@@ -38,12 +38,12 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/replica.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/household-generation.html">UNKNOWN TITLE</a></li>
-    <li><a class="dropdown-item" href="articles/template.html">replica</a></li>
+<li><a class="dropdown-item" href="articles/V_01.html">Generating Synthetic Households with replica</a></li>
   </ul>
 </li>
       </ul>
@@ -71,7 +71,7 @@
 
 <!-- badges: end -->
 <p>The medium term intention of this repository is to include a suite of tools for generating synthetic populations that can be used in conjunction with <a href="https://www.ready4-dev.com/" class="external-link">the ready4 framework</a>.</p>
-<p>However, right now it consists almost exclusively of an attempt at making an R port of a python library that implements <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link">the method described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino, Mehdi Dastani, Dick Ettema, Brian Logan &amp; Judith A. Verstegen</a>.</p>
+<p>However, right now it consists almost exclusively of an attempt at making an R port of a python library that implements <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link">the method developed and described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino, Mehdi Dastani, Dick Ettema, Brian Logan &amp; Judith A. Verstegen</a>.</p>
 <p>This means that although the developers of that python algorithm were not involved in this R port (and therefore are not responsible for any errors introduced in the translation), any attribution for this package should credit these authors as the original developers of the algorithm this library attempts to implement.</p>
 <p>The python toolkit that this library aims to port (with minor modifications) is <a href="https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python/tree/main" class="external-link">GenSynthPop</a>. There is an <a href="https://github.com/TabeaSonnenschein/GenSynthPop" class="external-link">existing R implementation of GenSynthPop</a> but this appears to be less full featured than the python library, which is one of the reasons I have attempted a more comprehensive port here. I was not involved in the work to develop GenSynthPop (in python or R) or its underlying algorithm but have started the replica library by porting this toolkit because it is potentially relevant to some projects being developed with ready4. Unlike other ready4 suite libraries, I have not yet used the ready4 modules and code style in implementing this library yet as the names are designed to correspond closely with their python counterparts to make following the logic a little easier. This may change with future iterations.</p>
 <p>Finally, I am much more comfortable working in R than in python and would not have attempted this port without leaning massively on my robot fried Microsoft Copilot. I have been impressed with its ability to make this port project feasible to implement in a relatively short timeframe.</p>

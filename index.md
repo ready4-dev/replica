@@ -8,8 +8,8 @@ conjunction with [the ready4 framework](https://www.ready4-dev.com/).
 
 However, right now it consists almost exclusively of an attempt at
 making an R port of a python library that implements [the method
-described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino, Mehdi
-Dastani, Dick Ettema, Brian Logan & Judith A.
+developed and described by Jan de Mooij, Tabea Sonnenschein, Marco
+Pellegrino, Mehdi Dastani, Dick Ettema, Brian Logan & Judith A.
 Verstegen](https://link.springer.com/article/10.1007/s10458-024-09680-7).
 
 This means that although the developers of that python algorithm were
