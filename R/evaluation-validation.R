@@ -68,8 +68,7 @@ validate_fitted_distribution <- function(
 #' @param name Character string used in validation messages and
 #' warning output.
 #'
-#' @return The result returned by
-#' \code{\link{calculate_z_squared_score}}.
+#' @return A list object with multiple comparison results.
 #'
 #' @details
 #' The function:
@@ -115,6 +114,7 @@ validate_synthetic_population_fit <- function(
 ) {
   
   observed <-
+    
     synthetic_population_to_contingency(
       synthetic_population,
       dimensions
@@ -129,6 +129,7 @@ validate_synthetic_population_fit <- function(
   )
   
   combined <-
+    
     merge(
       observed,
       expected,
@@ -139,12 +140,44 @@ validate_synthetic_population_fit <- function(
       )
     )
   
-  result <-
+  #
+  # Calculate percentages
+  #
+  
+  combined[
+    ,
+    observed_pct :=
+      100 *
+      count_x /
+      sum(count_x),
+    by = dimensions
+  ]
+  
+  combined[
+    ,
+    expected_pct :=
+      100 *
+      count_y /
+      sum(count_y),
+    by = dimensions
+  ]
+  
+  combined[
+    ,
+    difference_pct :=
+      observed_pct -
+      expected_pct
+  ]
+  
+  z_result <-
+    
     calculate_z_squared_score(
       combined
     )
   
-  if (result$p < 0.05) {
+  if (
+    z_result$p_value < 0.05
+  ) {
     
     warning(
       sprintf(
@@ -152,7 +185,28 @@ validate_synthetic_population_fit <- function(
         name
       )
     )
+    
   }
   
-  invisible(result)
+  list(
+    
+    name = name,
+    
+    z_square =
+      z_result$z_square,
+    
+    p_value =
+      z_result$p_value,
+    
+    degrees_of_freedom =
+      z_result$degrees_of_freedom,
+    
+    critical_value =
+      z_result$critical_value,
+    
+    details =
+      combined
+    
+  )
+  
 }

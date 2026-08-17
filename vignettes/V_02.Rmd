@@ -334,6 +334,11 @@ synthetic_population_to_contingency(
 )
 ```
 
+```{r}
+adder@validation_results
+```
+
+
 The assigned education values approximately reproduce the proportions defined in the reference contingency table. Because education is assigned to individual agents, the resulting counts must be whole numbers. Consequently, small differences from the reference percentages may occur. As the synthetic population size increases, the assigned distribution becomes a closer approximation to the target distribution.
 
 ## Key takeaways

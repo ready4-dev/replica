@@ -25,8 +25,7 @@ used to construct the comparison contingency table.}
 warning output.}
 }
 \value{
-The result returned by
-\code{\link{calculate_z_squared_score}}.
+A list object with multiple comparison results.
 }
 \description{
 Compares a synthetic population against an expected

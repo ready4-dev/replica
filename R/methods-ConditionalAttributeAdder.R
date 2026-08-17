@@ -9,11 +9,6 @@ setMethod(
     margins_names
   ) {
     
-    stopifnot(
-      length(margins) ==
-        length(margins_names)
-    )
-    
     object@margins <- margins
     
     object@margins_names <- margins_names
@@ -25,9 +20,15 @@ setMethod(
         )
       )
     
-    validObject(object)
+    #
+    # Existing validation results are
+    # no longer guaranteed to be valid.
+    #
+    
+    object@validation_results <- list()
     
     object
+    
   }
 )
 #' @rdname run
@@ -203,7 +204,7 @@ setMethod(
     
     object@synth_pop <- pop
     
-    verify(object)
+    object <- verify(object)
     
     object
     
@@ -243,9 +244,10 @@ setMethod(
         )
       )
     
-    try(
+    validation <- try(
       
       validate_synthetic_population_fit(
+        
         synthetic_population =
           object@synth_pop,
         
@@ -257,10 +259,19 @@ setMethod(
         
         name =
           target
+        
       ),
       
       silent = TRUE
+      
     )
+    
+    if (!inherits(validation, "try-error")) {
+      
+      object@validation_results <-
+        validation
+      
+    }
     
     object
   }

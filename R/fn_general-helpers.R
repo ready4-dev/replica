@@ -1,3 +1,20 @@
+add_percentages <- function(
+    dt,
+    dimensions
+) {
+  
+  dt <- data.table::copy(dt)
+  
+  dt[
+    ,
+    pct := 100 * count / sum(count),
+    by = dimensions
+  ]
+  
+  dt
+  
+}
+
 #' Calculate Conditional Fractions from a Contingency Table
 #'
 #' Converts contingency-table counts into conditional
