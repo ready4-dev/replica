@@ -1,0 +1,358 @@
+---
+title: "Assigning Attributes Using Contingency Tables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Assigning Attributes Using Contingency Tables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+```{r results='hide', message=FALSE, warning=F}
+library(replica)
+library(data.table)
+```
+
+**Note - the replica library is currently very experimental. It is still undergoing active development and testing. It should be used only for exploratory purposes.**
+
+## Motivation
+
+Synthetic populations are often generated with a limited set of demographic variables.
+
+Additional attributes may subsequently need to be assigned using external aggregate data sources such as census
+cross-tabulations.
+
+The `ConditionalAttributeAdder` class provides a framework for assigning attributes to synthetic agents while preserving known conditional distributions.
+
+This vignette demonstrates how to assign a target attribute using a contingency table.
+
+## Supply a seed synthetic population of individual agents
+
+We begin by creating a small synthetic population that lacks the target attribute.
+
+```{r}
+population <- data.table(
+
+  age_group = c(
+    rep("18-64", 20),
+    rep("65+", 20)
+  ),
+
+  gender = c(
+    rep(c("Male", "Female"), 10),
+    rep(c("Male", "Female"), 10)
+  )
+
+)
+```
+
+```{r}
+population
+```
+
+
+The population contains age and gender information but no education status.
+
+Our goal is to assign education values while preserving a specified conditional distribution.
+
+## Supply a contingency table
+In real use, we would source contingency tables from high quality data sources representative of our regions of interest. In Australia this would typically be data provided by the Australian Bureau of Statistics. In this example, we will generate an illustrative contingency table using hypothetical values.
+
+```{r}
+contingency <- data.frame(
+
+  age_group = c(
+    "18-64",
+    "18-64",
+    "65+",
+    "65+"
+  ),
+
+  gender = c(
+    "Male",
+    "Female",
+    "Male",
+    "Female"
+  ),
+
+  education = c(
+    "Degree",
+    "Degree",
+    "School",
+    "School"
+  ),
+
+  count = c(
+    60,
+    50,
+    40,
+    45
+  )
+
+)
+```
+
+The contingency table defines the relationship between:
+
+- age group;
+
+- gender; and
+
+- education.
+
+The `count` column describes the frequency of each combination in the reference data source.
+
+## Create a ConditionalAttributeAdder
+
+```{r}
+adder <- ConditionalAttributeAdder(
+  synth_pop = population,
+  contingency = contingency,
+  target_attribute = "education",
+  group_by = c(
+    "age_group",
+    "gender"
+  )
+)
+```
+
+The object contains:
+
+- a synthetic population;
+
+- a reference contingency table;
+
+- the attribute to be assigned;
+
+- the conditioning variables.
+
+## Handle missing groups
+
+Real-world contingency tables often do not contain every combination of characteristics found in a synthetic population.
+
+`replica` supports several strategies for handling missing groups. The selected strategy is stored in the `missing_group_strategy` slot.
+
+```{r}
+adder@missing_group_strategy
+```
+
+In the above example, the strategy (selected by default) is "borrow" that borrows information from nearby groups.
+
+Other options are "overall" which uses the overall distribution of the target attribute and "error" which stops execution when a required group is missing.
+
+## Run attribute assignment
+
+```{r}
+adder <- run(adder)
+```
+
+The workflow:
+
+1. Completes missing contingency groups.
+
+2. Computes group-specific fractions.
+
+3. Converts fractions into agent allocations.
+
+4. Assigns attribute values.
+
+5. Verifies the resulting distribution.
+
+## Inspect results
+The synthetic population now contains the assigned attribute.
+
+```{r}
+adder@synth_pop
+```
+
+
+```{r}
+table(
+  adder@synth_pop$education
+)
+```
+## Add margins
+
+Additional marginal distributions can be supplied when known population totals are available. Margins provide additional information that can be used when reconciling contingency tables with known distributions.
+
+```{r}
+gender_margin <- data.frame(
+  gender = c(
+    "Male",
+    "Female"
+  ),
+  count = c(
+    100,
+    120
+  )
+)
+```
+
+```{r}
+adder <- addMargins(
+  adder,
+  margins = list(
+    gender_margin
+  ),
+  margins_names = list(
+    "gender"
+  )
+)
+```
+
+## Verify results
+
+Verification checks the quality of the resulting assignment and identifies potential inconsistencies between the synthetic and reference distributions.
+
+```{r}
+verify(adder)
+```
+
+## Evaluating the assigned population
+
+The resulting contingency table can be compared directly with the original reference distribution.
+
+```{r}
+synthetic_population_to_contingency(
+  adder@synth_pop,
+  c(
+    "age_group",
+    "gender",
+    "education"
+  )
+)
+```
+
+The resulting contingency table matches the structure of the reference contingency table used during attribute assignment.
+
+In this toy example each age group and gender combination corresponds to a single education category, resulting in an
+exact match between the synthetic and reference distributions.
+
+For larger populations and more complex contingency tables, the same workflow can be used to assign attributes while preserving conditional demographic relationships.
+
+
+```{r}
+adder@synth_pop
+```
+
+In practice, each demographic group would have multiple potential values for the target attribute. We can see this by rerunning the previous steps with a more relaistic contingency table.
+
+```{r}
+contingency <- data.frame(
+
+  age_group = c(
+    "18-64",
+    "18-64",
+    "18-64",
+    "18-64",
+    "65+",
+    "65+",
+    "65+",
+    "65+"
+  ),
+
+  gender = c(
+    "Male",
+    "Male",
+    "Female",
+    "Female",
+    "Male",
+    "Male",
+    "Female",
+    "Female"
+  ),
+
+  education = c(
+    "Degree",
+    "School",
+    "Degree",
+    "School",
+    "Degree",
+    "School",
+    "Degree",
+    "School"
+  ),
+
+  count = c(
+    60,
+    40,
+    55,
+    45,
+    30,
+    70,
+    25,
+    75
+  )
+
+)
+```
+
+
+```{r}
+adder <- ConditionalAttributeAdder(
+  synth_pop = population,
+  contingency = contingency,
+  target_attribute = "education",
+  group_by = c(
+    "age_group",
+    "gender"
+  )
+)
+```
+
+```{r}
+adder <- run(adder)
+```
+
+```{r}
+adder <- addMargins(
+  adder,
+  margins = list(
+    gender_margin
+  ),
+  margins_names = list(
+    "gender"
+  )
+)
+```
+
+```{r}
+verify(adder)
+```
+
+
+```{r}
+synthetic_population_to_contingency(
+  adder@synth_pop,
+  c(
+    "age_group",
+    "gender",
+    "education"
+  )
+)
+```
+
+The assigned education values approximately reproduce the proportions defined in the reference contingency table. Because education is assigned to individual agents, the resulting counts must be whole numbers. Consequently, small differences from the reference percentages may occur. As the synthetic population size increases, the assigned distribution becomes a closer approximation to the target distribution.
+
+## Key takeaways
+
+In this vignette we:
+
+- created a synthetic population;
+
+- defined a reference contingency table;
+
+- configured a `ConditionalAttributeAdder`;
+
+- assigned a new attribute using `run()`;
+
+- explored strategies for handling missing groups;
+
+- added marginal distributions; and
+
+- verified the resulting synthetic population.
+
+These tools provide a flexible framework for enriching synthetic populations using aggregate demographic data.
+
