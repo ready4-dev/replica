@@ -67,10 +67,10 @@ This behaviour mirrors the original GenSynthPop implementation.
 
 ## See also
 
-[`parseAgeGap`](https://ready4-dev.github.io/replica/reference/parseAgeGap.md),
+[`parse_age_gap`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md),
 [`score_suitability_by_age_disparity`](https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md)
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
 
 ## Examples
 

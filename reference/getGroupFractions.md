@@ -36,7 +36,7 @@ A data frame or data.table containing:
 
 The function converts contingency-table counts into conditional
 probabilities using
-[`calculateFractions`](https://ready4-dev.github.io/replica/reference/calculateFractions.md)
+[`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md)
 and returns the resulting fractions indexed by the target attribute and
 any relevant margin variables.
 
@@ -48,7 +48,7 @@ Fractions are calculated separately within each conditioning group.
 
 The result is subsequently used by:
 
-- [`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md)
+- [`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md)
 
 - [`run`](https://ready4-dev.github.io/replica/reference/run.md)
 
@@ -61,8 +61,8 @@ overlap with the target attribute.
 
 ## See also
 
-[`calculateFractions`](https://ready4-dev.github.io/replica/reference/calculateFractions.md),
-[`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md),
+[`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md),
+[`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md),
 [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
 [`run`](https://ready4-dev.github.io/replica/reference/run.md)
 

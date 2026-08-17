@@ -65,8 +65,8 @@ The resulting households are stored in the `households` slot.
 
 ## See also
 
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
-[`groupChildren`](https://ready4-dev.github.io/replica/reference/groupChildren.md),
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
+[`group_children`](https://ready4-dev.github.io/replica/reference/group_children.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
 
 ## Examples

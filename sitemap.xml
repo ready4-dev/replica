@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://ready4-dev.github.io/replica/404.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/LICENSE.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/articles/household-generation.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/articles/index.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/articles/template.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/authors.html</loc></url>
@@ -16,12 +17,12 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/addMembers.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/age_to_age_group.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/agentToHousehold.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/calculateFractions.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/calculateGroupCounts.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/calculate_fractions.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/calculate_group_counts.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_z_squared_score.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/createFromMembers.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/createHouseholdWithId.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/create_household_with_id.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/deprecated.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/dotdata.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/findCoupleCandidates.html</loc></url>
@@ -36,16 +37,16 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/getRemainingAgentsInPosition.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/get_margin_frames_from_synthetic_population.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/get_margin_series_from_synthetic_population.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/groupChildren.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/group_children.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/householdsToDataFrame.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/index.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/maskWithRemainingAgents-HouseholdType-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/pairPartners.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/parseAgeGap.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/pair_partners.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/parse_age_gap.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/pipe.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/prepareContingencyTable.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/prepare_contingency_table.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/replica-package.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/run.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/score_sibling_age_suitability.html</loc></url>

@@ -20,7 +20,8 @@ contingency table for use during attribute assignment."><meta property="og:image
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/template.html">replica</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/household-generation.html">UNKNOWN TITLE</a></li>
+    <li><a class="dropdown-item" href="../articles/template.html">replica</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -72,7 +73,7 @@ attribute and a <code>count</code> column.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function converts contingency-table counts into
 conditional probabilities using
-<code><a href="calculateFractions.html">calculateFractions</a></code> and returns the resulting
+<code><a href="calculate_fractions.html">calculate_fractions</a></code> and returns the resulting
 fractions indexed by the target attribute and any relevant
 margin variables.</p>
 <p>This function is used internally by
@@ -80,7 +81,7 @@ margin variables.</p>
 <p>Fractions are calculated separately within each
 conditioning group.</p>
 <p>The result is subsequently used by:</p>
-<ul><li><p><code><a href="calculateGroupCounts.html">calculateGroupCounts</a></code></p></li>
+<ul><li><p><code><a href="calculate_group_counts.html">calculate_group_counts</a></code></p></li>
 <li><p><code><a href="run.html">run</a></code></p></li>
 </ul><p>If margin constraints have been supplied using
 <code><a href="addMargins.html">addMargins</a></code>, the returned table will also
@@ -90,8 +91,8 @@ when margins overlap with the target attribute.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="calculateFractions.html">calculateFractions</a></code>,
-<code><a href="calculateGroupCounts.html">calculateGroupCounts</a></code>,
+    <div class="dont-index"><p><code><a href="calculate_fractions.html">calculate_fractions</a></code>,
+<code><a href="calculate_group_counts.html">calculate_group_counts</a></code>,
 <code><a href="ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></code>,
 <code><a href="run.html">run</a></code></p></div>
     </div>

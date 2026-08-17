@@ -77,7 +77,7 @@ This method is typically used after:
 ## See also
 
 [`agentToHousehold`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md),
-[`createHouseholdWithId`](https://ready4-dev.github.io/replica/reference/createHouseholdWithId.md),
+[`create_household_with_id`](https://ready4-dev.github.io/replica/reference/create_household_with_id.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
 
 ## Examples

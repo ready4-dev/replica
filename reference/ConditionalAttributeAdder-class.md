@@ -83,4 +83,4 @@ The object:
 [`run`](https://ready4-dev.github.io/replica/reference/run.md),
 [`addMargins`](https://ready4-dev.github.io/replica/reference/addMargins.md),
 [`verify`](https://ready4-dev.github.io/replica/reference/verify.md),
-[`prepareContingencyTable`](https://ready4-dev.github.io/replica/reference/prepareContingencyTable.md)
+[`prepare_contingency_table`](https://ready4-dev.github.io/replica/reference/prepare_contingency_table.md)

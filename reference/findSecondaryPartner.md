@@ -69,7 +69,7 @@ Candidate partners are ranked according to age-gap suitability and
 filtered according to household-position and gender requirements.
 
 This function is used internally by
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md)
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
 during couple formation.
 
 The function:
@@ -101,7 +101,7 @@ More advanced workflows may use backup-position replacement logic via:
 
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`findOppositeGenderReplacementForCandidate`](https://ready4-dev.github.io/replica/reference/findOppositeGenderReplacementForCandidate.md)
 
 ## Examples

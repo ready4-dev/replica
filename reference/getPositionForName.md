@@ -71,9 +71,9 @@ extensively throughout the household-generation workflow.
 
 This method is used by:
 
-- [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md)
+- [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
 
-- [`groupChildren`](https://ready4-dev.github.io/replica/reference/groupChildren.md)
+- [`group_children`](https://ready4-dev.github.io/replica/reference/group_children.md)
 
 - [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
 

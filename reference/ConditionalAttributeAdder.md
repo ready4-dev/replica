@@ -100,7 +100,7 @@ Margin constraints can be added after construction using
 [`run`](https://ready4-dev.github.io/replica/reference/run.md),
 [`addMargins`](https://ready4-dev.github.io/replica/reference/addMargins.md),
 [`verify`](https://ready4-dev.github.io/replica/reference/verify.md),
-[`prepareContingencyTable`](https://ready4-dev.github.io/replica/reference/prepareContingencyTable.md),
+[`prepare_contingency_table`](https://ready4-dev.github.io/replica/reference/prepare_contingency_table.md),
 [`ConditionalAttributeAdder-class`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder-class.md)
 
 ## Examples

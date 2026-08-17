@@ -70,7 +70,7 @@ This function is used by:
 
 - [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md)
 
-- [`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md)
+- [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
 
 and provides the candidate pools used by household-matching algorithms.
 
@@ -78,7 +78,7 @@ and provides the candidate pools used by household-matching algorithms.
 
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
 
 ## Examples

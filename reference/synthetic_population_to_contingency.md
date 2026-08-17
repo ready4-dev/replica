@@ -78,7 +78,7 @@ populations against reference distributions.
 
 [`validate_synthetic_population_fit`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md),
 [`calculate_z_squared_score`](https://ready4-dev.github.io/replica/reference/calculate_z_squared_score.md),
-[`prepareContingencyTable`](https://ready4-dev.github.io/replica/reference/prepareContingencyTable.md)
+[`prepare_contingency_table`](https://ready4-dev.github.io/replica/reference/prepare_contingency_table.md)
 
 ## Examples
 

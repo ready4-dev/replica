@@ -38,7 +38,7 @@ registered under:
 
 ## See also
 
-[`groupChildren`](https://ready4-dev.github.io/replica/reference/groupChildren.md),
+[`group_children`](https://ready4-dev.github.io/replica/reference/group_children.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
 
 ## Examples

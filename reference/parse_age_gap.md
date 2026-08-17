@@ -5,7 +5,7 @@ Converts an age-gap specification into numeric lower and upper bounds.
 ## Usage
 
 ``` r
-parse_age_gap(x)
+parse_age_gap(age_gap)
 ```
 
 ## Arguments
@@ -71,22 +71,26 @@ Invalid age-gap strings generate an error.
 
 ## See also
 
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
 [`calculate_age_range_from_gap`](https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.md)
 
 ## Examples
 
 ``` r
-parseAgeGap("20-30")
-#> Error in parseAgeGap("20-30"): could not find function "parseAgeGap"
+parse_age_gap("20-30")
+#> lower upper 
+#>    20    30 
 
-parseAgeGap("-5-5")
-#> Error in parseAgeGap("-5-5"): could not find function "parseAgeGap"
+parse_age_gap("-5-5")
+#> lower upper 
+#>    -5     5 
 
-parseAgeGap("-10--5")
-#> Error in parseAgeGap("-10--5"): could not find function "parseAgeGap"
+parse_age_gap("-10--5")
+#> lower upper 
+#>   -10    -5 
 
-parseAgeGap("-10-5")
-#> Error in parseAgeGap("-10-5"): could not find function "parseAgeGap"
+parse_age_gap("-10-5")
+#> lower upper 
+#>   -10     5 
 ```

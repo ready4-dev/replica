@@ -57,7 +57,7 @@ considered.
 This function is used internally by
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md)
 and
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md).
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md).
 
 The function:
 
@@ -84,7 +84,7 @@ age-gap range.
 
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
-[`pairPartners`](https://ready4-dev.github.io/replica/reference/pairPartners.md),
+[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`calculate_age_range_from_gap`](https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.md),
 
 ## Examples

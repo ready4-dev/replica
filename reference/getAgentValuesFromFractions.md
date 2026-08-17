@@ -32,7 +32,7 @@ synthetic agent in the group.
 The function:
 
 1.  Converts fractions into integer counts using
-    [`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md).
+    [`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md).
 
 2.  Expands the counts into individual target-attribute values.
 
@@ -44,7 +44,7 @@ This function is used internally by
 conditional attribute assignment.
 
 Fractions are first converted into integer counts using
-[`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md).
+[`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md).
 
 For example:
 
@@ -83,8 +83,8 @@ The returned vector is randomly permuted before being returned.
 
 ## See also
 
-[`calculateGroupCounts`](https://ready4-dev.github.io/replica/reference/calculateGroupCounts.md),
-[`calculateFractions`](https://ready4-dev.github.io/replica/reference/calculateFractions.md),
+[`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md),
+[`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md),
 [`getGroupFractions`](https://ready4-dev.github.io/replica/reference/getGroupFractions.md),
 [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
 [`run`](https://ready4-dev.github.io/replica/reference/run.md)

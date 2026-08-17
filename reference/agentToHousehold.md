@@ -61,7 +61,7 @@ objects.
 ## See also
 
 [`householdsToDataFrame`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md),
-[`createHouseholdWithId`](https://ready4-dev.github.io/replica/reference/createHouseholdWithId.md),
+[`create_household_with_id`](https://ready4-dev.github.io/replica/reference/create_household_with_id.md),
 [`run`](https://ready4-dev.github.io/replica/reference/run.md),
 [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
 
