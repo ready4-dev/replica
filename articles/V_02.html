@@ -433,7 +433,38 @@ distributions.</p>
 <span><span class="co">## [1] "gender"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Slot "missing_group_strategy":</span></span>
-<span><span class="co">## [1] "borrow"</span></span></code></pre>
+<span><span class="co">## [1] "borrow"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Slot "validation_results":</span></span>
+<span><span class="co">## $name</span></span>
+<span><span class="co">## [1] "education"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $z_square</span></span>
+<span><span class="co">## [1] 5.243004</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $p_value</span></span>
+<span><span class="co">## [1] 0.26326</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $degrees_of_freedom</span></span>
+<span><span class="co">## [1] 4</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $critical_value</span></span>
+<span><span class="co">## [1] 9.487729</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $details</span></span>
+<span><span class="co">## Key: &lt;gender, education&gt;</span></span>
+<span><span class="co">##    gender education count_x age_group count_y observed_pct expected_pct</span></span>
+<span><span class="co">##    &lt;char&gt;    &lt;char&gt;   &lt;int&gt;    &lt;char&gt;   &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
+<span><span class="co">## 1: Female    Degree      10     18-64      50          100          100</span></span>
+<span><span class="co">## 2: Female    School      10       65+      45          100          100</span></span>
+<span><span class="co">## 3:   Male    Degree      10     18-64      60          100          100</span></span>
+<span><span class="co">## 4:   Male    School      10       65+      40          100          100</span></span>
+<span><span class="co">##    difference_pct</span></span>
+<span><span class="co">##             &lt;num&gt;</span></span>
+<span><span class="co">## 1:              0</span></span>
+<span><span class="co">## 2:              0</span></span>
+<span><span class="co">## 3:              0</span></span>
+<span><span class="co">## 4:              0</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="evaluating-the-assigned-population">Evaluating the assigned population<a class="anchor" aria-label="anchor" href="#evaluating-the-assigned-population"></a>
@@ -664,7 +695,46 @@ previous steps with a more relaistic contingency table.</p>
 <span><span class="co">## [1] "gender"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Slot "missing_group_strategy":</span></span>
-<span><span class="co">## [1] "borrow"</span></span></code></pre>
+<span><span class="co">## [1] "borrow"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Slot "validation_results":</span></span>
+<span><span class="co">## $name</span></span>
+<span><span class="co">## [1] "education"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $z_square</span></span>
+<span><span class="co">## [1] 43.29764</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $p_value</span></span>
+<span><span class="co">## [1] 7.720204e-07</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $degrees_of_freedom</span></span>
+<span><span class="co">## [1] 8</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $critical_value</span></span>
+<span><span class="co">## [1] 15.50731</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $details</span></span>
+<span><span class="co">## Key: &lt;gender, education&gt;</span></span>
+<span><span class="co">##    gender education count_x age_group count_y observed_pct expected_pct</span></span>
+<span><span class="co">##    &lt;char&gt;    &lt;char&gt;   &lt;int&gt;    &lt;char&gt;   &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
+<span><span class="co">## 1: Female    Degree       8     18-64      55           50     68.75000</span></span>
+<span><span class="co">## 2: Female    Degree       8       65+      25           50     31.25000</span></span>
+<span><span class="co">## 3: Female    School      12     18-64      45           50     37.50000</span></span>
+<span><span class="co">## 4: Female    School      12       65+      75           50     62.50000</span></span>
+<span><span class="co">## 5:   Male    Degree       9     18-64      60           50     66.66667</span></span>
+<span><span class="co">## 6:   Male    Degree       9       65+      30           50     33.33333</span></span>
+<span><span class="co">## 7:   Male    School      11     18-64      40           50     36.36364</span></span>
+<span><span class="co">## 8:   Male    School      11       65+      70           50     63.63636</span></span>
+<span><span class="co">##    difference_pct</span></span>
+<span><span class="co">##             &lt;num&gt;</span></span>
+<span><span class="co">## 1:      -18.75000</span></span>
+<span><span class="co">## 2:       18.75000</span></span>
+<span><span class="co">## 3:       12.50000</span></span>
+<span><span class="co">## 4:      -12.50000</span></span>
+<span><span class="co">## 5:      -16.66667</span></span>
+<span><span class="co">## 6:       16.66667</span></span>
+<span><span class="co">## 7:       13.63636</span></span>
+<span><span class="co">## 8:      -13.63636</span></span></code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
 <span>  <span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span>,</span>
@@ -683,6 +753,9 @@ previous steps with a more relaistic contingency table.</p>
 <span><span class="co">## 6       65+ Female    School     8</span></span>
 <span><span class="co">## 7       65+   Male    Degree     3</span></span>
 <span><span class="co">## 8       65+ Female    Degree     2</span></span></code></pre>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span></span></code></pre></div>
+<pre><code><span><span class="co">## list()</span></span></code></pre>
 <p>The assigned education values approximately reproduce the proportions
 defined in the reference contingency table. Because education is
 assigned to individual agents, the resulting counts must be whole

@@ -35,8 +35,7 @@ validate_synthetic_population_fit(
 
 ## Value
 
-The result returned by
-[`calculate_z_squared_score`](https://ready4-dev.github.io/replica/reference/calculate_z_squared_score.md).
+A list object with multiple comparison results.
 
 ## Details
 
