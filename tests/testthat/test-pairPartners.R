@@ -4,8 +4,8 @@ library(data.table)
 test_that(
   "pair_partners creates expected number of couples",
   {
-    
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -24,7 +24,8 @@ test_that(
   "updated HouseholdType attached",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -46,7 +47,8 @@ test_that(
   "all adults assigned",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -72,7 +74,8 @@ test_that(
   "no duplicate assignments",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -106,7 +109,8 @@ test_that(
   "gender distribution respected",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -132,7 +136,8 @@ test_that(
   "age gap constraints respected",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -158,7 +163,8 @@ test_that(
   "no adults remain available",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -188,7 +194,8 @@ test_that(
   "each couple contains two adults",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -211,7 +218,8 @@ test_that(
   "all source agents appear exactly once",
   {
     
-    hh <- make_couple_household()
+    pop <- make_household_population()
+    hh <- make_couple_household(pop)
     
     couples <- pair_partners(
       hh,
@@ -253,39 +261,10 @@ test_that(
   "gender ordering does not affect matching",
   {
     
-    pop <- data.table(
-      
-      agent_id = c(
-        "A001",
-        "A002",
-        "A003",
-        "A004"
-      ),
-      
-      neighb_code = rep(
-        "N1",
-        4
-      ),
-      
-      age = c(
-        40,
-        35,
-        50,
-        45
-      ),
-      
-      gender = c(
-        "Male",
-        "Female",
-        "Male",
-        "Female"
-      ),
-      
-      household_position = "Parent"
-      
-    )
-    
+    pop <- make_household_population()
+
     hh <- make_couple_household(
+      pop,
       gender_distribution =
         c(
           "Female|Male" = 1
@@ -327,18 +306,18 @@ test_that(
     pop <- data.table(
       
       agent_id = c(
-        "M001",
-        "M002"
+        "F001",
+        "F002"
       ),
       
       gender = c(
-        "Male",
-        "Male"
+        "Female",
+        "Female"
       ),
       
       age = c(
         30,
-        80
+        35
       ),
       
       household_position = c(
@@ -360,13 +339,14 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@df_synth_pop <- pop
-    
-    hh@household_position_column <-
+    hh <- updateState(
+      hh,
+      pop,
       "household_position"
+    )
     
     hh@couple_gender_distribution <- c(
-      "Male|Male" = 1
+      "Female|Male" = 1
     )
     
     hh@couple_age_distribution <- c(

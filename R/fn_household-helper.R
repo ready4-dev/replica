@@ -600,7 +600,6 @@ findPrimaryPartner <- function(
     backup_position_values,
     gender = NULL
 ) {
-  
   candidates <- getRemainingAgentsInPosition(
     object,
     primary_position_value,
@@ -611,13 +610,15 @@ findPrimaryPartner <- function(
   
   if (!is.null(gender)) {
     
-    candidates <- candidates[
-      candidates$gender == gender,
-      ,
-      drop = FALSE
-    ]
+    requested_gender <- gender
     
+    candidates <- candidates[
+      candidates[["gender"]] ==
+        requested_gender
+    ]
+
   }
+  
   
   # No suitable candidates available
   
@@ -1693,18 +1694,6 @@ pair_partners <- function(
   
   for (pair_name in names(gender_counts)) {
     
-    
-    ## TEMP##
-    cat(
-      "\nPair:",
-      pair_name,
-      "\nPrimary gender:",
-      first_gender,
-      "\nSecondary gender:",
-      second_gender,
-      "\n"
-    )
-    ##END##
     count <- gender_counts[[pair_name]]
     
     pair_parts <- strsplit(
@@ -1741,18 +1730,20 @@ pair_partners <- function(
         primary_partner <-
           
           findPrimaryPartner(
-            object,
-            group_mask,
-            parent_position$position,
-            parent_position$backup_position_identifiers,
-            first_gender
+            
+            object = object,
+            
+            mask = group_mask,
+            
+            primary_position_value =
+              parent_position$position,
+            
+            backup_position_values =
+              parent_position$backup_position_identifiers,
+            
+            gender = first_gender
+            
           )
-        ##TEMP
-        print(primary_partner)
-        
-        #
-        # No primary candidate available
-        #
         
         if (is.null(primary_partner)) {
           
@@ -1763,24 +1754,27 @@ pair_partners <- function(
         secondary_partner <-
           
           findSecondaryPartner(
+            
             object = object,
+            
             mask = group_mask,
-            primary_partner = primary_partner,
+            
+            primary_partner =
+              primary_partner,
+            
             primary_position_value =
               parent_position$position,
+            
             backup_position_values =
               parent_position$backup_position_identifiers,
+            
             gap_start = gap_start,
+            
             gap_end = gap_end,
+            
             gender = second_gender
+            
           )
-        ##TEMP
-        print(secondary_partner)
-        
-        #
-        #
-        # No compatible partner available
-        #
         
         if (is.null(secondary_partner)) {
           
@@ -1790,13 +1784,17 @@ pair_partners <- function(
         
         #
         # Only sample agents once a valid
-        # couple has actually been formed.
+        # couple has been formed.
         #
         
         object@sampled_agents <- c(
+          
           object@sampled_agents,
+          
           primary_partner$agent_id,
+          
           secondary_partner$agent_id
+          
         )
         
         couples[[couple_idx]] <- list(

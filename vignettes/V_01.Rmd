@@ -19,18 +19,22 @@ library(data.table)
 
 ## Generating synthetic households with replica
 
-The `replica` package provides tools for constructing synthetic households for use in mental health economic microsimulation models.
+Many synthetic population generation workflows produce individual agents but do not generate the household relationships needed by simulation models.
 
-Currently, only one method for generating synthetic populations is supported - which is an R port of a third-party python algorithm [developed and described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino, Mehdi Dastani, Dick Ettema, Brian Logan & Judith A. Verstegen](https://link.springer.com/article/10.1007/s10458-024-09680-7). This vignette describes the household generation component of this algorithm as implemented by replica. 
+For example, health-economic microsimulation models often require agents to be grouped into households before further analysis can be undertaken.
 
-Household generation is performed using two core classes:
+The `replica` package provides tools for transforming an agent-level synthetic population into a collection of synthetic households while preserving demographic and
+geographic constraints. To do so `replica`  implements an R port of a third-party python algorithm [developed and described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino, Mehdi Dastani, Dick Ettema, Brian Logan & Judith A. Verstegen](https://link.springer.com/article/10.1007/s10458-024-09680-7). 
+
+Household generation in `replica` is based on two core classes:
 
 - `HouseholdType`
+
 - `HouseholdGrouper`
 
-A `HouseholdType` defines a household structure (for example, a couple household or family household), while a `HouseholdGrouper` applies one or more household types to a synthetic population and generates household assignments.
+A `HouseholdType` describes a household structure that should be generated, while a `HouseholdGrouper` applies one or more household definitions to a synthetic population.
 
-This vignette demonstrates the complete household-generation workflow.
+This vignette demonstrates the complete workflow for creating synthetic households.
 
 ## Supplying a synthetic population of individuals
 This vignette assumes that we have already created a synthetic population of individual agents. The following code generates an illustrative example population of individual agents. For simplicity, this example contains four adults living in the same neighbourhood.
@@ -76,9 +80,18 @@ pop <- data.table(
 )
 ```
 
-Each row represents one synthetic agent.
+The `household_position` column is particularly important. 
 
-The household_position column describes the role that each agent may occupy within a household. In this example all agents are potential parents.
+Rather than storing household membership directly, `replica` uses household-position categories to indicate the types of roles each agent may occupy within a household.
+
+Examples include:
+
+- `Parent`
+- `Child`
+- `Grandparent`
+- `Student`
+
+These positions are subsequently referenced when household types are defined. In this example all agents are potential parents.
 
 ## Creating a household type
 A household type specifies a household structure that we plan to generate. Here we create a simple couple household.
@@ -114,6 +127,21 @@ This tells replica that:
  - these agents represent "adult" household members; and
   
  - exactly two adults are required per household.
+ 
+ 
+ Notice that two separate concepts are used:
+
+- `household_position`
+
+- `position_identifier`
+
+The `household_position` corresponds to values that appear in the synthetic population.
+
+The `position_identifier` defines broader household roles used internally by the household-building algorithm.
+
+For example, multiple population-specific household positions could all be assigned the identifier `"adult"`.
+
+This separation makes it easier to adapt household generation rules to different source datasets.
 
 The household definition is now complete.
 
@@ -178,38 +206,37 @@ Once household types have been registered, the complete household-generation wor
 result <- run(hg)
 ```
 
-Internally this workflow:
+The `run()` method executes the complete household-generation workflow.
 
- - identifies eligible agents;
+For each grouping region (`neighb_code` in this example), `replica`:
 
- - creates household member groups;
+1. Identifies eligible household members.
+2. Creates household structures using registered `HouseholdType` objects.
+3. Matches adults according to the configured gender and age distributions.
+4. Creates synthetic households.
+5. Assigns household identifiers.
+6. Produces household-level summary tables.
 
- - matches partners;
-
- - assigns household identifiers;
-
- - validates household assignments; and
-
- - creates household-level summary tables.
+The result is returned as a list containing both agent-level and household-level outputs.
  
 ## Inspecting output
 The result now contains both agent-level and household-level outputs. 
-
-### Synthetic population
-
-The updated synthetic population is available via:
 
 ```{r}
 synthetic_population <- result$synthetic_population
 ```
 
-### Synthetic households
-
-Household summaries are available via:
-
 ```{r}
 synthetic_households <- result$synthetic_households
 ```
+
+The household-generation workflow produces two complementary outputs.
+
+`synthetic_population` contains one row per agent and records the household assignment of each synthetic individual.
+
+`synthetic_households` contains one row per household and summarises the resulting household structures.
+
+Together these outputs allow analyses to be performed at both the individual and household level.
 
 ### Inspecting household assignments
 
@@ -234,10 +261,14 @@ This table is often useful when producing reports or validating generated househ
 
 The household-generation workflow automatically performs validation checks.
 
-Additional validation can be performed manually using checkIntegrity().
+Additional validation can be performed manually.
 
 ```{r}
-checkIntegrity(result$object@household_types[[1]])
+any(
+  is.na(
+    synthetic_population$household_id
+  )
+)
 ```
 
 A successful integrity check indicates that:
@@ -250,10 +281,11 @@ A successful integrity check indicates that:
   
 ## Family Households
 
-The previous example generated couple households only. More complex household structures can also be created.
+The previous example generated households containing adults only.
 
-For example, family households can include both adults and children.
+In practice, many synthetic populations will require more complex household structures containing both adults and children.
 
+The same workflow can be extended by registering additional member roles.
 
 ```{r}
 hh <- HouseholdType("FamilyHousehold")
@@ -278,13 +310,18 @@ hh <- addMembers(
 ```
 
 
-When family households are generated, replica automatically:
+When child household members are present, `replica` automatically:
 
- - groups children into sibling groups;
+- forms sibling groups;
 
- - matches sibling groups to adult groups; and
+- creates adult partner groups;
 
- - creates household records containing both adults and children.
+- matches adults and children; and
+
+- creates complete family households.
+
+No additional user intervention is required.
+
 
 The resulting household structures are stored using separate adult, child and all components.
 
@@ -308,24 +345,22 @@ Synthetic Population
 Synthetic Households
 
 
-Summary
+## Key Takeaways
 
 In this vignette we:
 
- - created a synthetic population;
+- created a synthetic population;
 
- - defined a household structure using HouseholdType;
+- defined a household structure using `HouseholdType`;
 
- - specified household member requirements;
+- specified adult household members;
 
- - defined partner-matching rules;
+- configured demographic matching rules;
 
- - registered a household type with a HouseholdGrouper;
+- registered a household type using `HouseholdGrouper`;
 
- - generated synthetic households using run();
- 
- - examined agent-level and household-level outputs;
+- generated synthetic households using `run()`; and
 
- - validated the resulting household assignments.
+- explored agent-level and household-level outputs.
 
-The same workflow can be extended to more complex populations containing multiple household types, children, and richer demographic matching rules.
+The same workflow can be extended to support multiple household types, family structures, and more complex demographic matching requirements.
