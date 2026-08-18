@@ -141,8 +141,34 @@ validate_synthetic_population_fit <- function(
     )
   
   #
-  # Calculate percentages
+  # Calculate percentages within the
+  # conditioning dimensions only.
   #
+  # Example:
+  #
+  # dimensions =
+  #   c(
+  #     "age_group",
+  #     "gender",
+  #     "education"
+  #   )
+  #
+  # name =
+  #   "education"
+  #
+  # conditioning_dimensions =
+  #   c(
+  #     "age_group",
+  #     "gender"
+  #   )
+  #
+  
+  conditioning_dimensions <-
+    
+    setdiff(
+      dimensions,
+      name
+    )
   
   combined[
     ,
@@ -150,7 +176,7 @@ validate_synthetic_population_fit <- function(
       100 *
       count_x /
       sum(count_x),
-    by = dimensions
+    by = conditioning_dimensions
   ]
   
   combined[
@@ -159,7 +185,7 @@ validate_synthetic_population_fit <- function(
       100 *
       count_y /
       sum(count_y),
-    by = dimensions
+    by = conditioning_dimensions
   ]
   
   combined[
@@ -170,8 +196,7 @@ validate_synthetic_population_fit <- function(
   ]
   
   #
-  # Reorder columns so that
-  # grouping variables appear first.
+  # Reorder columns
   #
   
   comparison_columns <- c(
