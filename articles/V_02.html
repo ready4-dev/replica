@@ -82,13 +82,23 @@ only for exploratory purposes.</strong></p>
 </h2>
 <p>Synthetic populations are often generated with a limited set of
 demographic variables.</p>
-<p>Additional attributes may subsequently need to be assigned using
-external aggregate data sources such as census cross-tabulations.</p>
+<p>Additional attributes often need to be assigned using aggregate data
+sources such as:</p>
+<ul>
+<li><p>census tables;</p></li>
+<li><p>survey microdata;</p></li>
+<li><p>administrative datasets; and</p></li>
+<li><p>official projections.</p></li>
+</ul>
 <p>The <code>ConditionalAttributeAdder</code> class provides a framework
 for assigning attributes to synthetic agents while preserving known
 conditional distributions.</p>
 <p>This vignette demonstrates how to assign a target attribute using a
-contingency table.</p>
+contingency table. The approach demonstrated in this algorithm is an R
+port of a third-party python algorithm <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link">developed
+and described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino,
+Mehdi Dastani, Dick Ettema, Brian Logan &amp; Judith A.
+Verstegen</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="supply-a-seed-synthetic-population-of-individual-agents">Supply a seed synthetic population of individual agents<a class="anchor" aria-label="anchor" href="#supply-a-seed-synthetic-population-of-individual-agents"></a>
@@ -109,52 +119,22 @@ target attribute.</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<p>The resulting population contains:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">population</span></span></code></pre></div>
-<pre><code><span><span class="co">##     age_group gender</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;</span></span>
-<span><span class="co">##  1:     18-64   Male</span></span>
-<span><span class="co">##  2:     18-64 Female</span></span>
-<span><span class="co">##  3:     18-64   Male</span></span>
-<span><span class="co">##  4:     18-64 Female</span></span>
-<span><span class="co">##  5:     18-64   Male</span></span>
-<span><span class="co">##  6:     18-64 Female</span></span>
-<span><span class="co">##  7:     18-64   Male</span></span>
-<span><span class="co">##  8:     18-64 Female</span></span>
-<span><span class="co">##  9:     18-64   Male</span></span>
-<span><span class="co">## 10:     18-64 Female</span></span>
-<span><span class="co">## 11:     18-64   Male</span></span>
-<span><span class="co">## 12:     18-64 Female</span></span>
-<span><span class="co">## 13:     18-64   Male</span></span>
-<span><span class="co">## 14:     18-64 Female</span></span>
-<span><span class="co">## 15:     18-64   Male</span></span>
-<span><span class="co">## 16:     18-64 Female</span></span>
-<span><span class="co">## 17:     18-64   Male</span></span>
-<span><span class="co">## 18:     18-64 Female</span></span>
-<span><span class="co">## 19:     18-64   Male</span></span>
-<span><span class="co">## 20:     18-64 Female</span></span>
-<span><span class="co">## 21:       65+   Male</span></span>
-<span><span class="co">## 22:       65+ Female</span></span>
-<span><span class="co">## 23:       65+   Male</span></span>
-<span><span class="co">## 24:       65+ Female</span></span>
-<span><span class="co">## 25:       65+   Male</span></span>
-<span><span class="co">## 26:       65+ Female</span></span>
-<span><span class="co">## 27:       65+   Male</span></span>
-<span><span class="co">## 28:       65+ Female</span></span>
-<span><span class="co">## 29:       65+   Male</span></span>
-<span><span class="co">## 30:       65+ Female</span></span>
-<span><span class="co">## 31:       65+   Male</span></span>
-<span><span class="co">## 32:       65+ Female</span></span>
-<span><span class="co">## 33:       65+   Male</span></span>
-<span><span class="co">## 34:       65+ Female</span></span>
-<span><span class="co">## 35:       65+   Male</span></span>
-<span><span class="co">## 36:       65+ Female</span></span>
-<span><span class="co">## 37:       65+   Male</span></span>
-<span><span class="co">## 38:       65+ Female</span></span>
-<span><span class="co">## 39:       65+   Male</span></span>
-<span><span class="co">## 40:       65+ Female</span></span>
-<span><span class="co">##     age_group gender</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">population</span><span class="op">[</span></span>
+<span>  ,</span>
+<span>  <span class="va">.N</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"age_group"</span>,</span>
+<span>    <span class="st">"gender"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##    age_group gender     N</span></span>
+<span><span class="co">##       &lt;char&gt; &lt;char&gt; &lt;int&gt;</span></span>
+<span><span class="co">## 1:     18-64   Male    10</span></span>
+<span><span class="co">## 2:     18-64 Female    10</span></span>
+<span><span class="co">## 3:       65+   Male    10</span></span>
+<span><span class="co">## 4:       65+ Female    10</span></span></code></pre>
 <p>The population contains age and gender information but no education
 status.</p>
 <p>Our goal is to assign education values while preserving a specified
@@ -163,55 +143,57 @@ conditional distribution.</p>
 <div class="section level2">
 <h2 id="supply-a-contingency-table">Supply a contingency table<a class="anchor" aria-label="anchor" href="#supply-a-contingency-table"></a>
 </h2>
-<p>In real use, we would source contingency tables from high quality
-data sources representative of our regions of interest. In Australia
-this would typically be data provided by the Australian Bureau of
-Statistics. In this example, we will generate an illustrative
-contingency table using hypothetical values.</p>
+<p>The reference distribution is supplied as a contingency table. In
+real use, we would source contingency tables from high quality data
+sources representative of our regions of interest. In Australia this
+would typically be data provided by the Australian Bureau of Statistics.
+In this example, we will generate an illustrative contingency table
+using hypothetical values.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contingency</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"65+"</span>,</span>
-<span>    <span class="st">"65+"</span></span>
+<span>    <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"65+"</span>,   <span class="st">"65+"</span>,</span>
+<span>    <span class="st">"65+"</span>,   <span class="st">"65+"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span></span>
+<span>    <span class="st">"Male"</span>,   <span class="st">"Male"</span>,</span>
+<span>    <span class="st">"Female"</span>, <span class="st">"Female"</span>,</span>
+<span>    <span class="st">"Male"</span>,   <span class="st">"Male"</span>,</span>
+<span>    <span class="st">"Female"</span>, <span class="st">"Female"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span>  education <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Degree"</span>,</span>
-<span>    <span class="st">"Degree"</span>,</span>
-<span>    <span class="st">"School"</span>,</span>
-<span>    <span class="st">"School"</span></span>
+<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
+<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
+<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
+<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">60</span>,</span>
-<span>    <span class="fl">50</span>,</span>
-<span>    <span class="fl">40</span>,</span>
-<span>    <span class="fl">45</span></span>
+<span>    <span class="fl">60</span>, <span class="fl">40</span>,</span>
+<span>    <span class="fl">55</span>, <span class="fl">45</span>,</span>
+<span>    <span class="fl">30</span>, <span class="fl">70</span>,</span>
+<span>    <span class="fl">25</span>, <span class="fl">75</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The contingency table defines the relationship between:</p>
-<ul>
-<li><p>age group;</p></li>
-<li><p>gender; and</p></li>
-<li><p>education.</p></li>
-</ul>
-<p>The <code>count</code> column describes the frequency of each
-combination in the reference data source.</p>
+<p>The contingency table defines the expected education distribution
+within each age-group and gender combination. The <code>count</code>
+column describes the frequency of each combination in the reference data
+source.</p>
+<p>For example:</p>
+<p>18-64 Male Degree = 60% School = 40%</p>
+<p>65+ Female Degree = 25% School = 75%</p>
 </div>
 <div class="section level2">
 <h2 id="create-a-conditionalattributeadder">Create a ConditionalAttributeAdder<a class="anchor" aria-label="anchor" href="#create-a-conditionalattributeadder"></a>
 </h2>
+<p>The assignment workflow is controlled using a
+<code>ConditionalAttributeAdder</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></span><span class="op">(</span></span>
 <span>  synth_pop <span class="op">=</span> <span class="va">population</span>,</span>
@@ -224,9 +206,9 @@ combination in the reference data source.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The object contains:</p>
 <ul>
-<li><p>a synthetic population;</p></li>
-<li><p>a reference contingency table;</p></li>
-<li><p>the attribute to be assigned;</p></li>
+<li><p>the synthetic population;</p></li>
+<li><p>the contingency table;</p></li>
+<li><p>the target attribute to be assigned;</p></li>
 <li><p>the conditioning variables.</p></li>
 </ul>
 </div>
@@ -234,15 +216,17 @@ combination in the reference data source.</p>
 <h2 id="handle-missing-groups">Handle missing groups<a class="anchor" aria-label="anchor" href="#handle-missing-groups"></a>
 </h2>
 <p>Real-world contingency tables often do not contain every combination
-of characteristics found in a synthetic population.</p>
+of characteristics found in a synthetic population. For example, a
+synthetic population may contain demographic groups that do not appear
+in the source data.</p>
 <p><code>replica</code> supports several strategies for handling missing
 groups. The selected strategy is stored in the
 <code>missing_group_strategy</code> slot.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">missing_group_strategy</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "borrow"</span></span></code></pre>
-<p>In the above example, the strategy (selected by default) is “borrow”
-that borrows information from nearby groups.</p>
+<p>In the above example, the strategy is “borrow” (which is selected by
+default) that borrows information from nearby groups.</p>
 <p>Other options are “overall” which uses the overall distribution of
 the target attribute and “error” which stops execution when a required
 group is missing.</p>
@@ -250,519 +234,147 @@ group is missing.</p>
 <div class="section level2">
 <h2 id="run-attribute-assignment">Run attribute assignment<a class="anchor" aria-label="anchor" href="#run-attribute-assignment"></a>
 </h2>
+<p>Attribute assignment is performed using run().</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
 <p>The workflow:</p>
 <ol style="list-style-type: decimal">
-<li><p>Completes missing contingency groups.</p></li>
+<li><p>Resolves missing contingency groups.</p></li>
 <li><p>Computes group-specific fractions.</p></li>
 <li><p>Converts fractions into agent allocations.</p></li>
 <li><p>Assigns attribute values.</p></li>
 <li><p>Verifies the resulting distribution.</p></li>
 </ol>
+<p>The updated synthetic population is stored in the
+<code>synth_pop</code> slot</p>
 </div>
 <div class="section level2">
 <h2 id="inspect-results">Inspect results<a class="anchor" aria-label="anchor" href="#inspect-results"></a>
 </h2>
-<p>The synthetic population now contains the assigned attribute.</p>
+<p>The synthetic population now contains the assigned
+<code>education</code> attribute.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span></span></code></pre></div>
-<pre><code><span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
-<span><span class="co">##  1:     18-64   Male    Degree</span></span>
-<span><span class="co">##  2:     18-64 Female    Degree</span></span>
-<span><span class="co">##  3:     18-64   Male    Degree</span></span>
-<span><span class="co">##  4:     18-64 Female    Degree</span></span>
-<span><span class="co">##  5:     18-64   Male    Degree</span></span>
-<span><span class="co">##  6:     18-64 Female    Degree</span></span>
-<span><span class="co">##  7:     18-64   Male    Degree</span></span>
-<span><span class="co">##  8:     18-64 Female    Degree</span></span>
-<span><span class="co">##  9:     18-64   Male    Degree</span></span>
-<span><span class="co">## 10:     18-64 Female    Degree</span></span>
-<span><span class="co">## 11:     18-64   Male    Degree</span></span>
-<span><span class="co">## 12:     18-64 Female    Degree</span></span>
-<span><span class="co">## 13:     18-64   Male    Degree</span></span>
-<span><span class="co">## 14:     18-64 Female    Degree</span></span>
-<span><span class="co">## 15:     18-64   Male    Degree</span></span>
-<span><span class="co">## 16:     18-64 Female    Degree</span></span>
-<span><span class="co">## 17:     18-64   Male    Degree</span></span>
-<span><span class="co">## 18:     18-64 Female    Degree</span></span>
-<span><span class="co">## 19:     18-64   Male    Degree</span></span>
-<span><span class="co">## 20:     18-64 Female    Degree</span></span>
-<span><span class="co">## 21:       65+   Male    School</span></span>
-<span><span class="co">## 22:       65+ Female    School</span></span>
-<span><span class="co">## 23:       65+   Male    School</span></span>
-<span><span class="co">## 24:       65+ Female    School</span></span>
-<span><span class="co">## 25:       65+   Male    School</span></span>
-<span><span class="co">## 26:       65+ Female    School</span></span>
-<span><span class="co">## 27:       65+   Male    School</span></span>
-<span><span class="co">## 28:       65+ Female    School</span></span>
-<span><span class="co">## 29:       65+   Male    School</span></span>
-<span><span class="co">## 30:       65+ Female    School</span></span>
-<span><span class="co">## 31:       65+   Male    School</span></span>
-<span><span class="co">## 32:       65+ Female    School</span></span>
-<span><span class="co">## 33:       65+   Male    School</span></span>
-<span><span class="co">## 34:       65+ Female    School</span></span>
-<span><span class="co">## 35:       65+   Male    School</span></span>
-<span><span class="co">## 36:       65+ Female    School</span></span>
-<span><span class="co">## 37:       65+   Male    School</span></span>
-<span><span class="co">## 38:       65+ Female    School</span></span>
-<span><span class="co">## 39:       65+   Male    School</span></span>
-<span><span class="co">## 40:       65+ Female    School</span></span>
-<span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    age_group gender education</span></span>
+<span><span class="co">##       &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
+<span><span class="co">## 1:     18-64   Male    Degree</span></span>
+<span><span class="co">## 2:     18-64 Female    School</span></span>
+<span><span class="co">## 3:     18-64   Male    Degree</span></span>
+<span><span class="co">## 4:     18-64 Female    Degree</span></span>
+<span><span class="co">## 5:     18-64   Male    Degree</span></span>
+<span><span class="co">## 6:     18-64 Female    Degree</span></span></code></pre>
+<p>We can also examine the resulting contingency table.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span></span>
-<span>  <span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span><span class="op">$</span><span class="va">education</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
-<span><span class="co">## Degree School </span></span>
-<span><span class="co">##     20     20</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
+<span>  <span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span>,<span class="st">"education"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   age_group gender education count</span></span>
+<span><span class="co">## 1     18-64   Male    Degree     6</span></span>
+<span><span class="co">## 2     18-64 Female    School     4</span></span>
+<span><span class="co">## 3     18-64 Female    Degree     6</span></span>
+<span><span class="co">## 4     18-64   Male    School     4</span></span>
+<span><span class="co">## 5       65+   Male    School     7</span></span>
+<span><span class="co">## 6       65+ Female    Degree     2</span></span>
+<span><span class="co">## 7       65+ Female    School     8</span></span>
+<span><span class="co">## 8       65+   Male    Degree     3</span></span></code></pre>
+<p>The assigned education values approximately reproduce the proportions
+defined in the reference contingency table.</p>
 </div>
 <div class="section level2">
-<h2 id="add-margins">Add margins<a class="anchor" aria-label="anchor" href="#add-margins"></a>
+<h2 id="add-marginal-constraints">Add marginal constraints<a class="anchor" aria-label="anchor" href="#add-marginal-constraints"></a>
 </h2>
 <p>Additional marginal distributions can be supplied when known
 population totals are available. Margins provide additional information
 that can be used when reconciling contingency tables with known
 distributions.</p>
+<p>For example:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gender_margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">100</span>,</span>
-<span>    <span class="fl">120</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMargins.html">addMargins</a></span><span class="op">(</span></span>
-<span>  <span class="va">adder</span>,</span>
-<span>  margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="va">gender_margin</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  margins_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"gender"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMargins.html">addMargins</a></span><span class="op">(</span><span class="va">adder</span>,</span>
+<span>                    margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">gender_margin</span><span class="op">)</span>,</span>
+<span>                    margins_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Because the object configuration has changed, any previous validation
+results are automatically cleared.</p>
+<p>Running the workflow again regenerates the validation
+diagnostics.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="verify-results">Verify results<a class="anchor" aria-label="anchor" href="#verify-results"></a>
 </h2>
-<p>Verification checks the quality of the resulting assignment and
-identifies potential inconsistencies between the synthetic and reference
-distributions.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/verify.html">verify</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## An object of class "ConditionalAttributeAdder"</span></span>
-<span><span class="co">## Slot "synth_pop":</span></span>
-<span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
-<span><span class="co">##  1:     18-64   Male    Degree</span></span>
-<span><span class="co">##  2:     18-64 Female    Degree</span></span>
-<span><span class="co">##  3:     18-64   Male    Degree</span></span>
-<span><span class="co">##  4:     18-64 Female    Degree</span></span>
-<span><span class="co">##  5:     18-64   Male    Degree</span></span>
-<span><span class="co">##  6:     18-64 Female    Degree</span></span>
-<span><span class="co">##  7:     18-64   Male    Degree</span></span>
-<span><span class="co">##  8:     18-64 Female    Degree</span></span>
-<span><span class="co">##  9:     18-64   Male    Degree</span></span>
-<span><span class="co">## 10:     18-64 Female    Degree</span></span>
-<span><span class="co">## 11:     18-64   Male    Degree</span></span>
-<span><span class="co">## 12:     18-64 Female    Degree</span></span>
-<span><span class="co">## 13:     18-64   Male    Degree</span></span>
-<span><span class="co">## 14:     18-64 Female    Degree</span></span>
-<span><span class="co">## 15:     18-64   Male    Degree</span></span>
-<span><span class="co">## 16:     18-64 Female    Degree</span></span>
-<span><span class="co">## 17:     18-64   Male    Degree</span></span>
-<span><span class="co">## 18:     18-64 Female    Degree</span></span>
-<span><span class="co">## 19:     18-64   Male    Degree</span></span>
-<span><span class="co">## 20:     18-64 Female    Degree</span></span>
-<span><span class="co">## 21:       65+   Male    School</span></span>
-<span><span class="co">## 22:       65+ Female    School</span></span>
-<span><span class="co">## 23:       65+   Male    School</span></span>
-<span><span class="co">## 24:       65+ Female    School</span></span>
-<span><span class="co">## 25:       65+   Male    School</span></span>
-<span><span class="co">## 26:       65+ Female    School</span></span>
-<span><span class="co">## 27:       65+   Male    School</span></span>
-<span><span class="co">## 28:       65+ Female    School</span></span>
-<span><span class="co">## 29:       65+   Male    School</span></span>
-<span><span class="co">## 30:       65+ Female    School</span></span>
-<span><span class="co">## 31:       65+   Male    School</span></span>
-<span><span class="co">## 32:       65+ Female    School</span></span>
-<span><span class="co">## 33:       65+   Male    School</span></span>
-<span><span class="co">## 34:       65+ Female    School</span></span>
-<span><span class="co">## 35:       65+   Male    School</span></span>
-<span><span class="co">## 36:       65+ Female    School</span></span>
-<span><span class="co">## 37:       65+   Male    School</span></span>
-<span><span class="co">## 38:       65+ Female    School</span></span>
-<span><span class="co">## 39:       65+   Male    School</span></span>
-<span><span class="co">## 40:       65+ Female    School</span></span>
-<span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "contingency":</span></span>
-<span><span class="co">##    age_group gender education count</span></span>
-<span><span class="co">##       &lt;char&gt; &lt;char&gt;    &lt;char&gt; &lt;num&gt;</span></span>
-<span><span class="co">## 1:     18-64   Male    Degree    60</span></span>
-<span><span class="co">## 2:     18-64 Female    Degree    50</span></span>
-<span><span class="co">## 3:       65+   Male    School    40</span></span>
-<span><span class="co">## 4:       65+ Female    School    45</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "target_attribute":</span></span>
-<span><span class="co">## [1] "education"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "group_by":</span></span>
-<span><span class="co">## [1] "age_group" "gender"   </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "margins":</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">##   gender count</span></span>
-<span><span class="co">## 1   Male   100</span></span>
-<span><span class="co">## 2 Female   120</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "margins_names":</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [1] "gender"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "margins_group":</span></span>
-<span><span class="co">## [1] "gender"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "missing_group_strategy":</span></span>
-<span><span class="co">## [1] "borrow"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "validation_results":</span></span>
-<span><span class="co">## $name</span></span>
-<span><span class="co">## [1] "education"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $z_square</span></span>
-<span><span class="co">## [1] 5.243004</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $p_value</span></span>
-<span><span class="co">## [1] 0.26326</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $degrees_of_freedom</span></span>
-<span><span class="co">## [1] 4</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $critical_value</span></span>
-<span><span class="co">## [1] 9.487729</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $details</span></span>
-<span><span class="co">## Key: &lt;gender, education&gt;</span></span>
-<span><span class="co">##    gender education count_x age_group count_y observed_pct expected_pct</span></span>
-<span><span class="co">##    &lt;char&gt;    &lt;char&gt;   &lt;int&gt;    &lt;char&gt;   &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
-<span><span class="co">## 1: Female    Degree      10     18-64      50          100          100</span></span>
-<span><span class="co">## 2: Female    School      10       65+      45          100          100</span></span>
-<span><span class="co">## 3:   Male    Degree      10     18-64      60          100          100</span></span>
-<span><span class="co">## 4:   Male    School      10       65+      40          100          100</span></span>
+<p>Validation results are stored directly in the
+<code>validation_results</code> slot.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "name"               "z_square"           "p_value"           </span></span>
+<span><span class="co">## [4] "degrees_of_freedom" "critical_value"     "warning_required"  </span></span>
+<span><span class="co">## [7] "details"</span></span></code></pre>
+<p>The detailed validation table can be examined using:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">$</span><span class="va">details</span></span></code></pre></div>
+<pre><code><span><span class="co">## Key: &lt;age_group, gender, education&gt;</span></span>
+<span><span class="co">##    age_group gender education count_x count_y observed_pct expected_pct</span></span>
+<span><span class="co">##       &lt;char&gt; &lt;char&gt;    &lt;char&gt;   &lt;int&gt;   &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
+<span><span class="co">## 1:     18-64 Female    Degree       6      55          100          100</span></span>
+<span><span class="co">## 2:     18-64 Female    School       4      45          100          100</span></span>
+<span><span class="co">## 3:     18-64   Male    Degree       6      60          100          100</span></span>
+<span><span class="co">## 4:     18-64   Male    School       4      40          100          100</span></span>
+<span><span class="co">## 5:       65+ Female    Degree       2      25          100          100</span></span>
+<span><span class="co">## 6:       65+ Female    School       8      75          100          100</span></span>
+<span><span class="co">## 7:       65+   Male    Degree       3      30          100          100</span></span>
+<span><span class="co">## 8:       65+   Male    School       7      70          100          100</span></span>
 <span><span class="co">##    difference_pct</span></span>
 <span><span class="co">##             &lt;num&gt;</span></span>
 <span><span class="co">## 1:              0</span></span>
 <span><span class="co">## 2:              0</span></span>
 <span><span class="co">## 3:              0</span></span>
-<span><span class="co">## 4:              0</span></span></code></pre>
-</div>
-<div class="section level2">
-<h2 id="evaluating-the-assigned-population">Evaluating the assigned population<a class="anchor" aria-label="anchor" href="#evaluating-the-assigned-population"></a>
-</h2>
-<p>The resulting contingency table can be compared directly with the
-original reference distribution.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
-<span>  <span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"age_group"</span>,</span>
-<span>    <span class="st">"gender"</span>,</span>
-<span>    <span class="st">"education"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   age_group gender education count</span></span>
-<span><span class="co">## 1     18-64   Male    Degree    10</span></span>
-<span><span class="co">## 2     18-64 Female    Degree    10</span></span>
-<span><span class="co">## 3       65+   Male    School    10</span></span>
-<span><span class="co">## 4       65+ Female    School    10</span></span></code></pre>
-<p>The resulting contingency table matches the structure of the
-reference contingency table used during attribute assignment.</p>
-<p>In this toy example each age group and gender combination corresponds
-to a single education category, resulting in an exact match between the
-synthetic and reference distributions.</p>
-<p>For larger populations and more complex contingency tables, the same
-workflow can be used to assign attributes while preserving conditional
-demographic relationships.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span></span></code></pre></div>
-<pre><code><span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
-<span><span class="co">##  1:     18-64   Male    Degree</span></span>
-<span><span class="co">##  2:     18-64 Female    Degree</span></span>
-<span><span class="co">##  3:     18-64   Male    Degree</span></span>
-<span><span class="co">##  4:     18-64 Female    Degree</span></span>
-<span><span class="co">##  5:     18-64   Male    Degree</span></span>
-<span><span class="co">##  6:     18-64 Female    Degree</span></span>
-<span><span class="co">##  7:     18-64   Male    Degree</span></span>
-<span><span class="co">##  8:     18-64 Female    Degree</span></span>
-<span><span class="co">##  9:     18-64   Male    Degree</span></span>
-<span><span class="co">## 10:     18-64 Female    Degree</span></span>
-<span><span class="co">## 11:     18-64   Male    Degree</span></span>
-<span><span class="co">## 12:     18-64 Female    Degree</span></span>
-<span><span class="co">## 13:     18-64   Male    Degree</span></span>
-<span><span class="co">## 14:     18-64 Female    Degree</span></span>
-<span><span class="co">## 15:     18-64   Male    Degree</span></span>
-<span><span class="co">## 16:     18-64 Female    Degree</span></span>
-<span><span class="co">## 17:     18-64   Male    Degree</span></span>
-<span><span class="co">## 18:     18-64 Female    Degree</span></span>
-<span><span class="co">## 19:     18-64   Male    Degree</span></span>
-<span><span class="co">## 20:     18-64 Female    Degree</span></span>
-<span><span class="co">## 21:       65+   Male    School</span></span>
-<span><span class="co">## 22:       65+ Female    School</span></span>
-<span><span class="co">## 23:       65+   Male    School</span></span>
-<span><span class="co">## 24:       65+ Female    School</span></span>
-<span><span class="co">## 25:       65+   Male    School</span></span>
-<span><span class="co">## 26:       65+ Female    School</span></span>
-<span><span class="co">## 27:       65+   Male    School</span></span>
-<span><span class="co">## 28:       65+ Female    School</span></span>
-<span><span class="co">## 29:       65+   Male    School</span></span>
-<span><span class="co">## 30:       65+ Female    School</span></span>
-<span><span class="co">## 31:       65+   Male    School</span></span>
-<span><span class="co">## 32:       65+ Female    School</span></span>
-<span><span class="co">## 33:       65+   Male    School</span></span>
-<span><span class="co">## 34:       65+ Female    School</span></span>
-<span><span class="co">## 35:       65+   Male    School</span></span>
-<span><span class="co">## 36:       65+ Female    School</span></span>
-<span><span class="co">## 37:       65+   Male    School</span></span>
-<span><span class="co">## 38:       65+ Female    School</span></span>
-<span><span class="co">## 39:       65+   Male    School</span></span>
-<span><span class="co">## 40:       65+ Female    School</span></span>
-<span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span></code></pre>
-<p>In practice, each demographic group would have multiple potential
-values for the target attribute. We can see this by rerunning the
-previous steps with a more relaistic contingency table.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contingency</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span></span>
-<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"65+"</span>,</span>
-<span>    <span class="st">"65+"</span>,</span>
-<span>    <span class="st">"65+"</span>,</span>
-<span>    <span class="st">"65+"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Female"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  education <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Degree"</span>,</span>
-<span>    <span class="st">"School"</span>,</span>
-<span>    <span class="st">"Degree"</span>,</span>
-<span>    <span class="st">"School"</span>,</span>
-<span>    <span class="st">"Degree"</span>,</span>
-<span>    <span class="st">"School"</span>,</span>
-<span>    <span class="st">"Degree"</span>,</span>
-<span>    <span class="st">"School"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">60</span>,</span>
-<span>    <span class="fl">40</span>,</span>
-<span>    <span class="fl">55</span>,</span>
-<span>    <span class="fl">45</span>,</span>
-<span>    <span class="fl">30</span>,</span>
-<span>    <span class="fl">70</span>,</span>
-<span>    <span class="fl">25</span>,</span>
-<span>    <span class="fl">75</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></span><span class="op">(</span></span>
-<span>  synth_pop <span class="op">=</span> <span class="va">population</span>,</span>
-<span>  contingency <span class="op">=</span> <span class="va">contingency</span>,</span>
-<span>  target_attribute <span class="op">=</span> <span class="st">"education"</span>,</span>
-<span>  group_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"age_group"</span>,</span>
-<span>    <span class="st">"gender"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMargins.html">addMargins</a></span><span class="op">(</span></span>
-<span>  <span class="va">adder</span>,</span>
-<span>  margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="va">gender_margin</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  margins_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"gender"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/verify.html">verify</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## An object of class "ConditionalAttributeAdder"</span></span>
-<span><span class="co">## Slot "synth_pop":</span></span>
-<span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
-<span><span class="co">##  1:     18-64   Male    Degree</span></span>
-<span><span class="co">##  2:     18-64 Female    Degree</span></span>
-<span><span class="co">##  3:     18-64   Male    School</span></span>
-<span><span class="co">##  4:     18-64 Female    School</span></span>
-<span><span class="co">##  5:     18-64   Male    Degree</span></span>
-<span><span class="co">##  6:     18-64 Female    School</span></span>
-<span><span class="co">##  7:     18-64   Male    Degree</span></span>
-<span><span class="co">##  8:     18-64 Female    Degree</span></span>
-<span><span class="co">##  9:     18-64   Male    Degree</span></span>
-<span><span class="co">## 10:     18-64 Female    Degree</span></span>
-<span><span class="co">## 11:     18-64   Male    School</span></span>
-<span><span class="co">## 12:     18-64 Female    School</span></span>
-<span><span class="co">## 13:     18-64   Male    Degree</span></span>
-<span><span class="co">## 14:     18-64 Female    Degree</span></span>
-<span><span class="co">## 15:     18-64   Male    Degree</span></span>
-<span><span class="co">## 16:     18-64 Female    Degree</span></span>
-<span><span class="co">## 17:     18-64   Male    School</span></span>
-<span><span class="co">## 18:     18-64 Female    School</span></span>
-<span><span class="co">## 19:     18-64   Male    School</span></span>
-<span><span class="co">## 20:     18-64 Female    Degree</span></span>
-<span><span class="co">## 21:       65+   Male    School</span></span>
-<span><span class="co">## 22:       65+ Female    School</span></span>
-<span><span class="co">## 23:       65+   Male    School</span></span>
-<span><span class="co">## 24:       65+ Female    School</span></span>
-<span><span class="co">## 25:       65+   Male    Degree</span></span>
-<span><span class="co">## 26:       65+ Female    Degree</span></span>
-<span><span class="co">## 27:       65+   Male    School</span></span>
-<span><span class="co">## 28:       65+ Female    School</span></span>
-<span><span class="co">## 29:       65+   Male    School</span></span>
-<span><span class="co">## 30:       65+ Female    School</span></span>
-<span><span class="co">## 31:       65+   Male    School</span></span>
-<span><span class="co">## 32:       65+ Female    School</span></span>
-<span><span class="co">## 33:       65+   Male    School</span></span>
-<span><span class="co">## 34:       65+ Female    School</span></span>
-<span><span class="co">## 35:       65+   Male    School</span></span>
-<span><span class="co">## 36:       65+ Female    School</span></span>
-<span><span class="co">## 37:       65+   Male    Degree</span></span>
-<span><span class="co">## 38:       65+ Female    Degree</span></span>
-<span><span class="co">## 39:       65+   Male    Degree</span></span>
-<span><span class="co">## 40:       65+ Female    School</span></span>
-<span><span class="co">##     age_group gender education</span></span>
-<span><span class="co">##        &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "contingency":</span></span>
-<span><span class="co">##    age_group gender education count</span></span>
-<span><span class="co">##       &lt;char&gt; &lt;char&gt;    &lt;char&gt; &lt;num&gt;</span></span>
-<span><span class="co">## 1:     18-64   Male    Degree    60</span></span>
-<span><span class="co">## 2:     18-64   Male    School    40</span></span>
-<span><span class="co">## 3:     18-64 Female    Degree    55</span></span>
-<span><span class="co">## 4:     18-64 Female    School    45</span></span>
-<span><span class="co">## 5:       65+   Male    Degree    30</span></span>
-<span><span class="co">## 6:       65+   Male    School    70</span></span>
-<span><span class="co">## 7:       65+ Female    Degree    25</span></span>
-<span><span class="co">## 8:       65+ Female    School    75</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "target_attribute":</span></span>
-<span><span class="co">## [1] "education"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "group_by":</span></span>
-<span><span class="co">## [1] "age_group" "gender"   </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "margins":</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">##   gender count</span></span>
-<span><span class="co">## 1   Male   100</span></span>
-<span><span class="co">## 2 Female   120</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "margins_names":</span></span>
-<span><span class="co">## [[1]]</span></span>
-<span><span class="co">## [1] "gender"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "margins_group":</span></span>
-<span><span class="co">## [1] "gender"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "missing_group_strategy":</span></span>
-<span><span class="co">## [1] "borrow"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Slot "validation_results":</span></span>
-<span><span class="co">## $name</span></span>
-<span><span class="co">## [1] "education"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $z_square</span></span>
-<span><span class="co">## [1] 43.29764</span></span>
+<span><span class="co">## 4:              0</span></span>
+<span><span class="co">## 5:              0</span></span>
+<span><span class="co">## 6:              0</span></span>
+<span><span class="co">## 7:              0</span></span>
+<span><span class="co">## 8:              0</span></span></code></pre>
+<p>In this table:</p>
+<ul>
+<li><p>count_x is the observed synthetic count;</p></li>
+<li><p>count_y is the expected count from the reference table;</p></li>
+<li><p>observed_pct is the observed percentage;</p></li>
+<li><p>expected_pct is the expected percentage; and</p></li>
+<li><p>difference_pct is the percentage-point difference.</p></li>
+</ul>
+<p>These diagnostics make it easy to identify groups where the assigned
+synthetic population differs from the target distribution.</p>
+<p>The validation results also contain summary statistics such as z
+squared and p-value.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"z_square"</span>,</span>
+<span>  <span class="st">"p_value"</span>,</span>
+<span>  <span class="st">"warning_required"</span></span>
+<span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">## $z_square</span></span>
+<span><span class="co">## [1] 2.155412</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $p_value</span></span>
-<span><span class="co">## [1] 7.720204e-07</span></span>
+<span><span class="co">## [1] 0.9758728</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## $degrees_of_freedom</span></span>
-<span><span class="co">## [1] 8</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $critical_value</span></span>
-<span><span class="co">## [1] 15.50731</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $details</span></span>
-<span><span class="co">## Key: &lt;gender, education&gt;</span></span>
-<span><span class="co">##    gender education count_x age_group count_y observed_pct expected_pct</span></span>
-<span><span class="co">##    &lt;char&gt;    &lt;char&gt;   &lt;int&gt;    &lt;char&gt;   &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
-<span><span class="co">## 1: Female    Degree       8     18-64      55           50     68.75000</span></span>
-<span><span class="co">## 2: Female    Degree       8       65+      25           50     31.25000</span></span>
-<span><span class="co">## 3: Female    School      12     18-64      45           50     37.50000</span></span>
-<span><span class="co">## 4: Female    School      12       65+      75           50     62.50000</span></span>
-<span><span class="co">## 5:   Male    Degree       9     18-64      60           50     66.66667</span></span>
-<span><span class="co">## 6:   Male    Degree       9       65+      30           50     33.33333</span></span>
-<span><span class="co">## 7:   Male    School      11     18-64      40           50     36.36364</span></span>
-<span><span class="co">## 8:   Male    School      11       65+      70           50     63.63636</span></span>
-<span><span class="co">##    difference_pct</span></span>
-<span><span class="co">##             &lt;num&gt;</span></span>
-<span><span class="co">## 1:      -18.75000</span></span>
-<span><span class="co">## 2:       18.75000</span></span>
-<span><span class="co">## 3:       12.50000</span></span>
-<span><span class="co">## 4:      -12.50000</span></span>
-<span><span class="co">## 5:      -16.66667</span></span>
-<span><span class="co">## 6:       16.66667</span></span>
-<span><span class="co">## 7:       13.63636</span></span>
-<span><span class="co">## 8:      -13.63636</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
-<span>  <span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"age_group"</span>,</span>
-<span>    <span class="st">"gender"</span>,</span>
-<span>    <span class="st">"education"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   age_group gender education count</span></span>
-<span><span class="co">## 1     18-64   Male    Degree     6</span></span>
-<span><span class="co">## 2     18-64 Female    Degree     6</span></span>
-<span><span class="co">## 3     18-64   Male    School     4</span></span>
-<span><span class="co">## 4     18-64 Female    School     4</span></span>
-<span><span class="co">## 5       65+   Male    School     7</span></span>
-<span><span class="co">## 6       65+ Female    School     8</span></span>
-<span><span class="co">## 7       65+   Male    Degree     3</span></span>
-<span><span class="co">## 8       65+ Female    Degree     2</span></span></code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span></span></code></pre></div>
-<pre><code><span><span class="co">## list()</span></span></code></pre>
-<p>The assigned education values approximately reproduce the proportions
-defined in the reference contingency table. Because education is
-assigned to individual agents, the resulting counts must be whole
-numbers. Consequently, small differences from the reference percentages
-may occur. As the synthetic population size increases, the assigned
-distribution becomes a closer approximation to the target
-distribution.</p>
+<span><span class="co">## $warning_required</span></span>
+<span><span class="co">## [1] FALSE</span></span></code></pre>
+<p>The z-squared statistic provides a measure of divergence between
+observed and expected distributions. Smaller values indicate a closer
+match.</p>
+<p>The p-value assesses whether the observed synthetic distribution
+differs from the reference contingency table. Large p-values indicate
+that the synthetic population is consistent with the target
+distribution, while small p-values suggest a poorer fit. If p-values are
+less than 0.05&lt; the <code>warning_required</code> flag will be set to
+<code>TRUE</code>.</p>
+<p>Because statistical significance is sensitive to population size,
+p-values should be interpreted alongside the percentage-point
+differences reported in validation_results$details.</p>
 </div>
 <div class="section level2">
 <h2 id="key-takeaways">Key takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways"></a>
