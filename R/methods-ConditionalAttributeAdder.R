@@ -237,14 +237,15 @@ setMethod(
     }
     
     dimensions <-
+      
       unique(
         c(
-          object@margins_group,
+          object@group_by,
           target
         )
       )
     
-    validation <- try(
+    validation <- tryCatch(
       
       validate_synthetic_population_fit(
         
@@ -262,7 +263,7 @@ setMethod(
         
       ),
       
-      silent = TRUE
+      error = function(e) e
       
     )
     

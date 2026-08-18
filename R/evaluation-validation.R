@@ -169,24 +169,38 @@ validate_synthetic_population_fit <- function(
       expected_pct
   ]
   
+  #
+  # Reorder columns so that
+  # grouping variables appear first.
+  #
+  
+  comparison_columns <- c(
+    "count_x",
+    "count_y",
+    "observed_pct",
+    "expected_pct",
+    "difference_pct"
+  )
+  
+  combined <-
+    
+    combined[
+      ,
+      c(
+        dimensions,
+        comparison_columns
+      ),
+      with = FALSE
+    ]
+  
   z_result <-
     
     calculate_z_squared_score(
       combined
     )
   
-  if (
+  warning_required <-
     z_result$p_value < 0.05
-  ) {
-    
-    warning(
-      sprintf(
-        "%s distribution differs from expected",
-        name
-      )
-    )
-    
-  }
   
   list(
     
@@ -203,6 +217,9 @@ validate_synthetic_population_fit <- function(
     
     critical_value =
       z_result$critical_value,
+    
+    warning_required =
+      warning_required,
     
     details =
       combined
