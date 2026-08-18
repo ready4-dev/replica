@@ -1,0 +1,229 @@
+---
+title: "Evaluating Synthetic Population Quality"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Evaluating Synthetic Population Quality}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+```{r results='hide', message=FALSE, warning=F}
+library(replica)
+library(data.table)
+```
+
+## Motivation
+Two synthetic populations can have very different levels of quality.
+
+A synthetic population that reproduces the target distribution closely will generally be more useful for
+simulation, forecasting and policy analysis than one that deviates substantially from the reference data.
+
+The goal of validation is therefore to answer two questions:
+
+1. How closely does the synthetic population reproduce the target distribution?
+
+2. Which demographic groups contribute most to any mismatch?
+
+This vignette demonstrates how `replica` can be used to answer both questions.
+
+## Validation checklist
+Throughout this vignette we will evaluate fit using three complementary diagnostics:
+
+- observed versus expected distributions;
+
+- percentage-point differences;
+
+- goodness-of-fit statistics.
+
+Together these provide both visual and statistical evidence about synthetic population quality.
+
+##  Example data generation process
+We begin by creating a simple synthetic population.
+
+
+```{r}
+population <- data.table(
+
+  age_group = c(
+    rep("18-64", 20),
+    rep("65+", 20)
+  ),
+
+  gender = c(
+    rep(c("Male", "Female"), 10),
+    rep(c("Male", "Female"), 10)
+  )
+
+)
+```
+
+The synthetic population will be assigned education values using the following contingency table.
+
+```{r}
+contingency <- data.frame(
+
+  age_group = c(
+    "18-64", "18-64",
+    "18-64", "18-64",
+    "65+",   "65+",
+    "65+",   "65+"
+  ),
+
+  gender = c(
+    "Male",   "Male",
+    "Female", "Female",
+    "Male",   "Male",
+    "Female", "Female"
+  ),
+
+  education = c(
+    "Degree", "School",
+    "Degree", "School",
+    "Degree", "School",
+    "Degree", "School"
+  ),
+
+  count = c(
+    60, 40,
+    55, 45,
+    30, 70,
+    25, 75
+  )
+
+)
+```
+
+A synthetic population with an education variable can be created using `ConditionalAttributeAdder`.
+
+```{r}
+adder <- ConditionalAttributeAdder(
+
+  synth_pop = population,
+
+  contingency = contingency,
+
+  target_attribute = "education",
+
+  group_by = c(
+    "age_group",
+    "gender"
+  )
+
+)
+
+adder <- run(
+  adder
+)
+
+```
+
+The resulting synthetic population can be summarised using:
+
+```{r}
+observed <- synthetic_population_to_contingency(
+
+    adder@synth_pop,
+    c(
+      "age_group",
+      "gender",
+      "education"
+    )
+  )
+
+observed
+```
+
+The observed contingency table describes the distribution that actually exists in the synthetic population.
+
+
+## Visualising validation results
+
+As described in another vignette, validation results are stored in `adder@validation_results`. In this vignette we will outline how these results can be explored through visualisation.
+
+### Visualising observed synthetic and expected distributions
+
+Observed synthetic and expected percentages can be compared graphically.
+
+```{r}
+plot_validation_distributions(
+  adder@validation_results
+)
+```
+
+This is usually the first plot to inspect.
+
+Large differences between the observed and expected bars indicate that the attribute assignment process has not fully
+reproduced the target distribution.
+
+In this example the bars are generally similar, suggesting that the synthetic population reproduces the reference
+distribution reasonably well. 
+
+### Visualising percentage-point differences
+
+Percentage-point differences are often easier to interpret than raw counts.
+
+```{r}
+plot_validation_differences(
+  adder@validation_results
+)
+```
+
+The percentage-point difference plot highlights mismatches more clearly than the distribution plot.
+
+Values above zero indicate over-representation.
+
+Values below zero indicate under-representation.
+
+As a rule of thumb:
+
+- differences smaller than 5 percentage points are often
+  negligible;
+  
+- differences between 5 and 10 percentage points may warrant
+  investigation;
+  
+- larger differences suggest a potentially important
+  discrepancy.
+
+### Visualising overall fit
+
+For larger contingency tables, a heatmap can provide a useful overview of fit quality.
+
+```{r}
+plot_validation_heatmap(
+  adder@validation_results
+)
+```
+
+The heatmap becomes increasingly useful as the number of conditioning variables grows.
+
+For small contingency tables (like those used in this example) the previous figures are often easier to interpret.
+
+For high-dimensional validation exercises the heatmap provides a compact summary of fit quality across many groups
+simultaneously.
+
+## Bad fits
+To illustrate a poor fit, suppose that all education values in the synthetic population were incorrectly assigned as
+`Degree`.
+
+The resulting validation plots would show substantial differences between observed and expected distributions, large
+percentage-point differences, and a poor goodness-of-fit statistic.
+
+## Key takeaways
+
+In this vignette we:
+
+- summarised a synthetic population using contingency tables;
+
+- compared observed and expected distributions;
+
+- examined percentage-point differences;
+
+- visualised validation results; and
+
+ - used stored validation diagnostics.
+
+Together, these tools provide a practical framework for assessing the quality of synthetic populations generated using replica.

@@ -233,7 +233,7 @@ adder <- run(adder)
 ```
 
 
-## Verify results
+## Inspect validation results
 
 Validation results are stored directly in the `validation_results` slot.
 
@@ -241,27 +241,8 @@ Validation results are stored directly in the `validation_results` slot.
 names(adder@validation_results)
 ```
 
-The detailed validation table can be examined using:
-
-```{r}
-adder@validation_results$details
-```
-
-In this table:
-
-- count_x is the observed synthetic count;
-
-- count_y is the expected count from the reference table;
-
-- observed_pct is the observed percentage;
-
-- expected_pct is the expected percentage; and
-
-- difference_pct is the percentage-point difference.
-
-These diagnostics make it easy to identify groups where the assigned synthetic population differs from the target distribution.
-
-The validation results also contain summary statistics such as z squared and p-value.
+### Test statistics
+We can quickly inspect a selection of these results such as z squared and p-value and whether a warning flag has been raised due to poor match between the expected and observed synthetic results.
 
 ```{r}
 adder@validation_results[c(
@@ -271,11 +252,74 @@ adder@validation_results[c(
 )]
 ```
 
-The z-squared statistic provides a measure of divergence between observed and expected distributions. Smaller values indicate a closer match.
+The z-squared statistic provides a measure of divergence between observed synthetic and expected distributions. Smaller values indicate a closer match between the synthetic and reference distributions.
 
-The p-value assesses whether the observed synthetic distribution differs from the reference contingency table. Large p-values indicate that the synthetic population is consistent with the target distribution, while small p-values suggest a poorer fit. If p-values are less than 0.05< the `warning_required` flag will be set to `TRUE`.
+The p-value provides a formal goodness-of-fit test. Large p-values indicate that the observed synthetic population is consistent with the target distribution, while small p-values suggest a poorer fit. If p-values are less than 0.05< the `warning_required` flag will be set to `TRUE`.
 
 Because statistical significance is sensitive to population size, p-values should be interpreted alongside the percentage-point differences reported in validation_results$details. 
+
+### Summary table
+
+A table comparing the count and percentage based distributions in the observed synthetic and expected data contains the following columns:
+
+```{r}
+names(adder@validation_results$details)
+```
+
+In this table:
+
+- count_x is the observed synthetic count;
+
+- count_y is the expected count from the reference table;
+
+- observed_pct is the observed synthetic percentage;
+
+- expected_pct is the expected percentage; and
+
+- difference_pct is the percentage-point difference (which may provide a more intuitive assessment of fit than examining raw counts).
+
+These diagnostics make it easy to identify groups where the assigned synthetic population differs from the target distribution.
+
+```{r}
+adder@validation_results$details[
+  ,
+  .(
+    age_group,
+    gender,
+    education,
+    observed_pct,
+    expected_pct,
+    difference_pct
+  )
+]
+```
+
+
+### Validation results and object state
+Validation results are stored within the ConditionalAttributeAdder object at `adder@validation_results`.
+
+When configuration settings are modified, previous validation results are automatically cleared.
+
+For example:
+
+```{r}
+adder <- addMargins(
+  adder,
+  margins = list(gender_margin),
+  margins_names = list("gender")
+)
+
+adder@validation_results
+```
+
+After re-running the assignment workflow:
+
+```{r}
+adder <- run(adder)
+adder@validation_results$z_square
+```
+
+the validation results are regenerated automatically.
 
 ## Key takeaways
 
