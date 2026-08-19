@@ -208,7 +208,15 @@ population <- adder@synth_pop
 ### Generate Households
 
 ```{r}
+population[,neighb_code := "N1"]
+
 population[,household_position := "Parent"]
+
+population[age_group == "18-64",
+           age := sample(18:64, .N, replace = TRUE)]
+
+population[age_group == "65+", 
+           age := sample(65:95,.N, replace = TRUE)]
 
 hh <- HouseholdType("CoupleHousehold")
 
@@ -223,7 +231,7 @@ hh@couple_gender_distribution <- c("Female|Male" = 1)
 hh@couple_age_distribution <- c("-5-5" = 1)
 
 hg <- HouseholdGrouper(df_synth_pop = population,
-                       group_by = NULL)
+                       group_by = "neighb_code")
 
 hg <- addHouseholdType(hg, hh)
 
@@ -233,17 +241,18 @@ households <- run(hg)
 ### Inspect Results
 
 ```{r}
-households$synthetic_population
+head(households$synthetic_population)
 ```
 
 ```{r}
-households$synthetic_households
+head(households$synthetic_households)
 ```
 
 ### Validate Attribute Assignment
 
 ```{r}
-adder@validation_results
+adder@validation_results[c("z_square","p_value", 
+                           "warning_required")]
 ```
 
 ```{r}

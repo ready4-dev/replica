@@ -172,13 +172,8 @@ names(adder@validation_results)
 A subset of the summary statistics can be inspected directly.
 
 ```{r}
-adder@validation_results[
-  c(
-    "z_square",
-    "p_value",
-    "warning_required"
-  )
-]
+adder@validation_results[c("z_square","p_value", 
+                           "warning_required")]
 ```
 These values provide a high-level assessment of the match between the observed synthetic population and the target contingency table.
 
