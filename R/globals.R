@@ -1,5 +1,7 @@
 # R/globals.R
 
+# Global variables used by data.table NSE
+
 utils::globalVariables(
   
   c(
@@ -7,6 +9,7 @@ utils::globalVariables(
     ":=",
     ".",
     ".N",
+    ".SD",
     
     "agent_id",
     "household_id",
@@ -25,7 +28,29 @@ utils::globalVariables(
     "total_x",
     "total_y",
     
-    "neighb_code"
+    "neighb_code",
+    
+    #
+    # Validation framework
+    #
+    
+    "observed_pct",
+    "expected_pct",
+    "difference_pct",
+    
+    #
+    # Plotting functions
+    #
+    
+    "group_label",
+    "distribution",
+    "percentage",
+    
+    #
+    # Legacy helper
+    #
+    
+    "pct"
     
   )
   

@@ -15,67 +15,107 @@ library(replica)
 library(data.table)
 ```
 
-**Note - the replica library is currently very experimental. It is still undergoing active development and testing. It should be used only for exploratory purposes.**
+**Note - the replica library is currently very experimental. It is still undergoing active development and testing. Function, class and method names, arguments and syntax may change without the use of deprecation conventions. This library should currently be used only for exploratory purposes.**
 
 ## Motivation
 
-Synthetic populations are often generated with a limited set of demographic variables.
+In the previous vignette we used `make_agents()` to create a synthetic population of individual agents from aggregate count data.
 
-Additional attributes often need to be assigned using aggregate data sources such as:
+These agents often contain only a small number of variables. For example, a population may contain age-group and gender information but lack additional attributes required for simulation modelling.
 
-- census tables;
+The `ConditionalAttributeAdder` class can be used to enrich synthetic agents using contingency tables derived from external data sources.
 
-- survey microdata;
+Examples include:
 
-- administrative datasets; and
+- education;
 
-- official projections.
+- employment status;
 
-The `ConditionalAttributeAdder` class provides a framework for assigning attributes to synthetic agents while preserving known conditional distributions. 
+- occupation;
 
-This vignette demonstrates how to assign a target attribute using a contingency table. The approach demonstrated in this algorithm is an R port of a third-party python algorithm [developed and described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino, Mehdi Dastani, Dick Ettema, Brian Logan & Judith A. Verstegen](https://link.springer.com/article/10.1007/s10458-024-09680-7). 
+- health status; and
+
+- income category.
+
+This vignette demonstrates how to assign an education attribute while preserving known relationships between age, gender and education. The `replica` tools demonstrated here collectively represent an R implementation of the demographic attribute-assignment stage of the workflow described by de Mooij et al. (2024) for spatial synthetic population generation.
+
+## Workflow
+The workflow demonstrated in this vignette can be summarised as:
+
+Age-Gender Counts
+        ↓
+make_agents()
+        ↓
+Synthetic Agents
+        ↓
+ConditionalAttributeAdder
+        ↓
+Education Assignment
+        ↓
+Enriched Synthetic Population
 
 ## Supply a seed synthetic population of individual agents
 
-We begin by creating a small synthetic population that lacks the target attribute.
+We begin with a basic synthetic population that lacks the target attribute. 
+
+For this example, we will create a basic seed population from an age group and gender contingency table using the approach demonstrated in the "Generating Synthetic Populations from Aggregated Data" vignette. 
 
 ```{r}
-population <- data.table(
+age_gender <- data.frame(
 
   age_group = c(
-    rep("18-64", 20),
-    rep("65+", 20)
+    "18-64",
+    "18-64",
+    "65+",
+    "65+"
   ),
 
   gender = c(
-    rep(c("Male", "Female"), 10),
-    rep(c("Male", "Female"), 10)
+    "Male",
+    "Female",
+    "Male",
+    "Female"
+  ),
+
+  count = c(
+    10,
+    10,
+    10,
+    10
   )
 
 )
 ```
 
-
-The resulting population contains:
-
 ```{r}
-population[
-  ,
-  .N,
-  by = c(
-    "age_group",
-    "gender"
-  )
-]
-
+age_gender
 ```
 
-The population contains age and gender information but no education status.
+We can now generate the basic seed population of synthetic agents:
 
-Our goal is to assign education values while preserving a specified conditional distribution.
+```{r}
+population <- make_agents(age_gender)
+```
+
+The generated seed population now contains one row per synthetic agent.
+
+```{r}
+head(population)
+```
+
+We can verify that the generated population preserves the source distribution.
+
+```{r}
+synthetic_population_to_contingency(population, 
+                                    columns = c("age_group", "gender"))
+```
+
+The population contains age and gender information but no education attribute.
+
+Our goal is to assign education values while preserving known demographic relationships.
 
 ## Supply a contingency table
-The reference distribution is supplied as a contingency table. In real use, we would source contingency tables from high quality data sources representative of our regions of interest. In Australia this would typically be data provided by the Australian Bureau of Statistics. In this example, we will generate an illustrative contingency table using hypothetical values.
+The reference distribution is supplied as a contingency table. In real use, we would source contingency tables from high quality data sources (e.g., census data) representative of our regions of interest. In this example, we will generate an illustrative contingency table using hypothetical values.
 
 ```{r}
 contingency <- data.frame(
@@ -111,7 +151,7 @@ contingency <- data.frame(
 )
 ```
 
-The contingency table defines the expected education distribution within each age-group and gender combination. The `count` column describes the frequency of each combination in the reference data source.
+The contingency table defines the expected education distribution within each age-group and gender combination. 
 
 For example:
 
@@ -144,11 +184,11 @@ The object contains:
 
 - the synthetic population;
 
-- the contingency table;
+- a reference contingency table;
 
-- the target attribute to be assigned;
+- the target attribute to be assigned; and
 
-- the conditioning variables.
+- the conditioning variables used during assignment.
 
 ## Handle missing groups
 
@@ -162,11 +202,13 @@ adder@missing_group_strategy
 
 In the above example, the strategy is "borrow" (which is selected by default) that borrows information from nearby groups.
 
-Other options are "overall" which uses the overall distribution of the target attribute and "error" which stops execution when a required group is missing.
+Other options are "overall" which uses the overall distribution of the target attribute and "error" which stops execution when a required group is missing. The most appropriate choice depends on the intended application and the completeness of the source data.
 
 ## Run attribute assignment
 
-Attribute assignment is performed using run().
+The synthetic agents can now be enriched with an education attribute.
+
+The assignment is performed using:
 
 ```{r}
 adder <- run(adder)
@@ -174,152 +216,44 @@ adder <- run(adder)
 
 The workflow:
 
-1. Resolves missing contingency groups.
+- resolves missing contingency groups;
 
-2. Computes group-specific fractions.
+- calculates group-specific proportions;
 
-3. Converts fractions into agent allocations.
+- converts proportions into agent assignments;
 
-4. Assigns attribute values.
+- assigns attribute values; and
 
-5. Verifies the resulting distribution.
+- validates the resulting distribution.
 
-The updated synthetic population is stored in the `synth_pop` slot
+The updated synthetic population is stored in `adder@synth_pop`.
 
 
-## Inspect results
+## Inspect the enriched population
 The synthetic population now contains the assigned `education` attribute.
 
 ```{r}
 head(adder@synth_pop)
 ```
 
+We can examine the distribution of education values.
 
-We can also examine the resulting contingency table.
+```{r}
+synthetic_population_to_contingency(adder@synth_pop, 
+                                    columns = "education")
+```
+
+The population has been enriched while preserving the demographic relationships specified in the reference contingency table.
+
+We can also reconstruct the resulting contingency table:
 
 ```{r}
 synthetic_population_to_contingency(
   adder@synth_pop,
-  c("age_group", "gender","education"))
+  columns = c("age_group", "gender","education"))
 ```
 
 The assigned education values approximately reproduce the proportions defined in the reference contingency table.
-
-
-## Add marginal constraints
-
-Additional marginal distributions can be supplied when known population totals are available. Margins provide additional information that can be used when reconciling contingency tables with known distributions.
-
-For example:
-
-```{r}
-gender_margin <- data.frame(
-  gender = c("Male", "Female"),
-  count = c(100, 120))
-```
-
-```{r}
-adder <- addMargins(adder,
-                    margins = list(gender_margin),
-                    margins_names = list("gender"))
-```
-
-Because the object configuration has changed, any previous validation results are automatically cleared.
-
-Running the workflow again regenerates the validation diagnostics.
-
-```{r}
-adder <- run(adder)
-```
-
-
-## Inspect validation results
-
-Validation results are stored directly in the `validation_results` slot.
-
-```{r}
-names(adder@validation_results)
-```
-
-### Test statistics
-We can quickly inspect a selection of these results such as z squared and p-value and whether a warning flag has been raised due to poor match between the expected and observed synthetic results.
-
-```{r}
-adder@validation_results[c(
-  "z_square",
-  "p_value",
-  "warning_required"
-)]
-```
-
-The z-squared statistic provides a measure of divergence between observed synthetic and expected distributions. Smaller values indicate a closer match between the synthetic and reference distributions.
-
-The p-value provides a formal goodness-of-fit test. Large p-values indicate that the observed synthetic population is consistent with the target distribution, while small p-values suggest a poorer fit. If p-values are less than 0.05< the `warning_required` flag will be set to `TRUE`.
-
-Because statistical significance is sensitive to population size, p-values should be interpreted alongside the percentage-point differences reported in validation_results$details. 
-
-### Summary table
-
-A table comparing the count and percentage based distributions in the observed synthetic and expected data contains the following columns:
-
-```{r}
-names(adder@validation_results$details)
-```
-
-In this table:
-
-- count_x is the observed synthetic count;
-
-- count_y is the expected count from the reference table;
-
-- observed_pct is the observed synthetic percentage;
-
-- expected_pct is the expected percentage; and
-
-- difference_pct is the percentage-point difference (which may provide a more intuitive assessment of fit than examining raw counts).
-
-These diagnostics make it easy to identify groups where the assigned synthetic population differs from the target distribution.
-
-```{r}
-adder@validation_results$details[
-  ,
-  .(
-    age_group,
-    gender,
-    education,
-    observed_pct,
-    expected_pct,
-    difference_pct
-  )
-]
-```
-
-
-### Validation results and object state
-Validation results are stored within the ConditionalAttributeAdder object at `adder@validation_results`.
-
-When configuration settings are modified, previous validation results are automatically cleared.
-
-For example:
-
-```{r}
-adder <- addMargins(
-  adder,
-  margins = list(gender_margin),
-  margins_names = list("gender")
-)
-
-adder@validation_results
-```
-
-After re-running the assignment workflow:
-
-```{r}
-adder <- run(adder)
-adder@validation_results$z_square
-```
-
-the validation results are regenerated automatically.
 
 ## Key takeaways
 
@@ -341,3 +275,10 @@ In this vignette we:
 
 These tools provide a flexible framework for enriching synthetic populations using aggregate demographic data.
 
+## References
+
+de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan B and Verstegen JA (2024).
+
+*GenSynthPop: generating a spatially explicit synthetic population of individuals and households from aggregated data.*
+
+Autonomous Agents and Multi-Agent Systems. https://link.springer.com/article/10.1007/s10458-024-09680-7

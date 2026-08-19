@@ -38,12 +38,3 @@ NULL
 #' @importFrom data.table as.data.table
 #' @importFrom data.table copy
 NULL
-
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_col
-#' @importFrom ggplot2 geom_hline
-#' @importFrom ggplot2 geom_tile
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 labs
-#' @importFrom ggplot2 scale_fill_gradient2
-NULL

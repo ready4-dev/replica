@@ -28,6 +28,7 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     data.table,
+    ggplot2,
     lifecycle,
     magrittr,
     methods,

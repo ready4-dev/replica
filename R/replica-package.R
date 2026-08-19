@@ -8,3 +8,6 @@ NULL
 
 #' @importFrom stats aggregate xtabs setNames
 NULL
+
+#' @import ggplot2
+NULL

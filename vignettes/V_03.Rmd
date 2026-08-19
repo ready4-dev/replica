@@ -1,8 +1,8 @@
 ---
-title: "Evaluating Synthetic Population Quality"
+title: "Generating Synthetic Households"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Evaluating Synthetic Population Quality}
+  %\VignetteIndexEntry{Generating Synthetic Households}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,215 +15,421 @@ library(replica)
 library(data.table)
 ```
 
+**Note - the replica library is currently very experimental. It is still undergoing active development and testing. Function, class and method names, arguments and syntax may change without the use of deprecation conventions. This library should currently be used only for exploratory purposes.**
+
 ## Motivation
-Two synthetic populations can have very different levels of quality.
 
-A synthetic population that reproduces the target distribution closely will generally be more useful for
-simulation, forecasting and policy analysis than one that deviates substantially from the reference data.
+In the "Assigning Attributes Using Contingency Tables" vignette we used `ConditionalAttributeAdder` to enrich a synthetic population with additional demographic attributes.
 
-The goal of validation is therefore to answer two questions:
+At this stage each row of the synthetic population represents an individual agent.
 
-1. How closely does the synthetic population reproduce the target distribution?
+Many simulation models, however, require agents to be organised into realistic household structures before analysis can proceed.
 
-2. Which demographic groups contribute most to any mismatch?
+Examples include:
 
-This vignette demonstrates how `replica` can be used to answer both questions.
+- health-economic microsimulation models;
 
-## Validation checklist
-Throughout this vignette we will evaluate fit using three complementary diagnostics:
+- infectious disease models;
 
-- observed versus expected distributions;
+- transport simulations; and
 
-- percentage-point differences;
+- social and economic forecasting models.
 
-- goodness-of-fit statistics.
+The `replica` package provides tools for transforming an agent-level synthetic population into synthetic households while preserving geographic and demographic constraints. It does this by providing an R implementation of an algorithm described by de Mooij et al. (2024). 
 
-Together these provide both visual and statistical evidence about synthetic population quality.
+Household generation in `replica` is based on two core classes:
 
-##  Example data generation process
-We begin by creating a simple synthetic population.
+- `HouseholdType`
+- `HouseholdGrouper`
 
+A `HouseholdType` describes a household structure that should be generated, while a `HouseholdGrouper` applies one or more household definitions to a synthetic population.
+
+This vignette demonstrates the third stage of the `replica` workflow: transforming individual synthetic agents into synthetic households.
+
+## Workflow overview
+
+The workflow demonstrated in this vignette can be summarised as:
+
+Aggregate Counts
+       ↓
+make_agents()
+       ↓
+Synthetic Agents
+       ↓
+ConditionalAttributeAdder
+       ↓
+Enriched Population
+       ↓
+HouseholdGrouper
+       +
+HouseholdType
+       ↓
+Synthetic Households
+
+This vignette focuses on the household-generation stage.
+
+## Supply a synthetic population of individual agents
+This vignette assumes that a synthetic population has already been created and enriched with demographic attributes.
+
+In practice such a population would typically have been generated using the workflows described in the "Generating Synthetic Populations from Aggregated Data" and "Assigning Attributes Using Contingency Tables" vignettes.
+
+For simplicity, this example uses a small illustrative population containing four adults living in the same neighbourhood.
 
 ```{r}
-population <- data.table(
+pop <- data.table(
 
-  age_group = c(
-    rep("18-64", 20),
-    rep("65+", 20)
+  agent_id = c(
+    "A001",
+    "A002",
+    "A003",
+    "A004"
+  ),
+
+  neighb_code = c(
+    "N1",
+    "N1",
+    "N1",
+    "N1"
+  ),
+
+  age = c(
+    40,
+    35,
+    50,
+    45
   ),
 
   gender = c(
-    rep(c("Male", "Female"), 10),
-    rep(c("Male", "Female"), 10)
-  )
-
-)
-```
-
-The synthetic population will be assigned education values using the following contingency table.
-
-```{r}
-contingency <- data.frame(
-
-  age_group = c(
-    "18-64", "18-64",
-    "18-64", "18-64",
-    "65+",   "65+",
-    "65+",   "65+"
+    "Male",
+    "Female",
+    "Male",
+    "Female"
   ),
 
-  gender = c(
-    "Male",   "Male",
-    "Female", "Female",
-    "Male",   "Male",
-    "Female", "Female"
-  ),
-
-  education = c(
-    "Degree", "School",
-    "Degree", "School",
-    "Degree", "School",
-    "Degree", "School"
-  ),
-
-  count = c(
-    60, 40,
-    55, 45,
-    30, 70,
-    25, 75
+  household_position = c(
+    "Parent",
+    "Parent",
+    "Parent",
+    "Parent"
   )
 
 )
 ```
 
-A synthetic population with an education variable can be created using `ConditionalAttributeAdder`.
-
 ```{r}
-adder <- ConditionalAttributeAdder(
-
-  synth_pop = population,
-
-  contingency = contingency,
-
-  target_attribute = "education",
-
-  group_by = c(
-    "age_group",
-    "gender"
-  )
-
-)
-
-adder <- run(
-  adder
-)
-
+pop
 ```
 
-The resulting synthetic population can be summarised using:
+
+Household generation is driven by household positions.
+
+These positions identify the household roles that agents may occupy and determine which agents are eligible for matching during household construction.
+
+Potential examples include:
+
+- Parent
+- Child
+- Grandparent
+
+In this example all agents are classified as potential parents and are therefore eligible for adult household positions.
+
+## Create a household type
+A household type specifies a household structure that we plan to generate. Here we create a simple couple household.
 
 ```{r}
-observed <- synthetic_population_to_contingency(
-
-    adder@synth_pop,
-    c(
-      "age_group",
-      "gender",
-      "education"
-    )
-  )
-
-observed
+hh <- HouseholdType("CoupleHousehold")
 ```
 
-The observed contingency table describes the distribution that actually exists in the synthetic population.
+At this point we have only defined the household name. We now need to specify the household members that form this household type.
 
 
-## Visualising validation results
-
-As described in another vignette, validation results are stored in `adder@validation_results`. In this vignette we will outline how these results can be explored through visualisation.
-
-### Visualising observed synthetic and expected distributions
-
-Observed synthetic and expected percentages can be compared graphically.
+## Define household membership
+The addMembers() method defines the roles that must be filled when constructing a household. In this example, a couple household requires two adults.
 
 ```{r}
-plot_validation_distributions(
-  adder@validation_results
+hh <- addMembers(
+  hh,
+  household_position = "Parent",
+  position_identifier = "adult",
+  amount = 2,
+  backup_position_identifiers = character()
 )
 ```
 
-This is usually the first plot to inspect.
+This tells replica that:
 
-Large differences between the observed and expected bars indicate that the attribute assignment process has not fully
-reproduced the target distribution.
-
-In this example the bars are generally similar, suggesting that the synthetic population reproduces the reference
-distribution reasonably well. 
-
-### Visualising percentage-point differences
-
-Percentage-point differences are often easier to interpret than raw counts.
-
-```{r}
-plot_validation_differences(
-  adder@validation_results
-)
-```
-
-The percentage-point difference plot highlights mismatches more clearly than the distribution plot.
-
-Values above zero indicate over-representation.
-
-Values below zero indicate under-representation.
-
-As a rule of thumb:
-
-- differences smaller than 5 percentage points are often
-  negligible;
+ - agents with household position "Parent" are eligible;
+ 
+ - these agents represent "adult" household members; and
   
-- differences between 5 and 10 percentage points may warrant
-  investigation;
-  
-- larger differences suggest a potentially important
-  discrepancy.
+ - exactly two adults are required per household.
+ 
+ 
+ Notice that two separate concepts are used:
 
-### Visualising overall fit
+- `household_position`
 
-For larger contingency tables, a heatmap can provide a useful overview of fit quality.
+- `position_identifier`
+
+The `household_position` corresponds to values that appear in the synthetic population.
+
+The `position_identifier` defines broader household roles used internally by the household-building algorithm.
+
+For example, multiple population-specific household positions could all be assigned the identifier `"adult"`.
+
+This separation makes it easier to adapt household generation rules to different source datasets.
+
+The household definition is now complete.
+
+
+## Define demographic matching rules
+The demographic characteristics assigned in the previous vignette can now be used when constructing households.
+
+For example, household formation may depend on:
+
+- partner gender combinations;
+
+- partner age differences; and
+
+- child-parent age relationships.
+
+These demographic relationships are controlled using matching distributions.
+
+For simplicity, this illustrative example will generate Female - Male pairs in which the age gap between partners is within 5 years.
 
 ```{r}
-plot_validation_heatmap(
-  adder@validation_results
+hh@couple_gender_distribution <- c("Female|Male" = 1)
+
+hh@couple_age_distribution <- c("-5-5" = 1)
+```
+
+The above age distribution indicates that permissible partner age gaps range from five years younger to five years older.
+
+In this example the four agents are expected to form two synthetic couple households:
+
+- one household containing agents A001 and A002; and
+- one household containing agents A003 and A004.
+
+The exact assignment depends on the demographic matching
+rules specified above.
+
+## Create a household grouper
+
+A HouseholdGrouper coordinates household generation across an entire synthetic population.
+
+```{r}
+hg <- HouseholdGrouper(df_synth_pop = pop,
+                       group_by = "neighb_code")
+```
+
+The group_by argument determines the geographic or administrative boundaries within which household generation will occur.
+
+In this example households are generated independently within each neighbourhood.
+
+Restricting household generation to geographic areas helps preserve local population structure and ensures that agents are matched only with other agents from the same area.
+
+This is particularly important when generating synthetic households for geographically explicit simulation models.
+
+## Register household types
+
+A HouseholdGrouper may contain multiple household types.
+
+For example, a realistic population might contain:
+
+ - single-adult households;
+
+ - couple households; and
+
+ - family households.
+
+Household types are registered using addHouseholdType().
+
+```{r}
+hg <- addHouseholdType(hg,hh)
+```
+
+The grouper now knows how to generate couple households.
+
+## Run household generation
+
+Once household types have been registered, the complete household-generation workflow can be executed using run().
+
+```{r}
+result <- run(hg)
+```
+
+The `run()` method executes the complete household-generation workflow.
+
+For each grouping region (`neighb_code` in this example), `replica`:
+
+1. Identifies eligible household members.
+
+2. Creates household structures using registered `HouseholdType` objects.
+
+3. Matches adults according to the configured gender and age distributions.
+
+4. Creates synthetic households.
+
+5. Assigns household identifiers.
+
+6. Produces household-level summary tables.
+
+The result is returned as a list containing both agent-level and household-level outputs.
+ 
+## Inspect output
+The result now contains both agent-level and household-level outputs. 
+
+```{r}
+synthetic_population <- result$synthetic_population
+```
+
+```{r}
+synthetic_households <- result$synthetic_households
+```
+
+The household-generation workflow produces two complementary outputs.
+
+`synthetic_population` contains one row per agent and records the household assignment of each synthetic individual.
+
+`synthetic_households` contains one row per household and summarises the resulting household structures.
+
+Together these outputs allow analyses to be performed at both the individual and household level.
+
+### Inspect household assignments
+
+The agent-level output now contains household identifiers.
+
+```{r}
+synthetic_population[,c("agent_id", "household_id")]
+```
+
+Agents sharing the same household identifier belong to the same synthetic household.
+
+### Inspect household-level summaries
+The household summary table provides one row per household.
+
+```{r}
+synthetic_households
+```
+
+```{r}
+nrow(synthetic_households)
+```
+
+This value represents the number of synthetic households that were successfully generated.
+
+## Check integrity (brief version)
+
+The household-generation workflow automatically performs validation checks during execution.
+
+A simple post-generation check is:
+
+```{r}
+any(
+  is.na(
+    synthetic_population$household_id
+  )
 )
 ```
 
-The heatmap becomes increasingly useful as the number of conditioning variables grows.
+A value of FALSE indicates that all agents have been assigned to households.
 
-For small contingency tables (like those used in this example) the previous figures are often easier to interpret.
+A more comprehensive discussion of population validation is provided in the next vignette.
+  
+## Create family households
 
-For high-dimensional validation exercises the heatmap provides a compact summary of fit quality across many groups
-simultaneously.
+The previous example generated households containing adults only. The same approach can be extended further to support more complex household structures involving grandparents, children or other household positions if suitable demographic data are available.
 
-## Bad fits
-To illustrate a poor fit, suppose that all education values in the synthetic population were incorrectly assigned as
-`Degree`.
+```{r}
+hh <- HouseholdType("FamilyHousehold")
+```
 
-The resulting validation plots would show substantial differences between observed and expected distributions, large
-percentage-point differences, and a poor goodness-of-fit statistic.
+```{r}
+hh <- addMembers(
+  hh,
+  household_position = "Parent",
+  position_identifier = "adult",
+  amount = 2,
+  backup_position_identifiers = character()
+)
+
+hh <- addMembers(
+  hh,
+  household_position = "Child",
+  position_identifier = "child",
+  amount = 2,
+  backup_position_identifiers = character()
+)
+```
+
+
+When child household members are present, `replica` automatically:
+
+- forms sibling groups;
+
+- creates adult partner groups;
+
+- matches adults and children; and
+
+- creates complete family households.
+
+No additional user intervention is required.
+
+
+The resulting household structures are stored using separate adult, child and all components.
+
+
+## How the workflow fits together
+
+The overall workflow can be summarised as:
+
+Aggregate Counts
+       ↓
+make_agents()
+       ↓
+Synthetic Agents
+       ↓
+ConditionalAttributeAdder
+       ↓
+Enriched Population
+       ↓
+HouseholdType
+       +
+HouseholdGrouper
+       ↓
+Synthetic Households
+       ↓
+Validation
+
 
 ## Key takeaways
+At this point the synthetic population contains both individual-level and household-level structures.
+
+The resulting synthetic households can be used directly in simulation models or evaluated further using the validation
+tools described in the next vignette.
 
 In this vignette we:
 
-- summarised a synthetic population using contingency tables;
+- transformed synthetic agents into synthetic households;
 
-- compared observed and expected distributions;
+- defined household structures using `HouseholdType`;
 
-- examined percentage-point differences;
+- specified household-member roles;
 
-- visualised validation results; and
+- configured demographic matching rules;
 
- - used stored validation diagnostics.
+- generated households using `HouseholdGrouper`;
 
-Together, these tools provide a practical framework for assessing the quality of synthetic populations generated using replica.
+- examined both agent-level and household-level outputs; and
+
+- created both couple and family household structures.
+
+The resulting synthetic households can now be evaluated using the validation tools described in the next vignette.
+
+## References
+
+de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan B and Verstegen JA (2024).
+
+*GenSynthPop: generating a spatially explicit synthetic population of individuals and households from aggregated data.*
+
+Autonomous Agents and Multi-Agent Systems. https://link.springer.com/article/10.1007/s10458-024-09680-7
