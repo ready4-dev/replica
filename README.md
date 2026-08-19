@@ -1,6 +1,6 @@
 # replica
 
-## Very early, experimental project currently comprised of a port of a third party python algorithm
+## Generate synthetic agent populations from aggregated data
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -17,7 +17,7 @@ However, right now it is mostly an exploratory R port of a python library that i
 
 This means that although the developers of that python algorithm were not involved in this R port (and therefore are not responsible for any errors introduced in the translation), any attribution for this package should credit these authors as the original developers of the algorithm this library attempts to implement.
 
-The python toolkit that this library aims to port (with minor modifications) is [GenSynthPop](https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python/tree/main). There is an [existing R implementation of GenSynthPop](https://github.com/TabeaSonnenschein/GenSynthPop) but this appears to be less full featured than the python library, which is one of the reasons I have attempted a more comprehensive port here. I was not involved in the work to develop GenSynthPop (in python or R) or its underlying algorithm but have started the replica library by porting this toolkit because it is potentially relevant to some projects being developed with ready4. Unlike other ready4 suite libraries, I have not yet used the ready4 modules and code style in implementing this library yet as the names are designed to correspond closely with their python counterparts to make following the logic a little easier. This may change with future iterations.
+The python toolkit that this library aims to port (with minor modifications) is [GenSynthPop](https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python/tree/main). There is an [existing R implementation of GenSynthPop](https://github.com/TabeaSonnenschein/GenSynthPop) but this appears to be less full featured than the python library, which is one of the reasons I have attempted a more comprehensive port here. I was not involved in the work to develop GenSynthPop (in python or R) or its underlying algorithm but have started the `replica` library by porting this toolkit because it is potentially relevant to some projects being developed with ready4. Unlike other ready4 suite libraries, I have not yet used the ready4 modules and code style in implementing this library yet as the names are designed to correspond closely with their python counterparts to make following the logic a little easier. This is likely to change with future iterations.
 
 Finally, I am much more comfortable working in R than in python and would not have attempted this port without leaning massively on my robot fried Microsoft Copilot. I have been impressed with its ability to make this port project feasible to implement in a relatively short timeframe. Currently, `replica` code, tests and documentation (including vignettes) have all been authored by a human-machine partnership.
 
