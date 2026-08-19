@@ -22,9 +22,13 @@ reference:
   - get_margin_frames_from_synthetic_population
   - get_margin_series_from_synthetic_population
   - group_children
+  - make_agents
   - multicolumn_to_attribute_values
   - parse_age_gap
   - pair_partners
+  - plot_validation_differences
+  - plot_validation_distributions
+  - plot_validation_heatmap
   - prepare_contingency_table
   - synthetic_population_to_contingency
   - validate_synthetic_population_fit

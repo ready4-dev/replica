@@ -50,7 +50,11 @@ utils::globalVariables(
     # Legacy helper
     #
     
-    "pct"
+    "pct",
+    
+    # Make agents
+    
+    "..attribute_cols"
     
   )
   

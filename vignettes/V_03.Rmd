@@ -334,7 +334,7 @@ any(
 
 A value of FALSE indicates that all agents have been assigned to households.
 
-A more comprehensive discussion of population validation is provided in the next vignette.
+A more comprehensive discussion of population validation is provided in the "Evaluating Synthetic Population Quality" vignette.
   
 ## Create family households
 
@@ -406,7 +406,7 @@ Validation
 At this point the synthetic population contains both individual-level and household-level structures.
 
 The resulting synthetic households can be used directly in simulation models or evaluated further using the validation
-tools described in the next vignette.
+tools described in the "Evaluating Synthetic Population Quality" vignette.
 
 In this vignette we:
 
@@ -423,8 +423,6 @@ In this vignette we:
 - examined both agent-level and household-level outputs; and
 
 - created both couple and family household structures.
-
-The resulting synthetic households can now be evaluated using the validation tools described in the next vignette.
 
 ## References
 
