@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Generating Synthetic Households • replica</title>
+<title>Generating Synthetic Populations from Aggregated Data • replica</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Generating Synthetic Households">
+<meta property="og:title" content="Generating Synthetic Populations from Aggregated Data">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -40,8 +40,10 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Households</a></li>
+<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Populations from Aggregated Data</a></li>
     <li><a class="dropdown-item" href="../articles/V_02.html">Assigning Attributes Using Contingency Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/V_03.html">Generating Synthetic Households</a></li>
+    <li><a class="dropdown-item" href="../articles/V_04.html">Evaluating Synthetic Population Quality</a></li>
   </ul>
 </li>
       </ul>
@@ -62,7 +64,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Generating Synthetic Households</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Generating Synthetic Populations from Aggregated Data</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ready4-dev/replica/blob/main/vignettes/V_01.Rmd" class="external-link"><code>vignettes/V_01.Rmd</code></a></small>
@@ -75,346 +77,268 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
 <p><strong>Note - the replica library is currently very experimental. It
-is still undergoing active development and testing. It should be used
-only for exploratory purposes.</strong></p>
+is still undergoing active development and testing. Function, class and
+method names, arguments and syntax may change without the use of
+deprecation conventions. This library should currently be used only for
+exploratory purposes.</strong></p>
 <div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
-<p>Many synthetic population generation workflows produce individual
-agents but do not generate the household relationships needed by
-simulation models.</p>
-<p>For example, health-economic microsimulation models often require
-agents to be grouped into households before further analysis can be
-undertaken.</p>
-<p>The <code>replica</code> package provides tools for transforming an
-agent-level synthetic population into a collection of synthetic
-households while preserving demographic and geographic constraints. To
-do so <code>replica</code> implements an R port of a third-party python
-algorithm <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link">developed
-and described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino,
-Mehdi Dastani, Dick Ettema, Brian Logan &amp; Judith A.
-Verstegen</a>.</p>
-<p>Household generation in <code>replica</code> is based on two core
-classes:</p>
+<p>Synthetic population generation often begins with aggregate
+population statistics rather than individual-level records.</p>
+<p>Examples include:</p>
 <ul>
-<li><p><code>HouseholdType</code></p></li>
-<li><p><code>HouseholdGrouper</code></p></li>
+<li><p>population counts by neighbourhood;</p></li>
+<li><p>age-group marginals;</p></li>
+<li><p>demographic contingency tables;</p></li>
+<li><p>census tabulations.</p></li>
 </ul>
-<p>A <code>HouseholdType</code> describes a household structure that
-should be generated, while a <code>HouseholdGrouper</code> applies one
-or more household definitions to a synthetic population.</p>
-<p>This vignette demonstrates the complete workflow for creating
-synthetic households.</p>
+<p>The first step in many population-synthesis workflows is to convert
+these aggregate counts into a synthetic population of individual
+agents.</p>
+<p>The <code><a href="../reference/make_agents.html">make_agents()</a></code> function performs this task by
+expanding aggregate counts into one row per synthetic individual. This
+function aims to implement in R the initial step of an algorithm
+described by de Mooij et al. (2024).</p>
+<p>This vignette demonstrates how to create synthetic agents from
+marginal distributions and contingency tables and shows how these agents
+can subsequently be enriched and grouped using the remainder of the
+<code>replica</code> workflow.</p>
 </div>
 <div class="section level2">
-<h2 id="supply-a-synthetic-population-of-individual-agents">Supply a synthetic population of individual agents<a class="anchor" aria-label="anchor" href="#supply-a-synthetic-population-of-individual-agents"></a>
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>This vignette assumes that we have already created a synthetic
-population of individual agents. The following code generates an
-illustrative example population of individual agents. For simplicity,
-this example contains four adults living in the same neighbourhood.</p>
+<p>The workflow supported by <code>replica</code> can be summarised
+as:</p>
+<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓
+ConditionalAttributeAdder ↓ HouseholdGrouper ↓ Validation</p>
+<p>This vignette focuses on the first stage: creating a synthetic
+population of individual agents.</p>
+</div>
+<div class="section level2">
+<h2 id="example-1-creating-agents-from-a-spatial-marginal">Example 1: Creating agents from a spatial marginal<a class="anchor" aria-label="anchor" href="#example-1-creating-agents-from-a-spatial-marginal"></a>
+</h2>
+<p>Suppose we know the number of residents in each neighbourhood.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">neighbourhoods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>neighb_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"N1"</span>, <span class="st">"N2"</span>, <span class="st">"N3"</span> <span class="op">)</span>, </span>
+<span>                            count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">75</span> <span class="op">)</span> <span class="op">)</span> </span>
+<span><span class="va">neighbourhoods</span></span></code></pre></div>
+<pre><code><span><span class="co">##   neighb_code count</span></span>
+<span><span class="co">## 1          N1   100</span></span>
+<span><span class="co">## 2          N2   150</span></span>
+<span><span class="co">## 3          N3    75</span></span></code></pre>
+<p>The table contains aggregate counts rather than individual agents. We
+can convert this table to a table of individual agents:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
+<span>  <span class="va">neighbourhoods</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span>  agent_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"A001"</span>,</span>
-<span>    <span class="st">"A002"</span>,</span>
-<span>    <span class="st">"A003"</span>,</span>
-<span>    <span class="st">"A004"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##     agent_id neighb_code</span></span>
+<span><span class="co">##       &lt;char&gt;      &lt;char&gt;</span></span>
+<span><span class="co">## 1: Agent_001          N1</span></span>
+<span><span class="co">## 2: Agent_002          N1</span></span>
+<span><span class="co">## 3: Agent_003          N1</span></span>
+<span><span class="co">## 4: Agent_004          N1</span></span>
+<span><span class="co">## 5: Agent_005          N1</span></span>
+<span><span class="co">## 6: Agent_006          N1</span></span></code></pre>
+<p>Each row now represents a synthetic individual.</p>
+<p>We can confirm the number of generated agents:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 325</span></span></code></pre>
+<p>The generated population can also be aggregated back into a
+contingency table.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
+<span></span>
+<span>  <span class="va">agents</span>,</span>
+<span></span>
+<span>  <span class="st">"neighb_code"</span></span>
+<span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   neighb_code count</span></span>
+<span><span class="co">## 1          N1   100</span></span>
+<span><span class="co">## 2          N2   150</span></span>
+<span><span class="co">## 3          N3    75</span></span></code></pre>
+<p>The reconstructed counts should match the source table used to
+generate the agents.</p>
+</div>
+<div class="section level2">
+<h2 id="example-2-creating-agents-from-an-age-marginal">Example 2: Creating agents from an age marginal<a class="anchor" aria-label="anchor" href="#example-2-creating-agents-from-an-age-marginal"></a>
+</h2>
+<p>The same function can be used with any marginal distribution.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">age_margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"0-17"</span>,</span>
+<span>    <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"65+"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
-<span>  neighb_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"N1"</span>,</span>
-<span>    <span class="st">"N1"</span>,</span>
-<span>    <span class="st">"N1"</span>,</span>
-<span>    <span class="st">"N1"</span></span>
-<span>  <span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">200</span>,</span>
+<span>    <span class="fl">600</span>,</span>
+<span>    <span class="fl">200</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span>  age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">40</span>,</span>
-<span>    <span class="fl">35</span>,</span>
-<span>    <span class="fl">50</span>,</span>
-<span>    <span class="fl">45</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">age_margin</span></span></code></pre></div>
+<pre><code><span><span class="co">##   age_group count</span></span>
+<span><span class="co">## 1      0-17   200</span></span>
+<span><span class="co">## 2     18-64   600</span></span>
+<span><span class="co">## 3       65+   200</span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
+<span>  <span class="va">age_margin</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      agent_id age_group</span></span>
+<span><span class="co">##        &lt;char&gt;    &lt;char&gt;</span></span>
+<span><span class="co">## 1: Agent_0001      0-17</span></span>
+<span><span class="co">## 2: Agent_0002      0-17</span></span>
+<span><span class="co">## 3: Agent_0003      0-17</span></span>
+<span><span class="co">## 4: Agent_0004      0-17</span></span>
+<span><span class="co">## 5: Agent_0005      0-17</span></span>
+<span><span class="co">## 6: Agent_0006      0-17</span></span></code></pre>
+<p>Each synthetic agent now contains an age-group assignment.</p>
+<p>Summarise the resulting population:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
+<span></span>
+<span>  <span class="va">agents</span>,</span>
+<span></span>
+<span>  <span class="st">"age_group"</span></span>
+<span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   age_group count</span></span>
+<span><span class="co">## 1      0-17   200</span></span>
+<span><span class="co">## 2     18-64   600</span></span>
+<span><span class="co">## 3       65+   200</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="example-3-creating-agents-from-a-contingency-table">Example 3: Creating agents from a contingency table<a class="anchor" aria-label="anchor" href="#example-3-creating-agents-from-a-contingency-table"></a>
+</h2>
+<p>More detailed synthetic populations can be generated from contingency
+tables.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"0-17"</span>,</span>
+<span>    <span class="st">"0-17"</span>,</span>
+<span>    <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"65+"</span>,</span>
+<span>    <span class="st">"65+"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Male"</span>,</span>
 <span>    <span class="st">"Female"</span>,</span>
 <span>    <span class="st">"Male"</span>,</span>
+<span>    <span class="st">"Female"</span>,</span>
+<span>    <span class="st">"Male"</span>,</span>
 <span>    <span class="st">"Female"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
-<span>  household_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Parent"</span>,</span>
-<span>    <span class="st">"Parent"</span>,</span>
-<span>    <span class="st">"Parent"</span>,</span>
-<span>    <span class="st">"Parent"</span></span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">100</span>,</span>
+<span>    <span class="fl">90</span>,</span>
+<span>    <span class="fl">310</span>,</span>
+<span>    <span class="fl">290</span>,</span>
+<span>    <span class="fl">110</span>,</span>
+<span>    <span class="fl">100</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>The <code>household_position</code> column is particularly
-important.</p>
-<p>Rather than storing household membership directly,
-<code>replica</code> uses household-position categories to indicate the
-types of roles each agent may occupy within a household.</p>
-<p>Examples include:</p>
-<ul>
-<li><code>Parent</code></li>
-<li><code>Child</code></li>
-<li><code>Grandparent</code></li>
-<li><code>Student</code></li>
-</ul>
-<p>These positions are subsequently referenced when household types are
-defined. In this example all agents are potential parents.</p>
-</div>
-<div class="section level2">
-<h2 id="create-a-household-type">Create a household type<a class="anchor" aria-label="anchor" href="#create-a-household-type"></a>
-</h2>
-<p>A household type specifies a household structure that we plan to
-generate. Here we create a simple couple household.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdType.html">HouseholdType</a></span><span class="op">(</span></span>
-<span>  <span class="st">"CoupleHousehold"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>At this point we have only defined the household name. We now need to
-specify the household members that form this household type.</p>
-</div>
-<div class="section level2">
-<h2 id="define-household-membership">Define household membership<a class="anchor" aria-label="anchor" href="#define-household-membership"></a>
-</h2>
-<p>The addMembers() method defines the roles that must be filled when
-constructing a household. In this example, a couple household requires
-two adults.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMembers.html">addMembers</a></span><span class="op">(</span></span>
-<span>  <span class="va">hh</span>,</span>
-<span>  household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span>
-<span>  position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span>
-<span>  amount <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>This tells replica that:</p>
-<ul>
-<li><p>agents with household position “Parent” are eligible;</p></li>
-<li><p>these agents represent “adult” household members; and</p></li>
-<li><p>exactly two adults are required per household.</p></li>
-</ul>
-<p>Notice that two separate concepts are used:</p>
-<ul>
-<li><p><code>household_position</code></p></li>
-<li><p><code>position_identifier</code></p></li>
-</ul>
-<p>The <code>household_position</code> corresponds to values that appear
-in the synthetic population.</p>
-<p>The <code>position_identifier</code> defines broader household roles
-used internally by the household-building algorithm.</p>
-<p>For example, multiple population-specific household positions could
-all be assigned the identifier <code>"adult"</code>.</p>
-<p>This separation makes it easier to adapt household generation rules
-to different source datasets.</p>
-<p>The household definition is now complete.</p>
-</div>
-<div class="section level2">
-<h2 id="define-houshold-matching-rules">Define houshold matching rules<a class="anchor" aria-label="anchor" href="#define-houshold-matching-rules"></a>
-</h2>
-<p>Household construction often requires demographic matching rules. For
-example:</p>
-<ul>
-<li><p>for a given household type, should couples be opposite-sex or
-same-sex?</p></li>
-<li><p>what age differences should be used to match partners?</p></li>
-</ul>
-<p>These rules can be specified using distributions.</p>
-<p>For simplicity, this illustrative example will generate Female - Male
-pairs in which the age gap between partners is within 5 years.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span><span class="op">@</span><span class="va">couple_gender_distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Female|Male"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">hh</span><span class="op">@</span><span class="va">couple_age_distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-5-5"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p>The above age distribution indicates that permissible partner age
-gaps range from five years younger to five years older.</p>
-</div>
-<div class="section level2">
-<h2 id="create-a-household-grouper">Create a household grouper<a class="anchor" aria-label="anchor" href="#create-a-household-grouper"></a>
-</h2>
-<p>A HouseholdGrouper coordinates household generation across an entire
-synthetic population.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdGrouper.html">HouseholdGrouper</a></span><span class="op">(</span>df_synth_pop <span class="op">=</span> <span class="va">pop</span>,</span>
-<span>                       group_by <span class="op">=</span> <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
-<p>The group_by argument determines the geographic or administrative
-boundaries within which household generation will occur.</p>
-<p>In this example households are generated independently within each
-neighbourhood.</p>
-</div>
-<div class="section level2">
-<h2 id="register-household-types">Register household types<a class="anchor" aria-label="anchor" href="#register-household-types"></a>
-</h2>
-<p>A HouseholdGrouper may contain multiple household types.</p>
-<p>For example, a realistic population might contain:</p>
-<ul>
-<li><p>single-adult households;</p></li>
-<li><p>couple households; and</p></li>
-<li><p>family households.</p></li>
-</ul>
-<p>Household types are registered using addHouseholdType().</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addHouseholdType.html">addHouseholdType</a></span><span class="op">(</span><span class="va">hg</span>,<span class="va">hh</span><span class="op">)</span></span></code></pre></div>
-<p>The grouper now knows how to generate couple households.</p>
-</div>
-<div class="section level2">
-<h2 id="run-household-generation">Run household generation<a class="anchor" aria-label="anchor" href="#run-household-generation"></a>
-</h2>
-<p>Once household types have been registered, the complete
-household-generation workflow can be executed using run().</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">hg</span><span class="op">)</span></span></code></pre></div>
-<p>The <code><a href="../reference/run.html">run()</a></code> method executes the complete
-household-generation workflow.</p>
-<p>For each grouping region (<code>neighb_code</code> in this example),
-<code>replica</code>:</p>
-<ol style="list-style-type: decimal">
-<li>Identifies eligible household members.</li>
-<li>Creates household structures using registered
-<code>HouseholdType</code> objects.</li>
-<li>Matches adults according to the configured gender and age
-distributions.</li>
-<li>Creates synthetic households.</li>
-<li>Assigns household identifiers.</li>
-<li>Produces household-level summary tables.</li>
-</ol>
-<p>The result is returned as a list containing both agent-level and
-household-level outputs.</p>
-</div>
-<div class="section level2">
-<h2 id="inspect-output">Inspect output<a class="anchor" aria-label="anchor" href="#inspect-output"></a>
-</h2>
-<p>The result now contains both agent-level and household-level
-outputs.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">synthetic_population</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">synthetic_population</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">synthetic_households</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">synthetic_households</span></span></code></pre></div>
-<p>The household-generation workflow produces two complementary
-outputs.</p>
-<p><code>synthetic_population</code> contains one row per agent and
-records the household assignment of each synthetic individual.</p>
-<p><code>synthetic_households</code> contains one row per household and
-summarises the resulting household structures.</p>
-<p>Together these outputs allow analyses to be performed at both the
-individual and household level.</p>
-<div class="section level3">
-<h3 id="inspect-household-assignments">Inspect household assignments<a class="anchor" aria-label="anchor" href="#inspect-household-assignments"></a>
-</h3>
-<p>The agent-level output now contains household identifiers.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">synthetic_population</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"agent_id"</span>, <span class="st">"household_id"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">##    agent_id household_id</span></span>
-<span><span class="co">##      &lt;char&gt;       &lt;char&gt;</span></span>
-<span><span class="co">## 1:     A001    SSH000001</span></span>
-<span><span class="co">## 2:     A002    SSH000001</span></span>
-<span><span class="co">## 3:     A003    SSH000002</span></span>
-<span><span class="co">## 4:     A004    SSH000002</span></span></code></pre>
-<p>Agents sharing the same household identifier belong to the same
-synthetic household.</p>
-</div>
-<div class="section level3">
-<h3 id="inspec-household-level-summaries">Inspec household-level summaries<a class="anchor" aria-label="anchor" href="#inspec-household-level-summaries"></a>
-</h3>
-<p>The household summary table provides one row per household.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">synthetic_households</span></span></code></pre></div>
-<pre><code><span><span class="co">##   household_id neighb_code         hh_type hh_size</span></span>
-<span><span class="co">## 1    SSH000001          N1 CoupleHousehold       2</span></span>
-<span><span class="co">## 2    SSH000002          N1 CoupleHousehold       2</span></span></code></pre>
-<p>This table is often useful when producing reports or validating
-generated household structures.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="validate-household-integrity">Validate household integrity<a class="anchor" aria-label="anchor" href="#validate-household-integrity"></a>
-</h2>
-<p>The household-generation workflow automatically performs validation
-checks.</p>
-<p>Additional validation can be performed manually.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span></span>
-<span>    <span class="va">synthetic_population</span><span class="op">$</span><span class="va">household_id</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] FALSE</span></span></code></pre>
-<p>A successful integrity check indicates that:</p>
-<ul>
-<li><p>no agents have been assigned more than once;</p></li>
-<li><p>no eligible agents have been omitted;</p></li>
-<li><p>household membership records are internally consistent.</p></li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="create-family-households">Create family households<a class="anchor" aria-label="anchor" href="#create-family-households"></a>
-</h2>
-<p>The previous example generated households containing adults only.</p>
-<p>In practice, many synthetic populations will require more complex
-household structures containing both adults and children.</p>
-<p>The same workflow can be extended by registering additional member
-roles.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdType.html">HouseholdType</a></span><span class="op">(</span><span class="st">"FamilyHousehold"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMembers.html">addMembers</a></span><span class="op">(</span></span>
-<span>  <span class="va">hh</span>,</span>
-<span>  household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span>
-<span>  position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span>
-<span>  amount <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMembers.html">addMembers</a></span><span class="op">(</span></span>
-<span>  <span class="va">hh</span>,</span>
-<span>  household_position <span class="op">=</span> <span class="st">"Child"</span>,</span>
-<span>  position_identifier <span class="op">=</span> <span class="st">"child"</span>,</span>
-<span>  amount <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">age_gender</span></span></code></pre></div>
+<pre><code><span><span class="co">##   age_group gender count</span></span>
+<span><span class="co">## 1      0-17   Male   100</span></span>
+<span><span class="co">## 2      0-17 Female    90</span></span>
+<span><span class="co">## 3     18-64   Male   310</span></span>
+<span><span class="co">## 4     18-64 Female   290</span></span>
+<span><span class="co">## 5       65+   Male   110</span></span>
+<span><span class="co">## 6       65+ Female   100</span></span></code></pre>
+<p>Generate agents:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
+<span>  <span class="va">age_gender</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>When child household members are present, <code>replica</code>
-automatically:</p>
-<ul>
-<li><p>forms sibling groups;</p></li>
-<li><p>creates adult partner groups;</p></li>
-<li><p>matches adults and children; and</p></li>
-<li><p>creates complete family households.</p></li>
-</ul>
-<p>No additional user intervention is required.</p>
-<p>The resulting household structures are stored using separate adult,
-child and all components.</p>
+<p>Inspect the resulting population:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      agent_id age_group gender</span></span>
+<span><span class="co">##        &lt;char&gt;    &lt;char&gt; &lt;char&gt;</span></span>
+<span><span class="co">## 1: Agent_0001      0-17   Male</span></span>
+<span><span class="co">## 2: Agent_0002      0-17   Male</span></span>
+<span><span class="co">## 3: Agent_0003      0-17   Male</span></span>
+<span><span class="co">## 4: Agent_0004      0-17   Male</span></span>
+<span><span class="co">## 5: Agent_0005      0-17   Male</span></span>
+<span><span class="co">## 6: Agent_0006      0-17   Male</span></span></code></pre>
+<p>We can compare the generated population with the original contingency
+table.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, </span>
+<span>                                    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   age_group gender count</span></span>
+<span><span class="co">## 1      0-17   Male   100</span></span>
+<span><span class="co">## 2      0-17 Female    90</span></span>
+<span><span class="co">## 3     18-64   Male   310</span></span>
+<span><span class="co">## 4     18-64 Female   290</span></span>
+<span><span class="co">## 5       65+   Male   110</span></span>
+<span><span class="co">## 6       65+ Female   100</span></span></code></pre>
+<p>The reconstructed contingency table should reproduce the original
+counts exactly.</p>
+<p>This property makes make_agents() a useful foundation for more
+sophisticated synthetic-population workflows.</p>
 </div>
 <div class="section level2">
-<h2 id="how-the-workflow-fits-together">How the workflow fits together<a class="anchor" aria-label="anchor" href="#how-the-workflow-fits-together"></a>
+<h2 id="add-agent-attributes">Add agent attributes<a class="anchor" aria-label="anchor" href="#add-agent-attributes"></a>
 </h2>
-<p>The overall workflow can be summarised as:</p>
-<p>HouseholdType ↓ addMembers ↓ HouseholdGrouper ↓ addHouseholdType ↓
-run ↓ Synthetic Population + Synthetic Households</p>
+<p>The agents created by make_agents() typically contain only a subset
+of the characteristics required by a simulation model.</p>
+<p>Additional attributes can be assigned using
+<code>ConditionalAttributeAdder</code>. The use of this class is
+demonstrated in the “Assigning Attributes Using Contingency Tables”
+vignette.</p>
+</div>
+<div class="section level2">
+<h2 id="assign-agents-to-households">Assign agents to households<a class="anchor" aria-label="anchor" href="#assign-agents-to-households"></a>
+</h2>
+<p>After additional attributes have been assigned, agents can be grouped
+into households.</p>
+<p>To do this, use the <code>HouseholdType</code> and
+<code>HouseholdGrouper</code> classes. These are described in another
+vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="key-takeaways">Key takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways"></a>
 </h2>
 <p>In this vignette we:</p>
 <ul>
-<li><p>created a synthetic population;</p></li>
-<li><p>defined a household structure using
-<code>HouseholdType</code>;</p></li>
-<li><p>specified adult household members;</p></li>
-<li><p>configured demographic matching rules;</p></li>
-<li><p>registered a household type using
-<code>HouseholdGrouper</code>;</p></li>
-<li><p>generated synthetic households using <code><a href="../reference/run.html">run()</a></code>;
-and</p></li>
-<li><p>explored agent-level and household-level outputs.</p></li>
+<li><p>introduced synthetic-agent generation;</p></li>
+<li><p>created agents from spatial marginals;</p></li>
+<li><p>created agents from demographic marginals;</p></li>
+<li><p>created agents from contingency tables;</p></li>
+<li><p>verified that aggregate distributions were preserved;</p></li>
+<li><p>connected agent generation to the broader <code>replica</code>
+workflow.</p></li>
 </ul>
-<p>The same workflow can be extended to support multiple household
-types, family structures, and more complex demographic matching
-requirements.</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan
+B and Verstegen JA (2024).</p>
+<p><em>GenSynthPop: generating a spatially explicit synthetic population
+of individuals and households from aggregated data.</em></p>
+<p>Autonomous Agents and Multi-Agent Systems. <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link uri">https://link.springer.com/article/10.1007/s10458-024-09680-7</a></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

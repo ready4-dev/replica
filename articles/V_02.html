@@ -40,8 +40,10 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Households</a></li>
+<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Populations from Aggregated Data</a></li>
     <li><a class="dropdown-item" href="../articles/V_02.html">Assigning Attributes Using Contingency Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/V_03.html">Generating Synthetic Households</a></li>
+    <li><a class="dropdown-item" href="../articles/V_04.html">Evaluating Synthetic Population Quality</a></li>
   </ul>
 </li>
       </ul>
@@ -75,81 +77,126 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
 <p><strong>Note - the replica library is currently very experimental. It
-is still undergoing active development and testing. It should be used
-only for exploratory purposes.</strong></p>
+is still undergoing active development and testing. Function, class and
+method names, arguments and syntax may change without the use of
+deprecation conventions. This library should currently be used only for
+exploratory purposes.</strong></p>
 <div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
-<p>Synthetic populations are often generated with a limited set of
-demographic variables.</p>
-<p>Additional attributes often need to be assigned using aggregate data
-sources such as:</p>
+<p>In the previous vignette we used <code><a href="../reference/make_agents.html">make_agents()</a></code> to create
+a synthetic population of individual agents from aggregate count
+data.</p>
+<p>These agents often contain only a small number of variables. For
+example, a population may contain age-group and gender information but
+lack additional attributes required for simulation modelling.</p>
+<p>The <code>ConditionalAttributeAdder</code> class can be used to
+enrich synthetic agents using contingency tables derived from external
+data sources.</p>
+<p>Examples include:</p>
 <ul>
-<li><p>census tables;</p></li>
-<li><p>survey microdata;</p></li>
-<li><p>administrative datasets; and</p></li>
-<li><p>official projections.</p></li>
+<li><p>education;</p></li>
+<li><p>employment status;</p></li>
+<li><p>occupation;</p></li>
+<li><p>health status; and</p></li>
+<li><p>income category.</p></li>
 </ul>
-<p>The <code>ConditionalAttributeAdder</code> class provides a framework
-for assigning attributes to synthetic agents while preserving known
-conditional distributions.</p>
-<p>This vignette demonstrates how to assign a target attribute using a
-contingency table. The approach demonstrated in this algorithm is an R
-port of a third-party python algorithm <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link">developed
-and described by Jan de Mooij, Tabea Sonnenschein, Marco Pellegrino,
-Mehdi Dastani, Dick Ettema, Brian Logan &amp; Judith A.
-Verstegen</a>.</p>
+<p>This vignette demonstrates how to assign an education attribute while
+preserving known relationships between age, gender and education. The
+<code>replica</code> tools demonstrated here collectively represent an R
+implementation of the demographic attribute-assignment stage of the
+workflow described by de Mooij et al. (2024) for spatial synthetic
+population generation.</p>
+</div>
+<div class="section level2">
+<h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
+</h2>
+<p>The workflow demonstrated in this vignette can be summarised as:</p>
+<p>Age-Gender Counts ↓ make_agents() ↓ Synthetic Agents ↓
+ConditionalAttributeAdder ↓ Education Assignment ↓ Enriched Synthetic
+Population</p>
 </div>
 <div class="section level2">
 <h2 id="supply-a-seed-synthetic-population-of-individual-agents">Supply a seed synthetic population of individual agents<a class="anchor" aria-label="anchor" href="#supply-a-seed-synthetic-population-of-individual-agents"></a>
 </h2>
-<p>We begin by creating a small synthetic population that lacks the
-target attribute.</p>
+<p>We begin with a basic synthetic population that lacks the target
+attribute.</p>
+<p>For this example, we will create a basic seed population from an age
+group and gender contingency table using the approach demonstrated in
+the “Generating Synthetic Populations from Aggregated Data”
+vignette.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="fl">20</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"65+"</span>, <span class="fl">20</span><span class="op">)</span></span>
+<span>    <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"65+"</span>,</span>
+<span>    <span class="st">"65+"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="st">"Male"</span>,</span>
+<span>    <span class="st">"Female"</span>,</span>
+<span>    <span class="st">"Male"</span>,</span>
+<span>    <span class="st">"Female"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span></span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">10</span>,</span>
+<span>    <span class="fl">10</span>,</span>
+<span>    <span class="fl">10</span>,</span>
+<span>    <span class="fl">10</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The resulting population contains:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">population</span><span class="op">[</span></span>
-<span>  ,</span>
-<span>  <span class="va">.N</span>,</span>
-<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"age_group"</span>,</span>
-<span>    <span class="st">"gender"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">##    age_group gender     N</span></span>
-<span><span class="co">##       &lt;char&gt; &lt;char&gt; &lt;int&gt;</span></span>
-<span><span class="co">## 1:     18-64   Male    10</span></span>
-<span><span class="co">## 2:     18-64 Female    10</span></span>
-<span><span class="co">## 3:       65+   Male    10</span></span>
-<span><span class="co">## 4:       65+ Female    10</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">age_gender</span></span></code></pre></div>
+<pre><code><span><span class="co">##   age_group gender count</span></span>
+<span><span class="co">## 1     18-64   Male    10</span></span>
+<span><span class="co">## 2     18-64 Female    10</span></span>
+<span><span class="co">## 3       65+   Male    10</span></span>
+<span><span class="co">## 4       65+ Female    10</span></span></code></pre>
+<p>We can now generate the basic seed population of synthetic
+agents:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
+<p>The generated seed population now contains one row per synthetic
+agent.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">population</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    agent_id age_group gender</span></span>
+<span><span class="co">##      &lt;char&gt;    &lt;char&gt; &lt;char&gt;</span></span>
+<span><span class="co">## 1: Agent_01     18-64   Male</span></span>
+<span><span class="co">## 2: Agent_02     18-64   Male</span></span>
+<span><span class="co">## 3: Agent_03     18-64   Male</span></span>
+<span><span class="co">## 4: Agent_04     18-64   Male</span></span>
+<span><span class="co">## 5: Agent_05     18-64   Male</span></span>
+<span><span class="co">## 6: Agent_06     18-64   Male</span></span></code></pre>
+<p>We can verify that the generated population preserves the source
+distribution.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span><span class="va">population</span>, </span>
+<span>                                    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   age_group gender count</span></span>
+<span><span class="co">## 1     18-64   Male    10</span></span>
+<span><span class="co">## 2     18-64 Female    10</span></span>
+<span><span class="co">## 3       65+   Male    10</span></span>
+<span><span class="co">## 4       65+ Female    10</span></span></code></pre>
 <p>The population contains age and gender information but no education
-status.</p>
-<p>Our goal is to assign education values while preserving a specified
-conditional distribution.</p>
+attribute.</p>
+<p>Our goal is to assign education values while preserving known
+demographic relationships.</p>
 </div>
 <div class="section level2">
 <h2 id="supply-a-contingency-table">Supply a contingency table<a class="anchor" aria-label="anchor" href="#supply-a-contingency-table"></a>
 </h2>
 <p>The reference distribution is supplied as a contingency table. In
 real use, we would source contingency tables from high quality data
-sources representative of our regions of interest. In Australia this
-would typically be data provided by the Australian Bureau of Statistics.
+sources (e.g., census data) representative of our regions of interest.
 In this example, we will generate an illustrative contingency table
 using hypothetical values.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contingency</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -182,9 +229,7 @@ using hypothetical values.</p>
 <span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The contingency table defines the expected education distribution
-within each age-group and gender combination. The <code>count</code>
-column describes the frequency of each combination in the reference data
-source.</p>
+within each age-group and gender combination.</p>
 <p>For example:</p>
 <p>18-64 Male Degree = 60% School = 40%</p>
 <p>65+ Female Degree = 25% School = 75%</p>
@@ -194,7 +239,7 @@ source.</p>
 </h2>
 <p>The assignment workflow is controlled using a
 <code>ConditionalAttributeAdder</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></span><span class="op">(</span></span>
 <span>  synth_pop <span class="op">=</span> <span class="va">population</span>,</span>
 <span>  contingency <span class="op">=</span> <span class="va">contingency</span>,</span>
@@ -207,9 +252,9 @@ source.</p>
 <p>The object contains:</p>
 <ul>
 <li><p>the synthetic population;</p></li>
-<li><p>the contingency table;</p></li>
-<li><p>the target attribute to be assigned;</p></li>
-<li><p>the conditioning variables.</p></li>
+<li><p>a reference contingency table;</p></li>
+<li><p>the target attribute to be assigned; and</p></li>
+<li><p>the conditioning variables used during assignment.</p></li>
 </ul>
 </div>
 <div class="section level2">
@@ -222,159 +267,75 @@ in the source data.</p>
 <p><code>replica</code> supports several strategies for handling missing
 groups. The selected strategy is stored in the
 <code>missing_group_strategy</code> slot.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">missing_group_strategy</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "borrow"</span></span></code></pre>
 <p>In the above example, the strategy is “borrow” (which is selected by
 default) that borrows information from nearby groups.</p>
 <p>Other options are “overall” which uses the overall distribution of
 the target attribute and “error” which stops execution when a required
-group is missing.</p>
+group is missing. The most appropriate choice depends on the intended
+application and the completeness of the source data.</p>
 </div>
 <div class="section level2">
 <h2 id="run-attribute-assignment">Run attribute assignment<a class="anchor" aria-label="anchor" href="#run-attribute-assignment"></a>
 </h2>
-<p>Attribute assignment is performed using run().</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>The synthetic agents can now be enriched with an education
+attribute.</p>
+<p>The assignment is performed using:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
 <p>The workflow:</p>
-<ol style="list-style-type: decimal">
-<li><p>Resolves missing contingency groups.</p></li>
-<li><p>Computes group-specific fractions.</p></li>
-<li><p>Converts fractions into agent allocations.</p></li>
-<li><p>Assigns attribute values.</p></li>
-<li><p>Verifies the resulting distribution.</p></li>
-</ol>
-<p>The updated synthetic population is stored in the
-<code>synth_pop</code> slot</p>
+<ul>
+<li><p>resolves missing contingency groups;</p></li>
+<li><p>calculates group-specific proportions;</p></li>
+<li><p>converts proportions into agent assignments;</p></li>
+<li><p>assigns attribute values; and</p></li>
+<li><p>validates the resulting distribution.</p></li>
+</ul>
+<p>The updated synthetic population is stored in
+<code>adder@synth_pop</code>.</p>
 </div>
 <div class="section level2">
-<h2 id="inspect-results">Inspect results<a class="anchor" aria-label="anchor" href="#inspect-results"></a>
+<h2 id="inspect-the-enriched-population">Inspect the enriched population<a class="anchor" aria-label="anchor" href="#inspect-the-enriched-population"></a>
 </h2>
 <p>The synthetic population now contains the assigned
 <code>education</code> attribute.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    age_group gender education</span></span>
-<span><span class="co">##       &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
-<span><span class="co">## 1:     18-64   Male    Degree</span></span>
-<span><span class="co">## 2:     18-64 Female    School</span></span>
-<span><span class="co">## 3:     18-64   Male    Degree</span></span>
-<span><span class="co">## 4:     18-64 Female    Degree</span></span>
-<span><span class="co">## 5:     18-64   Male    Degree</span></span>
-<span><span class="co">## 6:     18-64 Female    Degree</span></span></code></pre>
-<p>We can also examine the resulting contingency table.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">##    agent_id age_group gender education</span></span>
+<span><span class="co">##      &lt;char&gt;    &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
+<span><span class="co">## 1: Agent_01     18-64   Male    Degree</span></span>
+<span><span class="co">## 2: Agent_02     18-64   Male    Degree</span></span>
+<span><span class="co">## 3: Agent_03     18-64   Male    Degree</span></span>
+<span><span class="co">## 4: Agent_04     18-64   Male    Degree</span></span>
+<span><span class="co">## 5: Agent_05     18-64   Male    Degree</span></span>
+<span><span class="co">## 6: Agent_06     18-64   Male    School</span></span></code></pre>
+<p>We can examine the distribution of education values.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span><span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span>, </span>
+<span>                                    columns <span class="op">=</span> <span class="st">"education"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   education count</span></span>
+<span><span class="co">## 1    Degree    17</span></span>
+<span><span class="co">## 2    School    23</span></span></code></pre>
+<p>The population has been enriched while preserving the demographic
+relationships specified in the reference contingency table.</p>
+<p>We can also reconstruct the resulting contingency table:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
 <span>  <span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span>,<span class="st">"education"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span>,<span class="st">"education"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender education count</span></span>
 <span><span class="co">## 1     18-64   Male    Degree     6</span></span>
-<span><span class="co">## 2     18-64 Female    School     4</span></span>
-<span><span class="co">## 3     18-64 Female    Degree     6</span></span>
-<span><span class="co">## 4     18-64   Male    School     4</span></span>
+<span><span class="co">## 2     18-64   Male    School     4</span></span>
+<span><span class="co">## 3     18-64 Female    School     4</span></span>
+<span><span class="co">## 4     18-64 Female    Degree     6</span></span>
 <span><span class="co">## 5       65+   Male    School     7</span></span>
-<span><span class="co">## 6       65+ Female    Degree     2</span></span>
-<span><span class="co">## 7       65+ Female    School     8</span></span>
-<span><span class="co">## 8       65+   Male    Degree     3</span></span></code></pre>
+<span><span class="co">## 6       65+   Male    Degree     3</span></span>
+<span><span class="co">## 7       65+ Female    Degree     2</span></span>
+<span><span class="co">## 8       65+ Female    School     8</span></span></code></pre>
 <p>The assigned education values approximately reproduce the proportions
 defined in the reference contingency table.</p>
-</div>
-<div class="section level2">
-<h2 id="add-marginal-constraints">Add marginal constraints<a class="anchor" aria-label="anchor" href="#add-marginal-constraints"></a>
-</h2>
-<p>Additional marginal distributions can be supplied when known
-population totals are available. Margins provide additional information
-that can be used when reconciling contingency tables with known
-distributions.</p>
-<p>For example:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gender_margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">120</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMargins.html">addMargins</a></span><span class="op">(</span><span class="va">adder</span>,</span>
-<span>                    margins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">gender_margin</span><span class="op">)</span>,</span>
-<span>                    margins_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Because the object configuration has changed, any previous validation
-results are automatically cleared.</p>
-<p>Running the workflow again regenerates the validation
-diagnostics.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="verify-results">Verify results<a class="anchor" aria-label="anchor" href="#verify-results"></a>
-</h2>
-<p>Validation results are stored directly in the
-<code>validation_results</code> slot.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "name"               "z_square"           "p_value"           </span></span>
-<span><span class="co">## [4] "degrees_of_freedom" "critical_value"     "warning_required"  </span></span>
-<span><span class="co">## [7] "details"</span></span></code></pre>
-<p>The detailed validation table can be examined using:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">$</span><span class="va">details</span></span></code></pre></div>
-<pre><code><span><span class="co">## Key: &lt;age_group, gender, education&gt;</span></span>
-<span><span class="co">##    age_group gender education count_x count_y observed_pct expected_pct</span></span>
-<span><span class="co">##       &lt;char&gt; &lt;char&gt;    &lt;char&gt;   &lt;int&gt;   &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span></span>
-<span><span class="co">## 1:     18-64 Female    Degree       6      55           60           55</span></span>
-<span><span class="co">## 2:     18-64 Female    School       4      45           40           45</span></span>
-<span><span class="co">## 3:     18-64   Male    Degree       6      60           60           60</span></span>
-<span><span class="co">## 4:     18-64   Male    School       4      40           40           40</span></span>
-<span><span class="co">## 5:       65+ Female    Degree       2      25           20           25</span></span>
-<span><span class="co">## 6:       65+ Female    School       8      75           80           75</span></span>
-<span><span class="co">## 7:       65+   Male    Degree       3      30           30           30</span></span>
-<span><span class="co">## 8:       65+   Male    School       7      70           70           70</span></span>
-<span><span class="co">##    difference_pct</span></span>
-<span><span class="co">##             &lt;num&gt;</span></span>
-<span><span class="co">## 1:              5</span></span>
-<span><span class="co">## 2:             -5</span></span>
-<span><span class="co">## 3:              0</span></span>
-<span><span class="co">## 4:              0</span></span>
-<span><span class="co">## 5:             -5</span></span>
-<span><span class="co">## 6:              5</span></span>
-<span><span class="co">## 7:              0</span></span>
-<span><span class="co">## 8:              0</span></span></code></pre>
-<p>In this table:</p>
-<ul>
-<li><p>count_x is the observed synthetic count;</p></li>
-<li><p>count_y is the expected count from the reference table;</p></li>
-<li><p>observed_pct is the observed percentage;</p></li>
-<li><p>expected_pct is the expected percentage; and</p></li>
-<li><p>difference_pct is the percentage-point difference.</p></li>
-</ul>
-<p>These diagnostics make it easy to identify groups where the assigned
-synthetic population differs from the target distribution.</p>
-<p>The validation results also contain summary statistics such as z
-squared and p-value.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="st">"z_square"</span>,</span>
-<span>  <span class="st">"p_value"</span>,</span>
-<span>  <span class="st">"warning_required"</span></span>
-<span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## $z_square</span></span>
-<span><span class="co">## [1] 2.155412</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $p_value</span></span>
-<span><span class="co">## [1] 0.9758728</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $warning_required</span></span>
-<span><span class="co">## [1] FALSE</span></span></code></pre>
-<p>The z-squared statistic provides a measure of divergence between
-observed and expected distributions. Smaller values indicate a closer
-match.</p>
-<p>The p-value assesses whether the observed synthetic distribution
-differs from the reference contingency table. Large p-values indicate
-that the synthetic population is consistent with the target
-distribution, while small p-values suggest a poorer fit. If p-values are
-less than 0.05&lt; the <code>warning_required</code> flag will be set to
-<code>TRUE</code>.</p>
-<p>Because statistical significance is sensitive to population size,
-p-values should be interpreted alongside the percentage-point
-differences reported in validation_results$details.</p>
 </div>
 <div class="section level2">
 <h2 id="key-takeaways">Key takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways"></a>
@@ -391,6 +352,15 @@ differences reported in validation_results$details.</p>
 </ul>
 <p>These tools provide a flexible framework for enriching synthetic
 populations using aggregate demographic data.</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan
+B and Verstegen JA (2024).</p>
+<p><em>GenSynthPop: generating a spatially explicit synthetic population
+of individuals and households from aggregated data.</em></p>
+<p>Autonomous Agents and Multi-Agent Systems. <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link uri">https://link.springer.com/article/10.1007/s10458-024-09680-7</a></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

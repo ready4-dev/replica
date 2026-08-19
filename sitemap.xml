@@ -3,6 +3,8 @@
 <url><loc>https://ready4-dev.github.io/replica/LICENSE.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/articles/V_01.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/articles/V_02.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/articles/V_03.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/articles/V_04.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/articles/index.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/articles/replica.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/authors.html</loc></url>
@@ -41,12 +43,16 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/group_children.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/householdsToDataFrame.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/index.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/make_agents.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/maskWithRemainingAgents-HouseholdType-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/pair_partners.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/parse_age_gap.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/pipe.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_differences.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_distributions.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_heatmap.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/prepare_contingency_table.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/replica-package.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/run.html</loc></url>

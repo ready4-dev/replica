@@ -40,8 +40,10 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Households</a></li>
+<li><a class="dropdown-item" href="../articles/V_01.html">Generating Synthetic Populations from Aggregated Data</a></li>
     <li><a class="dropdown-item" href="../articles/V_02.html">Assigning Attributes Using Contingency Tables</a></li>
+    <li><a class="dropdown-item" href="../articles/V_03.html">Generating Synthetic Households</a></li>
+    <li><a class="dropdown-item" href="../articles/V_04.html">Evaluating Synthetic Population Quality</a></li>
   </ul>
 </li>
       </ul>
@@ -72,11 +74,303 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span></code></pre></div>
-<p>This development version of the replica package has been made
-available as part of the process of testing and documenting the package.
-Currently there are no vignettes available.</p>
-  </main>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'data.table'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     %notin%</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h2>
+<p><code>replica</code> is an R package for generating synthetic
+populations of individual agents and households from aggregated
+data.</p>
+<p>The package has been developed to support health-economic
+microsimulation modelling and other applications requiring realistic
+synthetic populations.</p>
+<p><code>replica</code> provides tools for:</p>
+<ul>
+<li><p>creating synthetic agents from aggregate count data;</p></li>
+<li><p>assigning demographic and behavioural attributes using
+contingency tables;</p></li>
+<li><p>generating synthetic households; and</p></li>
+<li><p>evaluating synthetic population quality.</p></li>
+</ul>
+<p><code>replica</code> implements an R version of the synthetic
+population generation methodology described by de Mooij et al. (2024)
+and additionally provides functionality for validation, visualisation
+and workflow integration within the R ecosystem.</p>
+</div>
+<div class="section level2">
+<h2 id="status">Status<a class="anchor" aria-label="anchor" href="#status"></a>
+</h2>
+<p>This development version of <code>replica</code> has been made
+available as part of the process of testing and documenting the
+library.</p>
+<p><strong>Note - the <code>replica</code> library is currently very
+experimental. It is still undergoing active development and testing.
+Function, class and method names, arguments and syntax may change
+without the use of deprecation conventions. This library should
+currently be used only for exploratory purposes.</strong></p>
+</div>
+<div class="section level2">
+<h2 id="the-population-generation-workflow">The Population Generation Workflow<a class="anchor" aria-label="anchor" href="#the-population-generation-workflow"></a>
+</h2>
+<p>The workflow supported by <code>replica</code> can be summarised
+as:</p>
+<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓
+ConditionalAttributeAdder ↓ Enriched Population ↓ HouseholdType +
+HouseholdGrouper ↓ Synthetic Households ↓ Validation</p>
+<p>Each stage is described in a dedicated vignette.</p>
+</div>
+<div class="section level2">
+<h2 id="core-concepts">Core Concepts<a class="anchor" aria-label="anchor" href="#core-concepts"></a>
+</h2>
+<div class="section level3">
+<h3 id="synthetic-agents">Synthetic Agents<a class="anchor" aria-label="anchor" href="#synthetic-agents"></a>
+</h3>
+<p>Synthetic agents are individual records representing people within a
+synthetic population.</p>
+<p>The <code><a href="../reference/make_agents.html">make_agents()</a></code> function expands aggregate demographic
+counts into one row per synthetic individual.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">age_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"0-17"</span>,</span>
+<span>    <span class="st">"18-64"</span>,</span>
+<span>    <span class="st">"65+"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">200</span>,</span>
+<span>    <span class="fl">600</span>,</span>
+<span>    <span class="fl">200</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
+<span>  <span class="va">age_group</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="attribute-assignment">Attribute Assignment<a class="anchor" aria-label="anchor" href="#attribute-assignment"></a>
+</h3>
+<p>Synthetic populations often require additional characteristics beyond
+those available in the source data.</p>
+<p><code>ConditionalAttributeAdder</code> assigns new attributes while
+preserving known demographic relationships.</p>
+<p>Examples include:</p>
+<ul>
+<li><p>education;</p></li>
+<li><p>employment status;</p></li>
+<li><p>occupation;</p></li>
+<li><p>income category; and</p></li>
+<li><p>health status.</p></li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="household-generation">Household generation<a class="anchor" aria-label="anchor" href="#household-generation"></a>
+</h3>
+<p>Many modelling applications require individuals to be organised into
+households.</p>
+<p>Household generation is controlled using:</p>
+<ul>
+<li><p><code>HouseholdType</code></p></li>
+<li><p><code>HouseholdGrouper</code></p></li>
+</ul>
+<p>Household structures are generated while respecting demographic and
+geographic constraints.</p>
+</div>
+<div class="section level3">
+<h3 id="validation">Validation<a class="anchor" aria-label="anchor" href="#validation"></a>
+</h3>
+<p>Synthetic populations should be evaluated to ensure they reproduce
+the source distributions used during construction.</p>
+<p><code>replica</code> provides tools for:</p>
+<ul>
+<li><p>contingency-table reconstruction;</p></li>
+<li><p>goodness-of-fit statistics;</p></li>
+<li><p>validation diagnostics; and</p></li>
+<li><p>validation visualisations.</p></li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
+</h2>
+<p>The package documentation follows the complete synthetic population
+generation workflow.</p>
+<p><a href="V_01.html">Vignette 1: Generating Synthetic Populations from
+Aggregated Data</a>:</p>
+<ul>
+<li><p>introduces <code><a href="../reference/make_agents.html">make_agents()</a></code>; and</p></li>
+<li><p>demonstrates how aggregate count data can be converted into
+individual synthetic agents.</p></li>
+</ul>
+<p><a href="V_02.html">Vignette 2: Assigning Attributes Using
+Contingency Tables</a>:</p>
+<ul>
+<li><p>introduces <code>ConditionalAttributeAdder</code>; and</p></li>
+<li><p>demonstrates how to enrich synthetic agents using contingency
+tables and demographic distributions.</p></li>
+</ul>
+<p><a href="V_03.html">Vignette 3: Generating Synthetic
+Households</a>:</p>
+<ul>
+<li><p>introduces <code>HouseholdType</code> and
+<code>HouseholdGrouper</code>; and</p></li>
+<li><p>demonstrates how enriched agents can be organised into realistic
+household structures.</p></li>
+</ul>
+<p><a href="V_04.html">Vignette 4: Evaluating Synthetic Population
+Quality</a>:</p>
+<ul>
+<li><p>introduces <code><a href="../reference/validate_synthetic_population_fit.html">validate_synthetic_population_fit()</a></code>,
+<code><a href="../reference/plot_validation_distributions.html">plot_validation_distributions()</a></code>,
+<code><a href="../reference/plot_validation_differences.html">plot_validation_differences()</a></code> and
+<code><a href="../reference/plot_validation_heatmap.html">plot_validation_heatmap()</a></code>;</p></li>
+<li><p>demonstrates how synthetic populations can be assessed and
+validated.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="example-workflow">Example Workflow<a class="anchor" aria-label="anchor" href="#example-workflow"></a>
+</h2>
+<p>The following example illustrates how the major components of
+<code>replica</code> fit together.</p>
+<div class="section level3">
+<h3 id="create-synthetic-agents">Create Synthetic Agents<a class="anchor" aria-label="anchor" href="#create-synthetic-agents"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>,<span class="st">"18-64"</span>,<span class="st">"65+"</span>,<span class="st">"65+"</span><span class="op">)</span>,</span>
+<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>,<span class="st">"Female"</span>,<span class="st">"Male"</span>,<span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="assign-additional-attributes">Assign Additional Attributes<a class="anchor" aria-label="anchor" href="#assign-additional-attributes"></a>
+</h2>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">education_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
+<span>                <span class="st">"65+"</span>,   <span class="st">"65+"</span>,  <span class="st">"65+"</span>,   <span class="st">"65+"</span><span class="op">)</span>,</span>
+<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>,</span>
+<span>             <span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>  education <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Degree"</span>, <span class="st">"School"</span>,<span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
+<span>                <span class="st">"Degree"</span>, <span class="st">"School"</span>,<span class="st">"Degree"</span>, <span class="st">"School"</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">45</span>, <span class="fl">30</span>, <span class="fl">70</span>, <span class="fl">25</span>, <span class="fl">75</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></span><span class="op">(</span></span>
+<span>  synth_pop <span class="op">=</span> <span class="va">agents</span>,</span>
+<span>  contingency <span class="op">=</span> <span class="va">education_table</span>,</span>
+<span>  target_attribute <span class="op">=</span> <span class="st">"education"</span>,</span>
+<span>  group_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>,<span class="st">"gender"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span>
+<span><span class="va">population</span> <span class="op">&lt;-</span> <span class="va">adder</span><span class="op">@</span><span class="va">synth_pop</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="generate-households">Generate Households<a class="anchor" aria-label="anchor" href="#generate-households"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">population</span><span class="op">[</span>,<span class="va">neighb_code</span> <span class="op">:=</span> <span class="st">"N1"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">population</span><span class="op">[</span>,<span class="va">household_position</span> <span class="op">:=</span> <span class="st">"Parent"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">population</span><span class="op">[</span><span class="va">age_group</span> <span class="op">==</span> <span class="st">"18-64"</span>,</span>
+<span>           <span class="va">age</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">18</span><span class="op">:</span><span class="fl">64</span>, <span class="va">.N</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">population</span><span class="op">[</span><span class="va">age_group</span> <span class="op">==</span> <span class="st">"65+"</span>, </span>
+<span>           <span class="va">age</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">65</span><span class="op">:</span><span class="fl">95</span>,<span class="va">.N</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdType.html">HouseholdType</a></span><span class="op">(</span><span class="st">"CoupleHousehold"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMembers.html">addMembers</a></span><span class="op">(</span><span class="va">hh</span>,</span>
+<span>                 household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span>
+<span>                 position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span>
+<span>                 amount <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                 backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hh</span><span class="op">@</span><span class="va">couple_gender_distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Female|Male"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hh</span><span class="op">@</span><span class="va">couple_age_distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-5-5"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdGrouper.html">HouseholdGrouper</a></span><span class="op">(</span>df_synth_pop <span class="op">=</span> <span class="va">population</span>,</span>
+<span>                       group_by <span class="op">=</span> <span class="st">"neighb_code"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addHouseholdType.html">addHouseholdType</a></span><span class="op">(</span><span class="va">hg</span>, <span class="va">hh</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">households</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">hg</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="inspect-results">Inspect Results<a class="anchor" aria-label="anchor" href="#inspect-results"></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">households</span><span class="op">$</span><span class="va">synthetic_population</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    agent_id age_group gender education neighb_code household_position   age</span></span>
+<span><span class="co">#&gt;      &lt;char&gt;    &lt;char&gt; &lt;char&gt;    &lt;char&gt;      &lt;char&gt;             &lt;char&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1: Agent_01     18-64   Male    Degree          N1             Parent    18</span></span>
+<span><span class="co">#&gt; 2: Agent_02     18-64   Male    Degree          N1             Parent    42</span></span>
+<span><span class="co">#&gt; 3: Agent_03     18-64   Male    Degree          N1             Parent    64</span></span>
+<span><span class="co">#&gt; 4: Agent_04     18-64   Male    Degree          N1             Parent    54</span></span>
+<span><span class="co">#&gt; 5: Agent_05     18-64   Male    Degree          N1             Parent    25</span></span>
+<span><span class="co">#&gt; 6: Agent_06     18-64   Male    School          N1             Parent    50</span></span>
+<span><span class="co">#&gt;    household_id</span></span>
+<span><span class="co">#&gt;          &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1:    SSH000005</span></span>
+<span><span class="co">#&gt; 2:    SSH000001</span></span>
+<span><span class="co">#&gt; 3:    SSH000007</span></span>
+<span><span class="co">#&gt; 4:    SSH000004</span></span>
+<span><span class="co">#&gt; 5:    SSH000002</span></span>
+<span><span class="co">#&gt; 6:    SSH000009</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">households</span><span class="op">$</span><span class="va">synthetic_households</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   household_id neighb_code         hh_type hh_size</span></span>
+<span><span class="co">#&gt; 1    SSH000001          N1 CoupleHousehold       2</span></span>
+<span><span class="co">#&gt; 2    SSH000002          N1 CoupleHousehold       2</span></span>
+<span><span class="co">#&gt; 3    SSH000003          N1 CoupleHousehold       2</span></span>
+<span><span class="co">#&gt; 4    SSH000004          N1 CoupleHousehold       2</span></span>
+<span><span class="co">#&gt; 5    SSH000005          N1 CoupleHousehold       2</span></span>
+<span><span class="co">#&gt; 6    SSH000006          N1 CoupleHousehold       2</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="validate-attribute-assignment">Validate Attribute Assignment<a class="anchor" aria-label="anchor" href="#validate-attribute-assignment"></a>
+</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_square"</span>,<span class="st">"p_value"</span>, </span>
+<span>                           <span class="st">"warning_required"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; $z_square</span></span>
+<span><span class="co">#&gt; [1] 2.155412</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $p_value</span></span>
+<span><span class="co">#&gt; [1] 0.9758728</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $warning_required</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_differences.html">plot_validation_differences</a></span><span class="op">(</span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span><span class="op">)</span></span></code></pre></div>
+<p><img src="replica_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="700"></p>
+<p>This workflow demonstrates the complete progression from aggregate
+demographic data to synthetic agents, enriched populations, synthetic
+households and validation outputs.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan
+B and Verstegen JA (2024).</p>
+<p><em>GenSynthPop: generating a spatially explicit synthetic population
+of individuals and households from aggregated data.</em></p>
+<p>Autonomous Agents and Multi-Agent Systems. <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link uri">https://link.springer.com/article/10.1007/s10458-024-09680-7</a></p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

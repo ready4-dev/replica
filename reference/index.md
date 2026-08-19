@@ -20,12 +20,20 @@
   : Extract a Margin Distribution from a Synthetic Population
 - [`group_children()`](https://ready4-dev.github.io/replica/reference/group_children.md)
   : Group Children into Sibling Sets
+- [`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
+  : Create Synthetic Agents From Aggregate Counts
 - [`multicolumn_to_attribute_values()`](https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.md)
   : Convert Multiple Columns to Attribute Combinations
 - [`parse_age_gap()`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md)
   : Parse an Age-Gap Specification
 - [`pair_partners()`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
   : Create Couples from Eligible Adults
+- [`plot_validation_differences()`](https://ready4-dev.github.io/replica/reference/plot_validation_differences.md)
+  : Plot percentage-point differences
+- [`plot_validation_distributions()`](https://ready4-dev.github.io/replica/reference/plot_validation_distributions.md)
+  : Plot observed and expected distributions
+- [`plot_validation_heatmap()`](https://ready4-dev.github.io/replica/reference/plot_validation_heatmap.md)
+  : Plot validation heatmap
 - [`prepare_contingency_table()`](https://ready4-dev.github.io/replica/reference/prepare_contingency_table.md)
   : Prepare a Contingency Table for Attribute Assignment
 - [`synthetic_population_to_contingency()`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md)
