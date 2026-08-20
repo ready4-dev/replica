@@ -68,22 +68,113 @@
 </h1>
 </div>
 <div class="section level2">
-<h2 id="generate-synthetic-agent-populations-from-aggregated-data">Generate synthetic agent populations from aggregated data<a class="anchor" aria-label="anchor" href="#generate-synthetic-agent-populations-from-aggregated-data"></a>
+<h2 id="create-enrich-validate-and-organise-synthetic-populations">Create, enrich, validate and organise synthetic populations.<a class="anchor" aria-label="anchor" href="#create-enrich-validate-and-organise-synthetic-populations"></a>
 </h2>
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p><strong>Note - the replica library is currently very experimental. It is still undergoing active development and testing. Function, class and method names, arguments and syntax may change without the use of deprecation conventions. This library should currently be used only for exploratory purposes.</strong></p>
-<p>The medium term intention of this repository is to include a suite of tools for generating synthetic populations that can be used in conjunction with <a href="https://www.ready4-dev.com/" class="external-link">the ready4 framework</a>.</p>
-<p>However, right now it is mostly an exploratory R port of a python library that implements the algorithm described by <a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link">de Mooij et al.</a>.</p>
-<p>This means that although the developers of that python algorithm were not involved in this R port (and therefore are not responsible for any errors introduced in the translation), any attribution for this package should credit these authors as the original developers of the algorithm this library attempts to implement.</p>
-<p>The python toolkit that this library aims to port (with minor modifications) is <a href="https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python/tree/main" class="external-link">GenSynthPop</a>. There is an <a href="https://github.com/TabeaSonnenschein/GenSynthPop" class="external-link">existing R implementation of GenSynthPop</a> but this appears to be less full featured than the python library, which is one of the reasons I have attempted a more comprehensive port here. I was not involved in the work to develop GenSynthPop (in python or R) or its underlying algorithm but have started the <code>replica</code> library by porting this toolkit because it is potentially relevant to some projects being developed with ready4. Unlike other ready4 suite libraries, I have not yet used the ready4 modules and code style in implementing this library yet as the names are designed to correspond closely with their python counterparts to make following the logic a little easier. This is likely to change with future iterations.</p>
-<p>Finally, I am much more comfortable working in R than in python and would not have attempted this port without leaning massively on my robot fried Microsoft Copilot. I have been impressed with its ability to make this port project feasible to implement in a relatively short timeframe. Currently, <code>replica</code> code, tests and documentation (including vignettes) have all been authored by a human-machine partnership.</p>
+<p><code>replica</code> is an R library for generating synthetic populations of individual agents and households from aggregated demographic data.</p>
+<p>The library provides tools for:</p>
+<ul>
+<li><p>creating synthetic agents from marginal distributions and contingency tables;</p></li>
+<li><p>assigning additional attributes using demographic reference data;</p></li>
+<li><p>generating synthetic households;</p></li>
+<li><p>validating synthetic population quality; and</p></li>
+<li><p>visualising goodness-of-fit.</p></li>
+</ul>
+<p>The package implements and extends synthetic population generation methods described by de Mooij et al. (2024) and is designed to support health-economic microsimulation modelling and other simulation workflows.</p>
+</div>
+<div class="section level2">
+<h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
+</h2>
+<p>The workflow supported by <code>replica</code> can be summarised as:</p>
+<pre class="text"><code>Aggregate Counts
+       ↓
+make_agents()
+       ↓
+Synthetic Agents
+       ↓
+ConditionalAttributeAdder
+       ↓
+Enriched Population
+       ↓
+HouseholdType
+       +
+HouseholdGrouper
+       ↓
+Synthetic Households
+       ↓
+Validation</code></pre>
+</div>
+<div class="section level2">
+<h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
+<p><code>replica</code> documentation is organised around the complete synthetic-population workflow.</p>
 <p>To install a development version of replica, run the following commands in your R console:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ready4-dev/replica"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="id_1-creating-synthetic-agents">1. Creating Synthetic Agents<a class="anchor" aria-label="anchor" href="#id_1-creating-synthetic-agents"></a>
+</h3>
+<p>Learn how to create individual synthetic agents from aggregate count data.</p>
+<p>Key function:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="id_2-assigning-attributes-using-contingency-tables">2. Assigning Attributes Using Contingency Tables<a class="anchor" aria-label="anchor" href="#id_2-assigning-attributes-using-contingency-tables"></a>
+</h3>
+<p>Learn how to enrich synthetic agents using demographic contingency tables.</p>
+<p>Key class:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ConditionalAttributeAdder</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="id_3-generating-synthetic-households">3. Generating Synthetic Households<a class="anchor" aria-label="anchor" href="#id_3-generating-synthetic-households"></a>
+</h3>
+<p>Learn how to transform enriched agents into realistic household structures.</p>
+<p>Key classes:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">HouseholdType</span></span>
+<span><span class="va">HouseholdGrouper</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="id_4-evaluating-synthetic-population-quality">4. Evaluating Synthetic Population Quality<a class="anchor" aria-label="anchor" href="#id_4-evaluating-synthetic-population-quality"></a>
+</h3>
+<p>Learn how to compare synthetic populations with reference data and assess population quality.</p>
+<p>Key functions:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/validate_synthetic_population_fit.html">validate_synthetic_population_fit</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plot_validation_distributions.html">plot_validation_distributions</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plot_validation_differences.html">plot_validation_differences</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plot_validation_heatmap.html">plot_validation_heatmap</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="current-status">Current Status<a class="anchor" aria-label="anchor" href="#current-status"></a>
+</h2>
+<p><code>replica</code> is under active development.</p>
+<p>Library classes, syntax, documentation and workflows continue to evolve as additional functionality is implemented and tested.</p>
+<p>This library should currently be used only for exploratory purposes.</p>
+</div>
+<div class="section level2">
+<h2 id="use-of-ai">Use of AI<a class="anchor" aria-label="anchor" href="#use-of-ai"></a>
+</h2>
+<p><code>replica</code> code, tests and documentation (including vignettes) have all been authored by a human-machine partnership.</p>
+<p>Microsoft Copilot has been used intensively in the development of this library.</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan B and Verstegen JA (2024).</p>
+<p><em>GenSynthPop: generating a spatially explicit synthetic population of individuals and households from aggregated data.</em></p>
+<p>Autonomous Agents and Multi-Agent Systems.</p>
+<p><a href="https://link.springer.com/article/10.1007/s10458-024-09680-7" class="external-link uri">https://link.springer.com/article/10.1007/s10458-024-09680-7</a></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
