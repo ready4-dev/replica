@@ -19,7 +19,7 @@ findOppositeGenderReplacementForCandidate(
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 - wrong_candidate:

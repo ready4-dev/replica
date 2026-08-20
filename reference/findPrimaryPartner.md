@@ -18,7 +18,7 @@ findPrimaryPartner(
 
 - object:
 
-  A `HouseholdType` object.
+  A `ReplicaStructure` object.
 
 - mask:
 

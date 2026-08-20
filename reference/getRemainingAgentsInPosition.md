@@ -14,7 +14,7 @@ getRemainingAgentsInPosition(object, position, mask = NULL)
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 - position:
@@ -79,7 +79,7 @@ and provides the candidate pools used by household-matching algorithms.
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
 [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 

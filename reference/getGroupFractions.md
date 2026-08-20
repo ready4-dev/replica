@@ -14,7 +14,7 @@ getGroupFractions(object, dt)
 - object:
 
   A
-  [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md)
+  [`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md)
   object.
 
 - dt:
@@ -41,8 +41,8 @@ and returns the resulting fractions indexed by the target attribute and
 any relevant margin variables.
 
 This function is used internally by
-[`run`](https://ready4-dev.github.io/replica/reference/run.md) during
-conditional attribute assignment.
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
+during conditional attribute assignment.
 
 Fractions are calculated separately within each conditioning group.
 
@@ -50,11 +50,11 @@ The result is subsequently used by:
 
 - [`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md)
 
-- [`run`](https://ready4-dev.github.io/replica/reference/run.md)
+- [`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
 
 If margin constraints have been supplied using
-[`addMargins`](https://ready4-dev.github.io/replica/reference/addMargins.md),
-the returned table will also include the corresponding margin variables.
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md), the
+returned table will also include the corresponding margin variables.
 
 The function automatically removes duplicate index names when margins
 overlap with the target attribute.
@@ -63,8 +63,8 @@ overlap with the target attribute.
 
 [`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md),
 [`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md),
-[`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-[`run`](https://ready4-dev.github.io/replica/reference/run.md)
+[`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md),
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
 
 ## Examples
 

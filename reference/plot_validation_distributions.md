@@ -16,7 +16,7 @@ plot_validation_distributions(validation_result)
   A validation object returned by
   [`validate_synthetic_population_fit`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md)
   or stored in the `validation_results` slot of a
-  [`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md).
+  [`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md).
 
 ## Value
 

@@ -46,7 +46,7 @@ and validating synthetic populations against known marginals.
 ## See also
 
 [`get_margin_series_from_synthetic_population`](https://ready4-dev.github.io/replica/reference/get_margin_series_from_synthetic_population.md),
-[`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md)
+[`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md)
 
 ## Examples
 

@@ -68,8 +68,8 @@ when contingency tables contain zero-count groups.
 
 [`getGroupFractions`](https://ready4-dev.github.io/replica/reference/getGroupFractions.md),
 [`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md),
-[`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-[`run`](https://ready4-dev.github.io/replica/reference/run.md)
+[`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md),
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
 
 ## Examples
 

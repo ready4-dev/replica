@@ -40,8 +40,8 @@ The function:
     effects.
 
 This function is used internally by
-[`run`](https://ready4-dev.github.io/replica/reference/run.md) during
-conditional attribute assignment.
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
+during conditional attribute assignment.
 
 Fractions are first converted into integer counts using
 [`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md).
@@ -86,8 +86,8 @@ The returned vector is randomly permuted before being returned.
 [`calculate_group_counts`](https://ready4-dev.github.io/replica/reference/calculate_group_counts.md),
 [`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md),
 [`getGroupFractions`](https://ready4-dev.github.io/replica/reference/getGroupFractions.md),
-[`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-[`run`](https://ready4-dev.github.io/replica/reference/run.md)
+[`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md),
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
 
 ## Examples
 

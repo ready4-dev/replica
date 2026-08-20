@@ -2,7 +2,7 @@
 
 Creates a household-level summary table from the household records
 stored within a
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 object.
 
 ## Usage
@@ -10,7 +10,7 @@ object.
 ``` r
 householdsToDataFrame(object)
 
-# S4 method for class 'HouseholdType'
+# S4 method for class 'ReplicaStructure'
 householdsToDataFrame(object)
 ```
 
@@ -19,7 +19,7 @@ householdsToDataFrame(object)
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 ## Value
@@ -78,7 +78,7 @@ This method is typically used after:
 
 [`agentToHousehold`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md),
 [`create_household_with_id`](https://ready4-dev.github.io/replica/reference/create_household_with_id.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 

@@ -85,8 +85,8 @@ exploratory purposes.</strong></p>
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
 <p>In the “Assigning Attributes Using Contingency Tables” vignette we
-used <code>ConditionalAttributeAdder</code> to enrich a synthetic
-population with additional demographic attributes.</p>
+used <code>ReplicaAdder</code> to enrich a synthetic population with
+additional demographic attributes.</p>
 <p>At this stage each row of the synthetic population represents an
 individual agent.</p>
 <p>Many simulation models, however, require agents to be organised into
@@ -106,12 +106,12 @@ al. (2024).</p>
 <p>Household generation in <code>replica</code> is based on two core
 classes:</p>
 <ul>
-<li><code>HouseholdType</code></li>
-<li><code>HouseholdGrouper</code></li>
+<li><code>ReplicaStructure</code></li>
+<li><code>ReplicaGrouper</code></li>
 </ul>
-<p>A <code>HouseholdType</code> describes a household structure that
-should be generated, while a <code>HouseholdGrouper</code> applies one
-or more household definitions to a synthetic population.</p>
+<p>A <code>ReplicaStructure</code> describes a household structure that
+should be generated, while a <code>ReplicaGrouper</code> applies one or
+more household definitions to a synthetic population.</p>
 <p>This vignette demonstrates the third stage of the
 <code>replica</code> workflow: transforming individual synthetic agents
 into synthetic households.</p>
@@ -120,9 +120,9 @@ into synthetic households.</p>
 <h2 id="workflow-overview">Workflow overview<a class="anchor" aria-label="anchor" href="#workflow-overview"></a>
 </h2>
 <p>The workflow demonstrated in this vignette can be summarised as:</p>
-<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓
-ConditionalAttributeAdder ↓ Enriched Population ↓ HouseholdGrouper +
-HouseholdType ↓ Synthetic Households</p>
+<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓ ReplicaAdder ↓
+Enriched Population ↓ ReplicaGrouper + ReplicaStructure ↓ Synthetic
+Households</p>
 <p>This vignette focuses on the household-generation stage.</p>
 </div>
 <div class="section level2">
@@ -202,18 +202,18 @@ are therefore eligible for adult household positions.</p>
 <p>A household type specifies a household structure that we plan to
 generate. Here we create a simple couple household.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdType.html">HouseholdType</a></span><span class="op">(</span><span class="st">"CoupleHousehold"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaStructure.html">ReplicaStructure</a></span><span class="op">(</span><span class="st">"CoupleHousehold"</span><span class="op">)</span></span></code></pre></div>
 <p>At this point we have only defined the household name. We now need to
 specify the household members that form this household type.</p>
 </div>
 <div class="section level2">
 <h2 id="define-household-membership">Define household membership<a class="anchor" aria-label="anchor" href="#define-household-membership"></a>
 </h2>
-<p>The addMembers() method defines the roles that must be filled when
+<p>The renew() method defines the roles that must be filled when
 constructing a household. In this example, a couple household requires
 two adults.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMembers.html">addMembers</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span></span>
 <span>  <span class="va">hh</span>,</span>
 <span>  household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span>
 <span>  position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span>
@@ -274,10 +274,10 @@ specified above.</p>
 <div class="section level2">
 <h2 id="create-a-household-grouper">Create a household grouper<a class="anchor" aria-label="anchor" href="#create-a-household-grouper"></a>
 </h2>
-<p>A HouseholdGrouper coordinates household generation across an entire
+<p>A ReplicaGrouper coordinates household generation across an entire
 synthetic population.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdGrouper.html">HouseholdGrouper</a></span><span class="op">(</span>df_synth_pop <span class="op">=</span> <span class="va">pop</span>,</span>
+<code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaGrouper.html">ReplicaGrouper</a></span><span class="op">(</span>df_synth_pop <span class="op">=</span> <span class="va">pop</span>,</span>
 <span>                       group_by <span class="op">=</span> <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
 <p>The group_by argument determines the geographic or administrative
 boundaries within which household generation will occur.</p>
@@ -292,33 +292,33 @@ for geographically explicit simulation models.</p>
 <div class="section level2">
 <h2 id="register-household-types">Register household types<a class="anchor" aria-label="anchor" href="#register-household-types"></a>
 </h2>
-<p>A HouseholdGrouper may contain multiple household types.</p>
+<p>A ReplicaGrouper may contain multiple household types.</p>
 <p>For example, a realistic population might contain:</p>
 <ul>
 <li><p>single-adult households;</p></li>
 <li><p>couple households; and</p></li>
 <li><p>family households.</p></li>
 </ul>
-<p>Household types are registered using addHouseholdType().</p>
+<p>Household types are registered using renew().</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addHouseholdType.html">addHouseholdType</a></span><span class="op">(</span><span class="va">hg</span>,<span class="va">hh</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span><span class="va">hg</span>,<span class="va">hh</span><span class="op">)</span></span></code></pre></div>
 <p>The grouper now knows how to generate couple households.</p>
 </div>
 <div class="section level2">
 <h2 id="run-household-generation">Run household generation<a class="anchor" aria-label="anchor" href="#run-household-generation"></a>
 </h2>
 <p>Once household types have been registered, the complete
-household-generation workflow can be executed using run().</p>
+household-generation workflow can be executed using enhance().</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">hg</span><span class="op">)</span></span></code></pre></div>
-<p>The <code><a href="../reference/run.html">run()</a></code> method executes the complete
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/enhance.html">enhance</a></span><span class="op">(</span><span class="va">hg</span><span class="op">)</span></span></code></pre></div>
+<p>The <code><a href="../reference/enhance.html">enhance()</a></code> method executes the complete
 household-generation workflow.</p>
 <p>For each grouping region (<code>neighb_code</code> in this example),
 <code>replica</code>:</p>
 <ol style="list-style-type: decimal">
 <li><p>Identifies eligible household members.</p></li>
 <li><p>Creates household structures using registered
-<code>HouseholdType</code> objects.</p></li>
+<code>ReplicaStructure</code> objects.</p></li>
 <li><p>Matches adults according to the configured gender and age
 distributions.</p></li>
 <li><p>Creates synthetic households.</p></li>
@@ -402,9 +402,9 @@ same approach can be extended further to support more complex household
 structures involving grandparents, children or other household positions
 if suitable demographic data are available.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HouseholdType.html">HouseholdType</a></span><span class="op">(</span><span class="st">"FamilyHousehold"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaStructure.html">ReplicaStructure</a></span><span class="op">(</span><span class="st">"FamilyHousehold"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMembers.html">addMembers</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span></span>
 <span>  <span class="va">hh</span>,</span>
 <span>  household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span>
 <span>  position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span>
@@ -412,7 +412,7 @@ if suitable demographic data are available.</p>
 <span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/addMembers.html">addMembers</a></span><span class="op">(</span></span>
+<span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span></span>
 <span>  <span class="va">hh</span>,</span>
 <span>  household_position <span class="op">=</span> <span class="st">"Child"</span>,</span>
 <span>  position_identifier <span class="op">=</span> <span class="st">"child"</span>,</span>
@@ -435,9 +435,9 @@ child and all components.</p>
 <h2 id="how-the-workflow-fits-together">How the workflow fits together<a class="anchor" aria-label="anchor" href="#how-the-workflow-fits-together"></a>
 </h2>
 <p>The overall workflow can be summarised as:</p>
-<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓
-ConditionalAttributeAdder ↓ Enriched Population ↓ HouseholdType +
-HouseholdGrouper ↓ Synthetic Households ↓ Validation</p>
+<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓ ReplicaAdder ↓
+Enriched Population ↓ ReplicaStructure + ReplicaGrouper ↓ Synthetic
+Households ↓ Validation</p>
 </div>
 <div class="section level2">
 <h2 id="key-takeaways">Key takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways"></a>
@@ -451,11 +451,10 @@ models or evaluated further using the validation tools described in the
 <ul>
 <li><p>transformed synthetic agents into synthetic households;</p></li>
 <li><p>defined household structures using
-<code>HouseholdType</code>;</p></li>
+<code>ReplicaStructure</code>;</p></li>
 <li><p>specified household-member roles;</p></li>
 <li><p>configured demographic matching rules;</p></li>
-<li><p>generated households using
-<code>HouseholdGrouper</code>;</p></li>
+<li><p>generated households using <code>ReplicaGrouper</code>;</p></li>
 <li><p>examined both agent-level and household-level outputs;
 and</p></li>
 <li><p>created both couple and family household structures.</p></li>

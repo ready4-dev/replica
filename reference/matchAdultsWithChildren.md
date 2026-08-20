@@ -13,7 +13,7 @@ matchAdultsWithChildren(object, parents, children, id_offset)
 
 - object:
 
-  A `HouseholdType` object.
+  A `ReplicaStructure` object.
 
 - parents:
 
@@ -36,7 +36,7 @@ A list containing:
 
 - object:
 
-  Updated `HouseholdType` object containing newly created household
+  Updated `ReplicaStructure` object containing newly created household
   records.
 
 - id_offset:
@@ -90,7 +90,7 @@ Household records are created using
 [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`group_children`](https://ready4-dev.github.io/replica/reference/group_children.md),
 [`create_household_with_id`](https://ready4-dev.github.io/replica/reference/create_household_with_id.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 

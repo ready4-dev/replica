@@ -74,8 +74,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span></code></pre></div>
 <p><strong>Note - the replica library is currently very experimental. It
 is still undergoing active development and testing. Function, class and
 method names, arguments and syntax may change without the use of
@@ -110,8 +109,8 @@ can subsequently be enriched and grouped using the remainder of the
 </h2>
 <p>The workflow supported by <code>replica</code> can be summarised
 as:</p>
-<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓
-ConditionalAttributeAdder ↓ HouseholdGrouper ↓ Validation</p>
+<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓ ReplicaAdder ↓
+ReplicaGrouper ↓ Validation</p>
 <p>This vignette focuses on the first stage: creating a synthetic
 population of individual agents.</p>
 </div>
@@ -304,17 +303,16 @@ sophisticated synthetic-population workflows.</p>
 <p>The agents created by make_agents() typically contain only a subset
 of the characteristics required by a simulation model.</p>
 <p>Additional attributes can be assigned using
-<code>ConditionalAttributeAdder</code>. The use of this class is
-demonstrated in the “Assigning Attributes Using Contingency Tables”
-vignette.</p>
+<code>ReplicaAdder</code>. The use of this class is demonstrated in the
+“Assigning Attributes Using Contingency Tables” vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="assign-agents-to-households">Assign agents to households<a class="anchor" aria-label="anchor" href="#assign-agents-to-households"></a>
 </h2>
 <p>After additional attributes have been assigned, agents can be grouped
 into households.</p>
-<p>To do this, use the <code>HouseholdType</code> and
-<code>HouseholdGrouper</code> classes. These are described in another
+<p>To do this, use the <code>ReplicaStructure</code> and
+<code>ReplicaGrouper</code> classes. These are described in another
 vignette.</p>
 </div>
 <div class="section level2">

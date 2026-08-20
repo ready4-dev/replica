@@ -13,7 +13,7 @@ pair_partners(object, group_mask)
 
 - object:
 
-  A `HouseholdType` object.
+  A `ReplicaStructure` object.
 
 - group_mask:
 
@@ -31,7 +31,7 @@ Each couple is represented as:
       c(agent_id, age, gender)
     )
 
-The updated `HouseholdType` object is attached as:
+The updated `ReplicaStructure` object is attached as:
 
 
     attr(result, "object")
@@ -85,18 +85,18 @@ prevent subsequent reassignment.
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
 [`parse_age_gap`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md),
 [`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "CoupleHousehold"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",

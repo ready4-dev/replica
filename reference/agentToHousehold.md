@@ -2,7 +2,7 @@
 
 Writes household identifiers from the household structures stored within
 a
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 object back into the associated synthetic population.
 
 ## Usage
@@ -10,7 +10,7 @@ object back into the associated synthetic population.
 ``` r
 agentToHousehold(object)
 
-# S4 method for class 'HouseholdType'
+# S4 method for class 'ReplicaStructure'
 agentToHousehold(object)
 ```
 
@@ -19,13 +19,13 @@ agentToHousehold(object)
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 ## Value
 
 An updated
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 object containing household identifiers in the synthetic population.
 
 ## Details
@@ -54,16 +54,17 @@ After execution, household assignments can be accessed via:
 
 This method is used as part of the household-generation workflow
 implemented by
-[`run`](https://ready4-dev.github.io/replica/reference/run.md) for
-[`HouseholdGrouper`](https://ready4-dev.github.io/replica/reference/HouseholdGrouper.md)
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
+for
+[`ReplicaGrouper`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md)
 objects.
 
 ## See also
 
 [`householdsToDataFrame`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md),
 [`create_household_with_id`](https://ready4-dev.github.io/replica/reference/create_household_with_id.md),
-[`run`](https://ready4-dev.github.io/replica/reference/run.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md),
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 

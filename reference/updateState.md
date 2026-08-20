@@ -1,7 +1,7 @@
-# Update HouseholdType State
+# Update ReplicaStructure State
 
 Attaches a synthetic population and household-position column to a
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 object.
 
 ## Usage
@@ -9,7 +9,7 @@ object.
 ``` r
 updateState(object, df_synth_pop, household_position_column)
 
-# S4 method for class 'HouseholdType'
+# S4 method for class 'ReplicaStructure'
 updateState(object, df_synth_pop, household_position_column)
 ```
 
@@ -18,7 +18,7 @@ updateState(object, df_synth_pop, household_position_column)
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 - df_synth_pop:
@@ -32,7 +32,7 @@ updateState(object, df_synth_pop, household_position_column)
 ## Value
 
 An updated
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 object.
 
 ## Details
@@ -42,7 +42,7 @@ This method is typically called prior to household generation.
 ## See also
 
 [`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 

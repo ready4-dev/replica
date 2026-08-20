@@ -52,7 +52,8 @@ contingency table and evaluates goodness-of-fit.</p>
 <span>  <span class="va">synthetic_population</span>,</span>
 <span>  <span class="va">expected</span>,</span>
 <span>  <span class="va">dimensions</span>,</span>
-<span>  <span class="va">name</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  threshold_1L_dbl <span class="op">=</span> <span class="fl">0.05</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,6 +79,11 @@ used to construct the comparison contingency table.</p></dd>
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
 <dd><p>Character string used in validation messages and
 warning output.</p></dd>
+
+
+<dt id="arg-threshold-l-dbl">threshold_1L_dbl<a class="anchor" aria-label="anchor" href="#arg-threshold-l-dbl"></a></dt>
+<dd><p>Numeric significance threshold
+used when generating validation warnings.</p></dd>
 
 </dl></div>
     <div class="section level2">

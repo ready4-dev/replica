@@ -1,7 +1,7 @@
 # Create a Household Record and Assign a Household Identifier
 
-Creates a new synthetic household and stores it within a `HouseholdType`
-object.
+Creates a new synthetic household and stores it within a
+`ReplicaStructure` object.
 
 ## Usage
 
@@ -13,7 +13,7 @@ create_household_with_id(object, position, id_offset, agents)
 
 - object:
 
-  A `HouseholdType` object.
+  A `ReplicaStructure` object.
 
 - position:
 
@@ -31,7 +31,7 @@ create_household_with_id(object, position, id_offset, agents)
 
 ## Value
 
-An updated `HouseholdType` object containing the newly-created
+An updated `ReplicaStructure` object containing the newly-created
 household.
 
 ## Details
@@ -78,18 +78,18 @@ Household identifiers are generated using:
 [`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md),
 [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "CoupleOnly"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",

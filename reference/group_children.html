@@ -56,7 +56,7 @@ synthetic population.</p>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p>A <code>HouseholdType</code> object.</p></dd>
+<dd><p>A <code>ReplicaStructure</code> object.</p></dd>
 
 
 <dt id="arg-mask">mask<a class="anchor" aria-label="anchor" href="#arg-mask"></a></dt>
@@ -75,7 +75,7 @@ role.</p></dd>
     <p>A list of sibling groups.</p>
 <p>Each sibling group is represented as a character vector of
 agent identifiers.</p>
-<p>The updated <code>HouseholdType</code> object is attached as:</p>
+<p>The updated <code>ReplicaStructure</code> object is attached as:</p>
 <div class="sourceCode"><pre><code><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">result</span>, <span class="st">"object"</span><span class="op">)</span></span></code></pre></div>
 
@@ -83,7 +83,7 @@ agent identifiers.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Children are grouped according to the child-position
-specification stored in a <code>HouseholdType</code> object.</p>
+specification stored in a <code>ReplicaStructure</code> object.</p>
 <p>The algorithm:</p>
 <ul><li><p>Identifies all eligible children.</p></li>
 <li><p>Randomises the candidate pool to avoid systematic
@@ -108,7 +108,7 @@ score_sibling_age_suitability.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code>,
 <code><a href="createFromMembers.html">createFromMembers</a></code>,
-<code><a href="HouseholdType.html">HouseholdType</a></code></p></div>
+<code><a href="ReplicaStructure.html">ReplicaStructure</a></code></p></div>
     </div>
 
     <div class="section level2">

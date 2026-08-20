@@ -13,7 +13,7 @@ group_children(object, mask, child_position)
 
 - object:
 
-  A `HouseholdType` object.
+  A `ReplicaStructure` object.
 
 - mask:
 
@@ -32,7 +32,7 @@ A list of sibling groups.
 Each sibling group is represented as a character vector of agent
 identifiers.
 
-The updated `HouseholdType` object is attached as:
+The updated `ReplicaStructure` object is attached as:
 
 
     attr(result, "object")
@@ -40,7 +40,7 @@ The updated `HouseholdType` object is attached as:
 ## Details
 
 Children are grouped according to the child-position specification
-stored in a `HouseholdType` object.
+stored in a `ReplicaStructure` object.
 
 The algorithm:
 
@@ -75,7 +75,7 @@ score_sibling_age_suitability.
 
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
 [`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 

@@ -1,14 +1,14 @@
 # Create Households from Household Members
 
 Executes the household-construction workflow for a
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md).
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md).
 
 ## Usage
 
 ``` r
 createFromMembers(object, mask, id_offset)
 
-# S4 method for class 'HouseholdType'
+# S4 method for class 'ReplicaStructure'
 createFromMembers(object, mask, id_offset)
 ```
 
@@ -17,7 +17,7 @@ createFromMembers(object, mask, id_offset)
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 - mask:
@@ -35,7 +35,7 @@ A list containing:
 - object:
 
   Updated
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 - id_offset:

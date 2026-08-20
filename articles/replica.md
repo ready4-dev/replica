@@ -3,12 +3,6 @@
 ``` r
 
 library(replica)
-library(data.table)
-#> 
-#> Attaching package: 'data.table'
-#> The following object is masked from 'package:base':
-#> 
-#>     %notin%
 ```
 
 ## Motivation
@@ -51,9 +45,9 @@ exploratory purposes.**
 
 The workflow supported by `replica` can be summarised as:
 
-Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓
-ConditionalAttributeAdder ↓ Enriched Population ↓ HouseholdType +
-HouseholdGrouper ↓ Synthetic Households ↓ Validation
+Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓ ReplicaAdder ↓
+Enriched Population ↓ ReplicaStructure + ReplicaGrouper ↓ Synthetic
+Households ↓ Validation
 
 Each stage is described in a dedicated vignette.
 
@@ -96,8 +90,8 @@ agents <- make_agents(
 Synthetic populations often require additional characteristics beyond
 those available in the source data.
 
-`ConditionalAttributeAdder` assigns new attributes while preserving
-known demographic relationships.
+`ReplicaAdder` assigns new attributes while preserving known demographic
+relationships.
 
 Examples include:
 
@@ -118,9 +112,9 @@ households.
 
 Household generation is controlled using:
 
-- `HouseholdType`
+- `ReplicaStructure`
 
-- `HouseholdGrouper`
+- `ReplicaGrouper`
 
 Household structures are generated while respecting demographic and
 geographic constraints.
@@ -158,7 +152,7 @@ Data](https://ready4-dev.github.io/replica/articles/V_01.md):
 [Vignette 2: Assigning Attributes Using Contingency
 Tables](https://ready4-dev.github.io/replica/articles/V_02.md):
 
-- introduces `ConditionalAttributeAdder`; and
+- introduces `ReplicaAdder`; and
 
 - demonstrates how to enrich synthetic agents using contingency tables
   and demographic distributions.
@@ -166,7 +160,7 @@ Tables](https://ready4-dev.github.io/replica/articles/V_02.md):
 [Vignette 3: Generating Synthetic
 Households](https://ready4-dev.github.io/replica/articles/V_03.md):
 
-- introduces `HouseholdType` and `HouseholdGrouper`; and
+- introduces `ReplicaStructure` and `ReplicaGrouper`; and
 
 - demonstrates how enriched agents can be organised into realistic
   household structures.
@@ -213,14 +207,14 @@ education_table <- data.frame(
   count = c(60, 40, 55, 45, 30, 70, 25, 75)
 
 )
-adder <- ConditionalAttributeAdder(
+adder <- ReplicaAdder(
   synth_pop = agents,
   contingency = education_table,
   target_attribute = "education",
   group_by = c("age_group","gender")
 
 )
-adder <- run(adder)
+adder <- enhance(adder)
 population <- adder@synth_pop
 ```
 
@@ -238,9 +232,9 @@ population[age_group == "18-64",
 population[age_group == "65+", 
            age := sample(65:95,.N, replace = TRUE)]
 
-hh <- HouseholdType("CoupleHousehold")
+hh <- ReplicaStructure("CoupleHousehold")
 
-hh <- addMembers(hh,
+hh <- renew(hh,
                  household_position = "Parent",
                  position_identifier = "adult",
                  amount = 2,
@@ -250,12 +244,12 @@ hh@couple_gender_distribution <- c("Female|Male" = 1)
 
 hh@couple_age_distribution <- c("-5-5" = 1)
 
-hg <- HouseholdGrouper(df_synth_pop = population,
+hg <- ReplicaGrouper(df_synth_pop = population,
                        group_by = "neighb_code")
 
-hg <- addHouseholdType(hg, hh)
+hg <- renew(hg, hh)
 
-households <- run(hg)
+households <- enhance(hg)
 ```
 
 ### Inspect Results

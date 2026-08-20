@@ -14,7 +14,7 @@ switchHouseholdPositions(object, agent_1, agent_2)
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 - agent_1:
@@ -28,7 +28,7 @@ switchHouseholdPositions(object, agent_1, agent_2)
 ## Value
 
 An updated
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 object.
 
 ## Details

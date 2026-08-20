@@ -71,8 +71,8 @@ configurable strategies:
   Stop with an error if required groups are missing.
 
 This function is typically invoked automatically by
-[`run`](https://ready4-dev.github.io/replica/reference/run.md) before
-conditional attribute assignment begins.
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
+before conditional attribute assignment begins.
 
 The function compares all unique combinations of `group_by` variables
 found in the synthetic population against those present in the
@@ -97,8 +97,8 @@ handling sparse input data.
 
 ## See also
 
-[`ConditionalAttributeAdder`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md),
-[`run`](https://ready4-dev.github.io/replica/reference/run.md),
+[`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md),
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md),
 [`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md),
 [`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md)
 

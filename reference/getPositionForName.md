@@ -1,7 +1,7 @@
 # Retrieve a Household Position Definition
 
 Returns a household-position definition stored within a
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 object.
 
 ## Usage
@@ -9,7 +9,7 @@ object.
 ``` r
 getPositionForName(object, position)
 
-# S4 method for class 'HouseholdType'
+# S4 method for class 'ReplicaStructure'
 getPositionForName(object, position)
 ```
 
@@ -18,7 +18,7 @@ getPositionForName(object, position)
 - object:
 
   A
-  [`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+  [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
   object.
 
 - position:
@@ -38,8 +38,8 @@ A list describing the requested household-position definition.
 ## Details
 
 Household positions are created using
-[`addMembers`](https://ready4-dev.github.io/replica/reference/addMembers.md)
-and describe the composition of a household type.
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md) and
+describe the composition of a household type.
 
 Typical position identifiers include:
 
@@ -81,19 +81,19 @@ An error is raised if the requested position identifier does not exist.
 
 ## See also
 
-[`addMembers`](https://ready4-dev.github.io/replica/reference/addMembers.md),
-[`HouseholdType`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "Family"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",

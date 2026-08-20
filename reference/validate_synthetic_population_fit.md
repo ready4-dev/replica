@@ -10,7 +10,8 @@ validate_synthetic_population_fit(
   synthetic_population,
   expected,
   dimensions,
-  name
+  name,
+  threshold_1L_dbl = 0.05
 )
 ```
 
@@ -32,6 +33,11 @@ validate_synthetic_population_fit(
 - name:
 
   Character string used in validation messages and warning output.
+
+- threshold_1L_dbl:
+
+  Numeric significance threshold used when generating validation
+  warnings.
 
 ## Value
 

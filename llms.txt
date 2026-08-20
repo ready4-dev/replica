@@ -34,13 +34,13 @@ make_agents()
        ↓
 Synthetic Agents
        ↓
-ConditionalAttributeAdder
+ReplicaAdder
        ↓
 Enriched Population
        ↓
-HouseholdType
+ReplicaStructure
        +
-HouseholdGrouper
+ReplicaGrouper
        ↓
 Synthetic Households
        ↓
@@ -83,7 +83,7 @@ Key class:
 
 ``` r
 
-ConditionalAttributeAdder
+ReplicaAdder
 ```
 
 ### 3. Generating Synthetic Households
@@ -95,8 +95,8 @@ Key classes:
 
 ``` r
 
-HouseholdType
-HouseholdGrouper
+ReplicaStructure
+ReplicaGrouper
 ```
 
 ### 4. Evaluating Synthetic Population Quality
@@ -191,41 +191,40 @@ Autonomous Agents and Multi-Agent Systems.
 
 ## S4 Classes
 
-- [`ConditionalAttributeAdder()`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder.md)
-  : Create a ConditionalAttributeAdder Object
-- [`ConditionalAttributeAdder-class`](https://ready4-dev.github.io/replica/reference/ConditionalAttributeAdder-class.md)
-  : Conditional Attribute Adder
-- [`HouseholdGrouper()`](https://ready4-dev.github.io/replica/reference/HouseholdGrouper.md)
-  : Create a HouseholdGrouper Object
-- [`HouseholdGrouper-class`](https://ready4-dev.github.io/replica/reference/HouseholdGrouper-class.md)
-  : HouseholdGrouper Class
-- [`HouseholdType()`](https://ready4-dev.github.io/replica/reference/HouseholdType.md)
-  : Create a HouseholdType Object
-- [`HouseholdType-class`](https://ready4-dev.github.io/replica/reference/HouseholdType-class.md)
-  : HouseholdType Class
+- [`ReplicaAdder()`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md)
+  : Create a ReplicaAdder Module
+- [`ReplicaAdder-class`](https://ready4-dev.github.io/replica/reference/ReplicaAdder-class.md)
+  : Replica Attribute Assignment Module
+- [`ReplicaGrouper()`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md)
+  : Create a ReplicaGrouper Object
+- [`ReplicaGrouper-class`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper-class.md)
+  : ReplicaGrouper Class
+- [`ReplicaStructure()`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
+  : Create a ReplicaStructure Object
+- [`ReplicaStructure-class`](https://ready4-dev.github.io/replica/reference/ReplicaStructure-class.md)
+  : ReplicaStructure Class
 
 ## Methods
 
-- [`addHouseholdType()`](https://ready4-dev.github.io/replica/reference/addHouseholdType.md)
-  : Register a HouseholdType with a HouseholdGrouper
-- [`addMargins()`](https://ready4-dev.github.io/replica/reference/addMargins.md)
-  : Add Margin Constraints
-- [`addMembers()`](https://ready4-dev.github.io/replica/reference/addMembers.md)
-  : Add Household Members to a HouseholdType
+- [`renew(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
+  [`renew(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
+  [`renew(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
+  : Renew replica modules
 - [`agentToHousehold()`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md)
   : Assign Household Identifiers to Agents
 - [`createFromMembers()`](https://ready4-dev.github.io/replica/reference/createFromMembers.md)
   : Create Households from Household Members
+- [`enhance(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/enhance.md)
+  [`enhance(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/enhance.md)
+  : Enhance Replica Modules
 - [`getPositionForName()`](https://ready4-dev.github.io/replica/reference/getPositionForName.md)
   : Retrieve a Household Position Definition
 - [`householdsToDataFrame()`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md)
   : Convert Synthetic Households to a Data Frame
-- [`run()`](https://ready4-dev.github.io/replica/reference/run.md) :
-  Execute a replica Workflow
 - [`updateState()`](https://ready4-dev.github.io/replica/reference/updateState.md)
-  : Update HouseholdType State
-- [`verify()`](https://ready4-dev.github.io/replica/reference/verify.md)
-  : Verify Synthetic Attribute Assignment
+  : Update ReplicaStructure State
+- [`ratify(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
+  : Ratify Attribute Assignment Results
 
 # Articles
 

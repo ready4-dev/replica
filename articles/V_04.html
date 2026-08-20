@@ -74,8 +74,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ready4-dev.github.io/replica/">replica</a></span><span class="op">)</span></span></code></pre></div>
 <p><strong>Note - the replica library is currently very experimental. It
 is still undergoing active development and testing. Function, class and
 method names, arguments and syntax may change without the use of
@@ -108,9 +107,9 @@ construction.</p>
 <h2 id="workflow-overview">Workflow overview<a class="anchor" aria-label="anchor" href="#workflow-overview"></a>
 </h2>
 <p>This vignette focuses on the final stage of the replica workflow.</p>
-<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓
-ConditionalAttributeAdder ↓ Enriched Population ↓ HouseholdGrouper ↓
-Synthetic Households ↓ Validation</p>
+<p>Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓ ReplicaAdder ↓
+Enriched Population ↓ ReplicaGrouper ↓ Synthetic Households ↓
+Validation</p>
 </div>
 <div class="section level2">
 <h2 id="create-population-to-be-evaluated">Create population to be evaluated<a class="anchor" aria-label="anchor" href="#create-population-to-be-evaluated"></a>
@@ -196,7 +195,7 @@ vignettes.</p>
 <h3 id="enrich-population-with-additional-attribute">Enrich population with additional attribute<a class="anchor" aria-label="anchor" href="#enrich-population-with-additional-attribute"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span></span>
 <span></span>
 <span>  synth_pop <span class="op">=</span> <span class="va">population</span>,</span>
 <span></span>
@@ -211,7 +210,7 @@ vignettes.</p>
 <span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run.html">run</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/enhance.html">enhance</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

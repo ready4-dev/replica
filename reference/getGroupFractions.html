@@ -56,7 +56,7 @@ contingency table for use during attribute assignment.</p>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p>A <code><a href="ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></code>
+<dd><p>A <code><a href="ReplicaAdder.html">ReplicaAdder</a></code>
 object.</p></dd>
 
 
@@ -80,14 +80,14 @@ conditional probabilities using
 fractions indexed by the target attribute and any relevant
 margin variables.</p>
 <p>This function is used internally by
-<code><a href="run.html">run</a></code> during conditional attribute assignment.</p>
+<code><a href="enhance.html">enhance</a></code> during conditional attribute assignment.</p>
 <p>Fractions are calculated separately within each
 conditioning group.</p>
 <p>The result is subsequently used by:</p>
 <ul><li><p><code><a href="calculate_group_counts.html">calculate_group_counts</a></code></p></li>
-<li><p><code><a href="run.html">run</a></code></p></li>
+<li><p><code><a href="enhance.html">enhance</a></code></p></li>
 </ul><p>If margin constraints have been supplied using
-<code><a href="addMargins.html">addMargins</a></code>, the returned table will also
+<code><a href="renew.html">renew</a></code>, the returned table will also
 include the corresponding margin variables.</p>
 <p>The function automatically removes duplicate index names
 when margins overlap with the target attribute.</p>
@@ -96,8 +96,8 @@ when margins overlap with the target attribute.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="calculate_fractions.html">calculate_fractions</a></code>,
 <code><a href="calculate_group_counts.html">calculate_group_counts</a></code>,
-<code><a href="ConditionalAttributeAdder.html">ConditionalAttributeAdder</a></code>,
-<code><a href="run.html">run</a></code></p></div>
+<code><a href="ReplicaAdder.html">ReplicaAdder</a></code>,
+<code><a href="enhance.html">enhance</a></code></p></div>
     </div>
 
     <div class="section level2">

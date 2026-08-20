@@ -94,13 +94,13 @@ make_agents()
        ↓
 Synthetic Agents
        ↓
-ConditionalAttributeAdder
+ReplicaAdder
        ↓
 Enriched Population
        ↓
-HouseholdType
+ReplicaStructure
        +
-HouseholdGrouper
+ReplicaGrouper
        ↓
 Synthetic Households
        ↓
@@ -129,7 +129,7 @@ Validation</code></pre>
 <p>Learn how to enrich synthetic agents using demographic contingency tables.</p>
 <p>Key class:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ConditionalAttributeAdder</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ReplicaAdder</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_3-generating-synthetic-households">3. Generating Synthetic Households<a class="anchor" aria-label="anchor" href="#id_3-generating-synthetic-households"></a>
@@ -137,8 +137,8 @@ Validation</code></pre>
 <p>Learn how to transform enriched agents into realistic household structures.</p>
 <p>Key classes:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">HouseholdType</span></span>
-<span><span class="va">HouseholdGrouper</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ReplicaStructure</span></span>
+<span><span class="va">ReplicaGrouper</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_4-evaluating-synthetic-population-quality">4. Evaluating Synthetic Population Quality<a class="anchor" aria-label="anchor" href="#id_4-evaluating-synthetic-population-quality"></a>
