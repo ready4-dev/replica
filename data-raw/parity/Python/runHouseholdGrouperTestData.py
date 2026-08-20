@@ -3,8 +3,8 @@ import numpy as np
 import pandas as pd
 
 from gensynthpop.household_grouper import (
-    HouseholdType,
-    HouseholdGrouper
+    ReplicaStructure,
+    ReplicaGrouper
 )
 
 # --------------------------------------------------
@@ -58,10 +58,10 @@ pop = pd.DataFrame({
 })
 
 # --------------------------------------------------
-# Create HouseholdType
+# Create ReplicaStructure
 # --------------------------------------------------
 
-hh_type = HouseholdType(
+hh_type = ReplicaStructure(
     household_type="CoupleHousehold",
 
     couple_gender_distribution=pd.Series(
@@ -89,17 +89,17 @@ hh_type.add_members(
 )
 
 # --------------------------------------------------
-# Create HouseholdGrouper
+# Create ReplicaGrouper
 # --------------------------------------------------
 
-grouper = HouseholdGrouper(
+grouper = ReplicaGrouper(
     df_synth_pop=pop,
     group_by=["neighb_code"],
     household_position_column="household_position"
 )
 
 # --------------------------------------------------
-# Register HouseholdType
+# Register ReplicaStructure
 # --------------------------------------------------
 
 grouper.add_household_type(

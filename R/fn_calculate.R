@@ -117,8 +117,8 @@
 #' @seealso
 #' \code{\link{getGroupFractions}},
 #' \code{\link{calculate_group_counts}},
-#' \code{\link{ConditionalAttributeAdder}},
-#' \code{\link{run}}
+#' \code{\link{ReplicaAdder}},
+#' \code{\link{enhance}}
 #'
 #' @export
 
@@ -667,7 +667,7 @@ calculate_z_squared_score <- function(
 #' }
 #'
 #' This function is used internally by
-#' \code{\link{run}} during conditional attribute assignment.
+#' \code{\link{enhance}} during conditional attribute assignment.
 #'
 #' @param fractions Named numeric vector containing conditional
 #' probabilities or fractions.
@@ -758,8 +758,8 @@ calculate_z_squared_score <- function(
 #' \code{\link{calculate_group_counts}},
 #' \code{\link{calculate_fractions}},
 #' \code{\link{getGroupFractions}},
-#' \code{\link{ConditionalAttributeAdder}},
-#' \code{\link{run}}
+#' \code{\link{ReplicaAdder}},
+#' \code{\link{enhance}}
 #'
 #' @keywords internal
 getAgentValuesFromFractions <- function(

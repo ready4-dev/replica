@@ -7,14 +7,14 @@
 switchHouseholdPositions(object, agent_1, agent_2)
 }
 \arguments{
-\item{object}{A \code{\link{HouseholdType}} object.}
+\item{object}{A \code{\link{ReplicaStructure}} object.}
 
 \item{agent_1}{Identifier of the first agent.}
 
 \item{agent_2}{Identifier of the second agent.}
 }
 \value{
-An updated \code{\link{HouseholdType}} object.
+An updated \code{\link{ReplicaStructure}} object.
 }
 \description{
 Swaps household-position classifications between two agents

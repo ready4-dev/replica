@@ -92,12 +92,12 @@ extract_age_gaps <- function(
   )
   
 }
-
 validate_fitted_distribution <- function(
     fitted_distribution,
     margins,
     margin_names,
-    joint_distribution_name
+    joint_distribution_name,
+    threshold_1L_dbl = 0.05
 ) {
   
   if (is.character(margin_names)) {
@@ -125,7 +125,7 @@ validate_fitted_distribution <- function(
       combined
     )
   
-  if (result$p < 0.05) {
+  if (result$p < threshold_1L_dbl) {
     
     warning(
       paste(
@@ -162,6 +162,9 @@ validate_fitted_distribution <- function(
 #'
 #' @param name Character string used in validation messages and
 #' warning output.
+#' 
+#' @param threshold_1L_dbl Numeric significance threshold
+#' used when generating validation warnings.
 #'
 #' @return A list object with multiple comparison results.
 #'
@@ -205,7 +208,8 @@ validate_synthetic_population_fit <- function(
     synthetic_population,
     expected,
     dimensions,
-    name
+    name,
+    threshold_1L_dbl = 0.05
 ) {
   
   observed <-
@@ -297,7 +301,7 @@ validate_synthetic_population_fit <- function(
     )
   
   warning_required <-
-    z_result$p_value < 0.05
+    z_result$p_value < threshold_1L_dbl
   
   list(
     

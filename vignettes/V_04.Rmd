@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 ```{r results='hide', message=FALSE, warning=F}
 library(replica)
-library(data.table)
 ```
 
 **Note - the replica library is currently very experimental. It is still undergoing active development and testing. Function, class and method names, arguments and syntax may change without the use of deprecation conventions. This library should currently be used only for exploratory purposes.**
@@ -53,11 +52,11 @@ make_agents()
        ↓
 Synthetic Agents
        ↓
-ConditionalAttributeAdder
+ReplicaAdder
        ↓
 Enriched Population
        ↓
-HouseholdGrouper
+ReplicaGrouper
        ↓
 Synthetic Households
        ↓
@@ -143,7 +142,7 @@ education_contingency <- data.frame(
 ### Enrich population with additional attribute
 
 ```{r}
-adder <- ConditionalAttributeAdder(
+adder <- ReplicaAdder(
 
   synth_pop = population,
 
@@ -158,7 +157,7 @@ adder <- ConditionalAttributeAdder(
 
 )
 
-adder <- run(adder)
+adder <- enhance(adder)
 ```
 
 ## Inspect validation results

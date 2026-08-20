@@ -29,11 +29,11 @@ pop <- data.table(
   
 )
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "SingleAdultHousehold"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "SingleAdult",
   position_identifier = "adult",
@@ -68,7 +68,7 @@ test_that(
   }
 )
 test_that(
-  "updated HouseholdType attached",
+  "updated ReplicaStructure attached",
   {
     
     result <- createSingles(
@@ -86,7 +86,7 @@ test_that(
     
     expect_s4_class(
       updated_hh,
-      "HouseholdType"
+      "ReplicaStructure"
     )
     
   }

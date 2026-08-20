@@ -1,5 +1,5 @@
 test_that(
-  "ConditionalAttributeAdder matches Python",
+  "ReplicaAdder matches Python",
   {
     
     set.seed(123)
@@ -51,7 +51,7 @@ test_that(
       
     )
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -61,7 +61,7 @@ test_that(
       )
     )
     
-    adder <- run(adder)
+    adder <- enhance(adder)
     
     r_result <- adder@synth_pop
     

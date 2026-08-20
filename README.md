@@ -36,13 +36,13 @@ make_agents()
        ↓
 Synthetic Agents
        ↓
-ConditionalAttributeAdder
+ReplicaAdder
        ↓
 Enriched Population
        ↓
-HouseholdType
+ReplicaStructure
        +
-HouseholdGrouper
+ReplicaGrouper
        ↓
 Synthetic Households
        ↓
@@ -80,7 +80,7 @@ Learn how to enrich synthetic agents using demographic contingency tables.
 Key class:
 
 ```r
-ConditionalAttributeAdder
+ReplicaAdder
 ```
 
 ### 3. Generating Synthetic Households
@@ -90,8 +90,8 @@ Learn how to transform enriched agents into realistic household structures.
 Key classes:
 
 ```r
-HouseholdType
-HouseholdGrouper
+ReplicaStructure
+ReplicaGrouper
 ```
 
 ### 4. Evaluating Synthetic Population Quality

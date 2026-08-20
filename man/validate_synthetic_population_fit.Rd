@@ -8,7 +8,8 @@ validate_synthetic_population_fit(
   synthetic_population,
   expected,
   dimensions,
-  name
+  name,
+  threshold_1L_dbl = 0.05
 )
 }
 \arguments{
@@ -23,6 +24,9 @@ used to construct the comparison contingency table.}
 
 \item{name}{Character string used in validation messages and
 warning output.}
+
+\item{threshold_1L_dbl}{Numeric significance threshold
+used when generating validation warnings.}
 }
 \value{
 A list object with multiple comparison results.

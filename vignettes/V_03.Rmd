@@ -19,7 +19,7 @@ library(data.table)
 
 ## Motivation
 
-In the "Assigning Attributes Using Contingency Tables" vignette we used `ConditionalAttributeAdder` to enrich a synthetic population with additional demographic attributes.
+In the "Assigning Attributes Using Contingency Tables" vignette we used `ReplicaAdder` to enrich a synthetic population with additional demographic attributes.
 
 At this stage each row of the synthetic population represents an individual agent.
 
@@ -39,10 +39,10 @@ The `replica` package provides tools for transforming an agent-level synthetic p
 
 Household generation in `replica` is based on two core classes:
 
-- `HouseholdType`
-- `HouseholdGrouper`
+- `ReplicaStructure`
+- `ReplicaGrouper`
 
-A `HouseholdType` describes a household structure that should be generated, while a `HouseholdGrouper` applies one or more household definitions to a synthetic population.
+A `ReplicaStructure` describes a household structure that should be generated, while a `ReplicaGrouper` applies one or more household definitions to a synthetic population.
 
 This vignette demonstrates the third stage of the `replica` workflow: transforming individual synthetic agents into synthetic households.
 
@@ -56,13 +56,13 @@ make_agents()
        ↓
 Synthetic Agents
        ↓
-ConditionalAttributeAdder
+ReplicaAdder
        ↓
 Enriched Population
        ↓
-HouseholdGrouper
+ReplicaGrouper
        +
-HouseholdType
+ReplicaStructure
        ↓
 Synthetic Households
 
@@ -137,17 +137,17 @@ In this example all agents are classified as potential parents and are therefore
 A household type specifies a household structure that we plan to generate. Here we create a simple couple household.
 
 ```{r}
-hh <- HouseholdType("CoupleHousehold")
+hh <- ReplicaStructure("CoupleHousehold")
 ```
 
 At this point we have only defined the household name. We now need to specify the household members that form this household type.
 
 
 ## Define household membership
-The addMembers() method defines the roles that must be filled when constructing a household. In this example, a couple household requires two adults.
+The renew() method defines the roles that must be filled when constructing a household. In this example, a couple household requires two adults.
 
 ```{r}
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",
@@ -215,10 +215,10 @@ rules specified above.
 
 ## Create a household grouper
 
-A HouseholdGrouper coordinates household generation across an entire synthetic population.
+A ReplicaGrouper coordinates household generation across an entire synthetic population.
 
 ```{r}
-hg <- HouseholdGrouper(df_synth_pop = pop,
+hg <- ReplicaGrouper(df_synth_pop = pop,
                        group_by = "neighb_code")
 ```
 
@@ -232,7 +232,7 @@ This is particularly important when generating synthetic households for geograph
 
 ## Register household types
 
-A HouseholdGrouper may contain multiple household types.
+A ReplicaGrouper may contain multiple household types.
 
 For example, a realistic population might contain:
 
@@ -242,29 +242,29 @@ For example, a realistic population might contain:
 
  - family households.
 
-Household types are registered using addHouseholdType().
+Household types are registered using renew().
 
 ```{r}
-hg <- addHouseholdType(hg,hh)
+hg <- renew(hg,hh)
 ```
 
 The grouper now knows how to generate couple households.
 
 ## Run household generation
 
-Once household types have been registered, the complete household-generation workflow can be executed using run().
+Once household types have been registered, the complete household-generation workflow can be executed using enhance().
 
 ```{r}
-result <- run(hg)
+result <- enhance(hg)
 ```
 
-The `run()` method executes the complete household-generation workflow.
+The `enhance()` method executes the complete household-generation workflow.
 
 For each grouping region (`neighb_code` in this example), `replica`:
 
 1. Identifies eligible household members.
 
-2. Creates household structures using registered `HouseholdType` objects.
+2. Creates household structures using registered `ReplicaStructure` objects.
 
 3. Matches adults according to the configured gender and age distributions.
 
@@ -341,11 +341,11 @@ A more comprehensive discussion of population validation is provided in the "Eva
 The previous example generated households containing adults only. The same approach can be extended further to support more complex household structures involving grandparents, children or other household positions if suitable demographic data are available.
 
 ```{r}
-hh <- HouseholdType("FamilyHousehold")
+hh <- ReplicaStructure("FamilyHousehold")
 ```
 
 ```{r}
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",
@@ -353,7 +353,7 @@ hh <- addMembers(
   backup_position_identifiers = character()
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Child",
   position_identifier = "child",
@@ -389,13 +389,13 @@ make_agents()
        ↓
 Synthetic Agents
        ↓
-ConditionalAttributeAdder
+ReplicaAdder
        ↓
 Enriched Population
        ↓
-HouseholdType
+ReplicaStructure
        +
-HouseholdGrouper
+ReplicaGrouper
        ↓
 Synthetic Households
        ↓
@@ -412,13 +412,13 @@ In this vignette we:
 
 - transformed synthetic agents into synthetic households;
 
-- defined household structures using `HouseholdType`;
+- defined household structures using `ReplicaStructure`;
 
 - specified household-member roles;
 
 - configured demographic matching rules;
 
-- generated households using `HouseholdGrouper`;
+- generated households using `ReplicaGrouper`;
 
 - examined both agent-level and household-level outputs; and
 

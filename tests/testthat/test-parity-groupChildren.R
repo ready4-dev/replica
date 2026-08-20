@@ -47,11 +47,11 @@ test_that(
       
     )
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "Family"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Child",
       position_identifier = "child",

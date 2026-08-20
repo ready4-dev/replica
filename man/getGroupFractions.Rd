@@ -7,7 +7,7 @@
 getGroupFractions(object, dt)
 }
 \arguments{
-\item{object}{A \code{\link{ConditionalAttributeAdder}}
+\item{object}{A \code{\link{ReplicaAdder}}
 object.}
 
 \item{dt}{A contingency table containing the target
@@ -34,7 +34,7 @@ fractions indexed by the target attribute and any relevant
 margin variables.
 
 This function is used internally by
-\code{\link{run}} during conditional attribute assignment.
+\code{\link{enhance}} during conditional attribute assignment.
 
 Fractions are calculated separately within each
 conditioning group.
@@ -43,11 +43,11 @@ The result is subsequently used by:
 
 \itemize{
 \item \code{\link{calculate_group_counts}}
-\item \code{\link{run}}
+\item \code{\link{enhance}}
 }
 
 If margin constraints have been supplied using
-\code{\link{addMargins}}, the returned table will also
+\code{\link{renew}}, the returned table will also
 include the corresponding margin variables.
 
 The function automatically removes duplicate index names
@@ -80,7 +80,7 @@ fractions
 \seealso{
 \code{\link{calculate_fractions}},
 \code{\link{calculate_group_counts}},
-\code{\link{ConditionalAttributeAdder}},
-\code{\link{run}}
+\code{\link{ReplicaAdder}},
+\code{\link{enhance}}
 }
 \keyword{internal}

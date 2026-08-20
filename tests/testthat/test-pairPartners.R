@@ -21,7 +21,7 @@ test_that(
 )
 
 test_that(
-  "updated HouseholdType attached",
+  "updated ReplicaStructure attached",
   {
     
     pop <- make_household_population()
@@ -37,7 +37,7 @@ test_that(
         couples,
         "object"
       ),
-      "HouseholdType"
+      "ReplicaStructure"
     )
     
   }
@@ -271,17 +271,16 @@ test_that(
         )
     )
     
-    hg <- HouseholdGrouper(
+    hg <- ReplicaGrouper(
       df_synth_pop = pop,
       group_by = "neighb_code"
     )
     
-    hg <- addHouseholdType(
+    hg <- renew(
       hg,
       hh
     )
-    
-    result <- run(hg)
+    result <- enhance(hg)
     
     expect_false(
       any(
@@ -293,7 +292,7 @@ test_that(
     
     expect_true(
       checkIntegrity(
-        result$object@household_types[[1]]
+        result$x@household_types[[1]]
       )
     )
     
@@ -327,11 +326,11 @@ test_that(
       
     )
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleHousehold"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",

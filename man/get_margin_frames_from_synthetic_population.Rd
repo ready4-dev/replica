@@ -57,5 +57,5 @@ margins <- get_margin_frames_from_synthetic_population(
 }
 \seealso{
 \code{\link{get_margin_series_from_synthetic_population}},
-\code{\link{ConditionalAttributeAdder}}
+\code{\link{ReplicaAdder}}
 }

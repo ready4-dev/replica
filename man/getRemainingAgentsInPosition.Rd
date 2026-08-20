@@ -7,7 +7,7 @@
 getRemainingAgentsInPosition(object, position, mask = NULL)
 }
 \arguments{
-\item{object}{A \code{\link{HouseholdType}} object.}
+\item{object}{A \code{\link{ReplicaStructure}} object.}
 
 \item{position}{Character string or character vector
 identifying eligible household-position values.
@@ -109,6 +109,6 @@ candidates <- getRemainingAgentsInPosition(
 \code{\link{findPrimaryPartner}},
 \code{\link{findSecondaryPartner}},
 \code{\link{pair_partners}},
-\code{\link{HouseholdType}}
+\code{\link{ReplicaStructure}}
 }
 \keyword{internal}

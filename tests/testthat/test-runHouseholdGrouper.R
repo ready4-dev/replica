@@ -49,11 +49,11 @@ pop <- data.table(
 # Create household type
 #
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "CoupleHousehold"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",
@@ -73,19 +73,19 @@ hh@couple_age_distribution <- c(
   "-5-5" = 1
 )
 test_that(
-  "run-HouseholdGrouper assigns all agents to households",
+  "run-ReplicaGrouper assigns all agents to households",
   {
     
     #
     # Create grouper
     #
     
-    hg <- HouseholdGrouper(
+    hg <- ReplicaGrouper(
       df_synth_pop = pop,
       group_by = "neighb_code"
     )
     
-    hg <- addHouseholdType(
+    hg <- renew(
       hg,
       hh
     )
@@ -94,7 +94,7 @@ test_that(
     # Execute workflow
     #
     
-    result <- run(
+    result <- enhance(
       hg
     )
     
@@ -257,20 +257,20 @@ population <- data.table(
   
 )
 test_that(
-  "run-HouseholdGrouper preserves all agents exactly once",
+  "run-ReplicaGrouper preserves all agents exactly once",
   {
     
-    hg <- HouseholdGrouper(
+    hg <- ReplicaGrouper(
       df_synth_pop = population,
       group_by = "neighb_code"
     )
     
-    hg <- addHouseholdType(
+    hg <- renew(
       hg,
       hh
     )
 
-    result <- run(
+    result <- enhance(
       hg
     )
     
@@ -291,17 +291,17 @@ test_that(
 test_that(
   "synthetic household table internally consistent",
   {
-    hg <- HouseholdGrouper(
+    hg <- ReplicaGrouper(
       df_synth_pop = population,
       group_by = "neighb_code"
     )
     
-    hg <- addHouseholdType(
+    hg <- renew(
       hg,
       hh
     )
     
-    result <- run(
+    result <- enhance(
       hg
     )
     

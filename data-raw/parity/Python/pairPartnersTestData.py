@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 from gensynthpop.household_grouper import (
-    HouseholdType
+    ReplicaStructure
 )
 
 random.seed(123)
@@ -41,7 +41,7 @@ pop = pd.DataFrame({
 
 }).set_index("agent_id")
 
-hh_type = HouseholdType(
+hh_type = ReplicaStructure(
     household_type="CoupleHousehold",
     couple_gender_distribution=pd.Series(
         {("Male", "Female"): 1.0}

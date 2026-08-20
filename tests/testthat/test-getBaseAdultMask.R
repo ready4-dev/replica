@@ -2,7 +2,7 @@ test_that(
   "getBaseAdultMask strict mode errors if adult position missing",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "ChildOnly"
     )
     
@@ -23,7 +23,7 @@ test_that(
   "getBaseAdultMask non-strict mode returns FALSE mask",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "ChildOnly"
     )
     

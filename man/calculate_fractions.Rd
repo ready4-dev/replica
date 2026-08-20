@@ -126,6 +126,6 @@ calculate_fractions(
 \seealso{
 \code{\link{getGroupFractions}},
 \code{\link{calculate_group_counts}},
-\code{\link{ConditionalAttributeAdder}},
-\code{\link{run}}
+\code{\link{ReplicaAdder}},
+\code{\link{enhance}}
 }

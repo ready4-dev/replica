@@ -7,7 +7,7 @@
 #' @param validation_result A validation object returned by
 #' \code{\link{validate_synthetic_population_fit}} or stored in
 #' the \code{validation_results} slot of a
-#' \code{\link{ConditionalAttributeAdder}}.
+#' \code{\link{ReplicaAdder}}.
 #'
 #' @return A ggplot object.
 #'

@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 from gensynthpop.conditional_attribute_adder import (
-    ConditionalAttributeAdder
+    ReplicaAdder
 )
 
 random.seed(123)
@@ -50,7 +50,7 @@ contingency = pd.DataFrame({
 
 })
 
-adder = ConditionalAttributeAdder(
+adder = ReplicaAdder(
     df_synthetic_population=population,
     df_contingency=contingency,
     target_attribute="education",

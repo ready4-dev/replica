@@ -12,7 +12,7 @@ findOppositeGenderReplacementForCandidate(
 )
 }
 \arguments{
-\item{object}{A \code{\link{HouseholdType}} object.}
+\item{object}{A \code{\link{ReplicaStructure}} object.}
 
 \item{wrong_candidate}{Candidate requiring replacement.}
 

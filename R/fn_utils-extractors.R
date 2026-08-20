@@ -316,7 +316,7 @@ calculate_age_range_from_gap <- function(
 #'
 #' @seealso
 #' \code{\link{get_margin_series_from_synthetic_population}},
-#' \code{\link{ConditionalAttributeAdder}}
+#' \code{\link{ReplicaAdder}}
 #'
 #' @export
 get_margin_frames_from_synthetic_population <- function(

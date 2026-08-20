@@ -2,10 +2,10 @@ library(testthat)
 library(data.table)
 
 test_that(
-  "valid HouseholdType passes validation",
+  "valid ReplicaStructure passes validation",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "Family"
     )
     
@@ -19,14 +19,14 @@ test_that(
   }
 )
 test_that(
-  "HouseholdType requires single hh_type",
+  "ReplicaStructure requires single hh_type",
   {
     
     expect_error(
       
       new(
         
-        "HouseholdType",
+        "ReplicaStructure",
         
         hh_type = character(),
         
@@ -61,7 +61,7 @@ test_that(
 )
 
 test_that(
-  "HouseholdGrouper rejects missing group variables",
+  "ReplicaGrouper rejects missing group variables",
   {
     
     pop <- data.table(
@@ -70,7 +70,7 @@ test_that(
     
     expect_error(
       
-      HouseholdGrouper(
+      ReplicaGrouper(
         df_synth_pop = pop,
         group_by = "neighb_code"
       )
@@ -80,7 +80,7 @@ test_that(
   }
 )
 test_that(
-  "valid HouseholdGrouper passes validation",
+  "valid ReplicaGrouper passes validation",
   {
     
     pop <- data.table(
@@ -97,7 +97,7 @@ test_that(
       
     )
     
-    hg <- HouseholdGrouper(
+    hg <- ReplicaGrouper(
       df_synth_pop = pop,
       group_by = "neighb_code"
     )
@@ -113,7 +113,7 @@ test_that(
 )
 
 test_that(
-  "ConditionalAttributeAdder requires count column",
+  "ReplicaAdder requires count column",
   {
     
     population <- data.table(
@@ -148,7 +148,7 @@ test_that(
     
     expect_error(
       
-      ConditionalAttributeAdder(
+      ReplicaAdder(
         synth_pop = population,
         contingency = contingency,
         target_attribute = "education",
@@ -200,7 +200,7 @@ test_that(
     
     expect_error(
       
-      ConditionalAttributeAdder(
+      ReplicaAdder(
         synth_pop = population,
         contingency = contingency,
         target_attribute = "education",
@@ -217,7 +217,7 @@ test_that(
   }
 )
 test_that(
-  "valid ConditionalAttributeAdder passes validation",
+  "valid ReplicaAdder passes validation",
   {
     
     population <- data.table(
@@ -252,7 +252,7 @@ test_that(
       
     )
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -274,7 +274,7 @@ test_that(
   }
 )
 test_that(
-  "run-HouseholdGrouper requires household types",
+  "run-ReplicaGrouper requires household types",
   {
     
     pop <- data.table(
@@ -291,13 +291,13 @@ test_that(
       
     )
     
-    hg <- HouseholdGrouper(
+    hg <- ReplicaGrouper(
       df_synth_pop = pop,
       group_by = "neighb_code"
     )
     
     expect_error(
-      run(hg)
+      enhance(hg)
     )
     
   }

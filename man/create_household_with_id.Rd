@@ -7,7 +7,7 @@
 create_household_with_id(object, position, id_offset, agents)
 }
 \arguments{
-\item{object}{A \code{HouseholdType} object.}
+\item{object}{A \code{ReplicaStructure} object.}
 
 \item{position}{Household-position definition returned by
 \code{\link{getPositionForName}}.}
@@ -19,12 +19,12 @@ household identifier.}
 belong to the household.}
 }
 \value{
-An updated \code{HouseholdType} object containing the
+An updated \code{ReplicaStructure} object containing the
 newly-created household.
 }
 \description{
 Creates a new synthetic household and stores it within a
-\code{HouseholdType} object.
+\code{ReplicaStructure} object.
 }
 \details{
 Each household is assigned a unique household identifier of
@@ -74,11 +74,11 @@ sprintf("SSH%06d", id_offset)
 \examples{
 \dontrun{
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "CoupleOnly"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",
@@ -110,5 +110,5 @@ names(hh@households)
 \code{\link{getPositionForName}},
 \code{\link{pair_partners}},
 \code{\link{matchAdultsWithChildren}},
-\code{\link{HouseholdType}}
+\code{\link{ReplicaStructure}}
 }

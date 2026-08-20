@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 ```{r results='hide', message=FALSE, warning=F}
 library(replica)
-library(data.table)
 ```
 
 **Note - the replica library is currently very experimental. It is still undergoing active development and testing. Function, class and method names, arguments and syntax may change without the use of deprecation conventions. This library should currently be used only for exploratory purposes.**
@@ -23,7 +22,7 @@ In the previous vignette we used `make_agents()` to create a synthetic populatio
 
 These agents often contain only a small number of variables. For example, a population may contain age-group and gender information but lack additional attributes required for simulation modelling.
 
-The `ConditionalAttributeAdder` class can be used to enrich synthetic agents using contingency tables derived from external data sources.
+The `ReplicaAdder` class can be used to enrich synthetic agents using contingency tables derived from external data sources.
 
 Examples include:
 
@@ -48,7 +47,7 @@ make_agents()
         ↓
 Synthetic Agents
         ↓
-ConditionalAttributeAdder
+ReplicaAdder
         ↓
 Education Assignment
         ↓
@@ -164,12 +163,12 @@ For example:
   School = 75%
 
 
-## Create a ConditionalAttributeAdder
+## Create a ReplicaAdder
 
-The assignment workflow is controlled using a `ConditionalAttributeAdder`.
+The assignment workflow is controlled using a `ReplicaAdder`.
 
 ```{r}
-adder <- ConditionalAttributeAdder(
+adder <- ReplicaAdder(
   synth_pop = population,
   contingency = contingency,
   target_attribute = "education",
@@ -211,7 +210,7 @@ The synthetic agents can now be enriched with an education attribute.
 The assignment is performed using:
 
 ```{r}
-adder <- run(adder)
+adder <- enhance(adder)
 ```
 
 The workflow:
@@ -263,9 +262,9 @@ In this vignette we:
 
 - defined a reference contingency table;
 
-- configured a `ConditionalAttributeAdder`;
+- configured a `ReplicaAdder`;
 
-- assigned a new attribute using `run()`;
+- assigned a new attribute using `enhance()`;
 
 - explored strategies for handling missing groups;
 

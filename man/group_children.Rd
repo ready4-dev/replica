@@ -7,7 +7,7 @@
 group_children(object, mask, child_position)
 }
 \arguments{
-\item{object}{A \code{HouseholdType} object.}
+\item{object}{A \code{ReplicaStructure} object.}
 
 \item{mask}{Logical vector identifying agents eligible for
 child grouping.}
@@ -22,7 +22,7 @@ A list of sibling groups.
 Each sibling group is represented as a character vector of
 agent identifiers.
 
-The updated \code{HouseholdType} object is attached as:
+The updated \code{ReplicaStructure} object is attached as:
 
 \preformatted{
 attr(result, "object")
@@ -34,7 +34,7 @@ synthetic population.
 }
 \details{
 Children are grouped according to the child-position
-specification stored in a \code{HouseholdType} object.
+specification stored in a \code{ReplicaStructure} object.
 
 The algorithm:
 
@@ -88,5 +88,5 @@ groups
 \seealso{
 \code{\link{matchAdultsWithChildren}},
 \code{\link{createFromMembers}},
-\code{\link{HouseholdType}}
+\code{\link{ReplicaStructure}}
 }

@@ -1,14 +1,37 @@
-#' @rdname addMembers
+#' @rdname renew
+#'
+#' @section ReplicaStructure Method:
+#'
+#' For a `ReplicaStructure`, `renew()` defines or updates
+#' household-member requirements.
+#'
+#' Household positions specify which synthetic agents are
+#' eligible for a role, while position identifiers define the
+#' household roles used internally by the matching algorithm.
+#'
+#' @param x A `ReplicaStructure`.
+#' @param household_position Household position category.
+#' @param position_identifier Internal household role
+#' identifier used during household formation.
+#' @param amount Number of household members required.
+#' @param backup_position_identifiers Alternative position
+#' identifiers that may be used when primary positions are
+#' unavailable.
+#'
+#' @return An updated `ReplicaStructure`.
+#'
+#' @exportMethod renew
 setMethod(
-  "addMembers",
-  signature(object = "HouseholdType"),
+  "renew",
+  signature(x = "ReplicaStructure"),
   
   function(
-    object,
+    x,
     household_position,
     position_identifier,
     amount,
-    backup_position_identifiers
+    backup_position_identifiers,
+    ...
   ) {
     
     pos <- list(
@@ -24,17 +47,17 @@ setMethod(
       
       backup_position_identifiers = backup_position_identifiers)
     
-    object@positions[[length(object@positions) + 1]] <- pos
+    x@positions[[length(x@positions) + 1]] <- pos
     
-    object@position_identifiers[[position_identifier]] <- length(object@positions)
+    x@position_identifiers[[position_identifier]] <- length(x@positions)
     
-    object
+    x
   }
 )
 #' @rdname agentToHousehold
 setMethod(
   "agentToHousehold",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(object) {
     
@@ -67,7 +90,7 @@ setMethod(
 )
 setMethod(
   "checkIntegrity",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(object) {
     
@@ -150,7 +173,7 @@ setMethod(
 #' @rdname createFromMembers
 setMethod(
   "createFromMembers",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(
     object,
@@ -273,7 +296,7 @@ setMethod(
 )
 setMethod(
   "getAllAgents",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(object) {
     
@@ -338,7 +361,7 @@ setMethod(
 #'
 #' Creates a logical mask identifying agents whose
 #' household-position values correspond to adult household roles
-#' defined within a \code{\link{HouseholdType}} object.
+#' defined within a \code{\link{ReplicaStructure}} object.
 #'
 #' This utility is used throughout the household-generation
 #' workflow in replica when constructing:
@@ -349,7 +372,7 @@ setMethod(
 #'   \item Family households.
 #' }
 #'
-#' @param object A \code{\link{HouseholdType}} object.
+#' @param object A \code{\link{ReplicaStructure}} object.
 #'
 #' @param strict Logical value controlling behaviour when no
 #' adult position has been defined.
@@ -387,7 +410,7 @@ setMethod(
 #' @keywords internal
 setMethod(
   "getBaseAdultMask",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(
     object,
@@ -438,13 +461,13 @@ setMethod(
 #'
 #' Creates a logical mask identifying agents whose
 #' household-position values correspond to child household roles
-#' defined in a \code{\link{HouseholdType}} object.
+#' defined in a \code{\link{ReplicaStructure}} object.
 #'
 #' This utility is used by the household-generation workflow in
 #' replica when constructing sibling groups and family
 #' households.
 #'
-#' @param object A \code{\link{HouseholdType}} object.
+#' @param object A \code{\link{ReplicaStructure}} object.
 #'
 #' @return A logical vector indicating which agents belong to
 #' configured child household positions.
@@ -469,7 +492,7 @@ setMethod(
 #' @keywords internal
 setMethod(
   "getBaseChildMask",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(object) {
     
@@ -504,7 +527,7 @@ setMethod(
 #' @rdname getPositionForName
 setMethod(
   "getPositionForName",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(
     object,
@@ -535,7 +558,7 @@ setMethod(
 #' @rdname householdsToDataFrame
 setMethod(
   "householdsToDataFrame",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(object) {
     
@@ -610,7 +633,7 @@ setMethod(
 #' helps ensure that each synthetic agent is assigned to at most
 #' one household.
 #'
-#' @param object A \code{\link{HouseholdType}} object.
+#' @param object A \code{\link{ReplicaStructure}} object.
 #'
 #' @param df Candidate-agent data frame or data.table.
 #'
@@ -648,7 +671,7 @@ setMethod(
 #' @keywords internal
 setMethod(
   "maskWithRemainingAgents",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(
     object,
@@ -679,7 +702,7 @@ setMethod(
 #' @rdname updateState
 setMethod(
   "updateState",
-  signature(object = "HouseholdType"),
+  signature(object = "ReplicaStructure"),
   
   function(
     object,

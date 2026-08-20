@@ -16,7 +16,7 @@ findSecondaryPartner(
 )
 }
 \arguments{
-\item{object}{A \code{HouseholdType} object.}
+\item{object}{A \code{ReplicaStructure} object.}
 
 \item{mask}{Logical vector identifying agents eligible for
 partner selection.}

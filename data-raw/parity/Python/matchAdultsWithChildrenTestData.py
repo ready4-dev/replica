@@ -2,7 +2,7 @@ import random
 import numpy as np
 import pandas as pd
 
-from gensynthpop.household_grouper import HouseholdType
+from gensynthpop.household_grouper import ReplicaStructure
 
 # --------------------------------------------------
 # Reproducibility
@@ -55,10 +55,10 @@ pop = pd.DataFrame({
 }).set_index("agent_id")
 
 # --------------------------------------------------
-# Create HouseholdType
+# Create ReplicaStructure
 # --------------------------------------------------
 
-hh_type = HouseholdType(
+hh_type = ReplicaStructure(
     household_type="Family",
     couple_gender_distribution=pd.Series(dtype=float),
     couple_age_distribution=pd.Series(dtype=float),

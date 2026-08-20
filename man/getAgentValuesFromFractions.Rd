@@ -37,7 +37,7 @@ ordering effects.
 }
 
 This function is used internally by
-\code{\link{run}} during conditional attribute assignment.
+\code{\link{enhance}} during conditional attribute assignment.
 
 Fractions are first converted into integer counts using
 \code{\link{calculate_group_counts}}.
@@ -116,7 +116,7 @@ getAgentValuesFromFractions(
 \code{\link{calculate_group_counts}},
 \code{\link{calculate_fractions}},
 \code{\link{getGroupFractions}},
-\code{\link{ConditionalAttributeAdder}},
-\code{\link{run}}
+\code{\link{ReplicaAdder}},
+\code{\link{enhance}}
 }
 \keyword{internal}

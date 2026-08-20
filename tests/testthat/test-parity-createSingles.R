@@ -36,11 +36,11 @@ test_that(
       
     )
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "SingleAdultHousehold"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position =
         "SingleAdult",

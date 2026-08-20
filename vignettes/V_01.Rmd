@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 ```
 ```{r results='hide', message=FALSE, warning=F}
 library(replica)
-library(data.table)
 ```
 
 **Note - the replica library is currently very experimental. It is still undergoing active development and testing. Function, class and method names, arguments and syntax may change without the use of deprecation conventions. This library should currently be used only for exploratory purposes.**
@@ -45,9 +44,9 @@ make_agents()
        ↓
 Synthetic Agents
        ↓
-ConditionalAttributeAdder
+ReplicaAdder
        ↓
-HouseholdGrouper
+ReplicaGrouper
        ↓
 Validation
 
@@ -209,12 +208,12 @@ This property makes make_agents() a useful foundation for more sophisticated syn
 ## Add agent attributes
 The agents created by make_agents() typically contain only a subset of the characteristics required by a simulation model.
 
-Additional attributes can be assigned using `ConditionalAttributeAdder`. The use of this class is demonstrated in the "Assigning Attributes Using Contingency Tables" vignette.
+Additional attributes can be assigned using `ReplicaAdder`. The use of this class is demonstrated in the "Assigning Attributes Using Contingency Tables" vignette.
 
 ## Assign agents to households
 After additional attributes have been assigned, agents can be grouped into households.
 
-To do this, use the `HouseholdType` and `HouseholdGrouper` classes. These are described in another vignette.
+To do this, use the `ReplicaStructure` and `ReplicaGrouper` classes. These are described in another vignette.
 
 
 ## Key takeaways

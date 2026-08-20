@@ -83,7 +83,7 @@ extract_household_type_distribution <- function(
 #' \code{\link{findSecondaryPartner}} and
 #' \code{\link{pair_partners}}.
 #'
-#' @param object A \code{HouseholdType} object.
+#' @param object A \code{ReplicaStructure} object.
 #'
 #' @param mask Logical vector identifying agents eligible for
 #' partner selection.
@@ -240,7 +240,7 @@ findCoupleCandidates <- function(
 #' within replica when the preferred gender composition cannot
 #' be achieved directly from the primary candidate pool.
 #'
-#' @param object A \code{\link{HouseholdType}} object.
+#' @param object A \code{\link{ReplicaStructure}} object.
 #'
 #' @param wrong_candidate Candidate requiring replacement.
 #'
@@ -385,7 +385,7 @@ findOppositeGenderReplacementForCandidate <- function(
 #' Optionally, candidate selection can be restricted to a
 #' specific gender.
 #'
-#' @param object A \code{HouseholdType} object.
+#' @param object A \code{ReplicaStructure} object.
 #'
 #' @param mask Logical vector identifying agents eligible for
 #' selection.
@@ -509,7 +509,7 @@ findPrimaryPartner <- function(
 #' This function is used internally by
 #' \code{\link{pair_partners}} during couple formation.
 #'
-#' @param object A \code{HouseholdType} object.
+#' @param object A \code{ReplicaStructure} object.
 #'
 #' @param mask Logical vector identifying agents eligible for
 #' partner selection.
@@ -744,9 +744,9 @@ findSiblingFromPool <- function(
 #' margin variables.
 #'
 #' This function is used internally by
-#' \code{\link{run}} during conditional attribute assignment.
+#' \code{\link{enhance}} during conditional attribute assignment.
 #'
-#' @param object A \code{\link{ConditionalAttributeAdder}}
+#' @param object A \code{\link{ReplicaAdder}}
 #' object.
 #'
 #' @param dt A contingency table containing the target
@@ -768,11 +768,11 @@ findSiblingFromPool <- function(
 #'
 #' \itemize{
 #'   \item \code{\link{calculate_group_counts}}
-#'   \item \code{\link{run}}
+#'   \item \code{\link{enhance}}
 #' }
 #'
 #' If margin constraints have been supplied using
-#' \code{\link{addMargins}}, the returned table will also
+#' \code{\link{renew}}, the returned table will also
 #' include the corresponding margin variables.
 #'
 #' The function automatically removes duplicate index names
@@ -805,8 +805,8 @@ findSiblingFromPool <- function(
 #' @seealso
 #' \code{\link{calculate_fractions}},
 #' \code{\link{calculate_group_counts}},
-#' \code{\link{ConditionalAttributeAdder}},
-#' \code{\link{run}}
+#' \code{\link{ReplicaAdder}},
+#' \code{\link{enhance}}
 #'
 #' @keywords internal
 getGroupFractions <- function(
@@ -869,7 +869,7 @@ getHouseholdIds <- function(
 #'         \code{sampled_agents} slot.
 #' }
 #'
-#' @param object A \code{\link{HouseholdType}} object.
+#' @param object A \code{\link{ReplicaStructure}} object.
 #'
 #' @param position Character string or character vector
 #' identifying eligible household-position values.
@@ -953,7 +953,7 @@ getHouseholdIds <- function(
 #' \code{\link{findPrimaryPartner}},
 #' \code{\link{findSecondaryPartner}},
 #' \code{\link{pair_partners}},
-#' \code{\link{HouseholdType}}
+#' \code{\link{ReplicaStructure}}
 #'
 #' @keywords internal
 getRemainingAgentsInPosition <- function( # Make method

@@ -33,11 +33,11 @@ pop <- data.table(
   
 )
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "Family"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",
@@ -45,7 +45,7 @@ hh <- addMembers(
   backup_position_identifiers = character()
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Child",
   position_identifier = "child",

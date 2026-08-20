@@ -7,7 +7,7 @@
 pair_partners(object, group_mask)
 }
 \arguments{
-\item{object}{A \code{HouseholdType} object.}
+\item{object}{A \code{ReplicaStructure} object.}
 
 \item{group_mask}{Logical vector identifying agents eligible
 for couple formation.}
@@ -24,7 +24,7 @@ list(
 )
 }
 
-The updated \code{HouseholdType} object is attached as:
+The updated \code{ReplicaStructure} object is attached as:
 
 \preformatted{
 attr(result, "object")
@@ -79,11 +79,11 @@ reassignment.
 \examples{
 \dontrun{
 
-hh <- HouseholdType(
+hh <- ReplicaStructure(
   "CoupleHousehold"
 )
 
-hh <- addMembers(
+hh <- renew(
   hh,
   household_position = "Parent",
   position_identifier = "adult",
@@ -113,5 +113,5 @@ couples <- pair_partners(
 \code{\link{findCoupleCandidates}},
 \code{\link{parse_age_gap}},
 \code{\link{createFromMembers}},
-\code{\link{HouseholdType}}
+\code{\link{ReplicaStructure}}
 }

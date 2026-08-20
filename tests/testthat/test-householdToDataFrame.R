@@ -5,11 +5,11 @@ test_that(
   "householdsToDataFrame produces correct output",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
@@ -129,7 +129,7 @@ test_that(
   "household sizes reflect membership counts",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "MixedHouseholds"
     )
     
@@ -213,7 +213,7 @@ test_that(
   "empty household list handled correctly",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
@@ -246,7 +246,7 @@ test_that(
 test_that(
   "hh_size matches stored household membership",
   {
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     

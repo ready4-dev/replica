@@ -45,7 +45,7 @@ test_that(
   "target attribute added",
   {
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -55,7 +55,7 @@ test_that(
       )
     )
     
-    adder <- run(adder)
+    adder <- enhance(adder)
     
     result <- adder@synth_pop
     
@@ -69,7 +69,7 @@ test_that(
   "all agents receive target attribute",
   {
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -79,7 +79,7 @@ test_that(
       )
     )
     
-    adder <- run(adder)
+    adder <- enhance(adder)
     
     result <- adder@synth_pop
     
@@ -97,7 +97,7 @@ test_that(
   "population size preserved",
   {
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -107,7 +107,7 @@ test_that(
       )
     )
     
-    adder <- run(adder)
+    adder <- enhance(adder)
     
     expect_equal(
       nrow(adder@synth_pop),
@@ -120,7 +120,7 @@ test_that(
   "assigned values account for every agent",
   {
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -130,7 +130,7 @@ test_that(
       )
     )
     
-    adder <- run(adder)
+    adder <- enhance(adder)
     
     result <- adder@synth_pop
     
@@ -366,7 +366,7 @@ test_that(
     
     expect_error(
       
-      ConditionalAttributeAdder(
+      ReplicaAdder(
         synth_pop = population,
         contingency = contingency,
         target_attribute = "education",
@@ -383,10 +383,10 @@ test_that(
   }
 )
 test_that(
-  "ConditionalAttributeAdder runs end to end",
+  "ReplicaAdder runs end to end",
   {
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -399,7 +399,7 @@ test_that(
     )
     
     expect_silent(
-      adder <- run(adder)
+      adder <- enhance(adder)
     )
     
     result <- adder@synth_pop
@@ -435,7 +435,7 @@ test_that(
   "borrow strategy assigns values to missing groups",
   {
     
-    adder <- ConditionalAttributeAdder(
+    adder <- ReplicaAdder(
       synth_pop = population,
       contingency = contingency,
       target_attribute = "education",
@@ -447,7 +447,7 @@ test_that(
         "borrow"
     )
     
-    adder <- run(adder)
+    adder <- enhance(adder)
     
     result <- adder@synth_pop
     

@@ -5,11 +5,11 @@ test_that(
   "checkIntegrity returns TRUE for valid households",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
@@ -55,11 +55,11 @@ test_that(
   "checkIntegrity detects duplicate agents",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
@@ -114,11 +114,11 @@ test_that(
   "checkIntegrity detects missing agents",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
@@ -168,11 +168,11 @@ test_that(
   "checkIntegrity handles empty household list",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
@@ -211,11 +211,11 @@ test_that(
   "all expected agents appear exactly once",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
@@ -303,11 +303,11 @@ test_that(
   "valid household assignments pass integrity check",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",

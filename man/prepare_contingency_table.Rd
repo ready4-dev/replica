@@ -61,7 +61,7 @@ Stop with an error if required groups are missing.
 }
 
 This function is typically invoked automatically by
-\code{\link{run}} before conditional attribute assignment
+\code{\link{enhance}} before conditional attribute assignment
 begins.
 
 The function compares all unique combinations of
@@ -138,8 +138,8 @@ expanded <- prepare_contingency_table(
 
 }
 \seealso{
-\code{\link{ConditionalAttributeAdder}},
-\code{\link{run}},
+\code{\link{ReplicaAdder}},
+\code{\link{enhance}},
 \code{\link{calculate_fractions}},
 \code{\link{synthetic_population_to_contingency}}
 }

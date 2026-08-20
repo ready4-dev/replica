@@ -2,7 +2,7 @@ library(testthat)
 library(data.table)
 
 test_that(
-  "run-HouseholdGrouper matches Python",
+  "run-ReplicaGrouper matches Python",
   {
     
     set.seed(123)
@@ -67,14 +67,14 @@ test_that(
     )
     
     #
-    # Create HouseholdType
+    # Create ReplicaStructure
     #
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleHousehold"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
@@ -91,15 +91,15 @@ test_that(
     )
     
     #
-    # Create HouseholdGrouper
+    # Create ReplicaGrouper
     #
     
-    hg <- HouseholdGrouper(
+    hg <- ReplicaGrouper(
       df_synth_pop = pop,
       group_by = "neighb_code"
     )
     
-    hg <- addHouseholdType(
+    hg <- renew(
       hg,
       hh
     )
@@ -108,7 +108,7 @@ test_that(
     # Run R workflow
     #
     
-    result <- run(
+    result <- enhance(
       hg
     )
     

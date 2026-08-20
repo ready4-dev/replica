@@ -19,7 +19,7 @@
 #' }
 #'
 #' This function is typically invoked automatically by
-#' \code{\link{run}} before conditional attribute assignment
+#' \code{\link{enhance}} before conditional attribute assignment
 #' begins.
 #'
 #' @param contingency A contingency table containing the target
@@ -122,8 +122,8 @@
 #' }
 #'
 #' @seealso
-#' \code{\link{ConditionalAttributeAdder}},
-#' \code{\link{run}},
+#' \code{\link{ReplicaAdder}},
+#' \code{\link{enhance}},
 #' \code{\link{calculate_fractions}},
 #' \code{\link{synthetic_population_to_contingency}}
 #'
@@ -429,13 +429,13 @@ prepare_contingency_table <- function(
 #' replica when suitable candidates are unavailable within the
 #' preferred household-position pool.
 #'
-#' @param object A \code{\link{HouseholdType}} object.
+#' @param object A \code{\link{ReplicaStructure}} object.
 #'
 #' @param agent_1 Identifier of the first agent.
 #'
 #' @param agent_2 Identifier of the second agent.
 #'
-#' @return An updated \code{\link{HouseholdType}} object.
+#' @return An updated \code{\link{ReplicaStructure}} object.
 #'
 #' @details
 #' The function:

@@ -2,11 +2,11 @@ test_that(
   "agentToHousehold assigns household IDs",
   {
     
-    hh <- HouseholdType(
+    hh <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- addMembers(
+    hh <- renew(
       hh,
       household_position = "Parent",
       position_identifier = "adult",
