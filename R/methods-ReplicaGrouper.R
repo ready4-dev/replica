@@ -9,6 +9,7 @@
 #' @param x A `ReplicaGrouper`.
 #' @param household_type A `ReplicaStructure` object to be
 #' registered with the grouper.
+#' @param ... Additional arguments passed to the method.
 #'
 #' @return An updated `ReplicaGrouper`.
 #'
@@ -33,7 +34,7 @@ setMethod(
   }
 )
 
-#' @rdname enhance
+#' @rdname manufacture
 #'
 #' @section ReplicaGrouper Method:
 #'
@@ -41,40 +42,23 @@ setMethod(
 #' population using one or more registered
 #' \code{ReplicaStructure} definitions.
 #'
-#' For each grouping region, the method:
-#'
-#' \enumerate{
-#'   \item identifies eligible household members;
-#'   \item applies registered household structures;
-#'   \item matches agents according to demographic rules;
-#'   \item creates synthetic households;
-#'   \item assigns household identifiers; and
-#'   \item generates household-level outputs.
-#' }
-#'
 #' Household generation is performed independently within
-#' each grouping region defined by the \code{group_by}
-#' slot.
+#' each grouping region.
 #'
 #' @param x A \code{ReplicaGrouper}.
-#' @param ... Additional arguments passed to the method.
 #'
 #' @return A list containing:
 #'
 #' \itemize{
-#'   \item \code{synthetic_population},
-#'   \item \code{synthetic_households}, and
+#'   \item \code{synthetic_population};
+#'   \item \code{synthetic_households}; and
 #'   \item \code{object}.
 #' }
-#'
-#' The returned population contains one row per synthetic
-#' agent, while the household table contains one row per
-#' synthetic household.
 #'
 #' @examples
 #' \dontrun{
 #'
-#' result <- enhance(
+#' result <- manufacture(
 #'   grouper
 #' )
 #'
@@ -85,13 +69,13 @@ setMethod(
 #' }
 #'
 #' @seealso
-#' \code{\link{ReplicaStructure}},
 #' \code{\link{ReplicaGrouper}},
+#' \code{\link{ReplicaStructure}},
 #' \code{\link{renew}}
 #'
-#' @exportMethod enhance
+#' @exportMethod manufacture
 setMethod(
-  "enhance",
+  "manufacture",
   signature(x = "ReplicaGrouper"),
   
   function(x, ...) {

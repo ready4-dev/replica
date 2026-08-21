@@ -42,15 +42,25 @@ This vignette demonstrates how to assign an education attribute while preserving
 The workflow demonstrated in this vignette can be summarised as:
 
 Age-Gender Counts
+
         ↓
-make_agents()
+        
+`make_agents()`
+
         ↓
+        
 Synthetic Agents
+
         ↓
-ReplicaAdder
+        
+`ReplicaAdder`
+
         ↓
+        
 Education Assignment
+
         ↓
+        
 Enriched Synthetic Population
 
 ## Supply a seed synthetic population of individual agents

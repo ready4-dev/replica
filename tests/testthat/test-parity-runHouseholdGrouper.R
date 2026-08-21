@@ -108,7 +108,7 @@ test_that(
     # Run R workflow
     #
     
-    result <- enhance(
+    result <- manufacture(
       hg
     )
     

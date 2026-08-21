@@ -39,15 +39,25 @@ This vignette demonstrates how to create synthetic agents from marginal distribu
 The workflow supported by `replica` can be summarised as:
 
 Aggregate Counts
+
        ↓
-make_agents()
+       
+`make_agents()`
+
        ↓
+       
 Synthetic Agents
+
        ↓
-ReplicaAdder
+       
+`ReplicaAdder`
+
        ↓
-ReplicaGrouper
+       
+`ReplicaGrouper`
+
        ↓
+       
 Validation
 
 This vignette focuses on the first stage: creating a synthetic population of individual agents.

@@ -280,7 +280,7 @@ test_that(
       hg,
       hh
     )
-    result <- enhance(hg)
+    result <- manufacture(hg)
     
     expect_false(
       any(

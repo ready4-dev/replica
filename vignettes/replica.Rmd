@@ -45,21 +45,37 @@ This development version of `replica` has been made available as part of the pro
 The workflow supported by `replica` can be summarised as:
 
 Aggregate Counts
+
        ↓
-make_agents()
+       
+`make_agents()`
+
        ↓
+       
 Synthetic Agents
+
        ↓
-ReplicaAdder
+       
+`ReplicaAdder`
+
        ↓
+       
 Enriched Population
+
        ↓
-ReplicaStructure
+       
+`ReplicaStructure`
+
        +
-ReplicaGrouper
+       
+`ReplicaGrouper`
+
        ↓
+       
 Synthetic Households
+
        ↓
+       
 Validation
 
 
@@ -234,7 +250,7 @@ hg <- ReplicaGrouper(df_synth_pop = population,
 
 hg <- renew(hg, hh)
 
-households <- enhance(hg)
+households <- manufacture(hg)
 ```
 
 ### Inspect Results

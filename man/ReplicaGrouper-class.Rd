@@ -94,7 +94,7 @@ hg <- renew(
   hh
 )
 
-result <- enhance(
+result <- manufacture(
   hg
 )
 
@@ -104,6 +104,6 @@ result <- enhance(
 \seealso{
 \code{\link{ReplicaGrouper}},
 \code{\link{ReplicaStructure}},
-\code{\link{renew}},
-\code{\link{enhance}}
+\code{\link{manufacture}},
+\code{\link{renew}}
 }

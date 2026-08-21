@@ -94,7 +94,7 @@ test_that(
     # Execute workflow
     #
     
-    result <- enhance(
+    result <- manufacture(
       hg
     )
     
@@ -270,7 +270,7 @@ test_that(
       hh
     )
 
-    result <- enhance(
+    result <- manufacture(
       hg
     )
     
@@ -301,7 +301,7 @@ test_that(
       hh
     )
     
-    result <- enhance(
+    result <- manufacture(
       hg
     )
     

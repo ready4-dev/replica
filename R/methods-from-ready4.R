@@ -1,3 +1,61 @@
+#' Enhance Replica Modules
+#'
+#' Enhances a replica module by updating or enriching the
+#' data managed by that module.
+#'
+#' The behaviour of `enhance()` depends on the class of the
+#' supplied object.
+#'
+#' Methods are currently available for:
+#'
+#' \itemize{
+#'   \item \code{ReplicaAdder}
+#' }
+#'
+#' @details
+#'
+#' In the current implementation, `enhance()` is used to
+#' execute attribute-assignment workflows.
+#'
+#' For a \code{ReplicaAdder}, the method assigns values of a
+#' target attribute to synthetic agents using information
+#' supplied in contingency tables and optional marginal
+#' distributions.
+#'
+#' The resulting enriched synthetic population is stored
+#' within the module and can subsequently be validated using
+#' \code{\link{ratify}}.
+#'
+#' Workflows that generate new output objects, such as
+#' household generation, are implemented using
+#' \code{\link{manufacture}}.
+#'
+#' @seealso
+#' \code{\link{renew}},
+#' \code{\link{ratify}},
+#' \code{\link{manufacture}},
+#' \code{\link{ReplicaAdder}}
+#'
+#' @name enhance
+NULL
+NULL
+
+#' Manufacture Replica Outputs
+#'
+#' Creates new outputs from replica modules.
+#'
+#' The behaviour of `manufacture()` depends on the class of
+#' the supplied object.
+#'
+#' Methods are currently available for:
+#'
+#' \itemize{
+#'   \item \code{ReplicaGrouper}
+#' }
+#'
+#' @name manufacture
+NULL
+
 #' Ratify Attribute Assignment Results
 #'
 #' Evaluates the quality of attribute assignment performed by a
@@ -100,32 +158,3 @@ NULL
 #' @name renew
 NULL
 
-#' Enhance Replica Modules
-#'
-#' Executes a replica workflow.
-#'
-#' The behaviour of `enhance()` depends on the class of the
-#' supplied object.
-#'
-#' Methods are currently available for:
-#'
-#' \itemize{
-#'   \item \code{ReplicaAdder}
-#'   \item \code{ReplicaGrouper}
-#' }
-#'
-#' @details
-#'
-#' `enhance()` is the primary workflow execution method used
-#' by replica modules.
-#'
-#' Depending on the module supplied, the method may:
-#'
-#' \itemize{
-#'   \item assign attributes to synthetic agents;
-#'   \item generate synthetic households; or
-#'   \item perform other population-enhancement tasks.
-#' }
-#'
-#' @name enhance
-NULL

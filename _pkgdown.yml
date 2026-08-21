@@ -42,12 +42,12 @@ reference:
   - ReplicaStructure-class
 - title: "Methods"
 - contents:
-  - starts_with("renew")
   - starts_with("agentToHousehold")
   - starts_with("createFromMembers")
   - enhance,ReplicaAdder-method
   - enhance,ReplicaGrouper-method
-  - starts_with("getPositionForName")
   - starts_with("householdsToDataFrame")
-  - starts_with("updateState")
   - starts_with("ratify")
+  - starts_with("renew")
+  - starts_with("updateState")
+

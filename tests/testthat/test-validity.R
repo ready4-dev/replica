@@ -297,7 +297,7 @@ test_that(
     )
     
     expect_error(
-      enhance(hg)
+      manufacture(hg)
     )
     
   }

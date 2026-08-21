@@ -51,19 +51,33 @@ This vignette demonstrates the third stage of the `replica` workflow: transformi
 The workflow demonstrated in this vignette can be summarised as:
 
 Aggregate Counts
+
        ↓
-make_agents()
+       
+`make_agents()`
+
        ↓
+       
 Synthetic Agents
+
        ↓
-ReplicaAdder
+       
+`ReplicaAdder`
+
        ↓
+       
 Enriched Population
+
        ↓
-ReplicaGrouper
+       
+`ReplicaGrouper`
+
        +
-ReplicaStructure
+       
+`ReplicaStructure`
+
        ↓
+       
 Synthetic Households
 
 This vignette focuses on the household-generation stage.
@@ -252,13 +266,13 @@ The grouper now knows how to generate couple households.
 
 ## Run household generation
 
-Once household types have been registered, the complete household-generation workflow can be executed using enhance().
+Once household types have been registered, the complete household-generation workflow can be executed using `manufacture()`.
 
 ```{r}
-result <- enhance(hg)
+result <- manufacture(hg)
 ```
 
-The `enhance()` method executes the complete household-generation workflow.
+The `manufacture()` method executes the complete household-generation workflow.
 
 For each grouping region (`neighb_code` in this example), `replica`:
 

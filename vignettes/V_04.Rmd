@@ -47,19 +47,37 @@ This vignette demonstrates how to:
 This vignette focuses on the final stage of the replica workflow.
 
 Aggregate Counts
+
        ↓
-make_agents()
+       
+`make_agents()`
+
        ↓
+       
 Synthetic Agents
+
        ↓
-ReplicaAdder
+       
+`ReplicaAdder`
+
        ↓
+       
 Enriched Population
+
        ↓
-ReplicaGrouper
+       
+`ReplicaStructure`
+
+       +
+       
+`ReplicaGrouper`
+
        ↓
+       
 Synthetic Households
+
        ↓
+       
 Validation
 
 ## Create population to be evaluated
