@@ -46,6 +46,7 @@ setMethod(
 #' each grouping region.
 #'
 #' @param x A \code{ReplicaGrouper}.
+#' @param ... Additional arguments that can be supplied to the method.
 #'
 #' @return A list containing:
 #'

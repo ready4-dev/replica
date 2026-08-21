@@ -10,6 +10,8 @@
 }
 \arguments{
 \item{x}{A \code{ReplicaGrouper}.}
+
+\item{...}{Additional arguments that can be supplied to the method.}
 }
 \value{
 A list containing:

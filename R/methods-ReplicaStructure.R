@@ -190,6 +190,11 @@ setMethod(
   }
 )
 
+#' Create households from member assignments.
+#'
+#' Internal helper used during household generation.
+#'
+#' @keywords internal
 setMethod(
   "createFromMembers",
   signature(object = "ReplicaStructure"),
@@ -538,8 +543,11 @@ setMethod(
     object@df_synth_pop[[object@household_position_column]] %in% child_position$position
     
   }
-  
 )
+#' Retrieve a household position definition.
+#'
+#' Internal helper used by household-generation methods.
+#'
 setMethod(
   "getPositionForName",
   signature(object = "ReplicaStructure"),
