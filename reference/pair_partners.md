@@ -64,7 +64,7 @@ Couple composition is controlled by:
 - `couple_age_distribution`
 
 Age-gap specifications are interpreted using
-[`parse_age_gap`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md).
+[`transform_to_age_gap`](https://ready4-dev.github.io/replica/reference/transform_to_age_gap.md).
 
 Candidate partners are selected using:
 
@@ -82,7 +82,7 @@ prevent subsequent reassignment.
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
-[`parse_age_gap`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md),
+[`transform_to_age_gap`](https://ready4-dev.github.io/replica/reference/transform_to_age_gap.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples

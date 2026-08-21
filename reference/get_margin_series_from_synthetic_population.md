@@ -40,14 +40,14 @@ The function aggregates the synthetic population over the supplied
 variables and counts the number of agents in each resulting category.
 
 Unlike
-[`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md),
+[`transform_to_contingency`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md),
 this function is intended specifically for marginal distributions rather
 than higher-dimensional contingency tables.
 
 ## See also
 
 [`get_margin_frames_from_synthetic_population`](https://ready4-dev.github.io/replica/reference/get_margin_frames_from_synthetic_population.md),
-[`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md)
+[`transform_to_contingency`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md)
 
 ## Examples
 

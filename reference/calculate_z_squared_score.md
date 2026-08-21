@@ -97,7 +97,7 @@ Geodemographic Classification".
 ## See also
 
 [`validate_synthetic_population_fit`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md),
-[`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md)
+[`transform_to_contingency`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md)
 
 ## Examples
 

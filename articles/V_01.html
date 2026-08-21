@@ -161,7 +161,7 @@ can convert this table to a table of individual agents:</p>
 <p>The generated population can also be aggregated back into a
 contingency table.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="va">agents</span>,</span>
 <span></span>
@@ -218,7 +218,7 @@ generate the agents.</p>
 <p>Each synthetic agent now contains an age-group assignment.</p>
 <p>Summarise the resulting population:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span></span>
 <span></span>
 <span>  <span class="va">agents</span>,</span>
 <span></span>
@@ -294,7 +294,7 @@ tables.</p>
 <p>We can compare the generated population with the original contingency
 table.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/synthetic_population_to_contingency.html">synthetic_population_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, </span>
 <span>                                    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
 <span><span class="co">## 1      0-17   Male   100</span></span>

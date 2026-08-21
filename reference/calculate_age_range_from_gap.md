@@ -67,7 +67,7 @@ This behaviour mirrors the original GenSynthPop implementation.
 
 ## See also
 
-[`parse_age_gap`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md),
+[`transform_to_age_gap`](https://ready4-dev.github.io/replica/reference/transform_to_age_gap.md),
 [`score_suitability_by_age_disparity`](https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md)
 

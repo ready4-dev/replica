@@ -2,7 +2,7 @@
 
 ## Functions
 
-- [`age_to_age_group()`](https://ready4-dev.github.io/replica/reference/age_to_age_group.md)
+- [`transform_to_age_group()`](https://ready4-dev.github.io/replica/reference/transform_to_age_group.md)
   : Convert an Integer Age to an Age Group
 - [`calculate_age_range_from_gap()`](https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.md)
   : Calculate an Age Range from an Age-Gap Specification
@@ -20,9 +20,9 @@
   : Extract a Margin Distribution from a Synthetic Population
 - [`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
   : Create Synthetic Agents From Aggregate Counts
-- [`multicolumn_to_attribute_values()`](https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.md)
+- [`transform_to_combinations()`](https://ready4-dev.github.io/replica/reference/transform_to_combinations.md)
   : Convert Multiple Columns to Attribute Combinations
-- [`parse_age_gap()`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md)
+- [`transform_to_age_gap()`](https://ready4-dev.github.io/replica/reference/transform_to_age_gap.md)
   : Parse an Age-Gap Specification
 - [`plot_validation_differences()`](https://ready4-dev.github.io/replica/reference/plot_validation_differences.md)
   : Plot percentage-point differences
@@ -30,9 +30,9 @@
   : Plot observed and expected distributions
 - [`plot_validation_heatmap()`](https://ready4-dev.github.io/replica/reference/plot_validation_heatmap.md)
   : Plot validation heatmap
-- [`prepare_contingency_table()`](https://ready4-dev.github.io/replica/reference/prepare_contingency_table.md)
+- [`make_contingency_table()`](https://ready4-dev.github.io/replica/reference/make_contingency_table.md)
   : Prepare a Contingency Table for Attribute Assignment
-- [`synthetic_population_to_contingency()`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md)
+- [`transform_to_contingency()`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md)
   : Convert a Synthetic Population to a Contingency Table
 - [`validate_synthetic_population_fit()`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md)
   : Validate the Fit of a Synthetic Population

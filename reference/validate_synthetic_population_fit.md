@@ -48,7 +48,7 @@ A list object with multiple comparison results.
 The function:
 
 1.  Converts the synthetic population into a contingency table using
-    [`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md).
+    [`transform_to_contingency`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md).
 
 2.  Aligns the observed and expected distributions.
 
@@ -60,7 +60,7 @@ The function:
 ## See also
 
 [`calculate_z_squared_score`](https://ready4-dev.github.io/replica/reference/calculate_z_squared_score.md),
-[`synthetic_population_to_contingency`](https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.md)
+[`transform_to_contingency`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md)
 
 ## Examples
 

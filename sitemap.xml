@@ -15,7 +15,6 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/ReplicaGrouper.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/ReplicaStructure-class.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/ReplicaStructure.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/age_to_age_group.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_fractions.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_group_counts.html</loc></url>
@@ -40,24 +39,25 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/group_children.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/index.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/make_agents.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/make_contingency_table.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/manufacture.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/maskWithRemainingAgents-ReplicaStructure-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/pair_partners.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/parse_age_gap.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/pipe.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_differences.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_distributions.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_heatmap.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/prepare_contingency_table.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/ratify.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/renew.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/replica-package.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/score_sibling_age_suitability.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/switchHouseholdPositions.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/transform_to_age_gap.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/transform_to_age_group.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/transform_to_combinations.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/transform_to_contingency.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.html</loc></url>
 </urlset>
 
