@@ -11,6 +11,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
@@ -61,6 +62,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
@@ -120,6 +122,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
@@ -174,6 +177,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
@@ -217,6 +221,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
@@ -309,6 +314,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,

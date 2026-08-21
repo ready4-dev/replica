@@ -15,10 +15,13 @@
 
 \S4method{renew}{ReplicaStructure}(
   x,
-  household_position,
-  position_identifier,
-  amount,
-  backup_position_identifiers,
+  what = c("positions", "state", "households"),
+  household_position = NULL,
+  position_identifier = NULL,
+  amount = NULL,
+  backup_position_identifiers = character(),
+  df_synth_pop = NULL,
+  household_position_column = NULL,
   ...
 )
 }
@@ -34,6 +37,17 @@ supplied margins.}
 
 \item{household_type}{A \code{ReplicaStructure} object to be
 registered with the grouper.}
+
+\item{what}{Character string specifying the component of
+a ReplicaStructure to be updated.
+
+Current options are:
+
+\itemize{
+\item \code{"positions"}
+\item \code{"state"}
+\item \code{"households"}
+}}
 
 \item{household_position}{Household position category.}
 

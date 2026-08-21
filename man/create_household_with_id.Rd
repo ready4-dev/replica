@@ -47,7 +47,7 @@ This function is used internally during household generation
 by:
 
 \itemize{
-\item \code{\link{pair_partners}}
+\item \code{pair_partners}
 \item \code{\link{matchAdultsWithChildren}}
 }
 
@@ -107,7 +107,6 @@ names(hh@households)
 
 }
 \seealso{
-\code{\link{pair_partners}},
 \code{\link{matchAdultsWithChildren}},
 \code{\link{ReplicaStructure}}
 }

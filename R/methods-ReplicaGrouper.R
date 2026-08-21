@@ -42,11 +42,18 @@ setMethod(
 #' population using one or more registered
 #' \code{ReplicaStructure} definitions.
 #'
-#' Household generation is performed independently within
-#' each grouping region.
+#' For each grouping region, the method:
+#'
+#' \enumerate{
+#'   \item identifies eligible household members;
+#'   \item applies registered household structures;
+#'   \item matches agents according to demographic rules;
+#'   \item generates synthetic households;
+#'   \item assigns household identifiers; and
+#'   \item creates household-level summary outputs.
+#' }
 #'
 #' @param x A \code{ReplicaGrouper}.
-#' @param ... Additional arguments that can be supplied to the method.
 #'
 #' @return A list containing:
 #'
@@ -55,6 +62,12 @@ setMethod(
 #'   \item \code{synthetic_households}; and
 #'   \item \code{object}.
 #' }
+#'
+#' The \code{synthetic_population} table contains one row
+#' per synthetic agent.
+#'
+#' The \code{synthetic_households} table contains one row
+#' per synthetic household.
 #'
 #' @examples
 #' \dontrun{
@@ -68,11 +81,6 @@ setMethod(
 #' result$synthetic_households
 #'
 #' }
-#'
-#' @seealso
-#' \code{\link{ReplicaGrouper}},
-#' \code{\link{ReplicaStructure}},
-#' \code{\link{renew}}
 #'
 #' @exportMethod manufacture
 setMethod(
@@ -200,7 +208,7 @@ setMethod(
         x@household_types,
         
         function(x)
-          householdsToDataFrame(x)
+          manufacture(x)
         
       )
       

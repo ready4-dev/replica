@@ -39,6 +39,7 @@ hh <- ReplicaStructure(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Child",
   position_identifier = "child",
   amount = 2,
@@ -63,7 +64,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,
@@ -85,7 +86,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,
@@ -119,7 +120,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,
@@ -157,7 +158,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,
@@ -189,7 +190,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,
@@ -219,7 +220,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,
@@ -267,7 +268,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,
@@ -308,7 +309,7 @@ test_that(
     
     set.seed(123)
     
-    groups <- group_children(
+    groups <- replica:::group_children(
       hh,
       rep(
         TRUE,

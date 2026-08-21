@@ -115,7 +115,6 @@ score_suitability_by_age_disparity(
 \code{\link{calculate_age_range_from_gap}},
 \code{\link{findCoupleCandidates}},
 \code{\link{findSecondaryPartner}},
-\code{\link{pair_partners}},
 \code{\link{matchAdultsWithChildren}}
 }
 \keyword{internal}

@@ -51,7 +51,7 @@ exported using:
 
 \itemize{
 \item \code{\link{agentToHousehold}}
-\item \code{\link{householdsToDataFrame}}
+\item \code{\link{manufacture}}
 }
 }
 \section{Slots}{
@@ -121,5 +121,5 @@ hh <- renew(
 \code{\link{ReplicaGrouper}},
 \code{\link{renew}},
 \code{\link{agentToHousehold}},
-\code{\link{householdsToDataFrame}}
+\code{\link{manufacture}}
 }

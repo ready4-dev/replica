@@ -7,7 +7,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -27,7 +27,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -50,7 +50,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -77,7 +77,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -112,7 +112,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -139,7 +139,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -166,7 +166,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -197,7 +197,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -221,7 +221,7 @@ test_that(
     pop <- make_household_population()
     hh <- make_couple_household(pop)
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(TRUE, 4)
     )
@@ -330,6 +330,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
@@ -350,7 +351,7 @@ test_that(
       "-5-5" = 1
     )
     
-    couples <- pair_partners(
+    couples <- replica:::pair_partners(
       hh,
       rep(
         TRUE,

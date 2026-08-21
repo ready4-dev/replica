@@ -2,7 +2,7 @@ library(testthat)
 library(data.table)
 
 test_that(
-  "householdsToDataFrame produces correct output",
+  "manufacture produces correct output",
   {
     
     hh <- ReplicaStructure(
@@ -11,6 +11,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
@@ -67,7 +68,7 @@ test_that(
       )
     )
     
-    households <- householdsToDataFrame(
+    households <- manufacture(
       hh
     )
     
@@ -183,7 +184,7 @@ test_that(
       
     )
     
-    households <- householdsToDataFrame(
+    households <- manufacture(
       hh
     )
     
@@ -219,7 +220,7 @@ test_that(
     
     hh@households <- list()
     
-    households <- householdsToDataFrame(
+    households <- manufacture(
       hh
     )
     
@@ -250,7 +251,7 @@ test_that(
       "CoupleOnly"
     )
     
-    households <- householdsToDataFrame(
+    households <- manufacture(
       hh
     )
     

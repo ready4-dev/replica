@@ -45,37 +45,21 @@ This development version of `replica` has been made available as part of the pro
 The workflow supported by `replica` can be summarised as:
 
 Aggregate Counts
-
        ↓
-       
 `make_agents()`
-
        ↓
-       
 Synthetic Agents
-
        ↓
-       
 `ReplicaAdder`
-
        ↓
-       
 Enriched Population
-
        ↓
-       
 `ReplicaStructure`
-
        +
-       
 `ReplicaGrouper`
-
        ↓
-       
 Synthetic Households
-
        ↓
-       
 Validation
 
 
@@ -236,10 +220,11 @@ population[age_group == "65+",
 hh <- ReplicaStructure("CoupleHousehold")
 
 hh <- renew(hh,
-                 household_position = "Parent",
-                 position_identifier = "adult",
-                 amount = 2,
-                 backup_position_identifiers = character())
+            what = "positions",
+            household_position = "Parent",
+            position_identifier = "adult",
+            amount = 2,
+            backup_position_identifiers = character())
 
 hh@couple_gender_distribution <- c("Female|Male" = 1)
 

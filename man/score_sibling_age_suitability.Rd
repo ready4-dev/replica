@@ -54,8 +54,6 @@ score_sibling_age_suitability(
 )
 }
 
-}
-\seealso{
-\code{\link{group_children}}
+
 }
 \keyword{internal}

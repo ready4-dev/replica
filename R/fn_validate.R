@@ -2,7 +2,7 @@ expect_household_sizes_correct <- function(
     household_type
 ) {
   
-  households <- householdsToDataFrame(
+  households <- manufacture(
     household_type
   )
   

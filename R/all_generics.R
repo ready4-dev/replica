@@ -11,7 +11,7 @@
 #'
 #' This method is typically called after household generation
 #' has completed and before household-level summary tables are
-#' created using \code{\link{householdsToDataFrame}}.
+#' created using \code{\link{manufacture}}.
 #'
 #' @param object A \code{\link{ReplicaStructure}} object.
 #'
@@ -56,7 +56,7 @@
 #' }
 #'
 #' @seealso
-#' \code{\link{householdsToDataFrame}},
+#' \code{\link{manufacture}},
 #' \code{\link{create_household_with_id}},
 #' \code{\link{enhance}},
 #' \code{\link{ReplicaStructure}}
@@ -122,93 +122,7 @@ setGeneric(
     )
   }
 )
-#' Convert Synthetic Households to a Data Frame
-#'
-#' Creates a household-level summary table from the household
-#' records stored within a \code{\link{ReplicaStructure}} object.
-#'
-#' Each row in the returned data frame represents a single
-#' synthetic household and contains summary information such as
-#' household identifier, household type and household size.
-#'
-#' This method is typically called after household generation
-#' and household assignment have been completed.
-#'
-#' @param object A \code{\link{ReplicaStructure}} object.
-#'
-#' @return A data frame containing one row per household.
-#'
-#' The returned table contains:
-#'
-#' \describe{
-#'   \item{household_id}{
-#'     Unique household identifier.
-#'   }
-#'
-#'   \item{neighb_code}{
-#'     Neighbourhood identifier associated with the household.
-#'   }
-#'
-#'   \item{hh_type}{
-#'     Household type.
-#'   }
-#'
-#'   \item{hh_size}{
-#'     Number of agents assigned to the household.
-#'   }
-#' }
-#'
-#' @details
-#' Household size is calculated as:
-#'
-#' \preformatted{
-#' length(household$all)
-#' }
-#'
-#' where \code{household$all} contains the identifiers of all
-#' household members.
-#'
-#' The neighbourhood code is obtained from the first household
-#' member and is assumed to be common to all members of the
-#' household.
-#'
-#' If no households have been generated, an empty data frame
-#' with the expected columns is returned.
-#'
-#' This method is typically used after:
-#'
-#' \enumerate{
-#'   \item Household generation.
-#'   \item \code{\link{agentToHousehold}}.
-#'   \item Household validation.
-#' }
-#'
-#' @examples
-#' \dontrun{
-#'
-#' households <- householdsToDataFrame(
-#'   hh
-#' )
-#'
-#' head(households)
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{agentToHousehold}},
-#' \code{\link{create_household_with_id}},
-#' \code{\link{ReplicaStructure}}
-#'
-#' @rdname householdsToDataFrame
-#' @export
-setGeneric(
-  "householdsToDataFrame",
-  function(object) {
-    standardGeneric(
-      "householdsToDataFrame"
-    )
-  }
-)
+
 setGeneric(
   "maskWithRemainingAgents",
   function(

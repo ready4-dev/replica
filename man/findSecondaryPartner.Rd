@@ -55,7 +55,7 @@ and filtered according to household-position and gender
 requirements.
 
 This function is used internally by
-\code{\link{pair_partners}} during couple formation.
+\code{pair_partners} during couple formation.
 
 The function:
 
@@ -107,7 +107,6 @@ secondary_partner <- findSecondaryPartner(
 \seealso{
 \code{\link{findPrimaryPartner}},
 \code{\link{findCoupleCandidates}},
-\code{\link{pair_partners}},
 \code{\link{findOppositeGenderReplacementForCandidate}}
 }
 \keyword{internal}

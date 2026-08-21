@@ -28,7 +28,7 @@ household to which they belong.
 
 This method is typically called after household generation
 has completed and before household-level summary tables are
-created using \code{\link{householdsToDataFrame}}.
+created using \code{\link{manufacture}}.
 
 Household identifiers are obtained from the
 \code{households} slot.
@@ -68,7 +68,7 @@ head(
 
 }
 \seealso{
-\code{\link{householdsToDataFrame}},
+\code{\link{manufacture}},
 \code{\link{create_household_with_id}},
 \code{\link{enhance}},
 \code{\link{ReplicaStructure}}

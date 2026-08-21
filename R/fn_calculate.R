@@ -251,7 +251,6 @@ calculate_goodness_of_fit <- function(df,
 #' It is used by:
 #'
 #' \itemize{
-#'   \item \code{\link{pair_partners}}
 #'   \item \code{\link{matchAdultsWithChildren}}
 #'   \item Conditional attribute assignment workflows
 #' }
@@ -282,7 +281,6 @@ calculate_goodness_of_fit <- function(df,
 #'
 #' @seealso
 #' \code{\link{calculate_fractions}},
-#' \code{\link{pair_partners}},
 #' \code{\link{matchAdultsWithChildren}}
 #'
 #' @export
@@ -880,8 +878,6 @@ percentage_points_difference <- function(df) {
 #' )
 #' }
 #'
-#' @seealso
-#' \code{\link{group_children}}
 #'
 #' @keywords internal
 score_sibling_age_suitability <- function(
@@ -1008,7 +1004,6 @@ score_sibling_age_suitability <- function(
 #' \code{\link{calculate_age_range_from_gap}},
 #' \code{\link{findCoupleCandidates}},
 #' \code{\link{findSecondaryPartner}},
-#' \code{\link{pair_partners}},
 #' \code{\link{matchAdultsWithChildren}}
 #'
 #' @keywords internal

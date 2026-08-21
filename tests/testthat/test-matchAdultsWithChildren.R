@@ -39,6 +39,7 @@ hh <- ReplicaStructure(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
   amount = 2,
@@ -47,6 +48,7 @@ hh <- renew(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Child",
   position_identifier = "child",
   amount = 2,

@@ -42,6 +42,7 @@ test_that(
     
     hh <- renew(
       hh,
+      what = "positions",
       household_position =
         "SingleAdult",
       position_identifier =

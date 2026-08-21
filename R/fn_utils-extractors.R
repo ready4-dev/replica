@@ -240,8 +240,7 @@ age_to_age_group <- function(
 #' @seealso
 #' \code{\link{parse_age_gap}},
 #' \code{\link{score_suitability_by_age_disparity}},
-#' \code{\link{findCoupleCandidates}},
-#' \code{\link{pair_partners}}
+#' \code{\link{findCoupleCandidates}}
 #'
 #' @export
 calculate_age_range_from_gap <- function(

@@ -85,7 +85,6 @@ parse_age_gap("-10-5")
 
 }
 \seealso{
-\code{\link{pair_partners}},
 \code{\link{matchAdultsWithChildren}},
 \code{\link{calculate_age_range_from_gap}}
 }

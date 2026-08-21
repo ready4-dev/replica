@@ -49,8 +49,27 @@ NULL
 #' Methods are currently available for:
 #'
 #' \itemize{
+#'   \item \code{ReplicaStructure}
 #'   \item \code{ReplicaGrouper}
 #' }
+#'
+#' @details
+#'
+#' `manufacture()` is used when a replica module generates
+#' a new output object rather than updating itself.
+#'
+#' Depending on the module supplied, the method may:
+#'
+#' \itemize{
+#'   \item create household-level summary tables; or
+#'   \item generate complete synthetic household outputs.
+#' }
+#'
+#' @seealso
+#' \code{\link{ReplicaStructure}},
+#' \code{\link{ReplicaGrouper}},
+#' \code{\link{renew}},
+#' \code{\link{ratify}}
 #'
 #' @name manufacture
 NULL

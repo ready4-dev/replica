@@ -81,7 +81,7 @@ extract_household_type_distribution <- function(
 #'
 #' This function is used internally by
 #' \code{\link{findSecondaryPartner}} and
-#' \code{\link{pair_partners}}.
+#' \code{pair_partners}.
 #'
 #' @param object A \code{ReplicaStructure} object.
 #'
@@ -152,7 +152,6 @@ extract_household_type_distribution <- function(
 #' @seealso
 #' \code{\link{findPrimaryPartner}},
 #' \code{\link{findSecondaryPartner}},
-#' \code{\link{pair_partners}},
 #' \code{\link{calculate_age_range_from_gap}},
 #'
 #' @keywords internal
@@ -441,8 +440,7 @@ findOppositeGenderReplacementForCandidate <- function(
 #'
 #' @seealso
 #' \code{\link{findSecondaryPartner}},
-#' \code{\link{getRemainingAgentsInPosition}},
-#' \code{\link{pair_partners}}
+#' \code{\link{getRemainingAgentsInPosition}}
 #'
 #' @keywords internal
 findPrimaryPartner <- function(
@@ -507,7 +505,7 @@ findPrimaryPartner <- function(
 #' requirements.
 #'
 #' This function is used internally by
-#' \code{\link{pair_partners}} during couple formation.
+#' \code{pair_partners} during couple formation.
 #'
 #' @param object A \code{ReplicaStructure} object.
 #'
@@ -587,7 +585,6 @@ findPrimaryPartner <- function(
 #' @seealso
 #' \code{\link{findPrimaryPartner}},
 #' \code{\link{findCoupleCandidates}},
-#' \code{\link{pair_partners}},
 #' \code{\link{findOppositeGenderReplacementForCandidate}}
 #'
 #' @keywords internal
@@ -645,7 +642,7 @@ findSecondaryPartner <- function(
 #' receive the highest priority.
 #'
 #' This function is used internally by
-#' \code{\link{group_children}} during sibling-group creation.
+#' \code{group_children} during sibling-group creation.
 #'
 #' @param pool Data frame or data.table containing candidate
 #' children.
@@ -688,8 +685,6 @@ findSecondaryPartner <- function(
 #'   c(8, 9)
 #' )
 #'
-#' @seealso
-#' \code{\link{group_children}},
 #'
 #' @rdname findSiblingFromPool
 #' @keywords internal
@@ -907,7 +902,6 @@ getHouseholdIds <- function(
 #' \itemize{
 #'   \item \code{\link{findPrimaryPartner}}
 #'   \item \code{\link{findSecondaryPartner}}
-#'   \item \code{\link{pair_partners}}
 #' }
 #'
 #' and provides the candidate pools used by household-matching
@@ -952,7 +946,6 @@ getHouseholdIds <- function(
 #' @seealso
 #' \code{\link{findPrimaryPartner}},
 #' \code{\link{findSecondaryPartner}},
-#' \code{\link{pair_partners}},
 #' \code{\link{ReplicaStructure}}
 #'
 #' @keywords internal

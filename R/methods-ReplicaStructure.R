@@ -1,93 +1,115 @@
-#' @rdname renew
+#' @rdname manufacture
 #'
 #' @section ReplicaStructure Method:
 #'
-#' For a `ReplicaStructure`, `renew()` defines or updates
-#' household-member requirements.
+#' Creates a household-level summary table from a
+#' \code{ReplicaStructure}.
 #'
-#' Household positions specify which synthetic agents are
-#' eligible for a role, while position identifiers define the
-#' household roles used internally by the matching algorithm.
+#' One row is returned per synthetic household.
 #'
-#' @param x A `ReplicaStructure`.
-#' @param household_position Household position category.
-#' @param position_identifier Internal household role
-#' identifier used during household formation.
-#' @param amount Number of household members required.
-#' @param backup_position_identifiers Alternative position
-#' identifiers that may be used when primary positions are
-#' unavailable.
+#' Household-level summaries typically include:
 #'
-#' @return An updated `ReplicaStructure`.
+#' \itemize{
+#'   \item household identifiers;
+#'   \item household type;
+#'   \item household size; and
+#'   \item grouping-region identifiers.
+#' }
 #'
-#' @exportMethod renew
+#' The resulting table can be used for reporting,
+#' validation and downstream analysis.
+#'
+#' @param x A \code{ReplicaStructure}.
+#'
+#' @return A data.frame containing one row per synthetic
+#' household.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' household_summary <- manufacture(
+#'   structure
+#' )
+#'
+#' household_summary
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{ReplicaStructure}},
+#' \code{\link{manufacture}}
+#'
+#' @exportMethod manufacture
 setMethod(
-  "renew",
+  "manufacture",
   signature(x = "ReplicaStructure"),
   
-  function(
-    x,
-    household_position,
-    position_identifier,
-    amount,
-    backup_position_identifiers,
-    ...
-  ) {
+  function(x,
+           ...) {
     
-    pos <- list(
-      position_identifier = position_identifier,
+    if (length(x@households) == 0) {
       
-      position =
-        if (is.character(household_position))
-          household_position
-      else
-        as.character(household_position),
-      
-      amount = amount,
-      
-      backup_position_identifiers = backup_position_identifiers)
-    
-    x@positions[[length(x@positions) + 1]] <- pos
-    
-    x@position_identifiers[[position_identifier]] <- length(x@positions)
-    
-    x
-  }
-)
-#' @rdname agentToHousehold
-setMethod(
-  "agentToHousehold",
-  signature(object = "ReplicaStructure"),
-  
-  function(object) {
-    
-    dt <- data.table::copy(
-      object@df_synth_pop
-    )
-    
-    for (hid in names(object@households)) {
-      
-      agents <-
-        object@households[[hid]]$all
-      
-      idx <-
-        dt$agent_id %in%
-        agents
-      
-      dt[
-        idx,
-        household_id := hid
-      ]
+      return(
+        data.frame(
+          household_id = character(),
+          neighb_code = character(),
+          hh_type = character(),
+          hh_size = integer(),
+          stringsAsFactors = FALSE
+        )
+      )
       
     }
     
-    object@df_synth_pop <- dt
+    household_rows <- lapply(
+      
+      names(x@households),
+      
+      function(hid) {
+        
+        hh <- x@households[[hid]]
+        
+        first_agent <- hh$all[1]
+        
+        if ("neighb_code" %in% names(x@df_synth_pop)) {
+          
+          neighb_code <-
+            
+            x@df_synth_pop[
+              agent_id == first_agent
+            ][["neighb_code"]][1]
+          
+        } else {
+          
+          neighb_code <- NA_character_
+          
+        }
+        
+        data.frame(
+          household_id = hid,
+          neighb_code = neighb_code,
+          hh_type = x@hh_type,
+          hh_size = length(hh$all),
+          stringsAsFactors = FALSE
+        )
+        
+      }
+      
+    )
     
-    object
+    result <- do.call(
+      rbind,
+      household_rows
+    )
+    
+    rownames(result) <- NULL
+    
+    result
     
   }
   
 )
+
 #' @rdname ratify
 #'
 #' @param x A \code{ReplicaStructure}.
@@ -189,6 +211,145 @@ setMethod(
     result_xx
   }
 )
+
+#' @rdname renew
+#'
+#' @section ReplicaStructure Method:
+#'
+#' For a `ReplicaStructure`, `renew()` defines or updates
+#' household-member requirements.
+#'
+#' Household positions specify which synthetic agents are
+#' eligible for a role, while position identifiers define the
+#' household roles used internally by the matching algorithm.
+#'
+#' @param x A `ReplicaStructure`.
+#' @param what Character string specifying the component of
+#' a ReplicaStructure to be updated.
+#'
+#' Current options are:
+#'
+#' \itemize{
+#'   \item \code{"positions"}
+#'   \item \code{"state"}
+#'   \item \code{"households"}
+#' }
+#' @param household_position Household position category.
+#' @param position_identifier Internal household role
+#' identifier used during household formation.
+#' @param amount Number of household members required.
+#' @param backup_position_identifiers Alternative position
+#' identifiers that may be used when primary positions are
+#' unavailable.
+#'
+#' @return An updated `ReplicaStructure`.
+#'
+#' @exportMethod renew
+setMethod(
+  "renew",
+  signature(x = "ReplicaStructure"),
+  function(
+    x,
+    what = c(
+      "positions",
+      "state",
+      "households"
+    ),
+    household_position = NULL,
+    position_identifier = NULL,
+    amount = NULL,
+    backup_position_identifiers =
+      character(),
+    df_synth_pop = NULL,
+    household_position_column = NULL,
+    ...
+  ) {
+    what <- match.arg(what)
+    
+    switch(
+      
+      what,
+      
+      positions = {
+        
+        pos <- list(
+          position_identifier = position_identifier,
+          
+          position =
+            if (is.character(household_position))
+              household_position
+          else
+            as.character(household_position),
+          
+          amount = amount,
+          
+          backup_position_identifiers = backup_position_identifiers)
+        
+        x@positions[[length(x@positions) + 1]] <- pos
+        
+        x@position_identifiers[[position_identifier]] <- length(x@positions)
+        
+        x
+        
+      },
+      
+      state = {
+        
+        stop(
+          "renew(..., what = 'state') not yet implemented."
+        )
+        
+      },
+      
+      households = {
+        
+        stop(
+          "renew(..., what = 'households') not yet implemented."
+        )
+        
+      }
+      
+    )
+    
+
+  }
+)
+
+#' @rdname agentToHousehold
+setMethod(
+  "agentToHousehold",
+  signature(object = "ReplicaStructure"),
+  
+  function(object) {
+    
+    dt <- data.table::copy(
+      object@df_synth_pop
+    )
+    
+    for (hid in names(object@households)) {
+      
+      agents <-
+        object@households[[hid]]$all
+      
+      idx <-
+        dt$agent_id %in%
+        agents
+      
+      dt[
+        idx,
+        household_id := hid
+      ]
+      
+    }
+    
+    object@df_synth_pop <- dt
+    
+    object
+    
+  }
+  
+)
+
 
 #' Create households from member assignments.
 #'
@@ -507,7 +668,6 @@ setMethod(
 #' }
 #'
 #' @seealso
-#' \code{\link{group_children}},
 #' \code{\link{matchAdultsWithChildren}}
 #'
 #' @keywords internal
@@ -579,75 +739,7 @@ setMethod(
   }
   
 )
-#' @rdname householdsToDataFrame
-setMethod(
-  "householdsToDataFrame",
-  signature(object = "ReplicaStructure"),
-  
-  function(object) {
-    
-    if (length(object@households) == 0) {
-      
-      return(
-        data.frame(
-          household_id = character(),
-          neighb_code = character(),
-          hh_type = character(),
-          hh_size = integer(),
-          stringsAsFactors = FALSE
-        )
-      )
-      
-    }
-    
-    household_rows <- lapply(
-      
-      names(object@households),
-      
-      function(hid) {
-        
-        hh <- object@households[[hid]]
-        
-        first_agent <- hh$all[1]
-        
-        if ("neighb_code" %in% names(object@df_synth_pop)) {
-          
-          neighb_code <-
-            
-            object@df_synth_pop[
-              agent_id == first_agent
-            ][["neighb_code"]][1]
-          
-        } else {
-          
-          neighb_code <- NA_character_
-          
-        }
-        
-        data.frame(
-          household_id = hid,
-          neighb_code = neighb_code,
-          hh_type = object@hh_type,
-          hh_size = length(hh$all),
-          stringsAsFactors = FALSE
-        )
-        
-      }
-      
-    )
-    
-    result <- do.call(
-      rbind,
-      household_rows
-    )
-    
-    rownames(result) <- NULL
-    
-    result
-    
-  }
-  
-)
+
 #' Filter to Agents Not Yet Assigned
 #'
 #' Applies an eligibility mask and removes agents already

@@ -759,7 +759,7 @@ ReplicaGrouper <- function(
 #'
 #' \itemize{
 #'   \item \code{\link{agentToHousehold}}
-#'   \item \code{\link{householdsToDataFrame}}
+#'   \item \code{\link{manufacture}}
 #' }
 #'
 #' @examples
@@ -771,6 +771,7 @@ ReplicaGrouper <- function(
 #'
 #' hh <- renew(
 #'   hh,
+#'   what = "positions",
 #'   household_position = "Parent",
 #'   position_identifier = "adult",
 #'   amount = 2,
@@ -779,6 +780,7 @@ ReplicaGrouper <- function(
 #'
 #' hh <- renew(
 #'   hh,
+#'   what = "positions",
 #'   household_position = "Child",
 #'   position_identifier = "child",
 #'   amount = 2,
@@ -792,7 +794,7 @@ ReplicaGrouper <- function(
 #' \code{\link{ReplicaGrouper}},
 #' \code{\link{renew}},
 #' \code{\link{agentToHousehold}},
-#' \code{\link{householdsToDataFrame}}
+#' \code{\link{manufacture}}
 #'
 #' @export
 setClass(
@@ -1031,6 +1033,7 @@ setValidity(
 #' )
 #'
 #' hh <- renew(
+#'   what = "positions",
 #'   hh,
 #'   household_position = "Parent",
 #'   position_identifier = "adult",
@@ -1040,6 +1043,7 @@ setValidity(
 #'
 #' hh <- renew(
 #'   hh,
+#'   what = "positions",
 #'   household_position = "Child",
 #'   position_identifier = "child",
 #'   amount = 2,

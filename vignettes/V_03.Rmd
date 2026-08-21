@@ -51,19 +51,12 @@ This vignette demonstrates the third stage of the `replica` workflow: transformi
 The workflow demonstrated in this vignette can be summarised as:
 
 Aggregate Counts
-
        ↓
-       
 `make_agents()`
-
        ↓
-       
 Synthetic Agents
-
        ↓
-       
 `ReplicaAdder`
-
        ↓
        
 Enriched Population
@@ -163,6 +156,7 @@ The renew() method defines the roles that must be filled when constructing a hou
 ```{r}
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
   amount = 2,
@@ -361,6 +355,7 @@ hh <- ReplicaStructure("FamilyHousehold")
 ```{r}
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
   amount = 2,
@@ -369,6 +364,7 @@ hh <- renew(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Child",
   position_identifier = "child",
   amount = 2,
