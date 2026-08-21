@@ -78,7 +78,6 @@ discourage unrealistic parent-child age combinations.
 [`calculate_age_range_from_gap`](https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
-[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
 
 ## Examples

@@ -9,7 +9,7 @@ ReplicaStructure object."><meta property="og:image" content="https://ready4-dev.
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +93,7 @@ the form:</p>
 <li><p>Members associated with the supplied household role.</p></li>
 </ul><p>This function is used internally during household generation
 by:</p>
-<ul><li><p><code><a href="pair_partners.html">pair_partners</a></code></p></li>
+<ul><li><p><code>pair_partners</code></p></li>
 <li><p><code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code></p></li>
 </ul><p>The household is stored in the <code>households</code> slot.</p>
 <p>Each household contains:</p>
@@ -113,8 +113,7 @@ sprintf("SSH<!-- %06d", id_offset) -->
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="pair_partners.html">pair_partners</a></code>,
-<code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code>,
+    <div class="dont-index"><p><code><a href="matchAdultsWithChildren.html">matchAdultsWithChildren</a></code>,
 <code><a href="ReplicaStructure.html">ReplicaStructure</a></code></p></div>
     </div>
 
@@ -128,6 +127,7 @@ sprintf("SSH<!-- %06d", id_offset) -->
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="renew.html">renew</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">hh</span>,</span></span>
+<span class="r-in"><span>  what <span class="op">=</span> <span class="st">"positions"</span>,</span></span>
 <span class="r-in"><span>  household_position <span class="op">=</span> <span class="st">"Parent"</span>,</span></span>
 <span class="r-in"><span>  position_identifier <span class="op">=</span> <span class="st">"adult"</span>,</span></span>
 <span class="r-in"><span>  amount <span class="op">=</span> <span class="fl">2</span>,</span></span>

@@ -43,15 +43,39 @@ Household generation typically proceeds as follows:
 3.  Configure distributions.
 
 4.  Attach a synthetic population using
-    [`updateState`](https://ready4-dev.github.io/replica/reference/updateState.md).
+    [`renew`](https://ready4-dev.github.io/replica/reference/renew.md).
 
 5.  Generate households using `createFromMembers`.
 
 Generated households are stored internally and can be exported using:
 
-- [`agentToHousehold`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md)
+- [`renew`](https://ready4-dev.github.io/replica/reference/renew.md)
 
-- [`householdsToDataFrame`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md)
+- [`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md)
+
+\#' @section Workflow:
+
+A typical workflow is:
+
+
+    structure <- ReplicaStructure(
+      "CoupleHousehold"
+    )
+
+    structure <- renew(
+      structure,
+      what = "positions",
+      ...
+    )
+
+    structure <- ratify(
+      structure,
+      output = "self"
+    )
+
+    household_summary <- manufacture(
+      structure
+    )
 
 ## Slots
 
@@ -105,8 +129,7 @@ Generated households are stored internally and can be exported using:
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md),
 [`ReplicaGrouper`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md),
 [`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
-[`agentToHousehold`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md),
-[`householdsToDataFrame`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md)
+[`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md)
 
 ## Examples
 
@@ -119,6 +142,7 @@ hh <- ReplicaStructure(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
   amount = 2,
@@ -127,6 +151,7 @@ hh <- renew(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Child",
   position_identifier = "child",
   amount = 2,

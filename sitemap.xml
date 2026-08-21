@@ -16,7 +16,6 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/ReplicaStructure-class.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/ReplicaStructure.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/age_to_age_group.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/agentToHousehold.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_fractions.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_group_counts.html</loc></url>
@@ -39,7 +38,6 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/get_margin_frames_from_synthetic_population.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/get_margin_series_from_synthetic_population.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/group_children.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/householdsToDataFrame.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/index.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/make_agents.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/manufacture.html</loc></url>
@@ -60,7 +58,6 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/score_suitability_by_age_disparity.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/switchHouseholdPositions.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/synthetic_population_to_contingency.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/updateState.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.html</loc></url>
 </urlset>
 

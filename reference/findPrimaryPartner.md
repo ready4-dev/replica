@@ -75,8 +75,7 @@ backup-position replacement logic is enabled.
 ## See also
 
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
-[`getRemainingAgentsInPosition`](https://ready4-dev.github.io/replica/reference/getRemainingAgentsInPosition.md),
-[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
+[`getRemainingAgentsInPosition`](https://ready4-dev.github.io/replica/reference/getRemainingAgentsInPosition.md)
 
 ## Examples
 

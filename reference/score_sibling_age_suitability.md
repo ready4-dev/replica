@@ -40,10 +40,6 @@ candidate and any reference age.
 
 Lower scores correspond to stronger sibling similarity.
 
-## See also
-
-[`group_children`](https://ready4-dev.github.io/replica/reference/group_children.md)
-
 ## Examples
 
 ``` r
@@ -64,4 +60,5 @@ score_sibling_age_suitability(
   )
 )
 } # }
+
 ```

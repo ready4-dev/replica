@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Manufacture Replica Outputs</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ready4-dev/replica/blob/main/R/methods-ReplicaGrouper.R" class="external-link"><code>R/methods-ReplicaGrouper.R</code></a>, <a href="https://github.com/ready4-dev/replica/blob/main/R/methods-from-ready4.R" class="external-link"><code>R/methods-from-ready4.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ready4-dev/replica/blob/main/R/methods-ReplicaGrouper.R" class="external-link"><code>R/methods-ReplicaGrouper.R</code></a>, <a href="https://github.com/ready4-dev/replica/blob/main/R/methods-ReplicaStructure.R" class="external-link"><code>R/methods-ReplicaStructure.R</code></a>, <a href="https://github.com/ready4-dev/replica/blob/main/R/methods-from-ready4.R" class="external-link"><code>R/methods-from-ready4.R</code></a></small>
       <div class="d-none name"><code>manufacture.Rd</code></div>
     </div>
 
@@ -46,6 +46,9 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for class 'ReplicaGrouper'</span></span>
+<span><span class="fu">manufacture</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'ReplicaStructure'</span></span>
 <span><span class="fu">manufacture</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -54,11 +57,11 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>A <code>ReplicaGrouper</code>.</p></dd>
+<dd><p>A <code>ReplicaStructure</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional arguments that can be supplied to the method.</p></dd>
+<dd><p>Additional arguments</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -67,13 +70,25 @@
 <ul><li><p><code>synthetic_population</code>;</p></li>
 <li><p><code>synthetic_households</code>; and</p></li>
 <li><p><code>object</code>.</p></li>
-</ul></div>
+</ul><p>The <code>synthetic_population</code> table contains one row
+per synthetic agent.</p>
+<p>The <code>synthetic_households</code> table contains one row
+per synthetic household.</p>
+<p>A data.frame containing one row per synthetic
+household.</p>
+    </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The behaviour of <code>manufacture()</code> depends on the class of
 the supplied object.</p>
 <p>Methods are currently available for:</p>
-<ul><li><p><code>ReplicaGrouper</code></p></li>
+<ul><li><p><code>ReplicaStructure</code></p></li>
+<li><p><code>ReplicaGrouper</code></p></li>
+</ul><p><code>manufacture()</code> is used when a replica module generates
+a new output object rather than updating itself.</p>
+<p>Depending on the module supplied, the method may:</p>
+<ul><li><p>create household-level summary tables; or</p></li>
+<li><p>generate complete synthetic household outputs.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="replicagrouper-method">ReplicaGrouper Method<a class="anchor" aria-label="anchor" href="#replicagrouper-method"></a></h2>
@@ -83,14 +98,38 @@ the supplied object.</p>
 <p>Generates synthetic households from a synthetic
 population using one or more registered
 <code>ReplicaStructure</code> definitions.</p>
-<p>Household generation is performed independently within
-each grouping region.</p>
+<p>For each grouping region, the method:</p>
+<ol><li><p>identifies eligible household members;</p></li>
+<li><p>applies registered household structures;</p></li>
+<li><p>matches agents according to demographic rules;</p></li>
+<li><p>generates synthetic households;</p></li>
+<li><p>assigns household identifiers; and</p></li>
+<li><p>creates household-level summary outputs.</p></li>
+</ol></div>
+    <div class="section level2">
+    <h2 id="replicastructure-method">ReplicaStructure Method<a class="anchor" aria-label="anchor" href="#replicastructure-method"></a></h2>
+
+
+
+<p>Creates a household-level summary table from a
+<code>ReplicaStructure</code>.</p>
+<p>One row is returned per synthetic household.</p>
+<p>Household-level summaries typically include:</p>
+<ul><li><p>household identifiers;</p></li>
+<li><p>household type;</p></li>
+<li><p>household size; and</p></li>
+<li><p>grouping-region identifiers.</p></li>
+</ul><p>The resulting table can be used for reporting,
+validation and downstream analysis.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="ReplicaGrouper.html">ReplicaGrouper</a></code>,
-<code><a href="ReplicaStructure.html">ReplicaStructure</a></code>,
-<code><a href="renew.html">renew</a></code></p></div>
+    <div class="dont-index"><p><code><a href="ReplicaStructure.html">ReplicaStructure</a></code>,
+<code>manufacture</code></p>
+<p><code><a href="ReplicaStructure.html">ReplicaStructure</a></code>,
+<code><a href="ReplicaGrouper.html">ReplicaGrouper</a></code>,
+<code><a href="renew.html">renew</a></code>,
+<code><a href="ratify.html">ratify</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -104,6 +143,16 @@ each grouping region.</p>
 <span class="r-in"><span><span class="va">result</span><span class="op">$</span><span class="va">synthetic_population</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">result</span><span class="op">$</span><span class="va">synthetic_households</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">household_summary</span> <span class="op">&lt;-</span> <span class="fu">manufacture</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">structure</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">household_summary</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>

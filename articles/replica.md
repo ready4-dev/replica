@@ -45,46 +45,10 @@ exploratory purposes.**
 
 The workflow supported by `replica` can be summarised as:
 
-Aggregate Counts
-
-       ↓
-       
-
+Aggregate Counts ↓
 [`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
-
-       ↓
-       
-
-Synthetic Agents
-
-       ↓
-       
-
-`ReplicaAdder`
-
-       ↓
-       
-
-Enriched Population
-
-       ↓
-       
-
-`ReplicaStructure`
-
-       +
-       
-
-`ReplicaGrouper`
-
-       ↓
-       
-
-Synthetic Households
-
-       ↓
-       
-
+↓ Synthetic Agents ↓ `ReplicaAdder` ↓ Enriched Population ↓
+`ReplicaStructure` + `ReplicaGrouper` ↓ Synthetic Households ↓
 Validation
 
 Each stage is described in a dedicated vignette.
@@ -273,10 +237,11 @@ population[age_group == "65+",
 hh <- ReplicaStructure("CoupleHousehold")
 
 hh <- renew(hh,
-                 household_position = "Parent",
-                 position_identifier = "adult",
-                 amount = 2,
-                 backup_position_identifiers = character())
+            what = "positions",
+            household_position = "Parent",
+            position_identifier = "adult",
+            amount = 2,
+            backup_position_identifiers = character())
 
 hh@couple_gender_distribution <- c("Female|Male" = 1)
 

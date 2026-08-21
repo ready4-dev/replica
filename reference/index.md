@@ -18,16 +18,12 @@
   : Generate Multiple Margin Tables from a Synthetic Population
 - [`get_margin_series_from_synthetic_population()`](https://ready4-dev.github.io/replica/reference/get_margin_series_from_synthetic_population.md)
   : Extract a Margin Distribution from a Synthetic Population
-- [`group_children()`](https://ready4-dev.github.io/replica/reference/group_children.md)
-  : Group Children into Sibling Sets
 - [`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
   : Create Synthetic Agents From Aggregate Counts
 - [`multicolumn_to_attribute_values()`](https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.md)
   : Convert Multiple Columns to Attribute Combinations
 - [`parse_age_gap()`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md)
   : Parse an Age-Gap Specification
-- [`pair_partners()`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
-  : Create Couples from Eligible Adults
 - [`plot_validation_differences()`](https://ready4-dev.github.io/replica/reference/plot_validation_differences.md)
   : Plot percentage-point differences
 - [`plot_validation_distributions()`](https://ready4-dev.github.io/replica/reference/plot_validation_distributions.md)
@@ -58,13 +54,10 @@
 
 ## Methods
 
-- [`agentToHousehold()`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md)
-  : Assign Household Identifiers to Agents
 - [`enhance(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/enhance.md)
   : Enhance Replica Modules
-- [`householdsToDataFrame()`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md)
-  : Convert Synthetic Households to a Data Frame
 - [`manufacture(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
+  [`manufacture(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
   : Manufacture Replica Outputs
 - [`ratify(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
   [`ratify(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
@@ -72,6 +65,4 @@
 - [`renew(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
   [`renew(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
   [`renew(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
-  : Renew replica modules
-- [`updateState()`](https://ready4-dev.github.io/replica/reference/updateState.md)
-  : Update ReplicaStructure State
+  : Renew Replica Modules

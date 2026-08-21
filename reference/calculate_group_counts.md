@@ -50,8 +50,6 @@ distributions must be converted into agent-level assignments.
 
 It is used by:
 
-- [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
-
 - [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
 
 - Conditional attribute assignment workflows
@@ -59,7 +57,6 @@ It is used by:
 ## See also
 
 [`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md),
-[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
 
 ## Examples

@@ -70,15 +70,12 @@ This function is used by:
 
 - [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md)
 
-- [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
-
 and provides the candidate pools used by household-matching algorithms.
 
 ## See also
 
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
-[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples

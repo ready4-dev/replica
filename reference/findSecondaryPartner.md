@@ -68,9 +68,8 @@ Returns `NULL` if no suitable candidate can be found.
 Candidate partners are ranked according to age-gap suitability and
 filtered according to household-position and gender requirements.
 
-This function is used internally by
-[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
-during couple formation.
+This function is used internally by `pair_partners` during couple
+formation.
 
 The function:
 
@@ -101,7 +100,6 @@ More advanced workflows may use backup-position replacement logic via:
 
 [`findPrimaryPartner`](https://ready4-dev.github.io/replica/reference/findPrimaryPartner.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
-[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`findOppositeGenderReplacementForCandidate`](https://ready4-dev.github.io/replica/reference/findOppositeGenderReplacementForCandidate.md)
 
 ## Examples

@@ -50,7 +50,7 @@ The newly-created household stores:
 
 This function is used internally during household generation by:
 
-- [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md)
+- `pair_partners`
 
 - [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
 
@@ -74,7 +74,6 @@ Household identifiers are generated using:
 
 ## See also
 
-[`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
@@ -89,6 +88,7 @@ hh <- ReplicaStructure(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
   amount = 2,
