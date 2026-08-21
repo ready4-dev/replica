@@ -43,23 +43,23 @@ The workflow demonstrated in this vignette can be summarised as:
 
 Age-Gender Counts
       
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 `make_agents()`
       
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 Synthetic Agents
       
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 `ReplicaAdder`
       
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 Education Assignment
-      
-       \↓
+    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 Enriched Synthetic Population
 

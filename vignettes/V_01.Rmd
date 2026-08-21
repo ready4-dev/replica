@@ -40,27 +40,27 @@ The workflow supported by `replica` can be summarised as:
 
 Aggregate Counts
        
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 `make_agents()`
        
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 Synthetic Agents
        
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 `ReplicaAdder`
        
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
 
 `ReplicaStructure`
 
-       \+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +
 
 `ReplicaGrouper`
       
-       \↓
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
        
 Validation
 
