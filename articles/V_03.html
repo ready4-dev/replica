@@ -120,17 +120,29 @@ into synthetic households.</p>
 <h2 id="workflow-overview">Workflow overview<a class="anchor" aria-label="anchor" href="#workflow-overview"></a>
 </h2>
 <p>The workflow demonstrated in this vignette can be summarised as:</p>
-<p>Aggregate Counts ↓ <code><a href="../reference/make_agents.html">make_agents()</a></code> ↓ Synthetic Agents ↓
-<code>ReplicaAdder</code> ↓</p>
+<p>Aggregate Counts</p>
+<pre><code>   \↓
+   </code></pre>
+<p><code><a href="../reference/make_agents.html">make_agents()</a></code></p>
+<pre><code>   \↓
+   </code></pre>
+<p>Synthetic Agents</p>
+<pre><code>   \↓
+   </code></pre>
+<p><code>ReplicaAdder</code></p>
+<pre><code>   \↓
+   
+   </code></pre>
 <p>Enriched Population</p>
-<pre><code>   ↓
+<pre><code>   \↓
+   
    </code></pre>
 <p><code>ReplicaGrouper</code></p>
-<pre><code>   +
+<pre><code>   \+
    </code></pre>
 <p><code>ReplicaStructure</code></p>
-<pre><code>   ↓
-   </code></pre>
+<pre><code>   \↓
+  </code></pre>
 <p>Synthetic Households</p>
 <p>This vignette focuses on the household-generation stage.</p>
 </div>
@@ -145,7 +157,7 @@ from Aggregated Data” and “Assigning Attributes Using Contingency
 Tables” vignettes.</p>
 <p>For simplicity, this example uses a small illustrative population
 containing four adults living in the same neighbourhood.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
 <span></span>
 <span>  agent_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -184,7 +196,7 @@ containing four adults living in the same neighbourhood.</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pop</span></span></code></pre></div>
 <pre><code><span><span class="co">##    agent_id neighb_code   age gender household_position</span></span>
 <span><span class="co">##      &lt;char&gt;      &lt;char&gt; &lt;num&gt; &lt;char&gt;             &lt;char&gt;</span></span>
@@ -210,7 +222,7 @@ are therefore eligible for adult household positions.</p>
 </h2>
 <p>A household type specifies a household structure that we plan to
 generate. Here we create a simple couple household.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaStructure.html">ReplicaStructure</a></span><span class="op">(</span><span class="st">"CoupleHousehold"</span><span class="op">)</span></span></code></pre></div>
 <p>At this point we have only defined the household name. We now need to
 specify the household members that form this household type.</p>
@@ -221,7 +233,7 @@ specify the household members that form this household type.</p>
 <p>The renew() method defines the roles that must be filled when
 constructing a household. In this example, a couple household requires
 two adults.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span></span>
 <span>  <span class="va">hh</span>,</span>
 <span>  what <span class="op">=</span> <span class="st">"positions"</span>,</span>
@@ -266,7 +278,7 @@ now be used when constructing households.</p>
 distributions.</p>
 <p>For simplicity, this illustrative example will generate Female - Male
 pairs in which the age gap between partners is within 5 years.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hh</span><span class="op">@</span><span class="va">couple_gender_distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Female|Male"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">hh</span><span class="op">@</span><span class="va">couple_age_distribution</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-5-5"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -286,7 +298,7 @@ specified above.</p>
 </h2>
 <p>A ReplicaGrouper coordinates household generation across an entire
 synthetic population.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaGrouper.html">ReplicaGrouper</a></span><span class="op">(</span>df_synth_pop <span class="op">=</span> <span class="va">pop</span>,</span>
 <span>                       group_by <span class="op">=</span> <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
 <p>The group_by argument determines the geographic or administrative
@@ -310,7 +322,7 @@ for geographically explicit simulation models.</p>
 <li><p>family households.</p></li>
 </ul>
 <p>Household types are registered using renew().</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span><span class="va">hg</span>,<span class="va">hh</span><span class="op">)</span></span></code></pre></div>
 <p>The grouper now knows how to generate couple households.</p>
 </div>
@@ -320,7 +332,7 @@ for geographically explicit simulation models.</p>
 <p>Once household types have been registered, the complete
 household-generation workflow can be executed using
 <code><a href="../reference/manufacture.html">manufacture()</a></code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/manufacture.html">manufacture</a></span><span class="op">(</span><span class="va">hg</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="../reference/manufacture.html">manufacture()</a></code> method executes the complete
 household-generation workflow.</p>
@@ -344,9 +356,9 @@ household-level outputs.</p>
 </h2>
 <p>The result now contains both agent-level and household-level
 outputs.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">synthetic_population</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">synthetic_population</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">synthetic_households</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">synthetic_households</span></span></code></pre></div>
 <p>The household-generation workflow produces two complementary
 outputs.</p>
@@ -360,7 +372,7 @@ individual and household level.</p>
 <h3 id="inspect-household-assignments">Inspect household assignments<a class="anchor" aria-label="anchor" href="#inspect-household-assignments"></a>
 </h3>
 <p>The agent-level output now contains household identifiers.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">synthetic_population</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"agent_id"</span>, <span class="st">"household_id"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##    agent_id household_id</span></span>
 <span><span class="co">##      &lt;char&gt;       &lt;char&gt;</span></span>
@@ -375,12 +387,12 @@ synthetic household.</p>
 <h3 id="inspect-household-level-summaries">Inspect household-level summaries<a class="anchor" aria-label="anchor" href="#inspect-household-level-summaries"></a>
 </h3>
 <p>The household summary table provides one row per household.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">synthetic_households</span></span></code></pre></div>
 <pre><code><span><span class="co">##   household_id neighb_code         hh_type hh_size</span></span>
 <span><span class="co">## 1    SSH000001          N1 CoupleHousehold       2</span></span>
 <span><span class="co">## 2    SSH000002          N1 CoupleHousehold       2</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">synthetic_households</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 2</span></span></code></pre>
 <p>This value represents the number of synthetic households that were
@@ -393,7 +405,7 @@ successfully generated.</p>
 <p>The household-generation workflow automatically performs validation
 checks during execution.</p>
 <p>A simple post-generation check is:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span></span>
 <span>    <span class="va">synthetic_population</span><span class="op">$</span><span class="va">household_id</span></span>
@@ -412,9 +424,9 @@ in the “Evaluating Synthetic Population Quality” vignette.</p>
 same approach can be extended further to support more complex household
 structures involving grandparents, children or other household positions
 if suitable demographic data are available.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaStructure.html">ReplicaStructure</a></span><span class="op">(</span><span class="st">"FamilyHousehold"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hh</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span></span>
 <span>  <span class="va">hh</span>,</span>
 <span>  what <span class="op">=</span> <span class="st">"positions"</span>,</span>
