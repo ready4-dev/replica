@@ -189,7 +189,7 @@ setMethod(
     result_xx
   }
 )
-#' @rdname createFromMembers
+
 setMethod(
   "createFromMembers",
   signature(object = "ReplicaStructure"),
@@ -540,7 +540,6 @@ setMethod(
   }
   
 )
-#' @rdname getPositionForName
 setMethod(
   "getPositionForName",
   signature(object = "ReplicaStructure"),

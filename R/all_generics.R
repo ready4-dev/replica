@@ -138,7 +138,6 @@ setGeneric(
 #' \code{\link{group_children}},
 #' \code{\link{matchAdultsWithChildren}}
 #'
-#' @rdname createFromMembers
 setGeneric(
   "createFromMembers",
   
@@ -275,7 +274,6 @@ setGeneric(
 #' \code{\link{renew}},
 #' \code{\link{ReplicaStructure}}
 #'
-#' @rdname getPositionForName
 setGeneric(
   "getPositionForName",
   function(
