@@ -219,18 +219,39 @@ NULL
 #' @name ratify
 NULL
 
-#' Renew replica modules
+#' Renew Replica Modules
 #'
-#' Updates the configuration of a replica module.
+#' Updates the configuration or state of a replica module.
 #'
-#' The behaviour of \code{renew()} depends on the class of
-#' the supplied object.
+#' The behaviour of `renew()` depends on the class of the
+#' supplied object.
 #'
 #' Methods are currently available for:
 #'
 #' \itemize{
 #'   \item \code{ReplicaAdder}
 #'   \item \code{ReplicaStructure}
+#'   \item \code{ReplicaGrouper}
+#' }
+#'
+#' @details
+#'
+#' `renew()` is the primary method used to update replica
+#' modules while preserving their underlying class and
+#' structure.
+#'
+#' Depending on the supplied module, `renew()` can:
+#'
+#' \itemize{
+#'   \item add marginal distributions to a
+#'   \code{ReplicaAdder};
+#'   \item define household-member roles in a
+#'   \code{ReplicaStructure};
+#'   \item update internal household-generation state;
+#'   \item transfer household assignments to synthetic
+#'   populations; and
+#'   \item register household structures with a
+#'   \code{ReplicaGrouper}.
 #' }
 #'
 #' @name renew

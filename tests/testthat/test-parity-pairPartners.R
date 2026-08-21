@@ -71,10 +71,11 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh <- updateState(
+    hh <- renew(
       hh,
-      pop,
-      "household_position"
+      what = "state",
+      df_synth_pop = pop,
+      household_position_column = "household_position"
     )
     
     hh@couple_gender_distribution <- c(

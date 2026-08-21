@@ -20,6 +20,8 @@
 #' validation and downstream analysis.
 #'
 #' @param x A \code{ReplicaStructure}.
+#' 
+#' @param ... Additional arguments
 #'
 #' @return A data.frame containing one row per synthetic
 #' household.
@@ -216,33 +218,100 @@ setMethod(
 #'
 #' @section ReplicaStructure Method:
 #'
-#' For a `ReplicaStructure`, `renew()` defines or updates
-#' household-member requirements.
+#' Updates the configuration or state of a
+#' \code{ReplicaStructure}.
 #'
-#' Household positions specify which synthetic agents are
-#' eligible for a role, while position identifiers define the
-#' household roles used internally by the matching algorithm.
+#' The operation performed is determined by the
+#' \code{what} argument.
 #'
-#' @param x A `ReplicaStructure`.
-#' @param what Character string specifying the component of
-#' a ReplicaStructure to be updated.
+#' Supported options are:
 #'
-#' Current options are:
+#' \describe{
+#'
+#' \item{\code{"positions"}}{
+#' Define or update household-member requirements.
+#'
+#' Household positions describe which synthetic agents are
+#' eligible for household roles and how many members are
+#' required.
+#' }
+#'
+#' \item{\code{"state"}}{
+#' Update the internal population state used during
+#' household generation.
+#'
+#' This operation stores the synthetic population and
+#' household-position column used by subsequent
+#' household-generation methods.
+#' }
+#'
+#' \item{\code{"households"}}{
+#' Transfer generated household assignments into the
+#' synthetic population stored by the structure.
+#' }
+#'
+#' }
+#'
+#' @param x A \code{ReplicaStructure}.
+#'
+#' @param what Character string specifying which component
+#' of the structure should be updated.
+#'
+#' Options include:
 #'
 #' \itemize{
 #'   \item \code{"positions"}
 #'   \item \code{"state"}
 #'   \item \code{"households"}
 #' }
+#'
 #' @param household_position Household position category.
+#'
 #' @param position_identifier Internal household role
 #' identifier used during household formation.
-#' @param amount Number of household members required.
-#' @param backup_position_identifiers Alternative position
-#' identifiers that may be used when primary positions are
-#' unavailable.
 #'
-#' @return An updated `ReplicaStructure`.
+#' @param amount Number of household members required.
+#'
+#' @param backup_position_identifiers Alternative
+#' position identifiers that may be used if the primary
+#' position is unavailable.
+#'
+#' @param df_synth_pop Synthetic population used for
+#' household generation.
+#'
+#' @param household_position_column Character string
+#' identifying the column containing household-position
+#' information.
+#' 
+#' @param ... Additional arguments
+#'
+#' @return An updated \code{ReplicaStructure}.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' structure <- renew(
+#'   structure,
+#'   what = "positions",
+#'   household_position = "Parent",
+#'   position_identifier = "adult",
+#'   amount = 2
+#' )
+#'
+#' structure <- renew(
+#'   structure,
+#'   what = "state",
+#'   df_synth_pop = population,
+#'   household_position_column =
+#'     "household_position"
+#' )
+#'
+#' structure <- renew(
+#'   structure,
+#'   what = "households"
+#' )
+#'
+#' }
 #'
 #' @exportMethod renew
 setMethod(
@@ -295,17 +364,43 @@ setMethod(
       
       state = {
         
-        stop(
-          "renew(..., what = 'state') not yet implemented."
-        )
+        x@df_synth_pop <-
+          data.table::as.data.table(
+            df_synth_pop
+          )
+        
+        x@household_position_column <-
+          household_position_column
+        
+        x
         
       },
       
       households = {
         
-        stop(
-          "renew(..., what = 'households') not yet implemented."
+        dt <- data.table::copy(
+          x@df_synth_pop
         )
+        
+        for (hid in names(x@households)) {
+          
+          agents <-
+            x@households[[hid]]$all
+          
+          idx <-
+            dt$agent_id %in%
+            agents
+          
+          dt[
+            idx,
+            household_id := hid
+          ]
+          
+        }
+        
+        x@df_synth_pop <- dt
+        
+        x
         
       }
       
@@ -313,41 +408,6 @@ setMethod(
     
 
   }
-)
-
-#' @rdname agentToHousehold
-setMethod(
-  "agentToHousehold",
-  signature(object = "ReplicaStructure"),
-  
-  function(object) {
-    
-    dt <- data.table::copy(
-      object@df_synth_pop
-    )
-    
-    for (hid in names(object@households)) {
-      
-      agents <-
-        object@households[[hid]]$all
-      
-      idx <-
-        dt$agent_id %in%
-        agents
-      
-      dt[
-        idx,
-        household_id := hid
-      ]
-      
-    }
-    
-    object@df_synth_pop <- dt
-    
-    object
-    
-  }
-  
 )
 
 
@@ -815,25 +875,4 @@ setMethod(
   
 )
 
-#' @rdname updateState
-setMethod(
-  "updateState",
-  signature(object = "ReplicaStructure"),
-  
-  function(
-    object,
-    df_synth_pop,
-    household_position_column
-  ) {
-    
-    object@df_synth_pop <-
-      data.table::as.data.table(
-        df_synth_pop
-      )
-    
-    object@household_position_column <-
-      household_position_column
-    
-    object
-  }
-)
+

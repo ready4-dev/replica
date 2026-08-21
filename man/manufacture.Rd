@@ -13,6 +13,8 @@
 }
 \arguments{
 \item{x}{A \code{ReplicaStructure}.}
+
+\item{...}{Additional arguments}
 }
 \value{
 A list containing:

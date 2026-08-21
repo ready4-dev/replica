@@ -7,7 +7,7 @@
 \alias{renew,ReplicaGrouper-method}
 \alias{renew,ReplicaStructure-method}
 \alias{renew}
-\title{Renew replica modules}
+\title{Renew Replica Modules}
 \usage{
 \S4method{renew}{ReplicaAdder}(x, margins, margins_names, ...)
 
@@ -30,18 +30,17 @@
 
 \item{margins}{A list of marginal distributions.}
 
-\item{margins_names}{A list of names corresponding to the
-supplied margins.}
+\item{margins_names}{A list of names corresponding to the}
 
-\item{...}{Additional arguments passed to the method.}
+\item{...}{Additional arguments}
 
-\item{household_type}{A \code{ReplicaStructure} object to be
-registered with the grouper.}
+\item{household_type}{A \code{ReplicaStructure}
+object to be registered.}
 
-\item{what}{Character string specifying the component of
-a ReplicaStructure to be updated.
+\item{what}{Character string specifying which component
+of the structure should be updated.
 
-Current options are:
+Options include:
 
 \itemize{
 \item \code{"positions"}
@@ -56,9 +55,16 @@ identifier used during household formation.}
 
 \item{amount}{Number of household members required.}
 
-\item{backup_position_identifiers}{Alternative position
-identifiers that may be used when primary positions are
-unavailable.}
+\item{backup_position_identifiers}{Alternative
+position identifiers that may be used if the primary
+position is unavailable.}
+
+\item{df_synth_pop}{Synthetic population used for
+household generation.}
+
+\item{household_position_column}{Character string
+identifying the column containing household-position
+information.}
 }
 \value{
 An updated \code{ReplicaAdder}.
@@ -68,24 +74,43 @@ An updated \code{ReplicaGrouper}.
 An updated \code{ReplicaStructure}.
 }
 \description{
-Updates the configuration of a replica module.
+Updates the configuration or state of a replica module.
 }
 \details{
-The behaviour of \code{renew()} depends on the class of
-the supplied object.
+The behaviour of \code{renew()} depends on the class of the
+supplied object.
 
 Methods are currently available for:
 
 \itemize{
 \item \code{ReplicaAdder}
 \item \code{ReplicaStructure}
+\item \code{ReplicaGrouper}
+}
+
+\code{renew()} is the primary method used to update replica
+modules while preserving their underlying class and
+structure.
+
+Depending on the supplied module, \code{renew()} can:
+
+\itemize{
+\item add marginal distributions to a
+\code{ReplicaAdder};
+\item define household-member roles in a
+\code{ReplicaStructure};
+\item update internal household-generation state;
+\item transfer household assignments to synthetic
+populations; and
+\item register household structures with a
+\code{ReplicaGrouper}.
 }
 }
 \section{ReplicaAdder Method}{
 
 
-Updates a \code{ReplicaAdder} by adding or replacing marginal
-distributions.
+Updates a \code{ReplicaAdder} by adding or replacing
+marginal distributions.
 
 Marginal distributions provide additional information
 about known population totals and can be used alongside
@@ -98,44 +123,83 @@ when margins are modified.
 \section{ReplicaGrouper Method}{
 
 
-For a \code{ReplicaGrouper}, \code{renew()} registers a
-\code{ReplicaStructure} that can subsequently be used during
-household generation.
+Registers a \code{ReplicaStructure} with a
+\code{ReplicaGrouper}.
+
+Registered structures are subsequently used during
+household generation when \code{manufacture()} is
+called on the grouper.
 }
 
 \section{ReplicaStructure Method}{
 
 
-For a \code{ReplicaStructure}, \code{renew()} defines or updates
-household-member requirements.
+Updates the configuration or state of a
+\code{ReplicaStructure}.
 
-Household positions specify which synthetic agents are
-eligible for a role, while position identifiers define the
-household roles used internally by the matching algorithm.
+The operation performed is determined by the
+\code{what} argument.
+
+Supported options are:
+
+\describe{
+
+\item{\code{"positions"}}{
+Define or update household-member requirements.
+
+Household positions describe which synthetic agents are
+eligible for household roles and how many members are
+required.
+}
+
+\item{\code{"state"}}{
+Update the internal population state used during
+household generation.
+
+This operation stores the synthetic population and
+household-position column used by subsequent
+household-generation methods.
+}
+
+\item{\code{"households"}}{
+Transfer generated household assignments into the
+synthetic population stored by the structure.
+}
+
+}
 }
 
 \examples{
 \dontrun{
 
-gender_margin <- data.frame(
-  gender = c(
-    "Male",
-    "Female"
-  ),
-  count = c(
-    100,
-    120
-  )
+grouper <- renew(
+  grouper,
+  household_type = structure
 )
 
-adder <- renew(
-  adder,
-  margins = list(
-    gender_margin
-  ),
-  margins_names = list(
-    "gender"
-  )
+}
+
+\dontrun{
+
+structure <- renew(
+  structure,
+  what = "positions",
+  household_position = "Parent",
+  position_identifier = "adult",
+  amount = 2
+)
+
+structure <- renew(
+  structure,
+  what = "state",
+  df_synth_pop = population,
+  household_position_column =
+    "household_position"
+)
+
+structure <- renew(
+  structure,
+  what = "households"
 )
 
 }

@@ -40,11 +40,9 @@ reference:
   - ReplicaStructure-class
 - title: "Methods"
 - contents:
-  - starts_with("agentToHousehold")
   - enhance,ReplicaAdder-method
   - manufacture,ReplicaGrouper-method
   - manufacture,ReplicaStructure-method
   - starts_with("ratify")
   - starts_with("renew")
-  - starts_with("updateState")
 

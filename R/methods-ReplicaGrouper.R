@@ -2,16 +2,29 @@
 #'
 #' @section ReplicaGrouper Method:
 #'
-#' For a `ReplicaGrouper`, `renew()` registers a
-#' `ReplicaStructure` that can subsequently be used during
-#' household generation.
+#' Registers a \code{ReplicaStructure} with a
+#' \code{ReplicaGrouper}.
 #'
-#' @param x A `ReplicaGrouper`.
-#' @param household_type A `ReplicaStructure` object to be
-#' registered with the grouper.
-#' @param ... Additional arguments passed to the method.
+#' Registered structures are subsequently used during
+#' household generation when \code{manufacture()} is
+#' called on the grouper.
 #'
-#' @return An updated `ReplicaGrouper`.
+#' @param x A \code{ReplicaGrouper}.
+#'
+#' @param household_type A \code{ReplicaStructure}
+#' object to be registered.
+#'
+#' @return An updated \code{ReplicaGrouper}.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' grouper <- renew(
+#'   grouper,
+#'   household_type = structure
+#' )
+#'
+#' }
 #'
 #' @exportMethod renew
 setMethod(
@@ -54,6 +67,8 @@ setMethod(
 #' }
 #'
 #' @param x A \code{ReplicaGrouper}.
+#' 
+#' @param ... Additional arguments.
 #'
 #' @return A list containing:
 #'
@@ -116,10 +131,11 @@ setMethod(
       household_type <-
         x@household_types[[i]]
       
-      household_type <- updateState(
+      household_type <- renew(
         household_type,
-        x@df_synth_pop,
-        x@target_column
+        what = "state",
+        df_synth_pop = x@df_synth_pop,
+        household_position_column = x@target_column
       )
       
       grouping <- split(
@@ -185,8 +201,9 @@ setMethod(
       ) {
         
         household_type <-
-          agentToHousehold(
-            household_type
+          renew(
+            household_type,
+            what = "households"
           )
         
       }

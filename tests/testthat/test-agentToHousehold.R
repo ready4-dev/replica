@@ -1,5 +1,5 @@
 test_that(
-  "agentToHousehold assigns household IDs",
+  "renew assigns household IDs",
   {
     
     hh <- ReplicaStructure(
@@ -36,10 +36,11 @@ test_that(
       
     )
     
-    hh <- updateState(
+    hh <- renew(
       hh,
-      pop,
-      "household_position"
+      what = "state",
+      df_synth_pop = pop,
+      household_position_column = "household_position"
     )
     
     adult_position <-
@@ -68,8 +69,9 @@ test_that(
       )
     )
     
-    hh <- agentToHousehold(
-      hh
+    hh <- renew(
+      hh,
+      what = "households"
     )
     
     expect_false(

@@ -749,7 +749,7 @@ ReplicaGrouper <- function(
 #'         \code{\link{renew}}.
 #'   \item Configure distributions.
 #'   \item Attach a synthetic population using
-#'         \code{\link{updateState}}.
+#'         \code{\link{renew}}.
 #'   \item Generate households using
 #'         \code{createFromMembers}.
 #' }
@@ -758,8 +758,33 @@ ReplicaGrouper <- function(
 #' exported using:
 #'
 #' \itemize{
-#'   \item \code{\link{agentToHousehold}}
+#'   \item \code{\link{renew}}
 #'   \item \code{\link{manufacture}}
+#' }
+#'
+#'#' @section Workflow:
+#'
+#' A typical workflow is:
+#'
+#' \preformatted{
+#' structure <- ReplicaStructure(
+#'   "CoupleHousehold"
+#' )
+#'
+#' structure <- renew(
+#'   structure,
+#'   what = "positions",
+#'   ...
+#' )
+#'
+#' structure <- ratify(
+#'   structure,
+#'   output = "self"
+#' )
+#'
+#' household_summary <- manufacture(
+#'   structure
+#' )
 #' }
 #'
 #' @examples
@@ -793,7 +818,6 @@ ReplicaGrouper <- function(
 #' \code{\link{ReplicaStructure}},
 #' \code{\link{ReplicaGrouper}},
 #' \code{\link{renew}},
-#' \code{\link{agentToHousehold}},
 #' \code{\link{manufacture}}
 #'
 #' @export

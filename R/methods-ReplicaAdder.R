@@ -124,8 +124,8 @@ setMethod(
 #'
 #' @section ReplicaAdder Method:
 #'
-#' Updates a `ReplicaAdder` by adding or replacing marginal
-#' distributions.
+#' Updates a \code{ReplicaAdder} by adding or replacing
+#' marginal distributions.
 #'
 #' Marginal distributions provide additional information
 #' about known population totals and can be used alongside
@@ -134,41 +134,15 @@ setMethod(
 #' Any existing validation results are automatically cleared
 #' when margins are modified.
 #'
-#' @param x A `ReplicaAdder`.
+#' @param x A \code{ReplicaAdder}.
 #' @param margins A list of marginal distributions.
 #' @param margins_names A list of names corresponding to the
+#' @param ... Additional arguments
 #' supplied margins.
-#' @param ... Additional arguments passed to the method.
 #'
-#' @return An updated `ReplicaAdder`.
+#' @return An updated \code{ReplicaAdder}.
 #'
-#' @examples
-#' \dontrun{
-#'
-#' gender_margin <- data.frame(
-#'   gender = c(
-#'     "Male",
-#'     "Female"
-#'   ),
-#'   count = c(
-#'     100,
-#'     120
-#'   )
-#' )
-#'
-#' adder <- renew(
-#'   adder,
-#'   margins = list(
-#'     gender_margin
-#'   ),
-#'   margins_names = list(
-#'     "gender"
-#'   )
-#' )
-#'
-#' }
-#'
-#' @export
+#' @exportMethod renew
 setMethod(
   "renew",
   "ReplicaAdder",

@@ -41,7 +41,7 @@ Household generation typically proceeds as follows:
 \code{\link{renew}}.
 \item Configure distributions.
 \item Attach a synthetic population using
-\code{\link{updateState}}.
+\code{\link{renew}}.
 \item Generate households using
 \code{createFromMembers}.
 }
@@ -50,8 +50,33 @@ Generated households are stored internally and can be
 exported using:
 
 \itemize{
-\item \code{\link{agentToHousehold}}
+\item \code{\link{renew}}
 \item \code{\link{manufacture}}
+}
+
+#' @section Workflow:
+
+A typical workflow is:
+
+\preformatted{
+structure <- ReplicaStructure(
+  "CoupleHousehold"
+)
+
+structure <- renew(
+  structure,
+  what = "positions",
+  ...
+)
+
+structure <- ratify(
+  structure,
+  output = "self"
+)
+
+household_summary <- manufacture(
+  structure
+)
 }
 }
 \section{Slots}{
@@ -99,6 +124,7 @@ hh <- ReplicaStructure(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
   amount = 2,
@@ -107,6 +133,7 @@ hh <- renew(
 
 hh <- renew(
   hh,
+  what = "positions",
   household_position = "Child",
   position_identifier = "child",
   amount = 2,
@@ -120,6 +147,5 @@ hh <- renew(
 \code{\link{ReplicaStructure}},
 \code{\link{ReplicaGrouper}},
 \code{\link{renew}},
-\code{\link{agentToHousehold}},
 \code{\link{manufacture}}
 }
