@@ -41,7 +41,7 @@ The function:
 \enumerate{
 \item Converts the synthetic population into a contingency
 table using
-\code{\link{synthetic_population_to_contingency}}.
+\code{\link{transform_to_contingency}}.
 
 \item Aligns the observed and expected distributions.
 
@@ -69,5 +69,5 @@ validate_synthetic_population_fit(
 }
 \seealso{
 \code{\link{calculate_z_squared_score}},
-\code{\link{synthetic_population_to_contingency}}
+\code{\link{transform_to_contingency}}
 }

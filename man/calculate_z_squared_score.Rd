@@ -121,5 +121,5 @@ A Critique of Geodemographic Classification".
 }
 \seealso{
 \code{\link{validate_synthetic_population_fit}},
-\code{\link{synthetic_population_to_contingency}}
+\code{\link{transform_to_contingency}}
 }

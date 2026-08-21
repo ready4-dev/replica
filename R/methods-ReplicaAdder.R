@@ -241,7 +241,7 @@ setMethod(
     
     x@contingency <-
       
-      prepare_contingency_table(
+      make_contingency_table(
         
         contingency =
           x@contingency,
@@ -320,7 +320,7 @@ setMethod(
       
       #
       # This should never happen now
-      # because prepare_contingency_table()
+      # because make_contingency_table()
       # has already handled missing groups.
       #
       
@@ -330,7 +330,7 @@ setMethod(
         
         stop(
           paste(
-            "prepare_contingency_table failed to create contingency group:",
+            "make_contingency_table failed to create contingency group:",
             paste(
               unlist(group_values),
               collapse = ", "

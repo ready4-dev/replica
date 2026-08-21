@@ -135,7 +135,7 @@ test_that(
     
     reconstructed <-
       
-      synthetic_population_to_contingency(
+      transform_to_contingency(
         
         population,
         

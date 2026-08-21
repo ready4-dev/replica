@@ -845,6 +845,167 @@ getHouseholdIds <- function(
   )
   
 }
+
+
+#' Generate Multiple Margin Tables from a Synthetic Population
+#'
+#' Creates a collection of marginal distributions from a
+#' synthetic population.
+#'
+#' This function is useful when multiple margin tables are
+#' required for:
+#'
+#' \itemize{
+#'   \item Validation.
+#'   \item Iterative proportional fitting (IPF).
+#'   \item Statistical reporting.
+#' }
+#'
+#' @param df_synth_pop A synthetic population stored as
+#' a data.frame or \code{data.table}.
+#'
+#' @param margins List of variable names defining the
+#' requested margins.
+#'
+#' Each list entry specifies the variables that will be
+#' aggregated together.
+#'
+#' @return A list of margin tables.
+#'
+#' @details
+#' For each entry in \code{margin_names}, the function computes
+#' the corresponding marginal distribution and returns the
+#' collection as a named list.
+#'
+#' This utility is commonly used when preparing inputs for IPF
+#' workflows and validating synthetic populations against known
+#' marginals.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' margins <- get_margin_frames_from_synthetic_population(
+#'   population,
+#'   list(
+#'     "gender",
+#'     "age_group"
+#'   )
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{get_margin_series_from_synthetic_population}},
+#' \code{\link{ReplicaAdder}}
+#'
+#' @export
+get_margin_frames_from_synthetic_population <- function(
+    df_synth_pop,
+    margins
+) {
+  
+  setNames(
+    lapply(
+      margins,
+      function(names_vec) {
+        
+        transform_to_contingency(
+          df_synth_pop,
+          columns = names_vec,
+          full_crosstab = length(names_vec) > 1
+        )
+        
+      }
+    ),
+    vapply(
+      margins,
+      paste,
+      collapse = "|",
+      FUN.VALUE = character(1)
+    )
+  )
+}
+
+#' Extract a Margin Distribution from a Synthetic Population
+#'
+#' Calculates a marginal distribution for one or more variables
+#' in a synthetic population.
+#'
+#' The resulting margin can be used for:
+#'
+#' \itemize{
+#'   \item Validation.
+#'   \item Comparison with external data sources.
+#'   \item Iterative proportional fitting (IPF).
+#'   \item Diagnostic reporting.
+#' }
+#'
+#' @param df_synth_pop A synthetic population stored as
+#' a data.frame or \code{data.table}.
+#'
+#' @param margins Character vector identifying the
+#' variables that define the margin.
+#'
+#' @return A data frame containing the requested grouping
+#' variables and a \code{count} column.
+#'
+#' @details
+#' The function aggregates the synthetic population over the
+#' supplied variables and counts the number of agents in each
+#' resulting category.
+#'
+#' Unlike
+#' \code{\link{transform_to_contingency}},
+#' this function is intended specifically for marginal
+#' distributions rather than higher-dimensional contingency
+#' tables.
+#'
+#' @examples
+#' population <- data.frame(
+#'   gender = c(
+#'     "Male",
+#'     "Male",
+#'     "Female"
+#'   )
+#' )
+#'
+#' get_margin_series_from_synthetic_population(
+#'   population,
+#'   "gender"
+#' )
+#'
+#' @seealso
+#' \code{\link{get_margin_frames_from_synthetic_population}},
+#' \code{\link{transform_to_contingency}}
+#'
+#' @export
+get_margin_series_from_synthetic_population <- function(
+    df_synth_pop,
+    margins
+) {
+  
+  results <- list()
+  
+  for (names_vec in margins) {
+    
+    key <- paste(names_vec,
+                 collapse = "|")
+    
+    contingency <-
+      transform_to_contingency(
+        df_synth_pop,
+        names_vec,
+        full_crosstab =
+          length(names_vec) > 1
+      )
+    
+    results[[key]] <-
+      contingency$count
+  }
+  
+  results
+}
+
 #' Retrieve Eligible Unassigned Agents in Household Positions
 #'
 #' Returns agents occupying one or more specified household

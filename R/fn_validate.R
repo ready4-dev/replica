@@ -24,13 +24,13 @@ expect_same_contingency <- function(
 ) {
   
   r_cont <-
-    synthetic_population_to_contingency(
+    transform_to_contingency(
       r_result,
       dimensions
     )
   
   py_cont <-
-    synthetic_population_to_contingency(
+    transform_to_contingency(
       py_result,
       dimensions
     )
@@ -174,7 +174,7 @@ validate_fitted_distribution <- function(
 #' \enumerate{
 #'   \item Converts the synthetic population into a contingency
 #'         table using
-#'         \code{\link{synthetic_population_to_contingency}}.
+#'         \code{\link{transform_to_contingency}}.
 #'
 #'   \item Aligns the observed and expected distributions.
 #'
@@ -201,7 +201,7 @@ validate_fitted_distribution <- function(
 #'
 #' @seealso
 #' \code{\link{calculate_z_squared_score}},
-#' \code{\link{synthetic_population_to_contingency}}
+#' \code{\link{transform_to_contingency}}
 #'
 #' @export
 validate_synthetic_population_fit <- function(
@@ -214,7 +214,7 @@ validate_synthetic_population_fit <- function(
   
   observed <-
     
-    synthetic_population_to_contingency(
+    transform_to_contingency(
       synthetic_population,
       dimensions
     )

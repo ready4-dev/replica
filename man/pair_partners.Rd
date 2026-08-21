@@ -62,7 +62,7 @@ Couple composition is controlled by:
 }
 
 Age-gap specifications are interpreted using
-\code{\link{parse_age_gap}}.
+\code{\link{transform_to_age_gap}}.
 
 Candidate partners are selected using:
 
@@ -112,7 +112,7 @@ couples <- pair_partners(
 \code{\link{findPrimaryPartner}},
 \code{\link{findSecondaryPartner}},
 \code{\link{findCoupleCandidates}},
-\code{\link{parse_age_gap}},
+\code{\link{transform_to_age_gap}},
 \code{\link{ReplicaStructure}}
 }
 \keyword{internal}

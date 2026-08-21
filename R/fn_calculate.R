@@ -1,3 +1,108 @@
+#' Calculate an Age Range from an Age-Gap Specification
+#'
+#' Converts an age-gap specification into a valid age range for
+#' candidate selection.
+#'
+#' Given a reference age and lower/upper age-gap bounds, the
+#' function calculates the corresponding acceptable age range.
+#'
+#' This function is used by the household-generation subsystem
+#' when searching for compatible partners.
+#'
+#' @param age Numeric reference age.
+#'
+#' @param gap_start Numeric lower age-gap bound.
+#'
+#' @param gap_end Numeric upper age-gap bound.
+#'
+#' @return A named list containing:
+#'
+#' \describe{
+#'   \item{age_start}{
+#'     Lower age bound.
+#'   }
+#'   \item{age_end}{
+#'     Upper age bound.
+#'   }
+#' }
+#'
+#' @details
+#' Age bounds are calculated by adding the supplied age-gap
+#' values to the reference age.
+#'
+#' For example:
+#'
+#' \preformatted{
+#' age = 40
+#' gap_start = -5
+#' gap_end = 5
+#' }
+#'
+#' produces:
+#'
+#' \preformatted{
+#' age_start = 35
+#' age_end = 45
+#' }
+#'
+#' If the calculated lower bound is greater than the upper
+#' bound, the two values are automatically swapped so that the
+#' returned interval is always valid.
+#'
+#' This behaviour mirrors the original GenSynthPop
+#' implementation.
+#'
+#' @examples
+#' calculate_age_range_from_gap(
+#'   age = 40,
+#'   gap_start = -5,
+#'   gap_end = 5
+#' )
+#'
+#' @examples
+#' calculate_age_range_from_gap(
+#'   age = 40,
+#'   gap_start = 5,
+#'   gap_end = 15
+#' )
+#'
+#' @examples
+#' calculate_age_range_from_gap(
+#'   age = 40,
+#'   gap_start = -10,
+#'   gap_end = -5
+#' )
+#'
+#' @seealso
+#' \code{\link{transform_to_age_gap}},
+#' \code{\link{score_suitability_by_age_disparity}},
+#' \code{\link{findCoupleCandidates}}
+#'
+#' @export
+calculate_age_range_from_gap <- function(
+    age,
+    gap_start,
+    gap_end
+) {
+  
+  age_start <- age + gap_start
+  age_end <- age + gap_end
+  
+  if (age_start > age_end) {
+    
+    tmp <- age_start
+    age_start <- age_end
+    age_end <- tmp
+    
+  }
+  
+  list(
+    age_start = age_start,
+    age_end = age_end
+  )
+  
+}
+
 #' Calculate Conditional Fractions from a Contingency Table
 #'
 #' Converts contingency-table counts into conditional
@@ -545,7 +650,7 @@ calculate_one_z_squared_score <- function(
 #'
 #' @seealso
 #' \code{\link{validate_synthetic_population_fit}},
-#' \code{\link{synthetic_population_to_contingency}}
+#' \code{\link{transform_to_contingency}}
 #'
 #' @export
 calculate_z_squared_score <- function(

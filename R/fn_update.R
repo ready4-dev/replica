@@ -108,7 +108,7 @@
 #'   )
 #' )
 #'
-#' expanded <- prepare_contingency_table(
+#' expanded <- make_contingency_table(
 #'   contingency = contingency,
 #'   synth_pop = population,
 #'   group_by = c(
@@ -125,10 +125,10 @@
 #' \code{\link{ReplicaAdder}},
 #' \code{\link{enhance}},
 #' \code{\link{calculate_fractions}},
-#' \code{\link{synthetic_population_to_contingency}}
+#' \code{\link{transform_to_contingency}}
 #'
 #' @export
-prepare_contingency_table <- function(
+make_contingency_table <- function(
     contingency,
     synth_pop,
     group_by,

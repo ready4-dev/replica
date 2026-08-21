@@ -196,7 +196,7 @@ test_that(
     
     expect_error(
       
-      prepare_contingency_table(
+      make_contingency_table(
         contingency,
         population,
         c(
@@ -254,7 +254,7 @@ test_that(
   "overall strategy uses overall distribution",
   {
     
-    expanded <- prepare_contingency_table(
+    expanded <- make_contingency_table(
       contingency,
       population,
       c(
@@ -285,7 +285,7 @@ test_that(
   "borrow strategy uses nearest available distribution",
   {
     
-    expanded <- prepare_contingency_table(
+    expanded <- make_contingency_table(
       contingency,
       population,
       c(
@@ -506,7 +506,7 @@ test_that(
   "overall and borrow strategies use different distributions",
   {
     
-    overall <- prepare_contingency_table(
+    overall <- make_contingency_table(
       contingency,
       population,
       c(
@@ -517,7 +517,7 @@ test_that(
       strategy = "overall"
     )
     
-    borrow <- prepare_contingency_table(
+    borrow <- make_contingency_table(
       contingency,
       population,
       c(

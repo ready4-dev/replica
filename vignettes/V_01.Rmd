@@ -99,7 +99,7 @@ The generated population can also be aggregated back into a contingency table.
 
 
 ```{r}
-synthetic_population_to_contingency(
+transform_to_contingency(
 
   agents,
 
@@ -146,7 +146,7 @@ Each synthetic agent now contains an age-group assignment.
 Summarise the resulting population:
 
 ```{r}
-synthetic_population_to_contingency(
+transform_to_contingency(
 
   agents,
 
@@ -211,7 +211,7 @@ head(agents)
 We can compare the generated population with the original contingency table.
 
 ```{r}
-synthetic_population_to_contingency(agents, 
+transform_to_contingency(agents, 
                                     columns = c("age_group", "gender"))
 ```
 

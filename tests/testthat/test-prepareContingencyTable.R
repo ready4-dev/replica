@@ -48,7 +48,7 @@ test_that(
     
     expect_error(
       
-      prepare_contingency_table(
+      make_contingency_table(
         contingency,
         population,
         c(
@@ -67,7 +67,7 @@ test_that(
   "overall strategy fills missing groups",
   {
     
-    expanded <- prepare_contingency_table(
+    expanded <- make_contingency_table(
       contingency,
       population,
       c(
@@ -103,7 +103,7 @@ test_that(
   "borrow strategy uses nearest distribution",
   {
     
-    expanded <- prepare_contingency_table(
+    expanded <- make_contingency_table(
       contingency,
       population,
       c(
@@ -139,7 +139,7 @@ test_that(
   "overall and borrow strategies differ",
   {
     
-    overall <- prepare_contingency_table(
+    overall <- make_contingency_table(
       contingency,
       population,
       c(
@@ -150,7 +150,7 @@ test_that(
       strategy = "overall"
     )
     
-    borrow <- prepare_contingency_table(
+    borrow <- make_contingency_table(
       contingency,
       population,
       c(
@@ -202,7 +202,7 @@ test_that(
   "result returned as data.table",
   {
     
-    expanded <- prepare_contingency_table(
+    expanded <- make_contingency_table(
       contingency,
       population,
       c(
@@ -225,7 +225,7 @@ test_that(
   "all required groups represented",
   {
     
-    expanded <- prepare_contingency_table(
+    expanded <- make_contingency_table(
       contingency,
       population,
       c(
@@ -249,7 +249,7 @@ test_that(
   "existing contingency rows preserved",
   {
     
-    expanded <- prepare_contingency_table(
+    expanded <- make_contingency_table(
       contingency,
       population,
       c(

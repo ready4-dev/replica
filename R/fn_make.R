@@ -952,7 +952,7 @@ matchAdultsWithChildren <- function(
     
     count <- age_mother[[age_gap]]
     
-    bounds <- parse_age_gap(
+    bounds <- transform_to_age_gap(
       age_gap
     )
     
@@ -1144,7 +1144,7 @@ matchAdultsWithChildren <- function(
 #' }
 #'
 #' Age-gap specifications are interpreted using
-#' \code{\link{parse_age_gap}}.
+#' \code{\link{transform_to_age_gap}}.
 #'
 #' Candidate partners are selected using:
 #'
@@ -1193,7 +1193,7 @@ matchAdultsWithChildren <- function(
 #' \code{\link{findPrimaryPartner}},
 #' \code{\link{findSecondaryPartner}},
 #' \code{\link{findCoupleCandidates}},
-#' \code{\link{parse_age_gap}},
+#' \code{\link{transform_to_age_gap}},
 #' \code{\link{ReplicaStructure}}
 #' @keywords internal
 pair_partners <- function(
@@ -1244,7 +1244,7 @@ pair_partners <- function(
       
       gap_count <- age_gap_counts[[gap_name]]
       
-      gap <- parse_age_gap(
+      gap <- transform_to_age_gap(
         gap_name
       )
       

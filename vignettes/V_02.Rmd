@@ -115,7 +115,7 @@ head(population)
 We can verify that the generated population preserves the source distribution.
 
 ```{r}
-synthetic_population_to_contingency(population, 
+transform_to_contingency(population, 
                                     columns = c("age_group", "gender"))
 ```
 
@@ -248,7 +248,7 @@ head(adder@synth_pop)
 We can examine the distribution of education values.
 
 ```{r}
-synthetic_population_to_contingency(adder@synth_pop, 
+transform_to_contingency(adder@synth_pop, 
                                     columns = "education")
 ```
 
@@ -257,7 +257,7 @@ The population has been enriched while preserving the demographic relationships 
 We can also reconstruct the resulting contingency table:
 
 ```{r}
-synthetic_population_to_contingency(
+transform_to_contingency(
   adder@synth_pop,
   columns = c("age_group", "gender","education"))
 ```

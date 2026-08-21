@@ -13,7 +13,7 @@ development:
 reference:
 - title: "Functions"
 - contents:
-  - age_to_age_group
+  - transform_to_age_group
   - calculate_age_range_from_gap
   - calculate_z_squared_score
   - calculate_fractions
@@ -22,13 +22,13 @@ reference:
   - get_margin_frames_from_synthetic_population
   - get_margin_series_from_synthetic_population
   - make_agents
-  - multicolumn_to_attribute_values
-  - parse_age_gap
+  - transform_to_combinations
+  - transform_to_age_gap
   - plot_validation_differences
   - plot_validation_distributions
   - plot_validation_heatmap
-  - prepare_contingency_table
-  - synthetic_population_to_contingency
+  - make_contingency_table
+  - transform_to_contingency
   - validate_synthetic_population_fit
 - title: "S4 Classes"
 - contents:
