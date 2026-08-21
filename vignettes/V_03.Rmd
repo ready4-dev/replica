@@ -51,26 +51,36 @@ This vignette demonstrates the third stage of the `replica` workflow: transformi
 The workflow demonstrated in this vignette can be summarised as:
 
 Aggregate Counts
-       ↓
+      
+       \↓
+       
 `make_agents()`
-       ↓
+      
+       \↓
+       
 Synthetic Agents
-       ↓
+      
+       \↓
+       
 `ReplicaAdder`
-       ↓
+      
+       \↓
+       
        
 Enriched Population
 
-       ↓
+      
+       \↓
+       
        
 `ReplicaGrouper`
 
-       +
+       \+
        
 `ReplicaStructure`
 
-       ↓
-       
+       \↓
+      
 Synthetic Households
 
 This vignette focuses on the household-generation stage.
