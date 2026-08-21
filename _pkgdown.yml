@@ -45,8 +45,8 @@ reference:
   - starts_with("agentToHousehold")
   - starts_with("createFromMembers")
   - enhance,ReplicaAdder-method
-  - enhance,ReplicaGrouper-method
   - starts_with("householdsToDataFrame")
+  - manufacture,ReplicaGrouper-method
   - starts_with("ratify")
   - starts_with("renew")
   - starts_with("updateState")
