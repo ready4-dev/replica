@@ -71,13 +71,13 @@ setGeneric(
     )
   }
 )
-setGeneric(
-  "checkIntegrity",
-  
-  function(object) {
-    standardGeneric("checkIntegrity")
-  }
-)
+# setGeneric(
+#   "checkIntegrity",
+#   
+#   function(object) {
+#     standardGeneric("checkIntegrity")
+#   }
+# )
 #' Create Households from Household Members
 #'
 #' Executes the household-construction workflow for a
@@ -139,7 +139,6 @@ setGeneric(
 #' \code{\link{matchAdultsWithChildren}}
 #'
 #' @rdname createFromMembers
-#' @export
 setGeneric(
   "createFromMembers",
   
@@ -267,9 +266,9 @@ setGeneric(
 #'   hh,
 #'   "adult"
 #' )
-#'
+#' 
 #' adult_position$amount
-#'
+#' 
 #' }
 #'
 #' @seealso
@@ -277,7 +276,6 @@ setGeneric(
 #' \code{\link{ReplicaStructure}}
 #'
 #' @rdname getPositionForName
-#' @export
 setGeneric(
   "getPositionForName",
   function(
@@ -417,7 +415,6 @@ setGeneric(
 #' }
 #'
 #' @seealso
-#' \code{\link{createFromMembers}},
 #' \code{\link{ReplicaStructure}}
 #'
 #' @rdname updateState

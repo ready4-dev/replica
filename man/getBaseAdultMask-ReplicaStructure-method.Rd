@@ -55,7 +55,4 @@ adult_mask <- getBaseAdultMask(hh)
 }
 
 }
-\seealso{
-\code{\link{getPositionForName}}
-}
 \keyword{internal}

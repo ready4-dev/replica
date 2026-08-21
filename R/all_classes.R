@@ -751,7 +751,7 @@ ReplicaGrouper <- function(
 #'   \item Attach a synthetic population using
 #'         \code{\link{updateState}}.
 #'   \item Generate households using
-#'         \code{\link{createFromMembers}}.
+#'         \code{createFromMembers}.
 #' }
 #'
 #' Generated households are stored internally and can be
@@ -791,7 +791,6 @@ ReplicaGrouper <- function(
 #' \code{\link{ReplicaStructure}},
 #' \code{\link{ReplicaGrouper}},
 #' \code{\link{renew}},
-#' \code{\link{createFromMembers}},
 #' \code{\link{agentToHousehold}},
 #' \code{\link{householdsToDataFrame}}
 #'
@@ -1072,8 +1071,7 @@ setValidity(
 #' @seealso
 #' \code{\link{ReplicaStructure-class}},
 #' \code{\link{ReplicaGrouper}},
-#' \code{\link{renew}},
-#' \code{\link{createFromMembers}}
+#' \code{\link{renew}}
 #'
 #' @export
 ReplicaStructure <- function(

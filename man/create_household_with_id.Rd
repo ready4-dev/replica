@@ -10,7 +10,7 @@ create_household_with_id(object, position, id_offset, agents)
 \item{object}{A \code{ReplicaStructure} object.}
 
 \item{position}{Household-position definition returned by
-\code{\link{getPositionForName}}.}
+\code{getPositionForName}.}
 
 \item{id_offset}{Integer offset used to generate a unique
 household identifier.}
@@ -107,7 +107,6 @@ names(hh@households)
 
 }
 \seealso{
-\code{\link{getPositionForName}},
 \code{\link{pair_partners}},
 \code{\link{matchAdultsWithChildren}},
 \code{\link{ReplicaStructure}}

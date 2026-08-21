@@ -291,9 +291,7 @@ test_that(
     )
     
     expect_true(
-      checkIntegrity(
-        result$x@household_types[[1]]
-      )
+      ratify(result$x@household_types[[1]], output = "logical")
     )
     
   }

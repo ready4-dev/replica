@@ -43,7 +43,7 @@ Household generation typically proceeds as follows:
 \item Attach a synthetic population using
 \code{\link{updateState}}.
 \item Generate households using
-\code{\link{createFromMembers}}.
+\code{createFromMembers}.
 }
 
 Generated households are stored internally and can be
@@ -120,7 +120,6 @@ hh <- renew(
 \code{\link{ReplicaStructure}},
 \code{\link{ReplicaGrouper}},
 \code{\link{renew}},
-\code{\link{createFromMembers}},
 \code{\link{agentToHousehold}},
 \code{\link{householdsToDataFrame}}
 }

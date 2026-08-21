@@ -60,7 +60,7 @@ createFamilyHouseholdWithId <- function(
 #' @param object A \code{ReplicaStructure} object.
 #'
 #' @param position Household-position definition returned by
-#' \code{\link{getPositionForName}}.
+#' \code{getPositionForName}.
 #'
 #' @param id_offset Integer offset used to generate a unique
 #' household identifier.
@@ -127,7 +127,6 @@ createFamilyHouseholdWithId <- function(
 #' }
 #'
 #' @seealso
-#' \code{\link{getPositionForName}},
 #' \code{\link{pair_partners}},
 #' \code{\link{matchAdultsWithChildren}},
 #' \code{\link{ReplicaStructure}}
@@ -346,7 +345,7 @@ getGroupMask <- function(
 #' }
 #'
 #' This method is typically called indirectly through
-#' \code{\link{createFromMembers}} during household generation.
+#' \code{createFromMembers} during household generation.
 #'
 #' @param object A \code{ReplicaStructure} object.
 #'
@@ -354,7 +353,7 @@ getGroupMask <- function(
 #' child grouping.
 #'
 #' @param child_position Position definition returned by
-#' \code{\link{getPositionForName}} for the \code{"child"}
+#' \code{getPositionForName} for the \code{"child"}
 #' role.
 #'
 #' @return A list of sibling groups.
@@ -402,7 +401,6 @@ getGroupMask <- function(
 #'
 #' @seealso
 #' \code{\link{matchAdultsWithChildren}},
-#' \code{\link{createFromMembers}},
 #' \code{\link{ReplicaStructure}}
 #'
 #' @export
@@ -769,7 +767,7 @@ make_household_population <- function() {
 #'
 #' This function is the final family-construction stage of the
 #' household-generation workflow and is typically called
-#' indirectly via \code{\link{createFromMembers}}.
+#' indirectly via \code{createFromMembers}.
 #'
 #' The algorithm:
 #'
@@ -1100,7 +1098,7 @@ matchAdultsWithChildren <- function(
 #'
 #' This function is one of the core household-generation
 #' algorithms in replica and is typically called
-#' indirectly via \code{\link{createFromMembers}}.
+#' indirectly via \code{createFromMembers}.
 #'
 #' Couples are created by:
 #'
@@ -1196,7 +1194,6 @@ matchAdultsWithChildren <- function(
 #' \code{\link{findSecondaryPartner}},
 #' \code{\link{findCoupleCandidates}},
 #' \code{\link{parse_age_gap}},
-#' \code{\link{createFromMembers}},
 #' \code{\link{ReplicaStructure}}
 #'
 #' @export

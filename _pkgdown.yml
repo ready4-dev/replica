@@ -43,7 +43,6 @@ reference:
 - title: "Methods"
 - contents:
   - starts_with("agentToHousehold")
-  - starts_with("createFromMembers")
   - enhance,ReplicaAdder-method
   - starts_with("householdsToDataFrame")
   - manufacture,ReplicaGrouper-method

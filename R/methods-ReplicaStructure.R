@@ -88,14 +88,24 @@ setMethod(
   }
   
 )
+#' @rdname ratify
+#'
+#' @param x A \code{ReplicaStructure}.
+#' @param output Character string specifying whether a
+#' logical validation result (\code{"logical"}) or the
+#' validated structure (\code{"self"}) should be returned.
+#'
+#' @exportMethod ratify
 setMethod(
-  "checkIntegrity",
-  signature(object = "ReplicaStructure"),
+  "ratify",
+  signature(x = "ReplicaStructure"),
   
-  function(object) {
+  function(x,
+           output = c("self", "logical")) {
     
+    output <- match.arg(output)
     all_agents <- getAllAgents(
-      object
+      x
     )
     
     duplicates <- unique(
@@ -122,7 +132,7 @@ setMethod(
       
       lapply(
         
-        object@positions,
+        x@positions,
         
         function(x) {
           
@@ -136,9 +146,9 @@ setMethod(
     
     expected_agents <-
       
-      object@df_synth_pop[
+      x@df_synth_pop[
         
-        object@df_synth_pop[[object@household_position_column]] %in% positions,
+        x@df_synth_pop[[x@household_position_column]] %in% positions,
         
         agent_id
         
@@ -162,12 +172,21 @@ setMethod(
         )
       )
       
-      return(FALSE)
+      valid_1L_lgl <- FALSE
       
+    }else{
+      valid_1L_lgl <- TRUE
     }
-    
-    TRUE
-    
+    if(output=="self"){
+      if(!valid_1L_lgl){
+        stop("unassigned agents")
+      }else{
+        result_xx <-x
+      }
+    }else{
+      result_xx <- valid_1L_lgl
+    }
+    result_xx
   }
 )
 #' @rdname createFromMembers
@@ -403,9 +422,6 @@ setMethod(
 #' \dontrun{
 #' adult_mask <- getBaseAdultMask(hh)
 #' }
-#'
-#' @seealso
-#' \code{\link{getPositionForName}}
 #'
 #' @keywords internal
 setMethod(

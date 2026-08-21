@@ -53,7 +53,7 @@ hh <- updateState(
 
 hh@sampled_agents <- character()
 
-child_position <- getPositionForName(
+child_position <- replica:::getPositionForName(
   hh,
   "child"
 )

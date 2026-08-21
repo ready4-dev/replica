@@ -38,7 +38,7 @@ distributions.
 \details{
 This function is one of the core household-generation
 algorithms in replica and is typically called
-indirectly via \code{\link{createFromMembers}}.
+indirectly via \code{createFromMembers}.
 
 Couples are created by:
 
@@ -112,6 +112,5 @@ couples <- pair_partners(
 \code{\link{findSecondaryPartner}},
 \code{\link{findCoupleCandidates}},
 \code{\link{parse_age_gap}},
-\code{\link{createFromMembers}},
 \code{\link{ReplicaStructure}}
 }

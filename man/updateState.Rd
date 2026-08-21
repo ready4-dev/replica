@@ -41,6 +41,5 @@ hh <- updateState(
 
 }
 \seealso{
-\code{\link{createFromMembers}},
 \code{\link{ReplicaStructure}}
 }

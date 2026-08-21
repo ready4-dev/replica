@@ -38,7 +38,6 @@
 #'
 #' @name enhance
 NULL
-NULL
 
 #' Manufacture Replica Outputs
 #'
@@ -56,42 +55,40 @@ NULL
 #' @name manufacture
 NULL
 
-#' Ratify Attribute Assignment Results
+#' Ratify Replica Modules
 #'
-#' Evaluates the quality of attribute assignment performed by a
-#' \code{ReplicaAdder} and stores validation diagnostics within
-#' the module.
+#' Evaluates whether a replica module satisfies required
+#' validity criteria.
 #'
-#' The \code{ratify()} method compares the observed
-#' distributions in the synthetic population with the expected
-#' distributions supplied via the reference contingency table.
+#' The behaviour of `ratify()` depends on the class of the
+#' supplied object.
 #'
-#' Validation results are stored in the
-#' \code{validation_results} slot and include:
+#' Methods are currently available for:
 #'
 #' \itemize{
-#'   \item goodness-of-fit statistics;
-#'   \item p-values;
-#'   \item warning flags; and
-#'   \item detailed comparisons of observed and expected
-#'   distributions.
+#'   \item \code{ReplicaAdder}
+#'   \item \code{ReplicaStructure}
 #' }
 #'
-#' These diagnostics can subsequently be explored using the
-#' validation and visualisation tools bundled with
-#' \code{replica}.
+#' @details
 #'
-#' @section ReplicaAdder:
+#' `ratify()` performs class-specific validation checks and
+#' returns either validation results or a validated module.
 #'
-#' For a \code{ReplicaAdder}, \code{ratify()}:
+#' For synthetic-population workflows, `ratify()` can be used
+#' to assess:
 #'
-#' \enumerate{
-#'   \item checks the assigned synthetic population;
-#'   \item compares observed and expected distributions;
-#'   \item calculates validation statistics;
-#'   \item stores validation results; and
-#'   \item returns the updated module.
+#' \itemize{
+#'   \item attribute-assignment quality;
+#'   \item household-assignment integrity; and
+#'   \item internal consistency of replica modules.
 #' }
+#'
+#' @section ReplicaAdder Method:
+#'
+#' For a \code{ReplicaAdder}, \code{ratify()} evaluates the
+#' quality of attribute assignment and stores validation
+#' diagnostics within the module.
 #'
 #' Validation results are stored in:
 #'
@@ -99,44 +96,106 @@ NULL
 #' x@validation_results
 #' }
 #'
-#' and may be inspected using:
+#' and include:
 #'
-#' \preformatted{
-#' names(x@validation_results)
+#' \itemize{
+#'   \item z-squared statistics;
+#'   \item p-values;
+#'   \item warning flags; and
+#'   \item detailed comparisons of observed and expected
+#'   distributions.
 #' }
 #'
-#' @param x A \code{ReplicaAdder} object.
-#' @param ... Additional arguments passed to the generic
-#' method.
+#' @section ReplicaStructure Method:
 #'
-#' @return An updated \code{ReplicaAdder}.
+#' For a \code{ReplicaStructure}, \code{ratify()} evaluates
+#' household-assignment integrity.
+#'
+#' Validation checks include:
+#'
+#' \itemize{
+#'   \item duplicate household assignments; and
+#'   \item eligible agents that have not been assigned to a
+#'   household.
+#' }
+#'
+#' Agents eligible for assignment are identified using the
+#' household-position definitions stored in the structure.
+#'
+#' When duplicate assignments are detected, execution is
+#' stopped and an error is generated.
+#'
+#' When eligible agents have not been assigned to a
+#' household, a warning is issued.
+#'
+#' The method can return either:
+#'
+#' \itemize{
+#'   \item a logical validation result; or
+#'   \item the validated
+#'   \code{ReplicaStructure} object.
+#' }
+#'
+#' @param x A replica module.
+#'
+#' @param output Character string specifying the desired
+#' return value for \code{ReplicaStructure} methods.
+#'
+#' Options are:
+#'
+#' \itemize{
+#'   \item \code{"logical"} returns a logical validation
+#'   result;
+#'   \item \code{"self"} returns the validated
+#'   \code{ReplicaStructure}.
+#' }
+#'
+#' @return
+#'
+#' For a \code{ReplicaAdder}, an updated
+#' \code{ReplicaAdder} containing validation results.
+#'
+#' For a \code{ReplicaStructure}:
+#'
+#' \itemize{
+#'   \item \code{output = "logical"} returns a logical value;
+#'   \item \code{output = "self"} returns a validated
+#'   \code{ReplicaStructure}.
+#' }
 #'
 #' @examples
 #' \dontrun{
 #'
-#' adder <- ReplicaAdder(
-#'   synth_pop = population,
-#'   contingency = contingency,
-#'   target_attribute = "education",
-#'   group_by = c(
-#'     "age_group",
-#'     "gender"
-#'   )
-#' )
+#' ## Validate a ReplicaAdder
 #'
 #' adder <- enhance(adder)
 #'
-#' adder <- ratify(adder)
+#' adder <- ratify(
+#'   adder
+#' )
 #'
 #' adder@validation_results
+#'
+#' ## Validate a ReplicaStructure
+#'
+#' ratify(
+#'   structure,
+#'   output = "logical"
+#' )
+#'
+#' structure <- ratify(
+#'   structure,
+#'   output = "self"
+#' )
+#'
 #' }
 #'
 #' @seealso
 #' \code{\link{ReplicaAdder}},
-#' \code{\link{validate_synthetic_population_fit}},
-#' \code{\link{plot_validation_distributions}},
-#' \code{\link{plot_validation_differences}},
-#' \code{\link{plot_validation_heatmap}}
+#' \code{\link{ReplicaStructure}},
+#' \code{\link{renew}},
+#' \code{\link{enhance}},
+#' \code{\link{manufacture}}
 #'
 #' @name ratify
 NULL

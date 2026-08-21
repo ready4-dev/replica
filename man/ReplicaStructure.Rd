@@ -139,6 +139,5 @@ hh <- ReplicaStructure(
 \seealso{
 \code{\link{ReplicaStructure-class}},
 \code{\link{ReplicaGrouper}},
-\code{\link{renew}},
-\code{\link{createFromMembers}}
+\code{\link{renew}}
 }

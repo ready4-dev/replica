@@ -42,7 +42,7 @@ test_that(
     )
     
     adult_position <-
-      getPositionForName(
+      replica:::getPositionForName(
         hh,
         "adult"
       )

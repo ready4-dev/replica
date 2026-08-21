@@ -13,7 +13,7 @@ group_children(object, mask, child_position)
 child grouping.}
 
 \item{child_position}{Position definition returned by
-\code{\link{getPositionForName}} for the \code{"child"}
+\code{getPositionForName} for the \code{"child"}
 role.}
 }
 \value{
@@ -51,7 +51,7 @@ household generation.
 }
 
 This method is typically called indirectly through
-\code{\link{createFromMembers}} during household generation.
+\code{createFromMembers} during household generation.
 
 The number of children per sibling group is determined by
 the \code{amount} element of the child-position definition.
@@ -87,6 +87,5 @@ groups
 }
 \seealso{
 \code{\link{matchAdultsWithChildren}},
-\code{\link{createFromMembers}},
 \code{\link{ReplicaStructure}}
 }

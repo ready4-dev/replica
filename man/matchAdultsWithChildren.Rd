@@ -39,7 +39,7 @@ distribution.
 \details{
 This function is the final family-construction stage of the
 household-generation workflow and is typically called
-indirectly via \code{\link{createFromMembers}}.
+indirectly via \code{createFromMembers}.
 
 The algorithm:
 

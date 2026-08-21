@@ -2,7 +2,7 @@ library(testthat)
 library(data.table)
 
 test_that(
-  "checkIntegrity returns TRUE for valid households",
+  "ratify returns TRUE for valid households",
   {
     
     hh <- ReplicaStructure(
@@ -46,13 +46,13 @@ test_that(
     )
     
     expect_true(
-      checkIntegrity(hh)
+      ratify(hh, output = "logical")
     )
     
   }
 )
 test_that(
-  "checkIntegrity detects duplicate agents",
+  "ratify detects duplicate agents",
   {
     
     hh <- ReplicaStructure(
@@ -105,13 +105,13 @@ test_that(
     )
     
     expect_error(
-      checkIntegrity(hh)
+      ratify(hh, output = "logical")
     )
     
   }
 )
 test_that(
-  "checkIntegrity detects missing agents",
+  "ratify detects missing agents",
   {
     
     hh <- ReplicaStructure(
@@ -157,7 +157,7 @@ test_that(
     )
     
     expect_warning(
-      result <- checkIntegrity(hh)
+      result <- ratify(hh, output = "logical")
     )
     
     expect_false(result)
@@ -165,7 +165,7 @@ test_that(
   }
 )
 test_that(
-  "checkIntegrity handles empty household list",
+  "ratify handles empty household list",
   {
     
     hh <- ReplicaStructure(
@@ -200,7 +200,7 @@ test_that(
     hh@households <- list()
     
     expect_warning(
-      result <- checkIntegrity(hh)
+      result <- ratify(hh, output = "logical")
     )
     
     expect_false(result)
@@ -244,7 +244,7 @@ test_that(
     # Create a valid household
     #
     
-    adult_position <- getPositionForName(
+    adult_position <- replica:::getPositionForName(
       hh,
       "adult"
     )
@@ -294,7 +294,7 @@ test_that(
     #
     
     expect_true(
-      checkIntegrity(hh)
+      ratify(hh, output = "logical")
     )
     
   }
@@ -332,7 +332,7 @@ test_that(
     hh@household_position_column <-
       "household_position"
     
-    adult_position <- getPositionForName(
+    adult_position <- replica:::getPositionForName(
       hh,
       "adult"
     )
@@ -370,7 +370,7 @@ test_that(
     )
     
     expect_true(
-      checkIntegrity(hh)
+      ratify(hh, output = "logical")
     )
     
   }

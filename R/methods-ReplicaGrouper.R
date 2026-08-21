@@ -171,9 +171,8 @@ setMethod(
       # print(class(household_type))
       # str(household_type)
       if (
-        checkIntegrity(
-          household_type
-        )
+        ratify(household_type,
+               output = "logical")
       ) {
         
         household_type <-

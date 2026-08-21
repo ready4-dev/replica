@@ -42,7 +42,7 @@ test_that(
       "household_position"
     )
     
-    adult_position <- getPositionForName(
+    adult_position <- replica:::getPositionForName(
       hh,
       "adult"
     )
