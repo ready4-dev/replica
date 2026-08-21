@@ -129,8 +129,7 @@ for household generation.
 
 [`ReplicaStructure-class`](https://ready4-dev.github.io/replica/reference/ReplicaStructure-class.md),
 [`ReplicaGrouper`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md),
-[`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md)
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md)
 
 ## Examples
 

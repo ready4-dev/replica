@@ -57,10 +57,6 @@ registered under:
 
     position_identifier = "adult"
 
-## See also
-
-[`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md)
-
 ## Examples
 
 ``` r

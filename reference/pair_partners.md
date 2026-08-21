@@ -39,8 +39,7 @@ The updated `ReplicaStructure` object is attached as:
 ## Details
 
 This function is one of the core household-generation algorithms in
-replica and is typically called indirectly via
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md).
+replica and is typically called indirectly via `createFromMembers`.
 
 Couples are created by:
 
@@ -84,7 +83,6 @@ prevent subsequent reassignment.
 [`findSecondaryPartner`](https://ready4-dev.github.io/replica/reference/findSecondaryPartner.md),
 [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md),
 [`parse_age_gap`](https://ready4-dev.github.io/replica/reference/parse_age_gap.md),
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples

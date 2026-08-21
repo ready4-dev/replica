@@ -21,9 +21,8 @@ group_children(object, mask, child_position)
 
 - child_position:
 
-  Position definition returned by
-  [`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md)
-  for the `"child"` role.
+  Position definition returned by `getPositionForName` for the `"child"`
+  role.
 
 ## Value
 
@@ -58,8 +57,7 @@ The algorithm:
 - Marks assigned children as unavailable for future household
   generation.
 
-This method is typically called indirectly through
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md)
+This method is typically called indirectly through `createFromMembers`
 during household generation.
 
 The number of children per sibling group is determined by the `amount`
@@ -74,7 +72,6 @@ score_sibling_age_suitability.
 ## See also
 
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples

@@ -41,7 +41,6 @@ This method is typically called prior to household generation.
 
 ## See also
 
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples

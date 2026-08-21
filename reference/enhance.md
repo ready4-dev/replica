@@ -1,22 +1,20 @@
 # Enhance Replica Modules
 
-Executes a replica workflow.
+Enhances a replica module by updating or enriching the data managed by
+that module.
 
 ## Usage
 
 ``` r
 # S4 method for class 'ReplicaAdder'
 enhance(x = "ReplicaAdder", ...)
-
-# S4 method for class 'ReplicaGrouper'
-enhance(x, ...)
 ```
 
 ## Arguments
 
 - x:
 
-  A `ReplicaGrouper`.
+  A `ReplicaAdder`.
 
 - ...:
 
@@ -25,17 +23,6 @@ enhance(x, ...)
 ## Value
 
 An updated `ReplicaAdder`.
-
-A list containing:
-
-- `synthetic_population`,
-
-- `synthetic_households`, and
-
-- `object`.
-
-The returned population contains one row per synthetic agent, while the
-household table contains one row per synthetic household.
 
 ## Details
 
@@ -46,18 +33,20 @@ Methods are currently available for:
 
 - `ReplicaAdder`
 
-- `ReplicaGrouper`
+In the current implementation, `enhance()` is used to execute
+attribute-assignment workflows.
 
-`enhance()` is the primary workflow execution method used by replica
-modules.
+For a `ReplicaAdder`, the method assigns values of a target attribute to
+synthetic agents using information supplied in contingency tables and
+optional marginal distributions.
 
-Depending on the module supplied, the method may:
+The resulting enriched synthetic population is stored within the module
+and can subsequently be validated using
+[`ratify`](https://ready4-dev.github.io/replica/reference/ratify.md).
 
-- assign attributes to synthetic agents;
-
-- generate synthetic households; or
-
-- perform other population-enhancement tasks.
+Workflows that generate new output objects, such as household
+generation, are implemented using
+[`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md).
 
 ## ReplicaAdder Method
 
@@ -84,37 +73,16 @@ The updated synthetic population is stored in:
 
     x@synth_pop
 
-## ReplicaGrouper Method
-
-Generates synthetic households from a synthetic population using one or
-more registered `ReplicaStructure` definitions.
-
-For each grouping region, the method:
-
-1.  identifies eligible household members;
-
-2.  applies registered household structures;
-
-3.  matches agents according to demographic rules;
-
-4.  creates synthetic households;
-
-5.  assigns household identifiers; and
-
-6.  generates household-level outputs.
-
-Household generation is performed independently within each grouping
-region defined by the `group_by` slot.
-
 ## See also
 
 [`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
 [`ratify`](https://ready4-dev.github.io/replica/reference/ratify.md),
 [`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md)
 
-[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md),
-[`ReplicaGrouper`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md),
-[`renew`](https://ready4-dev.github.io/replica/reference/renew.md)
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
+[`ratify`](https://ready4-dev.github.io/replica/reference/ratify.md),
+[`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md),
+[`ReplicaAdder`](https://ready4-dev.github.io/replica/reference/ReplicaAdder.md)
 
 ## Examples
 
@@ -128,18 +96,6 @@ adder <- enhance(
 head(
   adder@synth_pop
 )
-
-} # }
-
-if (FALSE) { # \dontrun{
-
-result <- enhance(
-  grouper
-)
-
-result$synthetic_population
-
-result$synthetic_households
 
 } # }
 ```

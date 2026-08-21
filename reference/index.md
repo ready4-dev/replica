@@ -58,22 +58,20 @@
 
 ## Methods
 
+- [`agentToHousehold()`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md)
+  : Assign Household Identifiers to Agents
+- [`enhance(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/enhance.md)
+  : Enhance Replica Modules
+- [`householdsToDataFrame()`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md)
+  : Convert Synthetic Households to a Data Frame
+- [`manufacture(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
+  : Manufacture Replica Outputs
+- [`ratify(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
+  [`ratify(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
+  : Ratify Replica Modules
 - [`renew(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
   [`renew(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
   [`renew(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/renew.md)
   : Renew replica modules
-- [`agentToHousehold()`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md)
-  : Assign Household Identifiers to Agents
-- [`createFromMembers()`](https://ready4-dev.github.io/replica/reference/createFromMembers.md)
-  : Create Households from Household Members
-- [`enhance(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/enhance.md)
-  [`enhance(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/enhance.md)
-  : Enhance Replica Modules
-- [`getPositionForName()`](https://ready4-dev.github.io/replica/reference/getPositionForName.md)
-  : Retrieve a Household Position Definition
-- [`householdsToDataFrame()`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md)
-  : Convert Synthetic Households to a Data Frame
 - [`updateState()`](https://ready4-dev.github.io/replica/reference/updateState.md)
   : Update ReplicaStructure State
-- [`ratify(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
-  : Ratify Attribute Assignment Results

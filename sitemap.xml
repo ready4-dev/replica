@@ -21,7 +21,7 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_fractions.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_group_counts.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/calculate_z_squared_score.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/createFromMembers.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/createFromMembers-ReplicaStructure-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/create_household_with_id.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/deprecated.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/dotdata.html</loc></url>
@@ -34,7 +34,7 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/getBaseAdultMask-ReplicaStructure-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/getBaseChildMask-ReplicaStructure-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/getGroupFractions.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/getPositionForName.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/getPositionForName-ReplicaStructure-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/getRemainingAgentsInPosition.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/get_margin_frames_from_synthetic_population.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/get_margin_series_from_synthetic_population.html</loc></url>
@@ -42,6 +42,7 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/householdsToDataFrame.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/index.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/make_agents.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/manufacture.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/maskWithRemainingAgents-ReplicaStructure-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/multicolumn_to_attribute_values.html</loc></url>

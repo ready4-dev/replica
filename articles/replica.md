@@ -45,9 +45,47 @@ exploratory purposes.**
 
 The workflow supported by `replica` can be summarised as:
 
-Aggregate Counts ↓ make_agents() ↓ Synthetic Agents ↓ ReplicaAdder ↓
-Enriched Population ↓ ReplicaStructure + ReplicaGrouper ↓ Synthetic
-Households ↓ Validation
+Aggregate Counts
+
+       ↓
+       
+
+[`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
+
+       ↓
+       
+
+Synthetic Agents
+
+       ↓
+       
+
+`ReplicaAdder`
+
+       ↓
+       
+
+Enriched Population
+
+       ↓
+       
+
+`ReplicaStructure`
+
+       +
+       
+
+`ReplicaGrouper`
+
+       ↓
+       
+
+Synthetic Households
+
+       ↓
+       
+
+Validation
 
 Each stage is described in a dedicated vignette.
 
@@ -249,7 +287,7 @@ hg <- ReplicaGrouper(df_synth_pop = population,
 
 hg <- renew(hg, hh)
 
-households <- enhance(hg)
+households <- manufacture(hg)
 ```
 
 ### Inspect Results

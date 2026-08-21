@@ -47,7 +47,7 @@ A list containing:
 
 This function is the final family-construction stage of the
 household-generation workflow and is typically called indirectly via
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md).
+`createFromMembers`.
 
 The algorithm:
 

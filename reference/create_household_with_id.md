@@ -17,8 +17,7 @@ create_household_with_id(object, position, id_offset, agents)
 
 - position:
 
-  Household-position definition returned by
-  [`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md).
+  Household-position definition returned by `getPositionForName`.
 
 - id_offset:
 
@@ -75,7 +74,6 @@ Household identifiers are generated using:
 
 ## See also
 
-[`getPositionForName`](https://ready4-dev.github.io/replica/reference/getPositionForName.md),
 [`pair_partners`](https://ready4-dev.github.io/replica/reference/pair_partners.md),
 [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)

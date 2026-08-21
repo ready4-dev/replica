@@ -45,8 +45,7 @@ Household generation typically proceeds as follows:
 4.  Attach a synthetic population using
     [`updateState`](https://ready4-dev.github.io/replica/reference/updateState.md).
 
-5.  Generate households using
-    [`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md).
+5.  Generate households using `createFromMembers`.
 
 Generated households are stored internally and can be exported using:
 
@@ -106,7 +105,6 @@ Generated households are stored internally and can be exported using:
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md),
 [`ReplicaGrouper`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md),
 [`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
-[`createFromMembers`](https://ready4-dev.github.io/replica/reference/createFromMembers.md),
 [`agentToHousehold`](https://ready4-dev.github.io/replica/reference/agentToHousehold.md),
 [`householdsToDataFrame`](https://ready4-dev.github.io/replica/reference/householdsToDataFrame.md)
 

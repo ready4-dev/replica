@@ -87,8 +87,8 @@ Results are returned as:
 
 [`ReplicaGrouper`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md),
-[`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
-[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
+[`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md),
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md)
 
 ## Examples
 
@@ -105,7 +105,7 @@ hg <- renew(
   hh
 )
 
-result <- enhance(
+result <- manufacture(
   hg
 )
 
