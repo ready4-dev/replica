@@ -9,3 +9,4 @@
 \description{
 Internal helper used by household-generation methods.
 }
+\keyword{internal}

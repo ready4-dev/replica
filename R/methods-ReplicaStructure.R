@@ -548,6 +548,7 @@ setMethod(
 #'
 #' Internal helper used by household-generation methods.
 #'
+#' @keywords internal
 setMethod(
   "getPositionForName",
   signature(object = "ReplicaStructure"),
