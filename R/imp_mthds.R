@@ -7,3 +7,10 @@ NULL
 #' @importFrom ready4 renew
 NULL
 
+#' @importFrom ready4 procureSlot
+#' @export
+ready4::procureSlot
+
+#' @importFrom ready4 renewSlot
+#' @export
+ready4::renewSlot

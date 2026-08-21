@@ -210,12 +210,11 @@ For example, household formation may depend on:
 
 These demographic relationships are controlled using matching distributions.
 
-For simplicity, this illustrative example will generate Female - Male pairs in which the age gap between partners is within 5 years.
+For simplicity, this illustrative example will generate Female - Male pairs in which the age gap between partners is within 5 years. We can use `renewSlot` for this purpose.
 
 ```{r}
-hh@couple_gender_distribution <- c("Female|Male" = 1)
-
-hh@couple_age_distribution <- c("-5-5" = 1)
+hh <- renewSlot(hh, "couple_gender_distribution", c("Female|Male" = 1))
+hh <- renewSlot(hh, "couple_age_distribution", c("-5-5" = 1))
 ```
 
 The above age distribution indicates that permissible partner age gaps range from five years younger to five years older.
@@ -234,7 +233,7 @@ A ReplicaGrouper coordinates household generation across an entire synthetic pop
 
 ```{r}
 hg <- ReplicaGrouper(df_synth_pop = pop,
-                       group_by = "neighb_code")
+                     group_by = "neighb_code")
 ```
 
 The group_by argument determines the geographic or administrative boundaries within which household generation will occur.

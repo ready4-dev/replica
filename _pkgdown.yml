@@ -13,21 +13,21 @@ development:
 reference:
 - title: "Functions"
 - contents:
-  - transform_to_age_group
   - calculate_age_range_from_gap
-  - calculate_z_squared_score
   - calculate_fractions
   - calculate_group_counts
   - create_household_with_id
+  - calculate_z_squared_score
   - get_margin_frames_from_synthetic_population
   - get_margin_series_from_synthetic_population
   - make_agents
-  - transform_to_combinations
-  - transform_to_age_gap
+  - make_contingency_table  
   - plot_validation_differences
   - plot_validation_distributions
   - plot_validation_heatmap
-  - make_contingency_table
+  - transform_to_age_gap
+  - transform_to_age_group
+  - transform_to_combinations
   - transform_to_contingency
   - validate_synthetic_population_fit
 - title: "S4 Classes"

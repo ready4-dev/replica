@@ -184,12 +184,12 @@ Validation is automatically performed during attribute assignment.
 Validation results are stored in `adder@validation_results` that includes the following elements:
 
 ```{r}
-names(adder@validation_results)
+names(procureSlot(adder, "validation_results"))
 ```
 A subset of the summary statistics can be inspected directly.
 
 ```{r}
-adder@validation_results[c("z_square","p_value", 
+procureSlot(adder, "validation_results")[c("z_square","p_value", 
                            "warning_required")]
 ```
 These values provide a high-level assessment of the match between the observed synthetic population and the target contingency table.
@@ -217,7 +217,7 @@ Detailed validation results are available via `head(adder@validation_results$det
 In many practical applications, percentage-point differences provide the most useful indication of whether a synthetic population is sufficiently accurate for its intended purpose. Therefore, the most useful columns may be:
 
 ```{r}
-adder@validation_results$details[
+procureSlot(adder, "validation_results")$details[
   ,
   .(
     age_group,
@@ -249,7 +249,7 @@ Negative values indicate under-representation.
 The simplest way to assess synthetic population quality is to compare observed and expected percentages directly.
 
 ```{r}
-plot_validation_distributions(adder@validation_results)
+plot_validation_distributions(procureSlot(adder, "validation_results"))
 ```
 This figure compares observed and expected percentages within each conditioning group.
 
@@ -259,7 +259,7 @@ Percentage-point differences are often the most useful diagnostic for identifyin
 
 
 ```{r}
-plot_validation_differences(adder@validation_results)
+plot_validation_differences(procureSlot(adder, "validation_results"))
 ```
 This plot highlights demographic groups that differ most from the target distribution.
 
@@ -268,7 +268,7 @@ Groups with the largest positive or negative values contribute most to mismatch 
 For larger validation exercises, a heatmap provides a compact summary of fit quality.
 
 ```{r}
-plot_validation_heatmap(adder@validation_results)
+plot_validation_heatmap(procureSlot(adder, "validation_results"))
 ```
 
 Heatmaps become increasingly useful as the number of conditioning variables grows.
