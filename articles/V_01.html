@@ -140,9 +140,7 @@ population of individual agents.</p>
 <p>The table contains aggregate counts rather than individual agents. We
 can convert this table to a table of individual agents:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
-<span>  <span class="va">neighbourhoods</span></span>
-<span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">neighbourhoods</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     agent_id neighb_code</span></span>
@@ -161,13 +159,7 @@ can convert this table to a table of individual agents:</p>
 <p>The generated population can also be aggregated back into a
 contingency table.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span></span>
-<span></span>
-<span>  <span class="va">agents</span>,</span>
-<span></span>
-<span>  <span class="st">"neighb_code"</span></span>
-<span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   neighb_code count</span></span>
 <span><span class="co">## 1          N1   100</span></span>
 <span><span class="co">## 2          N2   150</span></span>
@@ -181,30 +173,15 @@ generate the agents.</p>
 <p>The same function can be used with any marginal distribution.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age_margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span></span>
-<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"0-17"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"65+"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">200</span>,</span>
-<span>    <span class="fl">600</span>,</span>
-<span>    <span class="fl">200</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span>
-<span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-17"</span>, <span class="st">"18-64"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">600</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">age_margin</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group count</span></span>
 <span><span class="co">## 1      0-17   200</span></span>
 <span><span class="co">## 2     18-64   600</span></span>
 <span><span class="co">## 3       65+   200</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
-<span>  <span class="va">age_margin</span></span>
-<span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_margin</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      agent_id age_group</span></span>
@@ -218,13 +195,7 @@ generate the agents.</p>
 <p>Each synthetic agent now contains an age-group assignment.</p>
 <p>Summarise the resulting population:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span></span>
-<span></span>
-<span>  <span class="va">agents</span>,</span>
-<span></span>
-<span>  <span class="st">"age_group"</span></span>
-<span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, <span class="st">"age_group"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group count</span></span>
 <span><span class="co">## 1      0-17   200</span></span>
 <span><span class="co">## 2     18-64   600</span></span>
@@ -237,35 +208,14 @@ generate the agents.</p>
 tables.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-17"</span>, <span class="st">"0-17"</span>, <span class="st">"18-64"</span>,</span>
+<span>                <span class="st">"18-64"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
 <span></span>
-<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"0-17"</span>,</span>
-<span>    <span class="st">"0-17"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"65+"</span>,</span>
-<span>    <span class="st">"65+"</span></span>
-<span>  <span class="op">)</span>,</span>
+<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span>,<span class="st">"Male"</span>,</span>
+<span>             <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
 <span></span>
-<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">100</span>,</span>
-<span>    <span class="fl">90</span>,</span>
-<span>    <span class="fl">310</span>,</span>
-<span>    <span class="fl">290</span>,</span>
-<span>    <span class="fl">110</span>,</span>
-<span>    <span class="fl">100</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">90</span>, <span class="fl">310</span>, </span>
+<span>            <span class="fl">290</span>, <span class="fl">110</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">age_gender</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
@@ -277,9 +227,7 @@ tables.</p>
 <span><span class="co">## 6       65+ Female   100</span></span></code></pre>
 <p>Generate agents:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
-<span>  <span class="va">age_gender</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
 <p>Inspect the resulting population:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
@@ -295,7 +243,7 @@ tables.</p>
 table.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, </span>
-<span>                                    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>                         columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
 <span><span class="co">## 1      0-17   Male   100</span></span>
 <span><span class="co">## 2      0-17 Female    90</span></span>
