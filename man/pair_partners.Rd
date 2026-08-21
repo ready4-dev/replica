@@ -115,3 +115,4 @@ couples <- pair_partners(
 \code{\link{parse_age_gap}},
 \code{\link{ReplicaStructure}}
 }
+\keyword{internal}

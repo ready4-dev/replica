@@ -89,3 +89,4 @@ groups
 \code{\link{matchAdultsWithChildren}},
 \code{\link{ReplicaStructure}}
 }
+\keyword{internal}

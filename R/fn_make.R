@@ -402,7 +402,7 @@ getGroupMask <- function(
 #' @seealso
 #' \code{\link{matchAdultsWithChildren}},
 #' \code{\link{ReplicaStructure}}
-#'
+#' @keywords internal
 group_children <- function(
     object,
     mask,
@@ -1195,7 +1195,7 @@ matchAdultsWithChildren <- function(
 #' \code{\link{findCoupleCandidates}},
 #' \code{\link{parse_age_gap}},
 #' \code{\link{ReplicaStructure}}
-#'
+#' @keywords internal
 pair_partners <- function(
     object,
     group_mask
