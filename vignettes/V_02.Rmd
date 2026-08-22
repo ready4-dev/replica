@@ -107,7 +107,7 @@ Our goal is to assign education values while preserving known demographic relati
 The reference distribution is supplied as a contingency table. In real use, we would source contingency tables from high quality data sources (e.g., census data) representative of our regions of interest. In this example, we will generate an illustrative contingency table using hypothetical values.
 
 ```{r}
-contingency <- data.frame(
+contingency_table <- data.frame(
   age_group = c("18-64", "18-64","18-64", "18-64",
                 "65+", "65+", "65+", "65+"),
   gender = c("Male", "Male", "Female", "Female",
@@ -138,8 +138,8 @@ For example:
 The assignment workflow is controlled using a `ReplicaAdder`.
 
 ```{r}
-adder <- ReplicaAdder(synth_pop = population,
-                      contingency = contingency,
+adder <- ReplicaAdder(population = population,
+                      contingency_table = contingency_table,
                       target_attribute = "education",
                       group_by = c("age_group", "gender"))
 ```
@@ -161,7 +161,7 @@ Real-world contingency tables often do not contain every combination of characte
 `replica` supports several strategies for handling missing groups. The selected strategy is stored in the `missing_group_strategy` slot.
 
 ```{r}
-adder@missing_group_strategy
+procure(adder, "missing_group_strategy")
 ```
 
 In the above example, the strategy is "borrow" (which is selected by default) that borrows information from nearby groups.
@@ -190,20 +190,20 @@ The workflow:
 
 - validates the resulting distribution.
 
-The updated synthetic population is stored in `adder@synth_pop` which can be accessed with `procureSlot`.
+The updated synthetic population is stored in `adder@population` which can be accessed with `procure`.
 
 
 ## Inspect the enriched population
 The synthetic population now contains the assigned `education` attribute.
 
 ```{r}
-head(procureSlot(adder, "synth_pop"))
+head(procure(adder, "population"))
 ```
 
 We can examine the distribution of education values.
 
 ```{r}
-transform_to_contingency(procureSlot(adder, "synth_pop"), 
+transform_to_contingency(procure(adder, "population"), 
                          columns = "education")
 ```
 
@@ -212,7 +212,7 @@ The population has been enriched while preserving the demographic relationships 
 We can also reconstruct the resulting contingency table:
 
 ```{r}
-transform_to_contingency(procureSlot(adder, "synth_pop"),
+transform_to_contingency(procure(adder, "population"),
                          columns = c("age_group", "gender", "education"))
 ```
 

@@ -20,8 +20,8 @@
   position_identifier = NULL,
   amount = NULL,
   backup_position_identifiers = character(),
-  df_synth_pop = NULL,
-  household_position_column = NULL,
+  population = NULL,
+  position_column = NULL,
   ...
 )
 }
@@ -59,10 +59,10 @@ identifier used during household formation.}
 position identifiers that may be used if the primary
 position is unavailable.}
 
-\item{df_synth_pop}{Synthetic population used for
+\item{population}{Synthetic population used for
 household generation.}
 
-\item{household_position_column}{Character string
+\item{position_column}{Character string
 identifying the column containing household-position
 information.}
 }
@@ -192,8 +192,8 @@ structure <- renew(
 structure <- renew(
   structure,
   what = "state",
-  df_synth_pop = population,
-  household_position_column =
+  population = population,
+  position_column =
     "household_position"
 )
 

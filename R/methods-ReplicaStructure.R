@@ -55,8 +55,8 @@ setMethod(
         data.frame(
           household_id = character(),
           neighb_code = character(),
-          hh_type = character(),
-          hh_size = integer(),
+          household_type = character(),
+          household_size = integer(),
           stringsAsFactors = FALSE
         )
       )
@@ -73,11 +73,11 @@ setMethod(
         
         first_agent <- hh$all[1]
         
-        if ("neighb_code" %in% names(x@df_synth_pop)) {
+        if ("neighb_code" %in% names(x@population)) {
           
           neighb_code <-
             
-            x@df_synth_pop[
+            x@population[
               agent_id == first_agent
             ][["neighb_code"]][1]
           
@@ -90,8 +90,8 @@ setMethod(
         data.frame(
           household_id = hid,
           neighb_code = neighb_code,
-          hh_type = x@hh_type,
-          hh_size = length(hh$all),
+          household_type = x@household_type,
+          household_size = length(hh$all),
           stringsAsFactors = FALSE
         )
         
@@ -110,6 +110,49 @@ setMethod(
     
   }
   
+)
+
+#' @rdname procure
+#'
+#' @section ReplicaStructure Method:
+#'
+#' Retrieves components stored within a
+#' \code{ReplicaStructure}.
+#'
+#' @param x A `ReplicaStructure`.
+#' @param slot Character string naming the slot to retrieve.
+#' @param ... Additional arguments passed to the method.
+#'
+#' @return The contents of the requested slot.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' procure(
+#'   structure,
+#'   slot = "households"
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{ReplicaStructure}}
+#'
+#' @export
+setMethod(
+  "procure",
+  "ReplicaStructure",
+  function(x,
+           slot = character(0),
+           ...) {
+    
+    procureSlot(
+      x = x,
+      slot_nm_1L_chr = slot,
+      ...
+    )
+    
+  }
 )
 
 #' @rdname ratify
@@ -170,9 +213,9 @@ setMethod(
     
     expected_agents <-
       
-      x@df_synth_pop[
+      x@population[
         
-        x@df_synth_pop[[x@household_position_column]] %in% positions,
+        x@population[[x@position_column]] %in% positions,
         
         agent_id
         
@@ -276,10 +319,10 @@ setMethod(
 #' position identifiers that may be used if the primary
 #' position is unavailable.
 #'
-#' @param df_synth_pop Synthetic population used for
+#' @param population Synthetic population used for
 #' household generation.
 #'
-#' @param household_position_column Character string
+#' @param position_column Character string
 #' identifying the column containing household-position
 #' information.
 #' 
@@ -301,8 +344,8 @@ setMethod(
 #' structure <- renew(
 #'   structure,
 #'   what = "state",
-#'   df_synth_pop = population,
-#'   household_position_column =
+#'   population = population,
+#'   position_column =
 #'     "household_position"
 #' )
 #'
@@ -329,8 +372,8 @@ setMethod(
     amount = NULL,
     backup_position_identifiers =
       character(),
-    df_synth_pop = NULL,
-    household_position_column = NULL,
+    population = NULL,
+    position_column = NULL,
     ...
   ) {
     what <- match.arg(what)
@@ -364,13 +407,13 @@ setMethod(
       
       state = {
         
-        x@df_synth_pop <-
+        x@population <-
           data.table::as.data.table(
-            df_synth_pop
+            population
           )
         
-        x@household_position_column <-
-          household_position_column
+        x@position_column <-
+          position_column
         
         x
         
@@ -379,7 +422,7 @@ setMethod(
       households = {
         
         dt <- data.table::copy(
-          x@df_synth_pop
+          x@population
         )
         
         for (hid in names(x@households)) {
@@ -398,7 +441,7 @@ setMethod(
           
         }
         
-        x@df_synth_pop <- dt
+        x@population <- dt
         
         x
         
@@ -682,7 +725,7 @@ setMethod(
         rep(
           FALSE,
           nrow(
-            object@df_synth_pop
+            object@population
           )
         )
       )
@@ -694,7 +737,7 @@ setMethod(
       "adult"
     )
     
-    object@df_synth_pop[[object@household_position_column]] %in% adult_position$position
+    object@population[[object@position_column]] %in% adult_position$position
     
   }
   
@@ -748,7 +791,7 @@ setMethod(
         rep(
           FALSE,
           nrow(
-            object@df_synth_pop
+            object@population
           )
         )
       )
@@ -760,7 +803,7 @@ setMethod(
       "child"
     )
     
-    object@df_synth_pop[[object@household_position_column]] %in% child_position$position
+    object@population[[object@position_column]] %in% child_position$position
     
   }
 )
@@ -823,7 +866,7 @@ setMethod(
 #' Agents recorded in:
 #'
 #' \preformatted{
-#' object@sampled_agents
+#' object@assigned_agents
 #' }
 #'
 #' are excluded from the returned candidate set.
@@ -835,8 +878,8 @@ setMethod(
 #' \dontrun{
 #' remaining <- maskWithRemainingAgents(
 #'   hh,
-#'   hh@df_synth_pop,
-#'   rep(TRUE, nrow(hh@df_synth_pop))
+#'   hh@population,
+#'   rep(TRUE, nrow(hh@population))
 #' )
 #' }
 #'
@@ -863,7 +906,7 @@ setMethod(
         
         df$agent_id %in%
           
-          object@sampled_agents
+          object@assigned_agents
         
       )
     

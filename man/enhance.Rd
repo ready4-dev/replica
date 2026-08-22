@@ -66,7 +66,7 @@ subsequently be regenerated using \code{ratify()}.
 The updated synthetic population is stored in:
 
 \preformatted{
-x@synth_pop
+x@population
 }
 }
 
@@ -78,7 +78,7 @@ adder <- enhance(
 )
 
 head(
-  adder@synth_pop
+  adder@population
 )
 
 }

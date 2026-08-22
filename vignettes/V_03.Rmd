@@ -232,7 +232,7 @@ rules specified above.
 A ReplicaGrouper coordinates household generation across an entire synthetic population.
 
 ```{r}
-hg <- ReplicaGrouper(df_synth_pop = pop,
+hg <- ReplicaGrouper(population = pop,
                      group_by = "neighb_code")
 ```
 

@@ -51,7 +51,7 @@ specified age-gap distribution.
 \item Selecting a primary partner.
 \item Selecting the best available secondary partner.
 \item Recording assigned agents in
-\code{sampled_agents}.
+\code{assigned_agents}.
 }
 
 Couple composition is controlled by:
@@ -73,7 +73,7 @@ Candidate partners are selected using:
 }
 
 Agents assigned to a couple are added to the
-\code{sampled_agents} slot to prevent subsequent
+\code{assigned_agents} slot to prevent subsequent
 reassignment.
 }
 \examples{

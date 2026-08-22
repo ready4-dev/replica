@@ -3,7 +3,7 @@ extract_assigned_children <- function(
 ) {
   
   sort(
-    updated_hh@sampled_agents
+    updated_hh@assigned_agents
   )
   
 }
@@ -39,11 +39,11 @@ extract_group_sizes <- function(
   
 }
 extract_household_size_distribution <- function(
-    households
+    households, column = "household_size"
 ) {
   
   sort(
-    households$hh_size
+    households[[column]]
   )
   
 }
@@ -59,12 +59,12 @@ extract_household_sizes <- function(
   
 }
 extract_household_type_distribution <- function(
-    households
+    households, column = "household_type"
 ) {
   
   sort(
     table(
-      households$hh_type
+      households[[column]]
     )
   )
   
@@ -108,7 +108,7 @@ extract_household_type_distribution <- function(
 #'   \item Restricts candidates to the specified household
 #'         positions.
 #'   \item Removes agents already listed in
-#'         \code{sampled_agents}.
+#'         \code{assigned_agents}.
 #'   \item Removes the primary partner from consideration.
 #'   \item Converts the supplied age gap into an acceptable age
 #'         range using \code{\link{calculate_age_range_from_gap}}.
@@ -168,18 +168,18 @@ findCoupleCandidates <- function(
   
   mask <- mask &
     (
-      object@df_synth_pop[[object@household_position_column]] %in% position_value
+      object@population[[object@position_column]] %in% position_value
     )
   
   # Exclude agents already assigned elsewhere
   
   mask <- mask &
     !(
-      object@df_synth_pop$agent_id %in%
-        object@sampled_agents
+      object@population$agent_id %in%
+        object@assigned_agents
     )
   
-  candidates <- object@df_synth_pop[
+  candidates <- object@population[
     mask,
   ]
   
@@ -287,7 +287,7 @@ findOppositeGenderReplacementForCandidate <- function(
     position
 ) {
   
-  dt <- object@df_synth_pop
+  dt <- object@population
   
   if (length(mask) != nrow(dt)) {
     
@@ -305,9 +305,9 @@ findOppositeGenderReplacementForCandidate <- function(
   
   candidate_mask <-
     mask &
-    (dt[[object@household_position_column]] == position) &
+    (dt[[object@position_column]] == position) &
     (dt$gender != wrong_gender) &
-    !(dt$agent_id %in% object@sampled_agents)
+    !(dt$agent_id %in% object@assigned_agents)
   
   candidates <- dt[
     candidate_mask,
@@ -411,7 +411,7 @@ findOppositeGenderReplacementForCandidate <- function(
 #'         specified position categories.
 #'   \item Optionally filters candidates by gender.
 #'   \item Excludes agents already recorded in
-#'         \code{sampled_agents}.
+#'         \code{assigned_agents}.
 #'   \item Returns the highest-priority candidate.
 #' }
 #'
@@ -861,7 +861,7 @@ getHouseholdIds <- function(
 #'   \item Statistical reporting.
 #' }
 #'
-#' @param df_synth_pop A synthetic population stored as
+#' @param population A synthetic population stored as
 #' a data.frame or \code{data.table}.
 #'
 #' @param margins List of variable names defining the
@@ -900,7 +900,7 @@ getHouseholdIds <- function(
 #'
 #' @export
 get_margin_frames_from_synthetic_population <- function(
-    df_synth_pop,
+    population,
     margins
 ) {
   
@@ -910,7 +910,7 @@ get_margin_frames_from_synthetic_population <- function(
       function(names_vec) {
         
         transform_to_contingency(
-          df_synth_pop,
+          population,
           columns = names_vec,
           full_crosstab = length(names_vec) > 1
         )
@@ -940,7 +940,7 @@ get_margin_frames_from_synthetic_population <- function(
 #'   \item Diagnostic reporting.
 #' }
 #'
-#' @param df_synth_pop A synthetic population stored as
+#' @param population A synthetic population stored as
 #' a data.frame or \code{data.table}.
 #'
 #' @param margins Character vector identifying the
@@ -980,7 +980,7 @@ get_margin_frames_from_synthetic_population <- function(
 #'
 #' @export
 get_margin_series_from_synthetic_population <- function(
-    df_synth_pop,
+    population,
     margins
 ) {
   
@@ -993,7 +993,7 @@ get_margin_series_from_synthetic_population <- function(
     
     contingency <-
       transform_to_contingency(
-        df_synth_pop,
+        population,
         names_vec,
         full_crosstab =
           length(names_vec) > 1
@@ -1022,7 +1022,7 @@ get_margin_series_from_synthetic_population <- function(
 #'         requested positions.
 #'   \item They satisfy the supplied eligibility mask.
 #'   \item They do not appear in the
-#'         \code{sampled_agents} slot.
+#'         \code{assigned_agents} slot.
 #' }
 #'
 #' @param object A \code{\link{ReplicaStructure}} object.
@@ -1055,7 +1055,7 @@ get_margin_series_from_synthetic_population <- function(
 #'         belong to the specified position categories.
 #'   \item Apply the supplied logical mask.
 #'   \item Remove agents already assigned and recorded in
-#'         \code{sampled_agents}.
+#'         \code{assigned_agents}.
 #' }
 #'
 #' This function is used by:
@@ -1124,7 +1124,7 @@ getRemainingAgentsInPosition <- function( # Make method
   
   position_mask <-
     
-    object@df_synth_pop[[object@household_position_column]] %in% position
+    object@population[[object@position_column]] %in% position
   
   if (is.null(mask)) {
     
@@ -1139,7 +1139,7 @@ getRemainingAgentsInPosition <- function( # Make method
   
   maskWithRemainingAgents(
     object,
-    object@df_synth_pop,
+    object@population,
     mask
   )
   

@@ -17,9 +17,9 @@
 #' `ratify()` and are stored in the
 #' `validation_results` slot.
 #'
-#' @slot synth_pop A data.table containing the synthetic
+#' @slot population A data.table containing the synthetic
 #' population.
-#' @slot contingency A data.frame or data.table containing
+#' @slot contingency_table A data.frame or data.table containing
 #' reference contingency data.
 #' @slot target_attribute Character string identifying the
 #' attribute to be assigned.
@@ -71,9 +71,9 @@ setClass(
   contains = "Ready4Module",
   slots = c(
     
-    synth_pop = "data.table",
+    population = "data.table",
     
-    contingency = "data.table",
+    contingency_table = "data.table",
     
     target_attribute = "character",
     
@@ -102,9 +102,9 @@ setClass(
 #' `renew()`, executed using `enhance()` and validated using
 #' `ratify()`.
 #'
-#' @param synth_pop A synthetic population represented as a
+#' @param population A synthetic population represented as a
 #' data.frame or data.table.
-#' @param contingency A contingency table describing the
+#' @param contingency_table A contingency table describing the
 #' expected relationship between conditioning variables and
 #' the target attribute.
 #' @param target_attribute Character string identifying the
@@ -130,15 +130,15 @@ setClass(
 #'   age_gender
 #' )
 #' 
-#' contingency <- data.frame(
+#' contingency_table <- data.frame(
 #'   age_group = c("18-64", "65+"),
 #'   education = c("Degree", "School"),
 #'   count = c(60, 40)
 #' )
 #' 
 #' adder <- ReplicaAdder(
-#'   synth_pop = population,
-#'   contingency = contingency,
+#'   population = population,
+#'   contingency_table = contingency_table,
 #'   target_attribute = "education",
 #'   group_by = "age_group"
 #' )
@@ -151,8 +151,8 @@ setClass(
 #'
 #' @export
 ReplicaAdder <- function(
-    synth_pop,
-    contingency,
+    population,
+    contingency_table,
     target_attribute,
     group_by = character(),
     missing_group_strategy = "borrow",
@@ -163,12 +163,12 @@ ReplicaAdder <- function(
     
     "ReplicaAdder",
     
-    synth_pop = as.data.table(
-      synth_pop
+    population = as.data.table(
+      population
     ),
     
-    contingency = as.data.table(
-      contingency
+    contingency_table = as.data.table(
+      contingency_table
     ),
     
     target_attribute = target_attribute,
@@ -218,7 +218,7 @@ setValidity(
     if (
       !"count" %in%
       names(
-        object@contingency
+        object@contingency_table
       )
     ) {
       
@@ -256,7 +256,7 @@ setValidity(
         object@group_by,
         
         names(
-          object@synth_pop
+          object@population
         )
         
       )
@@ -271,7 +271,7 @@ setValidity(
         
         paste(
           
-          "Missing group_by variables in synth_pop:",
+          "Missing group_by variables in population:",
           
           paste(
             missing_pop_groups,
@@ -296,7 +296,7 @@ setValidity(
         object@group_by,
         
         names(
-          object@contingency
+          object@contingency_table
         )
         
       )
@@ -311,7 +311,7 @@ setValidity(
         
         paste(
           
-          "Missing group_by variables in contingency:",
+          "Missing group_by variables in contingency_table:",
           
           paste(
             missing_cont_groups,
@@ -380,7 +380,7 @@ setValidity(
 #'   \item Producing household-level summary tables.
 #' }
 #'
-#' @slot df_synth_pop Synthetic population stored as a
+#' @slot population Synthetic population stored as a
 #' \code{data.table}.
 #'
 #' @slot group_by Character vector specifying the variables used
@@ -395,7 +395,7 @@ setValidity(
 #'   \item Geographic or administrative identifiers
 #' }
 #'
-#' @slot target_column Character string identifying the column
+#' @slot position_column Character string identifying the column
 #' containing household-position classifications such as
 #' \code{"Parent"}, \code{"Child"} or \code{"SingleAdult"}.
 #'
@@ -438,7 +438,7 @@ setValidity(
 #' \dontrun{
 #'
 #' hg <- ReplicaGrouper(
-#'   df_synth_pop = pop,
+#'   population = pop,
 #'   group_by = "neighb_code"
 #' )
 #'
@@ -465,11 +465,11 @@ setClass(
   contains = "Ready4Module",
   slots = c(
     
-    df_synth_pop = "data.table",
+    population = "data.table",
     
     group_by = "character",
     
-    target_column = "character",
+    position_column = "character",
     
     household_types = "list"
   )
@@ -490,7 +490,7 @@ setValidity(
         object@group_by,
         
         names(
-          object@df_synth_pop
+          object@population
         )
         
       )
@@ -524,12 +524,12 @@ setValidity(
     
     if (
       length(
-        object@target_column
+        object@position_column
       ) != 1
     ) {
       
       return(
-        "target_column must contain exactly one value"
+        "position_column must contain exactly one value"
       )
       
     }
@@ -564,7 +564,7 @@ setValidity(
 #' household-generation workflow and manages one or more
 #' \code{\link{ReplicaStructure}} objects.
 #'
-#' @param df_synth_pop A synthetic population stored as a
+#' @param population A synthetic population stored as a
 #' data.frame or \code{data.table}.
 #'
 #' Each row should represent a single synthetic agent.
@@ -583,7 +583,7 @@ setValidity(
 #' Household generation is performed independently within each
 #' grouping combination.
 #'
-#' @param target_column Character string identifying the column
+#' @param position_column Character string identifying the column
 #' containing household-position classifications.
 #'
 #' Typical values include:
@@ -634,7 +634,7 @@ setValidity(
 #' )
 #'
 #' hg <- ReplicaGrouper(
-#'   df_synth_pop = pop,
+#'   population = pop,
 #'   group_by = "neighb_code"
 #' )
 #'
@@ -648,20 +648,20 @@ setValidity(
 #'
 #' @export
 ReplicaGrouper <- function(
-    df_synth_pop,
+    population,
     group_by,
-    target_column = "household_position"
+    position_column = "household_position"
 ) {
   
-  df_synth_pop <-
+  population <-
     data.table::as.data.table(
-      df_synth_pop
+      population
     )
   
   if (!"household_id" %in%
-      names(df_synth_pop)) {
+      names(population)) {
     
-    df_synth_pop[
+    population[
       ,
       household_id := NA_character_
     ]
@@ -670,11 +670,11 @@ ReplicaGrouper <- function(
   new(
     "ReplicaGrouper",
     
-    df_synth_pop = df_synth_pop,
+    population = population,
     
     group_by = group_by,
     
-    target_column = target_column,
+    position_column = position_column,
     
     household_types = list()
   )
@@ -708,7 +708,7 @@ ReplicaGrouper <- function(
 #'   \item Single-parent household.
 #' }
 #'
-#' @slot hh_type Character string identifying the household
+#' @slot household_type Character string identifying the household
 #' type.
 #'
 #' @slot positions List of household-position definitions
@@ -721,7 +721,7 @@ ReplicaGrouper <- function(
 #' @slot households List containing generated household
 #' records.
 #'
-#' @slot sampled_agents Character vector containing agents
+#' @slot assigned_agents Character vector containing agents
 #' already assigned during household generation.
 #'
 #' @slot couple_gender_distribution Named numeric vector
@@ -733,10 +733,10 @@ ReplicaGrouper <- function(
 #' @slot parent_child_age_distribution Named numeric vector
 #' controlling parent-child age-gap distributions.
 #'
-#' @slot df_synth_pop Synthetic population used during
+#' @slot population Synthetic population used during
 #' household generation.
 #'
-#' @slot household_position_column Character string
+#' @slot position_column Character string
 #' identifying the household-position column in the synthetic
 #' population.
 #'
@@ -826,7 +826,7 @@ setClass(
   contains = "Ready4Module",
   slots = c(
     
-    hh_type = "character",
+    household_type = "character",
     
     positions = "list",
     
@@ -834,7 +834,7 @@ setClass(
     
     households = "list",
     
-    sampled_agents = "character",
+    assigned_agents = "character",
     
     couple_gender_distribution = "numeric",
     
@@ -842,9 +842,9 @@ setClass(
     
     parent_child_age_distribution = "numeric",
     
-    df_synth_pop = "data.table",
+    population = "data.table",
     
-    household_position_column = "character"
+    position_column = "character"
   )
 )
 setValidity(
@@ -857,11 +857,11 @@ setValidity(
     #
     
     if (
-      length(object@hh_type) != 1
+      length(object@household_type) != 1
     ) {
       
       return(
-        "hh_type must contain exactly one value"
+        "household_type must contain exactly one value"
       )
       
     }
@@ -872,24 +872,24 @@ setValidity(
     
     if (
       !is.character(
-        object@household_position_column
+        object@position_column
       )
     ) {
       
       return(
-        "household_position_column must be character"
+        "position_column must be character"
       )
       
     }
     
     if (
       length(
-        object@household_position_column
+        object@position_column
       ) > 1
     ) {
       
       return(
-        "household_position_column must contain a single value"
+        "position_column must contain a single value"
       )
       
     }
@@ -1112,7 +1112,7 @@ ReplicaStructure <- function(
   new(
     "ReplicaStructure",
     
-    hh_type = household_type,
+    household_type = household_type,
     
     positions = list(),
     
@@ -1120,7 +1120,7 @@ ReplicaStructure <- function(
     
     households = list(),
     
-    sampled_agents = character(),
+    assigned_agents = character(),
     
     couple_gender_distribution =
       couple_gender_distribution,
@@ -1131,9 +1131,9 @@ ReplicaStructure <- function(
     parent_child_age_distribution =
       parent_child_age_distribution,
     
-    df_synth_pop =
+    population =
       data.table::data.table(),
     
-    household_position_column = ""
+    position_column = ""
   )
 }

@@ -39,8 +39,8 @@ test_that(
     hh <- renew(
       hh,
       what = "state",
-      df_synth_pop = pop,
-      household_position_column = "household_position"
+      population = pop,
+      position_column = "household_position"
     )
     
     adult_position <-
@@ -78,7 +78,7 @@ test_that(
       
       any(
         is.na(
-          hh@df_synth_pop$
+          hh@population$
             household_id
         )
       )
@@ -89,7 +89,7 @@ test_that(
       
       length(
         unique(
-          hh@df_synth_pop$
+          hh@population$
             household_id
         )
       ),

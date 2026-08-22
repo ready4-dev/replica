@@ -21,7 +21,6 @@ reference:
   - get_margin_frames_from_synthetic_population
   - get_margin_series_from_synthetic_population
   - make_agents
-  - make_contingency_table  
   - plot_validation_differences
   - plot_validation_distributions
   - plot_validation_heatmap
@@ -29,6 +28,7 @@ reference:
   - transform_to_age_group
   - transform_to_combinations
   - transform_to_contingency
+  - update_contingency_table  
   - validate_synthetic_population_fit
 - title: "S4 Classes"
 - contents:
@@ -43,6 +43,7 @@ reference:
   - enhance,ReplicaAdder-method
   - manufacture,ReplicaGrouper-method
   - manufacture,ReplicaStructure-method
+  - starts_with("procure")
   - starts_with("ratify")
   - starts_with("renew")
 

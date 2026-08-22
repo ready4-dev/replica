@@ -15,7 +15,7 @@ population <- data.table(
   
 )
 
-contingency <- data.table(
+contingency_table <- data.table(
   
   age_group = c(
     rep("18-64", 6)
@@ -46,8 +46,8 @@ test_that(
   {
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -57,7 +57,7 @@ test_that(
     
     adder <- enhance(adder)
     
-    result <- adder@synth_pop
+    result <- adder@population
     
     expect_true(
       "education" %in% names(result)
@@ -70,8 +70,8 @@ test_that(
   {
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -81,7 +81,7 @@ test_that(
     
     adder <- enhance(adder)
     
-    result <- adder@synth_pop
+    result <- adder@population
     
     expect_false(
       any(
@@ -98,8 +98,8 @@ test_that(
   {
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -110,7 +110,7 @@ test_that(
     adder <- enhance(adder)
     
     expect_equal(
-      nrow(adder@synth_pop),
+      nrow(adder@population),
       nrow(population)
     )
     
@@ -121,8 +121,8 @@ test_that(
   {
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -132,7 +132,7 @@ test_that(
     
     adder <- enhance(adder)
     
-    result <- adder@synth_pop
+    result <- adder@population
     
     expect_equal(
       
@@ -166,7 +166,7 @@ test_that(
       
     )
     
-    contingency <- data.frame(
+    contingency_table <- data.frame(
       
       age_group = c(
         "18-64",
@@ -196,8 +196,8 @@ test_that(
     
     expect_error(
       
-      make_contingency_table(
-        contingency,
+      update_contingency_table(
+        contingency_table,
         population,
         c(
           "age_group",
@@ -226,7 +226,7 @@ population <- data.frame(
   
 )
 
-contingency <- data.frame(
+contingency_table <- data.frame(
   
   age_group = c(
     "18-64","18-64","18-64",
@@ -254,8 +254,8 @@ test_that(
   "overall strategy uses overall distribution",
   {
     
-    expanded <- make_contingency_table(
-      contingency,
+    expanded <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -285,8 +285,8 @@ test_that(
   "borrow strategy uses nearest available distribution",
   {
     
-    expanded <- make_contingency_table(
-      contingency,
+    expanded <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -367,8 +367,8 @@ test_that(
     expect_error(
       
       ReplicaAdder(
-        synth_pop = population,
-        contingency = contingency,
+        population = population,
+        contingency_table = contingency_table,
         target_attribute = "education",
         group_by = c(
           "age_group",
@@ -387,8 +387,8 @@ test_that(
   {
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -402,7 +402,7 @@ test_that(
       adder <- enhance(adder)
     )
     
-    result <- adder@synth_pop
+    result <- adder@population
     
     expect_equal(
       nrow(result),
@@ -436,8 +436,8 @@ test_that(
   {
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -449,7 +449,7 @@ test_that(
     
     adder <- enhance(adder)
     
-    result <- adder@synth_pop
+    result <- adder@population
     
     female_agents <- result[
       gender == "Female"
@@ -479,7 +479,7 @@ population <- data.frame(
   
 )
 
-contingency <- data.frame(
+contingency_table <- data.frame(
   
   age_group = c(
     "18-64","18-64","18-64",
@@ -506,8 +506,8 @@ test_that(
   "overall and borrow strategies use different distributions",
   {
     
-    overall <- make_contingency_table(
-      contingency,
+    overall <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -517,8 +517,8 @@ test_that(
       strategy = "overall"
     )
     
-    borrow <- make_contingency_table(
-      contingency,
+    borrow <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",

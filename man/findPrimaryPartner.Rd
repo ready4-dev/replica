@@ -54,7 +54,7 @@ The function:
 specified position categories.
 \item Optionally filters candidates by gender.
 \item Excludes agents already recorded in
-\code{sampled_agents}.
+\code{assigned_agents}.
 \item Returns the highest-priority candidate.
 }
 

@@ -82,7 +82,7 @@ test_that(
     #
     
     hg <- ReplicaGrouper(
-      df_synth_pop = pop,
+      population = pop,
       group_by = "neighb_code"
     )
     
@@ -171,7 +171,7 @@ test_that(
         
         result$
           synthetic_households$
-          hh_size == 2
+          household_size == 2
         
       )
       
@@ -262,7 +262,7 @@ test_that(
   {
     
     hg <- ReplicaGrouper(
-      df_synth_pop = population,
+      population = population,
       group_by = "neighb_code"
     )
     
@@ -293,7 +293,7 @@ test_that(
   "synthetic household table internally consistent",
   {
     hg <- ReplicaGrouper(
-      df_synth_pop = population,
+      population = population,
       group_by = "neighb_code"
     )
     

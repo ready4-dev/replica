@@ -74,6 +74,100 @@ NULL
 #' @name manufacture
 NULL
 
+#' Procure Components of Replica Modules
+#'
+#' Retrieves components stored within a replica module.
+#'
+#' The behaviour of `procure()` depends on the class of the
+#' supplied object.
+#'
+#' Methods are currently available for:
+#'
+#' \itemize{
+#'   \item \code{ReplicaAdder}
+#'   \item \code{ReplicaStructure}
+#'   \item \code{ReplicaGrouper}
+#' }
+#'
+#' @details
+#'
+#' `procure()` provides convenient access to information
+#' stored within replica-module slots.
+#'
+#' It is intended as a user-friendly alternative to direct
+#' slot access and helps support a consistent ready4-style
+#' workflow.
+#'
+#' Components are retrieved by supplying a slot name.
+#'
+#' @section ReplicaAdder Method:
+#'
+#' For a \code{ReplicaAdder}, \code{procure()} can be used
+#' to retrieve stored components such as:
+#'
+#' \itemize{
+#'   \item synthetic populations;
+#'   \item contingency tables;
+#'   \item marginal distributions; and
+#'   \item validation results.
+#' }
+#'
+#' @section ReplicaStructure Method:
+#'
+#' For a \code{ReplicaStructure}, \code{procure()} can be
+#' used to retrieve stored information on:
+#'
+#' \itemize{
+#'   \item household definitions;
+#'   \item household positions;
+#'   \item household assignments; and
+#'   \item assignment state.
+#' }
+#'
+#' @section ReplicaGrouper Method:
+#'
+#' For a \code{ReplicaGrouper}, \code{procure()} can be used
+#' to retrieve stored grouping information and synthetic
+#' population data.
+#'
+#' @param x A replica module.
+#'
+#' @param slot Character string specifying the slot to
+#' retrieve.
+#'
+#' @param ... Additional arguments passed to the method.
+#'
+#' @return The contents of the requested slot.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' procure(
+#'   adder,
+#'   slot = "validation_results"
+#' )
+#'
+#' procure(
+#'   structure,
+#'   slot = "households"
+#' )
+#'
+#' procure(
+#'   grouper,
+#'   slot = "population"
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{renew}},
+#' \code{\link{enhance}},
+#' \code{\link{ratify}},
+#' \code{\link{manufacture}}
+#'
+#' @name procure
+NULL
+
 #' Ratify Replica Modules
 #'
 #' Evaluates whether a replica module satisfies required

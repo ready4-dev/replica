@@ -22,10 +22,10 @@
 #' \code{\link{enhance}} before conditional attribute assignment
 #' begins.
 #'
-#' @param contingency A contingency table containing the target
+#' @param contingency_table A contingency table containing the target
 #' attribute and a \code{count} column.
 #'
-#' @param synth_pop A synthetic population used to determine
+#' @param population A synthetic population used to determine
 #' which conditioning-group combinations must be represented.
 #'
 #' @param group_by Character vector containing the conditioning
@@ -85,7 +85,7 @@
 #'   )
 #' )
 #'
-#' contingency <- data.frame(
+#' contingency_table <- data.frame(
 #'   age_group = c(
 #'     "18-64",
 #'     "18-64",
@@ -108,9 +108,9 @@
 #'   )
 #' )
 #'
-#' expanded <- make_contingency_table(
+#' expanded <- update_contingency_table(
 #'   contingency = contingency,
-#'   synth_pop = population,
+#'   population = population,
 #'   group_by = c(
 #'     "age_group",
 #'     "gender"
@@ -128,30 +128,30 @@
 #' \code{\link{transform_to_contingency}}
 #'
 #' @export
-make_contingency_table <- function(
-    contingency,
-    synth_pop,
+update_contingency_table <- function(
+    contingency_table,
+    population,
     group_by,
     target_attribute,
     strategy = "borrow"
 ) {
   
-  contingency <- as.data.frame(contingency)
+  contingency_table <- as.data.frame(contingency_table)
   
-  synth_pop <- as.data.frame(synth_pop)
+  population <- as.data.frame(population)
   
   target_values <- unique(
-    contingency[[target_attribute]]
+    contingency_table[[target_attribute]]
   )
   
   additions <- list()
   
   #
-  # Groups present in contingency
+  # Groups present in contingency_table
   #
   
   contingency_groups <- unique(
-    contingency[
+    contingency_table[
       ,
       group_by,
       drop = FALSE
@@ -163,7 +163,7 @@ make_contingency_table <- function(
   #
   
   population_groups <- unique(
-    synth_pop[
+    population[
       ,
       group_by,
       drop = FALSE
@@ -247,7 +247,7 @@ make_contingency_table <- function(
     
     return(
       data.table::as.data.table(
-        contingency
+        contingency_table
       )
     )
     
@@ -275,7 +275,7 @@ make_contingency_table <- function(
         
         count ~ .,
         
-        contingency[
+        contingency_table[
           ,
           c(
             target_attribute,
@@ -310,7 +310,7 @@ make_contingency_table <- function(
     
     else if (strategy == "borrow") {
       
-      borrowed <- contingency
+      borrowed <- contingency_table
       
       #
       # Borrow from a less-specific group
@@ -342,7 +342,7 @@ make_contingency_table <- function(
           
           count ~ .,
           
-          contingency[
+          contingency_table[
             ,
             c(
               target_attribute,
@@ -390,7 +390,7 @@ make_contingency_table <- function(
     
     new_rows <- new_rows[
       ,
-      names(contingency),
+      names(contingency_table),
       drop = FALSE
     ]
     
@@ -407,15 +407,15 @@ make_contingency_table <- function(
     additions
   )
   
-  contingency <- rbind(
-    contingency,
+  contingency_table <- rbind(
+    contingency_table,
     additions_df
   )
   
-  rownames(contingency) <- NULL
+  rownames(contingency_table) <- NULL
   
   data.table::as.data.table(
-    contingency
+    contingency_table
   )
   
 }
@@ -468,7 +468,7 @@ switchHouseholdPositions <- function(
 ) {
   
   dt <- data.table::copy(
-    object@df_synth_pop
+    object@population
   )
   
   a1 <- dt[
@@ -515,18 +515,18 @@ switchHouseholdPositions <- function(
     
   }
   
-  pos1 <- a1[[object@household_position_column]]
+  pos1 <- a1[[object@position_column]]
   
-  pos2 <- a2[[object@household_position_column]]
+  pos2 <- a2[[object@position_column]]
   
-  dt[agent_id == agent_1, (object@household_position_column) := pos2]
+  dt[agent_id == agent_1, (object@position_column) := pos2]
   
   dt[
     agent_id == agent_2,
-    (object@household_position_column) := pos1
+    (object@position_column) := pos1
   ]
   
-  object@df_synth_pop <- dt
+  object@population <- dt
   
   object
   

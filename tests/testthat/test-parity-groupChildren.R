@@ -64,11 +64,11 @@ test_that(
     hh <- renew(
       hh,
       what = "state",
-      df_synth_pop = pop,
-      household_position_column = "household_position"
+      population = pop,
+      position_column = "household_position"
     )
     
-    hh@sampled_agents <- character()
+    hh@assigned_agents <- character()
     
     child_position <- replica:::getPositionForName(
       hh,
@@ -105,7 +105,7 @@ test_that(
       
       sort(
         updated_hh@
-          sampled_agents
+          assigned_agents
       ),
       
       sort(
@@ -119,7 +119,7 @@ test_that(
       setequal(
         
         updated_hh@
-          sampled_agents,
+          assigned_agents,
         
         pop$
           agent_id
@@ -131,7 +131,7 @@ test_that(
       
       length(
         updated_hh@
-          sampled_agents
+          assigned_agents
       ),
       
       length(
@@ -139,7 +139,7 @@ test_that(
         unique(
           
           updated_hh@
-            sampled_agents
+            assigned_agents
           
         )
         

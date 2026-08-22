@@ -52,7 +52,7 @@ The function:
 \item Restricts candidates to the specified household
 positions.
 \item Removes agents already listed in
-\code{sampled_agents}.
+\code{assigned_agents}.
 \item Removes the primary partner from consideration.
 \item Converts the supplied age gap into an acceptable age
 range using \code{\link{calculate_age_range_from_gap}}.

@@ -40,8 +40,8 @@ test_that(
     hh <- renew(
       hh,
       what = "state",
-      df_synth_pop = pop,
-      household_position_column = "household_position"
+      population = pop,
+      position_column = "household_position"
     )
     
     adult_position <- replica:::getPositionForName(
@@ -111,7 +111,7 @@ test_that(
     expect_true(
       
       all(
-        households$hh_type ==
+        households$household_type ==
           "CoupleOnly"
       )
       
@@ -120,7 +120,7 @@ test_that(
     expect_true(
       
       all(
-        households$hh_size == 2
+        households$household_size == 2
       )
       
     )
@@ -161,7 +161,7 @@ test_that(
       
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -196,7 +196,7 @@ test_that(
     )
     
     expect_equal(
-      households$hh_size,
+      households$household_size,
       as.integer(expected_sizes)
     )
     
@@ -206,7 +206,7 @@ test_that(
     )
     
     expect_true(
-      all(households$hh_size > 0)
+      all(households$household_size > 0)
     )
     
   }
@@ -237,8 +237,8 @@ test_that(
       c(
         "household_id",
         "neighb_code",
-        "hh_type",
-        "hh_size"
+        "household_type",
+        "household_size"
       )
       
     )
@@ -246,7 +246,7 @@ test_that(
   }
 )
 test_that(
-  "hh_size matches stored household membership",
+  "household_size matches stored household membership",
   {
     hh <- ReplicaStructure(
       "CoupleOnly"
@@ -263,7 +263,7 @@ test_that(
     )
     
     expect_equal(
-      households$hh_size,
+      households$household_size,
       as.integer(expected_sizes)
     )
     

@@ -30,7 +30,7 @@ one household.
 Agents recorded in:
 
 \preformatted{
-object@sampled_agents
+object@assigned_agents
 }
 
 are excluded from the returned candidate set.
@@ -42,8 +42,8 @@ routines throughout replica.
 \dontrun{
 remaining <- maskWithRemainingAgents(
   hh,
-  hh@df_synth_pop,
-  rep(TRUE, nrow(hh@df_synth_pop))
+  hh@population,
+  rep(TRUE, nrow(hh@population))
 )
 }
 

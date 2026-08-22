@@ -224,8 +224,8 @@ createSingles <- function(
       parent_position$backup_position_identifiers
     )
     
-    object@sampled_agents <- c(
-      object@sampled_agents,
+    object@assigned_agents <- c(
+      object@assigned_agents,
       p$agent_id
     )
     
@@ -372,7 +372,7 @@ getGroupMask <- function(
 #' the \code{amount} element of the child-position definition.
 #'
 #' Children are assigned exactly once. Assigned children are
-#' recorded in \code{sampled_agents} and removed from the pool
+#' recorded in \code{assigned_agents} and removed from the pool
 #' of eligible children.
 #'
 #' Age similarity between children is evaluated using
@@ -415,9 +415,9 @@ group_children <- function(
   
   households <- list()
   
-  pool <- object@df_synth_pop[
+  pool <- object@population[
     
-    object@df_synth_pop[[object@household_position_column]] %in% position & mask,
+    object@population[[object@position_column]] %in% position & mask,
     
   ]
   
@@ -448,8 +448,8 @@ group_children <- function(
       which(pool_mask)[1],
     ]
     
-    object@sampled_agents <- c(
-      object@sampled_agents,
+    object@assigned_agents <- c(
+      object@assigned_agents,
       first_child$agent_id
     )
     
@@ -496,8 +496,8 @@ group_children <- function(
           sibling$agent_id
       ] <- FALSE
       
-      object@sampled_agents <- c(
-        object@sampled_agents,
+      object@assigned_agents <- c(
+        object@assigned_agents,
         sibling$agent_id
       )
       
@@ -702,8 +702,8 @@ make_couple_household <- function(
   hh <- renew(
     hh,
     what = "state",
-    df_synth_pop = pop,
-    household_position_column = "household_position"
+    population = pop,
+    position_column = "household_position"
   )
   
   hh@couple_gender_distribution <-
@@ -712,7 +712,7 @@ make_couple_household <- function(
   hh@couple_age_distribution <-
     age_distribution
   
-  hh@sampled_agents <- character()
+  hh@assigned_agents <- character()
   
   hh
   
@@ -915,7 +915,7 @@ matchAdultsWithChildren <- function(
       
       oldest_child_age <- max(
         
-        object@df_synth_pop[
+        object@population[
           agent_id %in% child_group,
           age
         ]
@@ -1110,7 +1110,7 @@ matchAdultsWithChildren <- function(
 #'   \item Selecting a primary partner.
 #'   \item Selecting the best available secondary partner.
 #'   \item Recording assigned agents in
-#'         \code{sampled_agents}.
+#'         \code{assigned_agents}.
 #' }
 #'
 #' @param object A \code{ReplicaStructure} object.
@@ -1155,7 +1155,7 @@ matchAdultsWithChildren <- function(
 #' }
 #'
 #' Agents assigned to a couple are added to the
-#' \code{sampled_agents} slot to prevent subsequent
+#' \code{assigned_agents} slot to prevent subsequent
 #' reassignment.
 #'
 #' @examples
@@ -1318,9 +1318,9 @@ pair_partners <- function(
         # couple has been formed.
         #
         
-        object@sampled_agents <- c(
+        object@assigned_agents <- c(
           
-          object@sampled_agents,
+          object@assigned_agents,
           
           primary_partner$agent_id,
           

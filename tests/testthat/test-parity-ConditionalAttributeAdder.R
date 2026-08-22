@@ -24,7 +24,7 @@ test_that(
       
     )
     
-    contingency <- data.table(
+    contingency_table <- data.table(
       
       age_group = c(
         rep("18-64", 6)
@@ -52,8 +52,8 @@ test_that(
     )
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -63,7 +63,7 @@ test_that(
     
     adder <- enhance(adder)
     
-    r_result <- adder@synth_pop
+    r_result <- adder@population
     
     expect_same_contingency(
       

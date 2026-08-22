@@ -82,7 +82,7 @@ household_summary <- manufacture(
 \section{Slots}{
 
 \describe{
-\item{\code{hh_type}}{Character string identifying the household
+\item{\code{household_type}}{Character string identifying the household
 type.}
 
 \item{\code{positions}}{List of household-position definitions
@@ -95,7 +95,7 @@ entries in \code{positions}.}
 \item{\code{households}}{List containing generated household
 records.}
 
-\item{\code{sampled_agents}}{Character vector containing agents
+\item{\code{assigned_agents}}{Character vector containing agents
 already assigned during household generation.}
 
 \item{\code{couple_gender_distribution}}{Named numeric vector
@@ -107,10 +107,10 @@ controlling partner age-gap distributions.}
 \item{\code{parent_child_age_distribution}}{Named numeric vector
 controlling parent-child age-gap distributions.}
 
-\item{\code{df_synth_pop}}{Synthetic population used during
+\item{\code{population}}{Synthetic population used during
 household generation.}
 
-\item{\code{household_position_column}}{Character string
+\item{\code{position_column}}{Character string
 identifying the household-position column in the synthetic
 population.}
 }}

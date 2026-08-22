@@ -55,11 +55,11 @@ test_that(
     hh <- renew(
       hh,
       what = "state",
-      df_synth_pop = pop,
-      household_position_column = "household_position"
+      population = pop,
+      position_column = "household_position"
     )
     
-    hh@sampled_agents <- character()
+    hh@assigned_agents <- character()
     
     result <- createSingles(
       hh,
@@ -74,8 +74,8 @@ test_that(
       "object"
     )
     
-    expect_same_sampled_agents(
-      updated_hh@sampled_agents,
+    expect_same_assigned_agents(
+      updated_hh@assigned_agents,
       py$sampled_agents
     )
     

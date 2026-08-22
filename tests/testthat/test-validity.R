@@ -19,7 +19,7 @@ test_that(
   }
 )
 test_that(
-  "ReplicaStructure requires single hh_type",
+  "ReplicaStructure requires single household_type",
   {
     
     expect_error(
@@ -28,7 +28,7 @@ test_that(
         
         "ReplicaStructure",
         
-        hh_type = character(),
+        household_type = character(),
         
         positions = list(),
         
@@ -36,7 +36,7 @@ test_that(
         
         households = list(),
         
-        sampled_agents = character(),
+        assigned_agents = character(),
         
         couple_gender_distribution =
           numeric(),
@@ -47,10 +47,10 @@ test_that(
         parent_child_age_distribution =
           numeric(),
         
-        df_synth_pop =
+        population =
           data.table(),
         
-        household_position_column =
+        position_column =
           ""
         
       )
@@ -71,7 +71,7 @@ test_that(
     expect_error(
       
       ReplicaGrouper(
-        df_synth_pop = pop,
+        population = pop,
         group_by = "neighb_code"
       )
       
@@ -98,7 +98,7 @@ test_that(
     )
     
     hg <- ReplicaGrouper(
-      df_synth_pop = pop,
+      population = pop,
       group_by = "neighb_code"
     )
     
@@ -130,7 +130,7 @@ test_that(
       
     )
     
-    contingency <- data.table(
+    contingency_table <- data.table(
       
       age_group = c(
         "18-64"
@@ -149,8 +149,8 @@ test_that(
     expect_error(
       
       ReplicaAdder(
-        synth_pop = population,
-        contingency = contingency,
+        population = population,
+        contingency_table = contingency_table,
         target_attribute = "education",
         group_by = c(
           "age_group",
@@ -180,7 +180,7 @@ test_that(
       
     )
     
-    contingency <- data.table(
+    contingency_table <- data.table(
       
       age_group = c(
         "18-64"
@@ -201,8 +201,8 @@ test_that(
     expect_error(
       
       ReplicaAdder(
-        synth_pop = population,
-        contingency = contingency,
+        population = population,
+        contingency_table = contingency_table,
         target_attribute = "education",
         group_by = c(
           "age_group",
@@ -234,7 +234,7 @@ test_that(
       
     )
     
-    contingency <- data.table(
+    contingency_table <- data.table(
       
       age_group = c(
         "18-64"
@@ -253,8 +253,8 @@ test_that(
     )
     
     adder <- ReplicaAdder(
-      synth_pop = population,
-      contingency = contingency,
+      population = population,
+      contingency_table = contingency_table,
       target_attribute = "education",
       group_by = c(
         "age_group",
@@ -292,7 +292,7 @@ test_that(
     )
     
     hg <- ReplicaGrouper(
-      df_synth_pop = pop,
+      population = pop,
       group_by = "neighb_code"
     )
     

@@ -74,8 +74,8 @@ test_that(
     hh <- renew(
       hh,
       what = "state",
-      df_synth_pop = pop,
-      household_position_column = "household_position"
+      population = pop,
+      position_column = "household_position"
     )
     
     hh@couple_gender_distribution <- c(
@@ -86,7 +86,7 @@ test_that(
       "-5-5" = 1
     )
     
-    hh@sampled_agents <- character()
+    hh@assigned_agents <- character()
     
     #
     # Run R implementation
@@ -109,7 +109,7 @@ test_that(
     expect_equal(
       
       sort(
-        updated_hh@sampled_agents
+        updated_hh@assigned_agents
       ),
       
       sort(

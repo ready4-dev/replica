@@ -58,8 +58,8 @@ hh <- renew(
 hh <- renew(
   hh,
   what = "state",
-  df_synth_pop = pop,
-  household_position_column = "household_position"
+  population = pop,
+  position_column = "household_position"
 )
 
 hh@parent_child_age_distribution <- c(

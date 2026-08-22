@@ -1,3 +1,251 @@
+#' @rdname enhance
+#'
+#' @section ReplicaAdder Method:
+#'
+#' Executes the attribute-assignment workflow.
+#'
+#' The method:
+#'
+#' \enumerate{
+#'   \item resolves missing contingency groups;
+#'   \item calculates conditional fractions;
+#'   \item converts fractions into agent allocations;
+#'   \item assigns target attribute values; and
+#'   \item updates the synthetic population.
+#' }
+#'
+#' Validation results are cleared before execution and may
+#' subsequently be regenerated using \code{ratify()}.
+#'
+#' The updated synthetic population is stored in:
+#'
+#' \preformatted{
+#' x@population
+#' }
+#'
+#' @param x A \code{ReplicaAdder}.
+#' @param ... Additional arguments passed to the method.
+#'
+#' @return An updated \code{ReplicaAdder}.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' adder <- enhance(
+#'   adder
+#' )
+#'
+#' head(
+#'   adder@population
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{renew}},
+#' \code{\link{ratify}},
+#' \code{\link{ReplicaAdder}}
+#'
+#' @exportMethod enhance
+setMethod(
+  "enhance",
+  "ReplicaAdder",
+  
+  function(x = "ReplicaAdder", 
+           ...) {
+    
+    #
+    # Ensure contingency table contains
+    # all group combinations present
+    # in the synthetic population
+    #
+    
+    x@contingency_table <-
+      
+      update_contingency_table(
+        
+        contingency_table =
+          x@contingency_table,
+        
+        population =
+          x@population,
+        
+        group_by =
+          x@group_by,
+        
+        target_attribute =
+          x@target_attribute,
+        
+        strategy =
+          x@missing_group_strategy
+        
+      )
+    
+    pop <- data.table::copy(
+      x@population
+    )
+    
+    target <- x@target_attribute
+    
+    pop[
+      ,
+      (target) := NA_character_
+    ]
+    
+    grouping <- split(
+      
+      seq_len(
+        nrow(pop)
+      ),
+      
+      interaction(
+        
+        pop[
+          ,
+          x@group_by,
+          with = FALSE
+        ],
+        
+        drop = TRUE
+        
+      )
+      
+    )
+    
+    for (idx in grouping) {
+      
+      group_dt <- pop[idx]
+      
+      group_values <-
+        
+        as.list(
+          
+          group_dt[
+            1,
+            x@group_by,
+            with = FALSE
+          ]
+          
+        )
+      
+      mask <- getGroupMask(
+        x@contingency_table,
+        unlist(group_values),
+        x@group_by
+      )
+      
+      contingency_group <-
+        x@contingency_table[
+          mask,
+        ]
+      
+      #
+      # This should never happen now
+      # because update_contingency_table()
+      # has already handled missing groups.
+      #
+      
+      if (
+        nrow(contingency_group) == 0
+      ) {
+        
+        stop(
+          paste(
+            "update_contingency_table failed to create contingency group:",
+            paste(
+              unlist(group_values),
+              collapse = ", "
+            )
+          )
+        )
+        
+      }
+      
+      fractions_dt <-
+        getGroupFractions(
+          x,
+          contingency_group
+        )
+      
+      fractions <-
+        fractions_dt$fraction
+      
+      names(fractions) <-
+        fractions_dt[[target]]
+      
+      values <-
+        getAgentValuesFromFractions(
+          fractions,
+          length(idx)
+        )
+      
+      pop[
+        idx,
+        (target) := values
+      ]
+      
+    }
+    
+    x@population <- pop
+    
+    x <- ratify(x)
+    
+    x
+    
+  }
+)
+
+#' @rdname procure
+#'
+#' @section ReplicaAdder Method:
+#'
+#' Retrieves components stored within a
+#' \code{ReplicaAdder}.
+#'
+#' Typical uses include retrieving:
+#'
+#' \itemize{
+#'   \item synthetic populations;
+#'   \item contingency tables; and
+#'   \item validation results.
+#' }
+#'
+#' @param x A `ReplicaAdder`.
+#' @param slot Character string naming the slot to retrieve.
+#' @param ... Additional arguments passed to the method.
+#'
+#' @return The contents of the requested slot.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' procure(
+#'   adder,
+#'   slot = "validation_results"
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{ReplicaAdder}}
+#'
+#' @export
+setMethod(
+  "procure",
+  "ReplicaAdder",
+  function(x,
+           slot = character(0),
+           ...) {
+    
+    procureSlot(
+      x = x,
+      slot_nm_1L_chr = slot,
+      ...
+    )
+    
+  }
+)
+
 #' @rdname ratify
 #'
 #' @section ReplicaAdder Method:
@@ -64,7 +312,7 @@ setMethod(
     if (
       any(
         is.na(
-          x@synth_pop[[target]]
+          x@population[[target]]
         )
       )
     ) {
@@ -91,10 +339,10 @@ setMethod(
       validate_synthetic_population_fit(
         
         synthetic_population =
-          x@synth_pop,
+          x@population,
         
         expected =
-          x@contingency,
+          x@contingency_table,
         
         dimensions =
           dimensions,
@@ -171,203 +419,6 @@ setMethod(
     #
     
     x@validation_results <- list()
-    
-    x
-    
-  }
-)
-
-#' @rdname enhance
-#'
-#' @section ReplicaAdder Method:
-#'
-#' Executes the attribute-assignment workflow.
-#'
-#' The method:
-#'
-#' \enumerate{
-#'   \item resolves missing contingency groups;
-#'   \item calculates conditional fractions;
-#'   \item converts fractions into agent allocations;
-#'   \item assigns target attribute values; and
-#'   \item updates the synthetic population.
-#' }
-#'
-#' Validation results are cleared before execution and may
-#' subsequently be regenerated using \code{ratify()}.
-#'
-#' The updated synthetic population is stored in:
-#'
-#' \preformatted{
-#' x@synth_pop
-#' }
-#'
-#' @param x A \code{ReplicaAdder}.
-#' @param ... Additional arguments passed to the method.
-#'
-#' @return An updated \code{ReplicaAdder}.
-#'
-#' @examples
-#' \dontrun{
-#'
-#' adder <- enhance(
-#'   adder
-#' )
-#'
-#' head(
-#'   adder@synth_pop
-#' )
-#'
-#' }
-#'
-#' @seealso
-#' \code{\link{renew}},
-#' \code{\link{ratify}},
-#' \code{\link{ReplicaAdder}}
-#'
-#' @exportMethod enhance
-setMethod(
-  "enhance",
-  "ReplicaAdder",
-  
-  function(x = "ReplicaAdder", 
-           ...) {
-    
-    #
-    # Ensure contingency table contains
-    # all group combinations present
-    # in the synthetic population
-    #
-    
-    x@contingency <-
-      
-      make_contingency_table(
-        
-        contingency =
-          x@contingency,
-        
-        synth_pop =
-          x@synth_pop,
-        
-        group_by =
-          x@group_by,
-        
-        target_attribute =
-          x@target_attribute,
-        
-        strategy =
-          x@missing_group_strategy
-        
-      )
-    
-    pop <- data.table::copy(
-      x@synth_pop
-    )
-    
-    target <- x@target_attribute
-    
-    pop[
-      ,
-      (target) := NA_character_
-    ]
-    
-    grouping <- split(
-      
-      seq_len(
-        nrow(pop)
-      ),
-      
-      interaction(
-        
-        pop[
-          ,
-          x@group_by,
-          with = FALSE
-        ],
-        
-        drop = TRUE
-        
-      )
-      
-    )
-    
-    for (idx in grouping) {
-      
-      group_dt <- pop[idx]
-      
-      group_values <-
-        
-        as.list(
-          
-          group_dt[
-            1,
-            x@group_by,
-            with = FALSE
-          ]
-          
-        )
-      
-      mask <- getGroupMask(
-        x@contingency,
-        unlist(group_values),
-        x@group_by
-      )
-      
-      contingency_group <-
-        x@contingency[
-          mask,
-        ]
-      
-      #
-      # This should never happen now
-      # because make_contingency_table()
-      # has already handled missing groups.
-      #
-      
-      if (
-        nrow(contingency_group) == 0
-      ) {
-        
-        stop(
-          paste(
-            "make_contingency_table failed to create contingency group:",
-            paste(
-              unlist(group_values),
-              collapse = ", "
-            )
-          )
-        )
-        
-      }
-      
-      fractions_dt <-
-        getGroupFractions(
-          x,
-          contingency_group
-        )
-      
-      fractions <-
-        fractions_dt$fraction
-      
-      names(fractions) <-
-        fractions_dt[[target]]
-      
-      values <-
-        getAgentValuesFromFractions(
-          fractions,
-          length(idx)
-        )
-      
-      pop[
-        idx,
-        (target) := values
-      ]
-      
-    }
-    
-    x@synth_pop <- pop
-    
-    x <- ratify(x)
     
     x
     

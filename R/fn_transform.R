@@ -1,12 +1,12 @@
 transform_long_to_array <- function(
-    contingency,
+    contingency_table,
     dimensions
 ) {
   
   xtabs(
     count ~ .,
     data =
-      contingency[
+      contingency_table[
         ,
         c(
           dimensions,
@@ -484,7 +484,7 @@ transform_to_combinations <- function(
 #' @seealso
 #' \code{\link{validate_synthetic_population_fit}},
 #' \code{\link{calculate_z_squared_score}},
-#' \code{\link{make_contingency_table}}
+#' \code{\link{update_contingency_table}}
 #'
 #' @export
 transform_to_contingency <- function(

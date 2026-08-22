@@ -26,10 +26,10 @@ Validation diagnostics can be generated using
 \section{Slots}{
 
 \describe{
-\item{\code{synth_pop}}{A data.table containing the synthetic
+\item{\code{population}}{A data.table containing the synthetic
 population.}
 
-\item{\code{contingency}}{A data.frame or data.table containing
+\item{\code{contingency_table}}{A data.frame or data.table containing
 reference contingency data.}
 
 \item{\code{target_attribute}}{Character string identifying the

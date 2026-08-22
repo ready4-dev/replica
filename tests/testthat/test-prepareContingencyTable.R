@@ -15,7 +15,7 @@ population <- data.frame(
   
 )
 
-contingency <- data.frame(
+contingency_table <- data.frame(
   
   age_group = c(
     "18-64","18-64","18-64",
@@ -48,8 +48,8 @@ test_that(
     
     expect_error(
       
-      make_contingency_table(
-        contingency,
+      update_contingency_table(
+        contingency_table,
         population,
         c(
           "age_group",
@@ -67,8 +67,8 @@ test_that(
   "overall strategy fills missing groups",
   {
     
-    expanded <- make_contingency_table(
-      contingency,
+    expanded <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -103,8 +103,8 @@ test_that(
   "borrow strategy uses nearest distribution",
   {
     
-    expanded <- make_contingency_table(
-      contingency,
+    expanded <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -139,8 +139,8 @@ test_that(
   "overall and borrow strategies differ",
   {
     
-    overall <- make_contingency_table(
-      contingency,
+    overall <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -150,8 +150,8 @@ test_that(
       strategy = "overall"
     )
     
-    borrow <- make_contingency_table(
-      contingency,
+    borrow <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -202,8 +202,8 @@ test_that(
   "result returned as data.table",
   {
     
-    expanded <- make_contingency_table(
-      contingency,
+    expanded <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -225,8 +225,8 @@ test_that(
   "all required groups represented",
   {
     
-    expanded <- make_contingency_table(
-      contingency,
+    expanded <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",
@@ -249,8 +249,8 @@ test_that(
   "existing contingency rows preserved",
   {
     
-    expanded <- make_contingency_table(
-      contingency,
+    expanded <- update_contingency_table(
+      contingency_table,
       population,
       c(
         "age_group",

@@ -18,7 +18,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -32,7 +32,7 @@ test_that(
       
     )
     
-    hh@household_position_column <-
+    hh@position_column <-
       "household_position"
     
     hh@households <- list(
@@ -69,7 +69,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -85,7 +85,7 @@ test_that(
       
     )
     
-    hh@household_position_column <-
+    hh@position_column <-
       "household_position"
     
     hh@households <- list(
@@ -129,7 +129,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -145,7 +145,7 @@ test_that(
       
     )
     
-    hh@household_position_column <-
+    hh@position_column <-
       "household_position"
     
     hh@households <- list(
@@ -184,7 +184,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -198,7 +198,7 @@ test_that(
       
     )
     
-    hh@household_position_column <-
+    hh@position_column <-
       "household_position"
     
     hh@households <- list()
@@ -228,7 +228,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -242,7 +242,7 @@ test_that(
       
     )
     
-    hh@household_position_column <-
+    hh@position_column <-
       "household_position"
     
     #
@@ -321,7 +321,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -335,7 +335,7 @@ test_that(
       
     )
     
-    hh@household_position_column <-
+    hh@position_column <-
       "household_position"
     
     adult_position <- replica:::getPositionForName(

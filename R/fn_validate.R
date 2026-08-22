@@ -12,7 +12,7 @@ expect_household_sizes_correct <- function(
   )
   
   testthat::expect_equal(
-    households$hh_size,
+    households$household_size,
     as.integer(expected_sizes)
   )
   
@@ -58,7 +58,7 @@ expect_same_contingency <- function(
   )
   
 }
-expect_same_sampled_agents <- function(
+expect_same_assigned_agents <- function(
     r_agents,
     py_agents
 ) {

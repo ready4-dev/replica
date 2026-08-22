@@ -194,14 +194,14 @@ education_table <- data.frame(
 
 )
 adder <- ReplicaAdder(
-  synth_pop = agents,
-  contingency = education_table,
+  population = agents,
+  contingency_table = education_table,
   target_attribute = "education",
   group_by = c("age_group","gender")
 
 )
 adder <- enhance(adder)
-population <- adder@synth_pop
+population <- adder@population
 ```
 
 ### Generate Households
@@ -230,7 +230,7 @@ hh@couple_gender_distribution <- c("Female|Male" = 1)
 
 hh@couple_age_distribution <- c("-5-5" = 1)
 
-hg <- ReplicaGrouper(df_synth_pop = population,
+hg <- ReplicaGrouper(population = population,
                        group_by = "neighb_code")
 
 hg <- renew(hg, hh)

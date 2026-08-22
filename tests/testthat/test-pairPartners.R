@@ -62,8 +62,8 @@ test_that(
     
     expect_true(
       setequal(
-        updated_hh@sampled_agents,
-        hh@df_synth_pop$agent_id
+        updated_hh@assigned_agents,
+        hh@population$agent_id
       )
     )
     
@@ -90,12 +90,12 @@ test_that(
     expect_equal(
       
       length(
-        updated_hh@sampled_agents
+        updated_hh@assigned_agents
       ),
       
       length(
         unique(
-          updated_hh@sampled_agents
+          updated_hh@assigned_agents
         )
       )
       
@@ -233,7 +233,7 @@ test_that(
     
     expect_equal(
       length(
-        updated_hh@sampled_agents
+        updated_hh@assigned_agents
       ),
       4
     )
@@ -241,7 +241,7 @@ test_that(
     expect_equal(
       length(
         unique(
-          updated_hh@sampled_agents
+          updated_hh@assigned_agents
         )
       ),
       4
@@ -249,8 +249,8 @@ test_that(
     
     expect_true(
       setequal(
-        updated_hh@sampled_agents,
-        hh@df_synth_pop$agent_id
+        updated_hh@assigned_agents,
+        hh@population$agent_id
       )
     )
     
@@ -272,7 +272,7 @@ test_that(
     )
     
     hg <- ReplicaGrouper(
-      df_synth_pop = pop,
+      population = pop,
       group_by = "neighb_code"
     )
     
@@ -340,8 +340,8 @@ test_that(
     hh <- renew(
       hh,
       what = "state",
-      df_synth_pop = pop,
-      household_position_column = "household_position"
+      population = pop,
+      position_column = "household_position"
     )
     
     hh@couple_gender_distribution <- c(
@@ -381,13 +381,13 @@ test_that(
     
     expect_equal(
       length(
-        updated_hh@sampled_agents
+        updated_hh@assigned_agents
       ),
       0
     )
     
     expect_equal(
-      updated_hh@sampled_agents,
+      updated_hh@assigned_agents,
       character()
     )
     

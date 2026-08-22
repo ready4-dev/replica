@@ -4,10 +4,10 @@
 \alias{get_margin_series_from_synthetic_population}
 \title{Extract a Margin Distribution from a Synthetic Population}
 \usage{
-get_margin_series_from_synthetic_population(df_synth_pop, margins)
+get_margin_series_from_synthetic_population(population, margins)
 }
 \arguments{
-\item{df_synth_pop}{A synthetic population stored as
+\item{population}{A synthetic population stored as
 a data.frame or \code{data.table}.}
 
 \item{margins}{Character vector identifying the

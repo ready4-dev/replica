@@ -46,7 +46,7 @@ Agents are retained only if:
 requested positions.
 \item They satisfy the supplied eligibility mask.
 \item They do not appear in the
-\code{sampled_agents} slot.
+\code{assigned_agents} slot.
 }
 
 The function performs three filtering steps:
@@ -56,7 +56,7 @@ The function performs three filtering steps:
 belong to the specified position categories.
 \item Apply the supplied logical mask.
 \item Remove agents already assigned and recorded in
-\code{sampled_agents}.
+\code{assigned_agents}.
 }
 
 This function is used by:

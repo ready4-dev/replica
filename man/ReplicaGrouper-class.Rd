@@ -57,7 +57,7 @@ Results are returned as:
 \section{Slots}{
 
 \describe{
-\item{\code{df_synth_pop}}{Synthetic population stored as a
+\item{\code{population}}{Synthetic population stored as a
 \code{data.table}.}
 
 \item{\code{group_by}}{Character vector specifying the variables used
@@ -72,7 +72,7 @@ Typical examples include:
 \item Geographic or administrative identifiers
 }}
 
-\item{\code{target_column}}{Character string identifying the column
+\item{\code{position_column}}{Character string identifying the column
 containing household-position classifications such as
 \code{"Parent"}, \code{"Child"} or \code{"SingleAdult"}.}
 
@@ -85,7 +85,7 @@ generation.}
 \dontrun{
 
 hg <- ReplicaGrouper(
-  df_synth_pop = pop,
+  population = pop,
   group_by = "neighb_code"
 )
 

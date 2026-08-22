@@ -4,10 +4,10 @@
 \alias{ReplicaGrouper}
 \title{Create a ReplicaGrouper Object}
 \usage{
-ReplicaGrouper(df_synth_pop, group_by, target_column = "household_position")
+ReplicaGrouper(population, group_by, position_column = "household_position")
 }
 \arguments{
-\item{df_synth_pop}{A synthetic population stored as a
+\item{population}{A synthetic population stored as a
 data.frame or \code{data.table}.
 
 Each row should represent a single synthetic agent.}
@@ -26,7 +26,7 @@ Typical examples include:
 Household generation is performed independently within each
 grouping combination.}
 
-\item{target_column}{Character string identifying the column
+\item{position_column}{Character string identifying the column
 containing household-position classifications.
 
 Typical values include:
@@ -86,7 +86,7 @@ pop <- data.table(
 )
 
 hg <- ReplicaGrouper(
-  df_synth_pop = pop,
+  population = pop,
   group_by = "neighb_code"
 )
 

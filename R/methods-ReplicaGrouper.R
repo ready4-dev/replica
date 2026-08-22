@@ -1,51 +1,3 @@
-#' @rdname renew
-#'
-#' @section ReplicaGrouper Method:
-#'
-#' Registers a \code{ReplicaStructure} with a
-#' \code{ReplicaGrouper}.
-#'
-#' Registered structures are subsequently used during
-#' household generation when \code{manufacture()} is
-#' called on the grouper.
-#'
-#' @param x A \code{ReplicaGrouper}.
-#'
-#' @param household_type A \code{ReplicaStructure}
-#' object to be registered.
-#'
-#' @return An updated \code{ReplicaGrouper}.
-#'
-#' @examples
-#' \dontrun{
-#'
-#' grouper <- renew(
-#'   grouper,
-#'   household_type = structure
-#' )
-#'
-#' }
-#'
-#' @exportMethod renew
-setMethod(
-  "renew",
-  signature(x = "ReplicaGrouper"),
-  
-  function(
-    x,
-    household_type,
-    ...
-  ) {
-    
-    x@household_types <-
-      c(
-        x@household_types,
-        list(household_type)
-      )
-    
-    x
-  }
-)
 
 #' @rdname manufacture
 #'
@@ -134,21 +86,21 @@ setMethod(
       household_type <- renew(
         household_type,
         what = "state",
-        df_synth_pop = x@df_synth_pop,
-        household_position_column = x@target_column
+        population = x@population,
+        position_column = x@position_column
       )
       
       grouping <- split(
         
         seq_len(
           nrow(
-            x@df_synth_pop
+            x@population
           )
         ),
         
         interaction(
           
-          x@df_synth_pop[
+          x@population[
             ,
             x@group_by,
             with = FALSE
@@ -165,7 +117,7 @@ setMethod(
         mask <- rep(
           FALSE,
           nrow(
-            x@df_synth_pop
+            x@population
           )
         )
         
@@ -208,8 +160,8 @@ setMethod(
         
       }
       
-      x@df_synth_pop <-
-        household_type@df_synth_pop
+      x@population <-
+        household_type@population
       
       x@household_types[[i]] <-
         household_type
@@ -234,7 +186,7 @@ setMethod(
     list(
       
       synthetic_population =
-        x@df_synth_pop,
+        x@population,
       
       synthetic_households =
         synthetic_households,
@@ -247,3 +199,94 @@ setMethod(
   
 )
 
+#' @rdname procure
+#'
+#' @section ReplicaGrouper Method:
+#'
+#' Retrieves components stored within a
+#' \code{ReplicaGrouper}.
+#'
+#' @param x A `ReplicaGrouper`.
+#' @param slot Character string naming the slot to retrieve.
+#' @param ... Additional arguments passed to the method.
+#'
+#' @return The contents of the requested slot.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' procure(
+#'   grouper,
+#'   slot = "population"
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{ReplicaGrouper}}
+#'
+#' @export
+setMethod(
+  "procure",
+  "ReplicaGrouper",
+  function(x,
+           slot = character(0),
+           ...) {
+    
+    procureSlot(
+      x = x,
+      slot_nm_1L_chr = slot,
+      ...
+    )
+    
+  }
+)
+
+#' @rdname renew
+#'
+#' @section ReplicaGrouper Method:
+#'
+#' Registers a \code{ReplicaStructure} with a
+#' \code{ReplicaGrouper}.
+#'
+#' Registered structures are subsequently used during
+#' household generation when \code{manufacture()} is
+#' called on the grouper.
+#'
+#' @param x A \code{ReplicaGrouper}.
+#'
+#' @param household_type A \code{ReplicaStructure}
+#' object to be registered.
+#'
+#' @return An updated \code{ReplicaGrouper}.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' grouper <- renew(
+#'   grouper,
+#'   household_type = structure
+#' )
+#'
+#' }
+#'
+#' @exportMethod renew
+setMethod(
+  "renew",
+  signature(x = "ReplicaGrouper"),
+  
+  function(
+    x,
+    household_type,
+    ...
+  ) {
+    
+    x@household_types <-
+      c(
+        x@household_types,
+        list(household_type)
+      )
+    
+    x
+  }
+)

@@ -96,7 +96,7 @@ test_that(
     #
     
     hg <- ReplicaGrouper(
-      df_synth_pop = pop,
+      population = pop,
       group_by = "neighb_code"
     )
     
@@ -134,7 +134,7 @@ test_that(
       
       unname(
         extract_household_size_distribution(
-          py_households
+          py_households, column = "hh_size"
         )
       )
       
@@ -146,7 +146,7 @@ test_that(
       ),
       
       extract_household_type_distribution(
-        py_households
+        py_households, column = "hh_type"
       )
       
     )
@@ -224,7 +224,7 @@ test_that(
       
       sum(
         r_households$
-          hh_size
+          household_size
       ),
       
       nrow(

@@ -45,11 +45,11 @@ hh <- renew(
 hh <- renew(
   hh,
   what = "state",
-  df_synth_pop = pop,
-  household_position_column = "household_position"
+  population = pop,
+  position_column = "household_position"
 )
 
-hh@sampled_agents <- character()
+hh@assigned_agents <- character()
 test_that(
   "createSingles creates expected number of households",
   {
@@ -114,7 +114,7 @@ test_that(
       
       setequal(
         
-        updated_hh@sampled_agents,
+        updated_hh@assigned_agents,
         
         pop$agent_id
         
@@ -144,13 +144,13 @@ test_that(
     expect_equal(
       
       length(
-        updated_hh@sampled_agents
+        updated_hh@assigned_agents
       ),
       
       length(
         
         unique(
-          updated_hh@sampled_agents
+          updated_hh@assigned_agents
         )
         
       )
@@ -234,7 +234,7 @@ test_that(
       
       setequal(
         
-        updated_hh@sampled_agents,
+        updated_hh@assigned_agents,
         
         pop$agent_id
         
@@ -245,7 +245,7 @@ test_that(
     expect_equal(
       
       length(
-        updated_hh@sampled_agents
+        updated_hh@assigned_agents
       ),
       
       3
@@ -256,7 +256,7 @@ test_that(
       
       length(
         unique(
-          updated_hh@sampled_agents
+          updated_hh@assigned_agents
         )
       ),
       

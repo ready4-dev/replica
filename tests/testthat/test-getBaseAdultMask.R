@@ -6,7 +6,7 @@ test_that(
       "ChildOnly"
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       agent_id = c("C001", "C002")
     )
     
@@ -27,7 +27,7 @@ test_that(
       "ChildOnly"
     )
     
-    hh@df_synth_pop <- data.table(
+    hh@population <- data.table(
       agent_id = c(
         "C001",
         "C002",
