@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,8 +59,8 @@
 <span>  position_identifier <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  amount <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  df_synth_pop <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  household_position_column <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  population <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  position_column <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -119,12 +119,12 @@ position identifiers that may be used if the primary
 position is unavailable.</p></dd>
 
 
-<dt id="arg-df-synth-pop">df_synth_pop<a class="anchor" aria-label="anchor" href="#arg-df-synth-pop"></a></dt>
+<dt id="arg-population">population<a class="anchor" aria-label="anchor" href="#arg-population"></a></dt>
 <dd><p>Synthetic population used for
 household generation.</p></dd>
 
 
-<dt id="arg-household-position-column">household_position_column<a class="anchor" aria-label="anchor" href="#arg-household-position-column"></a></dt>
+<dt id="arg-position-column">position_column<a class="anchor" aria-label="anchor" href="#arg-position-column"></a></dt>
 <dd><p>Character string
 identifying the column containing household-position
 information.</p></dd>
@@ -239,8 +239,8 @@ synthetic population stored by the structure.</p></dd>
 <span class="r-in"><span><span class="va">structure</span> <span class="op">&lt;-</span> <span class="fu">renew</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">structure</span>,</span></span>
 <span class="r-in"><span>  what <span class="op">=</span> <span class="st">"state"</span>,</span></span>
-<span class="r-in"><span>  df_synth_pop <span class="op">=</span> <span class="va">population</span>,</span></span>
-<span class="r-in"><span>  household_position_column <span class="op">=</span></span></span>
+<span class="r-in"><span>  population <span class="op">=</span> <span class="va">population</span>,</span></span>
+<span class="r-in"><span>  position_column <span class="op">=</span></span></span>
 <span class="r-in"><span>    <span class="st">"household_position"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

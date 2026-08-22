@@ -79,7 +79,7 @@ A typical workflow is:
 
 ## Slots
 
-- `hh_type`:
+- `household_type`:
 
   Character string identifying the household type.
 
@@ -97,7 +97,7 @@ A typical workflow is:
 
   List containing generated household records.
 
-- `sampled_agents`:
+- `assigned_agents`:
 
   Character vector containing agents already assigned during household
   generation.
@@ -115,11 +115,11 @@ A typical workflow is:
 
   Named numeric vector controlling parent-child age-gap distributions.
 
-- `df_synth_pop`:
+- `population`:
 
   Synthetic population used during household generation.
 
-- `household_position_column`:
+- `position_column`:
 
   Character string identifying the household-position column in the
   synthetic population.

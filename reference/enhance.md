@@ -71,7 +71,7 @@ regenerated using
 The updated synthetic population is stored in:
 
 
-    x@synth_pop
+    x@population
 
 ## See also
 
@@ -94,7 +94,7 @@ adder <- enhance(
 )
 
 head(
-  adder@synth_pop
+  adder@population
 )
 
 } # }

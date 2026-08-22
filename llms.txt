@@ -5,7 +5,8 @@
 `replica` is an R library for generating synthetic populations of
 individual agents and households from aggregated demographic data.
 
-The library provides tools for:
+The library replica extends the ready4 framework developed by Hamilton
+et al. (2024) by providing tools for:
 
 - creating synthetic agents from marginal distributions and contingency
   tables;
@@ -136,6 +137,19 @@ library.
 
 ## References
 
+Hamilton MP, Gao C, Wiesner G, Filia KM, Menssink JM, Plencnerova P,
+Baker DG, McGorry PD, Parker A, Karnon J, Cotton SM. and Mihalopoulos C
+(2024)
+
+*A prototype software framework for transferable computational health
+economic models and its early application in youth mental health.*
+
+PharmacoEconomics.
+
+<https://link.springer.com/article/10.1007/s40273-024-01378-8>
+
+<https://ready4-dev.github.io/ready4/>
+
 de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan B
 and Verstegen JA (2024).
 
@@ -166,8 +180,6 @@ Autonomous Agents and Multi-Agent Systems.
   : Extract a Margin Distribution from a Synthetic Population
 - [`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
   : Create Synthetic Agents From Aggregate Counts
-- [`make_contingency_table()`](https://ready4-dev.github.io/replica/reference/make_contingency_table.md)
-  : Prepare a Contingency Table for Attribute Assignment
 - [`plot_validation_differences()`](https://ready4-dev.github.io/replica/reference/plot_validation_differences.md)
   : Plot percentage-point differences
 - [`plot_validation_distributions()`](https://ready4-dev.github.io/replica/reference/plot_validation_distributions.md)
@@ -182,6 +194,8 @@ Autonomous Agents and Multi-Agent Systems.
   : Convert Multiple Columns to Attribute Combinations
 - [`transform_to_contingency()`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md)
   : Convert a Synthetic Population to a Contingency Table
+- [`update_contingency_table()`](https://ready4-dev.github.io/replica/reference/update_contingency_table.md)
+  : Prepare a Contingency Table for Attribute Assignment
 - [`validate_synthetic_population_fit()`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md)
   : Validate the Fit of a Synthetic Population
 
@@ -207,6 +221,10 @@ Autonomous Agents and Multi-Agent Systems.
 - [`manufacture(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
   [`manufacture(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
   : Manufacture Replica Outputs
+- [`procure(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/procure.md)
+  [`procure(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/procure.md)
+  [`procure(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/procure.md)
+  : Procure Components of Replica Modules
 - [`ratify(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
   [`ratify(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
   : Ratify Replica Modules

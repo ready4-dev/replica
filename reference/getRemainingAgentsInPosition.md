@@ -53,7 +53,7 @@ Agents are retained only if:
 
 - They satisfy the supplied eligibility mask.
 
-- They do not appear in the `sampled_agents` slot.
+- They do not appear in the `assigned_agents` slot.
 
 The function performs three filtering steps:
 
@@ -62,7 +62,7 @@ The function performs three filtering steps:
 
 2.  Apply the supplied logical mask.
 
-3.  Remove agents already assigned and recorded in `sampled_agents`.
+3.  Remove agents already assigned and recorded in `assigned_agents`.
 
 This function is used by:
 

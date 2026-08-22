@@ -64,7 +64,7 @@ The number of children per sibling group is determined by the `amount`
 element of the child-position definition.
 
 Children are assigned exactly once. Assigned children are recorded in
-`sampled_agents` and removed from the pool of eligible children.
+`assigned_agents` and removed from the pool of eligible children.
 
 Age similarity between children is evaluated using
 score_sibling_age_suitability.

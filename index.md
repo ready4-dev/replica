@@ -5,7 +5,8 @@
 `replica` is an R library for generating synthetic populations of
 individual agents and households from aggregated demographic data.
 
-The library provides tools for:
+The library replica extends the ready4 framework developed by Hamilton
+et al. (2024) by providing tools for:
 
 - creating synthetic agents from marginal distributions and contingency
   tables;
@@ -135,6 +136,19 @@ Microsoft Copilot has been used intensively in the development of this
 library.
 
 ## References
+
+Hamilton MP, Gao C, Wiesner G, Filia KM, Menssink JM, Plencnerova P,
+Baker DG, McGorry PD, Parker A, Karnon J, Cotton SM. and Mihalopoulos C
+(2024)
+
+*A prototype software framework for transferable computational health
+economic models and its early application in youth mental health.*
+
+PharmacoEconomics.
+
+<https://link.springer.com/article/10.1007/s40273-024-01378-8>
+
+<https://ready4-dev.github.io/ready4/>
 
 de Mooij J, Sonnenschein T, Pellegrino M, Dastani M, Ettema D, Logan B
 and Verstegen JA (2024).

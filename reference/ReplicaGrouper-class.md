@@ -55,7 +55,7 @@ Results are returned as:
 
 ## Slots
 
-- `df_synth_pop`:
+- `population`:
 
   Synthetic population stored as a `data.table`.
 
@@ -72,7 +72,7 @@ Results are returned as:
 
   - Geographic or administrative identifiers
 
-- `target_column`:
+- `position_column`:
 
   Character string identifying the column containing household-position
   classifications such as `"Parent"`, `"Child"` or `"SingleAdult"`.
@@ -96,7 +96,7 @@ Results are returned as:
 if (FALSE) { # \dontrun{
 
 hg <- ReplicaGrouper(
-  df_synth_pop = pop,
+  population = pop,
   group_by = "neighb_code"
 )
 

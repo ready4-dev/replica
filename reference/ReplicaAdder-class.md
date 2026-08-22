@@ -21,11 +21,11 @@ and are stored in the `validation_results` slot.
 
 ## Slots
 
-- `synth_pop`:
+- `population`:
 
   A data.table containing the synthetic population.
 
-- `contingency`:
+- `contingency_table`:
 
   A data.frame or data.table containing reference contingency data.
 

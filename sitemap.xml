@@ -39,7 +39,6 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/group_children.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/index.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/make_agents.html</loc></url>
-<url><loc>https://ready4-dev.github.io/replica/reference/make_contingency_table.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/manufacture.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/maskWithRemainingAgents-ReplicaStructure-method.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.html</loc></url>
@@ -48,6 +47,7 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_differences.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_distributions.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/plot_validation_heatmap.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/procure.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/ratify.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/reexports.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/renew.html</loc></url>
@@ -59,6 +59,7 @@
 <url><loc>https://ready4-dev.github.io/replica/reference/transform_to_age_group.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/transform_to_combinations.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/transform_to_contingency.html</loc></url>
+<url><loc>https://ready4-dev.github.io/replica/reference/update_contingency_table.html</loc></url>
 <url><loc>https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.html</loc></url>
 </urlset>
 

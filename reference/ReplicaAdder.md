@@ -7,8 +7,8 @@ population using contingency tables.
 
 ``` r
 ReplicaAdder(
-  synth_pop,
-  contingency,
+  population,
+  contingency_table,
   target_attribute,
   group_by = character(),
   missing_group_strategy = "borrow",
@@ -18,11 +18,11 @@ ReplicaAdder(
 
 ## Arguments
 
-- synth_pop:
+- population:
 
   A synthetic population represented as a data.frame or data.table.
 
-- contingency:
+- contingency_table:
 
   A contingency table describing the expected relationship between
   conditioning variables and the target attribute.
@@ -79,15 +79,15 @@ population <- make_agents(
   age_gender
 )
 
-contingency <- data.frame(
+contingency_table <- data.frame(
   age_group = c("18-64", "65+"),
   education = c("Degree", "School"),
   count = c(60, 40)
 )
 
 adder <- ReplicaAdder(
-  synth_pop = population,
-  contingency = contingency,
+  population = population,
+  contingency_table = contingency_table,
   target_attribute = "education",
   group_by = "age_group"
 )

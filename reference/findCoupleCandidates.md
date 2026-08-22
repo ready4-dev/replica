@@ -62,7 +62,7 @@ The function:
 
 1.  Restricts candidates to the specified household positions.
 
-2.  Removes agents already listed in `sampled_agents`.
+2.  Removes agents already listed in `assigned_agents`.
 
 3.  Removes the primary partner from consideration.
 

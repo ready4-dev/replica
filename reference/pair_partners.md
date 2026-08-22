@@ -55,7 +55,7 @@ Couples are created by:
 
 5.  Selecting the best available secondary partner.
 
-6.  Recording assigned agents in `sampled_agents`.
+6.  Recording assigned agents in `assigned_agents`.
 
 Couple composition is controlled by:
 
@@ -74,7 +74,7 @@ Candidate partners are selected using:
 
 - [`findCoupleCandidates`](https://ready4-dev.github.io/replica/reference/findCoupleCandidates.md)
 
-Agents assigned to a couple are added to the `sampled_agents` slot to
+Agents assigned to a couple are added to the `assigned_agents` slot to
 prevent subsequent reassignment.
 
 ## See also

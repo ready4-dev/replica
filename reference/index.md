@@ -18,8 +18,6 @@
   : Extract a Margin Distribution from a Synthetic Population
 - [`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
   : Create Synthetic Agents From Aggregate Counts
-- [`make_contingency_table()`](https://ready4-dev.github.io/replica/reference/make_contingency_table.md)
-  : Prepare a Contingency Table for Attribute Assignment
 - [`plot_validation_differences()`](https://ready4-dev.github.io/replica/reference/plot_validation_differences.md)
   : Plot percentage-point differences
 - [`plot_validation_distributions()`](https://ready4-dev.github.io/replica/reference/plot_validation_distributions.md)
@@ -34,6 +32,8 @@
   : Convert Multiple Columns to Attribute Combinations
 - [`transform_to_contingency()`](https://ready4-dev.github.io/replica/reference/transform_to_contingency.md)
   : Convert a Synthetic Population to a Contingency Table
+- [`update_contingency_table()`](https://ready4-dev.github.io/replica/reference/update_contingency_table.md)
+  : Prepare a Contingency Table for Attribute Assignment
 - [`validate_synthetic_population_fit()`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md)
   : Validate the Fit of a Synthetic Population
 
@@ -59,6 +59,10 @@
 - [`manufacture(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
   [`manufacture(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
   : Manufacture Replica Outputs
+- [`procure(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/procure.md)
+  [`procure(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/procure.md)
+  [`procure(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/procure.md)
+  : Procure Components of Replica Modules
 - [`ratify(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
   [`ratify(`*`<ReplicaStructure>`*`)`](https://ready4-dev.github.io/replica/reference/ratify.md)
   : Ratify Replica Modules

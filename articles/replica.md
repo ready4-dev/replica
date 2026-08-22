@@ -210,14 +210,14 @@ education_table <- data.frame(
 
 )
 adder <- ReplicaAdder(
-  synth_pop = agents,
-  contingency = education_table,
+  population = agents,
+  contingency_table = education_table,
   target_attribute = "education",
   group_by = c("age_group","gender")
 
 )
 adder <- enhance(adder)
-population <- adder@synth_pop
+population <- adder@population
 ```
 
 ### Generate Households
@@ -247,7 +247,7 @@ hh@couple_gender_distribution <- c("Female|Male" = 1)
 
 hh@couple_age_distribution <- c("-5-5" = 1)
 
-hg <- ReplicaGrouper(df_synth_pop = population,
+hg <- ReplicaGrouper(population = population,
                        group_by = "neighb_code")
 
 hg <- renew(hg, hh)
@@ -281,13 +281,13 @@ head(households$synthetic_population)
 ``` r
 
 head(households$synthetic_households)
-#>   household_id neighb_code         hh_type hh_size
-#> 1    SSH000001          N1 CoupleHousehold       2
-#> 2    SSH000002          N1 CoupleHousehold       2
-#> 3    SSH000003          N1 CoupleHousehold       2
-#> 4    SSH000004          N1 CoupleHousehold       2
-#> 5    SSH000005          N1 CoupleHousehold       2
-#> 6    SSH000006          N1 CoupleHousehold       2
+#>   household_id neighb_code  household_type household_size
+#> 1    SSH000001          N1 CoupleHousehold              2
+#> 2    SSH000002          N1 CoupleHousehold              2
+#> 3    SSH000003          N1 CoupleHousehold              2
+#> 4    SSH000004          N1 CoupleHousehold              2
+#> 5    SSH000005          N1 CoupleHousehold              2
+#> 6    SSH000006          N1 CoupleHousehold              2
 ```
 
 ### Validate Attribute Assignment

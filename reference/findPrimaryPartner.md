@@ -62,7 +62,7 @@ The function:
 
 2.  Optionally filters candidates by gender.
 
-3.  Excludes agents already recorded in `sampled_agents`.
+3.  Excludes agents already recorded in `assigned_agents`.
 
 4.  Returns the highest-priority candidate.
 

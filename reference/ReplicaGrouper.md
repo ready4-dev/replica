@@ -6,12 +6,12 @@ from an existing synthetic population.
 ## Usage
 
 ``` r
-ReplicaGrouper(df_synth_pop, group_by, target_column = "household_position")
+ReplicaGrouper(population, group_by, position_column = "household_position")
 ```
 
 ## Arguments
 
-- df_synth_pop:
+- population:
 
   A synthetic population stored as a data.frame or `data.table`.
 
@@ -33,7 +33,7 @@ ReplicaGrouper(df_synth_pop, group_by, target_column = "household_position")
   Household generation is performed independently within each grouping
   combination.
 
-- target_column:
+- position_column:
 
   Character string identifying the column containing household-position
   classifications.
@@ -103,7 +103,7 @@ pop <- data.table(
 )
 
 hg <- ReplicaGrouper(
-  df_synth_pop = pop,
+  population = pop,
   group_by = "neighb_code"
 )
 

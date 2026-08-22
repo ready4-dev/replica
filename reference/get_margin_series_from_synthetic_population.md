@@ -6,12 +6,12 @@ synthetic population.
 ## Usage
 
 ``` r
-get_margin_series_from_synthetic_population(df_synth_pop, margins)
+get_margin_series_from_synthetic_population(population, margins)
 ```
 
 ## Arguments
 
-- df_synth_pop:
+- population:
 
   A synthetic population stored as a data.frame or `data.table`.
 

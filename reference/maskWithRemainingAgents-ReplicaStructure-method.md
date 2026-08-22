@@ -39,7 +39,7 @@ that each synthetic agent is assigned to at most one household.
 Agents recorded in:
 
 
-    object@sampled_agents
+    object@assigned_agents
 
 are excluded from the returned candidate set.
 
@@ -57,8 +57,8 @@ throughout replica.
 if (FALSE) { # \dontrun{
 remaining <- maskWithRemainingAgents(
   hh,
-  hh@df_synth_pop,
-  rep(TRUE, nrow(hh@df_synth_pop))
+  hh@population,
+  rep(TRUE, nrow(hh@population))
 )
 } # }
 ```

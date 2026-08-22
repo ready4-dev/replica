@@ -19,8 +19,8 @@ renew(
   position_identifier = NULL,
   amount = NULL,
   backup_position_identifiers = character(),
-  df_synth_pop = NULL,
-  household_position_column = NULL,
+  population = NULL,
+  position_column = NULL,
   ...
 )
 ```
@@ -77,11 +77,11 @@ renew(
   Alternative position identifiers that may be used if the primary
   position is unavailable.
 
-- df_synth_pop:
+- population:
 
   Synthetic population used for household generation.
 
-- household_position_column:
+- position_column:
 
   Character string identifying the column containing household-position
   information.
@@ -193,8 +193,8 @@ structure <- renew(
 structure <- renew(
   structure,
   what = "state",
-  df_synth_pop = population,
-  household_position_column =
+  population = population,
+  position_column =
     "household_position"
 )
 

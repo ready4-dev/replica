@@ -11,7 +11,7 @@ generation."><meta property="og:image" content="https://ready4-dev.github.io/rep
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,13 +93,13 @@ throughout the household-generation workflow.</p>
 requested positions.</p></li>
 <li><p>They satisfy the supplied eligibility mask.</p></li>
 <li><p>They do not appear in the
-<code>sampled_agents</code> slot.</p></li>
+<code>assigned_agents</code> slot.</p></li>
 </ul><p>The function performs three filtering steps:</p>
 <ol><li><p>Identify agents whose household-position values
 belong to the specified position categories.</p></li>
 <li><p>Apply the supplied logical mask.</p></li>
 <li><p>Remove agents already assigned and recorded in
-<code>sampled_agents</code>.</p></li>
+<code>assigned_agents</code>.</p></li>
 </ol><p>This function is used by:</p>
 <ul><li><p><code><a href="findPrimaryPartner.html">findPrimaryPartner</a></code></p></li>
 <li><p><code><a href="findSecondaryPartner.html">findSecondaryPartner</a></code></p></li>
