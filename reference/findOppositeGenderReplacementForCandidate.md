@@ -69,7 +69,7 @@ matching demographic and household characteristics.
 if (FALSE) { # \dontrun{
 replacement <-
   findOppositeGenderReplacementForCandidate(
-    hh,
+    STRUCTURE,
     wrong_candidate,
     mask,
     "SingleAdult"

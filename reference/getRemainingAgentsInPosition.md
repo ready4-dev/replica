@@ -84,7 +84,7 @@ and provides the candidate pools used by household-matching algorithms.
 if (FALSE) { # \dontrun{
 
 candidates <- getRemainingAgentsInPosition(
-  hh,
+  STRUCTURE,
   "Parent"
 )
 
@@ -95,7 +95,7 @@ head(candidates)
 if (FALSE) { # \dontrun{
 
 candidates <- getRemainingAgentsInPosition(
-  hh,
+  STRUCTURE,
   c(
     "Parent",
     "SingleAdult"
@@ -107,7 +107,7 @@ candidates <- getRemainingAgentsInPosition(
 if (FALSE) { # \dontrun{
 
 candidates <- getRemainingAgentsInPosition(
-  hh,
+  STRUCTURE,
   "Parent",
   mask = age > 30
 )

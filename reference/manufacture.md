@@ -125,7 +125,7 @@ result$synthetic_households
 if (FALSE) { # \dontrun{
 
 household_summary <- manufacture(
-  structure
+  STRUCTURE
 )
 
 household_summary

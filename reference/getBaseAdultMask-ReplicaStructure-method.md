@@ -61,6 +61,6 @@ registered under:
 
 ``` r
 if (FALSE) { # \dontrun{
-adult_mask <- getBaseAdultMask(hh)
+adult_mask <- getBaseAdultMask(STRUCTURE)
 } # }
 ```

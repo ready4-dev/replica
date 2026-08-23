@@ -82,12 +82,12 @@ Household identifiers are generated using:
 ``` r
 if (FALSE) { # \dontrun{
 
-hh <- ReplicaStructure(
+STRUCTURE <- ReplicaStructure(
   "CoupleOnly"
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
@@ -96,12 +96,12 @@ hh <- renew(
 )
 
 adult_position <- getPositionForName(
-  hh,
+  STRUCTURE,
   "adult"
 )
 
-hh <- create_household_with_id(
-  hh,
+STRUCTURE <- create_household_with_id(
+  STRUCTURE,
   position = adult_position,
   id_offset = 1,
   agents = c(
@@ -110,7 +110,7 @@ hh <- create_household_with_id(
   )
 )
 
-names(hh@households)
+names(STRUCTURE@households)
 
 } # }
 ```

@@ -83,7 +83,7 @@ backup-position replacement logic is enabled.
 if (FALSE) { # \dontrun{
 
 candidate <- findPrimaryPartner(
-  hh,
+  STRUCTURE,
   mask = rep(
     TRUE,
     nrow(pop)

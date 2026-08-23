@@ -58,23 +58,23 @@ Generated households are stored internally and can be exported using:
 A typical workflow is:
 
 
-    structure <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleHousehold"
     )
 
-    structure <- renew(
-      structure,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       ...
     )
 
-    structure <- ratify(
-      structure,
+    STRUCTURE <- ratify(
+      STRUCTURE,
       output = "self"
     )
 
     household_summary <- manufacture(
-      structure
+      STRUCTURE
     )
 
 ## Slots
@@ -136,12 +136,12 @@ A typical workflow is:
 ``` r
 if (FALSE) { # \dontrun{
 
-hh <- ReplicaStructure(
+STRUCTURE <- ReplicaStructure(
   "Family"
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
@@ -149,8 +149,8 @@ hh <- renew(
   backup_position_identifiers = character()
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Child",
   position_identifier = "child",

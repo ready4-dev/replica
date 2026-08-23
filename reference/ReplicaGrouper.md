@@ -38,7 +38,7 @@ ReplicaGrouper(population, group_by, position_column = "household_position")
   Character string identifying the column containing household-position
   classifications.
 
-  Typical values include:
+  The specified column should contain values such as:
 
   - `"Parent"`
 
@@ -68,23 +68,27 @@ The constructor:
 
 2.  Stores grouping information.
 
-3.  Initializes the household-type list.
+3.  Initializes an empty collection of
+    [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
+    objects.
 
 4.  Creates an empty `household_id` column if one does not already
     exist.
 
-Household types are subsequently registered using
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
+objects are subsequently registered using
 [`renew`](https://ready4-dev.github.io/replica/reference/renew.md).
 
-The resulting object is typically executed using
-[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md).
+Household generation is then executed using
+[`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md).
 
 ## See also
 
 [`ReplicaGrouper-class`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper-class.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md),
 [`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
-[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md)
+[`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md),
+[`procure`](https://ready4-dev.github.io/replica/reference/procure.md)
 
 ## Examples
 
@@ -102,7 +106,7 @@ pop <- data.table(
   )
 )
 
-hg <- ReplicaGrouper(
+grouper <- ReplicaGrouper(
   population = pop,
   group_by = "neighb_code"
 )

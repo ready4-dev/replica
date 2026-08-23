@@ -75,7 +75,7 @@ grouping combination.</p></dd>
 <dt id="arg-position-column">position_column<a class="anchor" aria-label="anchor" href="#arg-position-column"></a></dt>
 <dd><p>Character string identifying the column
 containing household-position classifications.</p>
-<p>Typical values include:</p>
+<p>The specified column should contain values such as:</p>
 <ul><li><p><code>"Parent"</code></p></li>
 <li><p><code>"Child"</code></p></li>
 <li><p><code>"SingleAdult"</code></p></li>
@@ -96,20 +96,22 @@ household-generation workflow and manages one or more
 <p>The constructor:</p>
 <ol><li><p>Stores the synthetic population.</p></li>
 <li><p>Stores grouping information.</p></li>
-<li><p>Initializes the household-type list.</p></li>
+<li><p>Initializes an empty collection of
+<code><a href="ReplicaStructure.html">ReplicaStructure</a></code> objects.</p></li>
 <li><p>Creates an empty <code>household_id</code> column if one
 does not already exist.</p></li>
-</ol><p>Household types are subsequently registered using
-<code><a href="renew.html">renew</a></code>.</p>
-<p>The resulting object is typically executed using
-<code><a href="enhance.html">enhance</a></code>.</p>
+</ol><p><code><a href="ReplicaStructure.html">ReplicaStructure</a></code> objects are subsequently
+registered using <code><a href="renew.html">renew</a></code>.</p>
+<p>Household generation is then executed using
+<code><a href="manufacture.html">manufacture</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="ReplicaGrouper-class.html">ReplicaGrouper-class</a></code>,
 <code><a href="ReplicaStructure.html">ReplicaStructure</a></code>,
 <code><a href="renew.html">renew</a></code>,
-<code><a href="enhance.html">enhance</a></code></p></div>
+<code><a href="manufacture.html">manufacture</a></code>,
+<code><a href="procure.html">procure</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -127,7 +129,7 @@ does not already exist.</p></li>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">hg</span> <span class="op">&lt;-</span> <span class="fu">ReplicaGrouper</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">grouper</span> <span class="op">&lt;-</span> <span class="fu">ReplicaGrouper</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  population <span class="op">=</span> <span class="va">pop</span>,</span></span>
 <span class="r-in"><span>  group_by <span class="op">=</span> <span class="st">"neighb_code"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

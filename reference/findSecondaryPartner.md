@@ -108,7 +108,7 @@ More advanced workflows may use backup-position replacement logic via:
 if (FALSE) { # \dontrun{
 
 secondary_partner <- findSecondaryPartner(
-  object = hh,
+  object = STRUCTURE,
   mask = rep(
     TRUE,
     nrow(pop)

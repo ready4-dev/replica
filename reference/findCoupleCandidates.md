@@ -91,7 +91,7 @@ age-gap range.
 if (FALSE) { # \dontrun{
 
 candidates <- findCoupleCandidates(
-  object = hh,
+  object = STRUCTURE,
   mask = rep(
     TRUE,
     nrow(pop)

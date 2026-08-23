@@ -55,8 +55,8 @@ Both agents must belong to the same neighbourhood.
 
 ``` r
 if (FALSE) { # \dontrun{
-hh <- switchHouseholdPositions(
-  hh,
+STRUCTURE <- switchHouseholdPositions(
+  STRUCTURE,
   "A001",
   "A002"
 )

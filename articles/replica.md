@@ -234,25 +234,25 @@ population[age_group == "18-64",
 population[age_group == "65+", 
            age := sample(65:95,.N, replace = TRUE)]
 
-hh <- ReplicaStructure("CoupleHousehold")
+STRUCTURE <- ReplicaStructure("CoupleHousehold")
 
-hh <- renew(hh,
+STRUCTURE <- renew(STRUCTURE,
             what = "positions",
             household_position = "Parent",
             position_identifier = "adult",
             amount = 2,
             backup_position_identifiers = character())
 
-hh@couple_gender_distribution <- c("Female|Male" = 1)
+STRUCTURE@couple_gender_distribution <- c("Female|Male" = 1)
 
-hh@couple_age_distribution <- c("-5-5" = 1)
+STRUCTURE@couple_age_distribution <- c("-5-5" = 1)
 
-hg <- ReplicaGrouper(population = population,
+GROUPER <- ReplicaGrouper(population = population,
                        group_by = "neighb_code")
 
-hg <- renew(hg, hh)
+GROUPER <- renew(GROUPER, STRUCTURE, what = "structure")
 
-households <- manufacture(hg)
+households <- manufacture(GROUPER)
 ```
 
 ### Inspect Results

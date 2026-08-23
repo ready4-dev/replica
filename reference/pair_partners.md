@@ -90,12 +90,12 @@ prevent subsequent reassignment.
 ``` r
 if (FALSE) { # \dontrun{
 
-hh <- ReplicaStructure(
+STRUCTURE <- ReplicaStructure(
   "CoupleHousehold"
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
@@ -103,16 +103,16 @@ hh <- renew(
   backup_position_identifiers = character()
 )
 
-hh@couple_gender_distribution <- c(
+STRUCTURE@couple_gender_distribution <- c(
   "Male|Female" = 1
 )
 
-hh@couple_age_distribution <- c(
+STRUCTURE@couple_age_distribution <- c(
   "-5-5" = 1
 )
 
 couples <- pair_partners(
-  hh,
+  STRUCTURE,
   rep(TRUE, nrow(pop))
 )
 

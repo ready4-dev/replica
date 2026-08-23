@@ -44,6 +44,6 @@ registered under:
 
 ``` r
 if (FALSE) { # \dontrun{
-child_mask <- getBaseChildMask(hh)
+child_mask <- getBaseChildMask(STRUCTURE)
 } # }
 ```

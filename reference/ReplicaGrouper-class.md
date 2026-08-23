@@ -1,7 +1,9 @@
 # ReplicaGrouper Class
 
 Coordinates the generation of synthetic households from a synthetic
-population.
+population using one or more
+[`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
+objects.
 
 ## Details
 
@@ -14,7 +16,7 @@ The class is responsible for:
 
 - Managing the synthetic population.
 
-- Coordinating household generation workflows.
+- Coordinating household-generation workflows.
 
 - Applying household-generation rules within geographic or demographic
   groups.
@@ -31,11 +33,11 @@ Household generation typically proceeds as follows:
     [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
     objects.
 
-3.  Register the household types using
+3.  Register the structures using
     [`renew`](https://ready4-dev.github.io/replica/reference/renew.md).
 
 4.  Execute household generation using
-    [`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md).
+    [`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md).
 
 During execution:
 
@@ -77,7 +79,7 @@ Results are returned as:
   Character string identifying the column containing household-position
   classifications such as `"Parent"`, `"Child"` or `"SingleAdult"`.
 
-- `household_types`:
+- `structures`:
 
   List of
   [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
@@ -85,28 +87,33 @@ Results are returned as:
 
 ## See also
 
-[`ReplicaGrouper`](https://ready4-dev.github.io/replica/reference/ReplicaGrouper.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md),
 [`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md),
-[`renew`](https://ready4-dev.github.io/replica/reference/renew.md)
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
+[`procure`](https://ready4-dev.github.io/replica/reference/procure.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 
-hg <- ReplicaGrouper(
+grouper <- ReplicaGrouper(
   population = pop,
   group_by = "neighb_code"
 )
 
-hg <- renew(
-  hg,
-  hh
+STRUCTURE <- ReplicaStructure(
+  household_type = "CoupleWithChildren"
+)
+
+grouper <- renew(
+  grouper,
+  STRUCTURE = STRUCTURE,
+  what = "structure"
 )
 
 result <- manufacture(
-  hg
+  grouper
 )
 
 } # }

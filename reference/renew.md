@@ -6,10 +6,16 @@ Updates the configuration or state of a replica module.
 
 ``` r
 # S4 method for class 'ReplicaAdder'
-renew(x, margins, margins_names, ...)
+renew(
+  x,
+  margins = list(),
+  margins_names = list(),
+  what = c("slot", "margins"),
+  ...
+)
 
 # S4 method for class 'ReplicaGrouper'
-renew(x, household_type, ...)
+renew(x, structure = NULL, what = c("slot", "structure"), ...)
 
 # S4 method for class 'ReplicaStructure'
 renew(
@@ -37,15 +43,8 @@ renew(
 
 - margins_names:
 
-  A list of names corresponding to the
-
-- ...:
-
-  Additional arguments
-
-- household_type:
-
-  A `ReplicaStructure` object to be registered.
+  A list containing names corresponding to supplied marginal
+  distributions.
 
 - what:
 
@@ -59,6 +58,15 @@ renew(
   - `"state"`
 
   - `"households"`
+
+- ...:
+
+  Additional arguments
+
+- structure:
+
+  A `ReplicaStructure` object to be registered when
+  `what = "structure"`.
 
 - household_position:
 
@@ -123,7 +131,28 @@ Depending on the supplied module, `renew()` can:
 
 ## ReplicaAdder Method
 
-Updates a `ReplicaAdder` by adding or replacing marginal distributions.
+Updates a `ReplicaAdder`.
+
+By default, `renew()` updates one or more slots of a `ReplicaAdder`
+using named arguments supplied via `...`.
+
+For example:
+
+
+    adder <- renew(
+      adder,
+      population = population
+    )
+
+Slot names must correspond to slots defined for the `ReplicaAdder`
+class.
+
+Alternatively, setting:
+
+
+    what = "margins"
+
+updates the marginal distributions used during attribute assignment.
 
 Marginal distributions provide additional information about known
 population totals and can be used alongside contingency tables during
@@ -134,12 +163,34 @@ are modified.
 
 ## ReplicaGrouper Method
 
-Registers a `ReplicaStructure` with a `ReplicaGrouper`.
+Updates a `ReplicaGrouper`.
+
+By default, `renew()` updates one or more slots of a `ReplicaGrouper`
+using named arguments supplied via `...`.
+
+For example:
+
+
+    grouper <- renew(
+      grouper,
+      population = population,
+      what = "structure"
+    )
+
+Slot names must correspond to slots defined for the `ReplicaGrouper`
+class.
+
+Alternatively, setting:
+
+
+    what = "structure"
+
+registers a `ReplicaStructure` with the grouper.
 
 Registered structures are subsequently used during household generation
 when
 [`manufacture()`](https://ready4-dev.github.io/replica/reference/manufacture.md)
-is called on the grouper.
+is called.
 
 ## ReplicaStructure Method
 
@@ -169,39 +220,3 @@ Supported options are:
   stored by the structure.
 
 ## Examples
-
-``` r
-if (FALSE) { # \dontrun{
-
-grouper <- renew(
-  grouper,
-  household_type = structure
-)
-
-} # }
-
-if (FALSE) { # \dontrun{
-
-structure <- renew(
-  structure,
-  what = "positions",
-  household_position = "Parent",
-  position_identifier = "adult",
-  amount = 2
-)
-
-structure <- renew(
-  structure,
-  what = "state",
-  population = population,
-  position_column =
-    "household_position"
-)
-
-structure <- renew(
-  structure,
-  what = "households"
-)
-
-} # }
-```

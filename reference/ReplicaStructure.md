@@ -101,21 +101,21 @@ using
 Example:
 
 
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "Family"
     )
 
-    hh <- renew(
+    STRUCTURE <- renew(
       what = "positions",
-      hh,
+      STRUCTURE,
       household_position = "Parent",
       position_identifier = "adult",
       amount = 2,
       backup_position_identifiers = character()
     )
 
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Child",
       position_identifier = "child",
@@ -138,7 +138,7 @@ for household generation.
 ``` r
 if (FALSE) { # \dontrun{
 
-hh <- ReplicaStructure(
+STRUCTURE <- ReplicaStructure(
   household_type = "Family",
   couple_gender_distribution = c(
     "Male|Female" = 1

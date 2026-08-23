@@ -142,7 +142,7 @@ procure(
 if (FALSE) { # \dontrun{
 
 procure(
-  structure,
+  STRUCTURE,
   slot = "households"
 )
 
