@@ -88,7 +88,7 @@ logic via:
 \dontrun{
 
 secondary_partner <- findSecondaryPartner(
-  object = hh,
+  object = STRUCTURE,
   mask = rep(
     TRUE,
     nrow(pop)

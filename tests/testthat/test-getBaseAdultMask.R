@@ -2,17 +2,17 @@ test_that(
   "getBaseAdultMask strict mode errors if adult position missing",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "ChildOnly"
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       agent_id = c("C001", "C002")
     )
     
     expect_error(
       getBaseAdultMask(
-        hh,
+        STRUCTURE,
         strict = TRUE
       )
     )
@@ -23,11 +23,11 @@ test_that(
   "getBaseAdultMask non-strict mode returns FALSE mask",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "ChildOnly"
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       agent_id = c(
         "C001",
         "C002",
@@ -36,7 +36,7 @@ test_that(
     )
     
     mask <- getBaseAdultMask(
-      hh,
+      STRUCTURE,
       strict = FALSE
     )
     

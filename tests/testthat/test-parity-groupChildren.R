@@ -47,12 +47,12 @@ test_that(
       
     )
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "Family"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Child",
       position_identifier = "child",
@@ -61,21 +61,21 @@ test_that(
         character()
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "state",
       population = pop,
       position_column = "household_position"
     )
     
-    hh@assigned_agents <- character()
+    STRUCTURE@assigned_agents <- character()
     
     child_position <- replica:::getPositionForName(
-      hh,
+      STRUCTURE,
       "child"
     )
     groups <- group_children(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
@@ -83,7 +83,7 @@ test_that(
       child_position
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       groups,
       "object"
     )
@@ -104,7 +104,7 @@ test_that(
     expect_equal(
       
       sort(
-        updated_hh@
+        updated_STRUCTURE@
           assigned_agents
       ),
       
@@ -118,7 +118,7 @@ test_that(
       
       setequal(
         
-        updated_hh@
+        updated_STRUCTURE@
           assigned_agents,
         
         pop$
@@ -130,7 +130,7 @@ test_that(
     expect_equal(
       
       length(
-        updated_hh@
+        updated_STRUCTURE@
           assigned_agents
       ),
       
@@ -138,7 +138,7 @@ test_that(
         
         unique(
           
-          updated_hh@
+          updated_STRUCTURE@
             assigned_agents
           
         )
@@ -151,7 +151,7 @@ test_that(
       nrow(
         
         getRemainingAgentsInPosition(
-          updated_hh,
+          updated_STRUCTURE,
           "Child"
         )
         

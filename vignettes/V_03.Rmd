@@ -151,7 +151,7 @@ In this example all agents are classified as potential parents and are therefore
 A household type specifies a household structure that we plan to generate. Here we create a simple couple household.
 
 ```{r}
-hh <- ReplicaStructure("CoupleHousehold")
+STRUCTURE <- ReplicaStructure("CoupleHousehold")
 ```
 
 At this point we have only defined the household name. We now need to specify the household members that form this household type.
@@ -161,8 +161,8 @@ At this point we have only defined the household name. We now need to specify th
 The renew() method defines the roles that must be filled when constructing a household. In this example, a couple household requires two adults.
 
 ```{r}
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
@@ -213,8 +213,8 @@ These demographic relationships are controlled using matching distributions.
 For simplicity, this illustrative example will generate Female - Male pairs in which the age gap between partners is within 5 years. We can use `renewSlot` for this purpose.
 
 ```{r}
-hh <- renewSlot(hh, "couple_gender_distribution", c("Female|Male" = 1))
-hh <- renewSlot(hh, "couple_age_distribution", c("-5-5" = 1))
+STRUCTURE <- renewSlot(STRUCTURE, "couple_gender_distribution", c("Female|Male" = 1))
+STRUCTURE <- renewSlot(STRUCTURE, "couple_age_distribution", c("-5-5" = 1))
 ```
 
 The above age distribution indicates that permissible partner age gaps range from five years younger to five years older.
@@ -232,7 +232,7 @@ rules specified above.
 A ReplicaGrouper coordinates household generation across an entire synthetic population.
 
 ```{r}
-hg <- ReplicaGrouper(population = pop,
+GROUPER <- ReplicaGrouper(population = pop,
                      group_by = "neighb_code")
 ```
 
@@ -259,7 +259,7 @@ For example, a realistic population might contain:
 Household types are registered using renew().
 
 ```{r}
-hg <- renew(hg,hh)
+GROUPER <- renew(GROUPER, STRUCTURE, what = "structure")
 ```
 
 The grouper now knows how to generate couple households.
@@ -269,7 +269,7 @@ The grouper now knows how to generate couple households.
 Once household types have been registered, the complete household-generation workflow can be executed using `manufacture()`.
 
 ```{r}
-result <- manufacture(hg)
+result <- manufacture(GROUPER)
 ```
 
 The `manufacture()` method executes the complete household-generation workflow.
@@ -355,12 +355,12 @@ A more comprehensive discussion of population validation is provided in the "Eva
 The previous example generated households containing adults only. The same approach can be extended further to support more complex household structures involving grandparents, children or other household positions if suitable demographic data are available.
 
 ```{r}
-hh <- ReplicaStructure("FamilyHousehold")
+STRUCTURE <- ReplicaStructure("FamilyHousehold")
 ```
 
 ```{r}
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
@@ -368,8 +368,8 @@ hh <- renew(
   backup_position_identifiers = character()
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Child",
   position_identifier = "child",

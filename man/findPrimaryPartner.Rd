@@ -68,7 +68,7 @@ be applied when backup-position replacement logic is enabled.
 \dontrun{
 
 candidate <- findPrimaryPartner(
-  hh,
+  STRUCTURE,
   mask = rep(
     TRUE,
     nrow(pop)

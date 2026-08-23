@@ -73,7 +73,7 @@ algorithms.
 \dontrun{
 
 candidates <- getRemainingAgentsInPosition(
-  hh,
+  STRUCTURE,
   "Parent"
 )
 
@@ -84,7 +84,7 @@ head(candidates)
 \dontrun{
 
 candidates <- getRemainingAgentsInPosition(
-  hh,
+  STRUCTURE,
   c(
     "Parent",
     "SingleAdult"
@@ -96,7 +96,7 @@ candidates <- getRemainingAgentsInPosition(
 \dontrun{
 
 candidates <- getRemainingAgentsInPosition(
-  hh,
+  STRUCTURE,
   "Parent",
   mask = age > 30
 )

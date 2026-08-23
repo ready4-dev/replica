@@ -58,12 +58,12 @@ test_that(
     # Recreate household type
     #
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleHousehold"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -71,33 +71,33 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "state",
       population = pop,
       position_column = "household_position"
     )
     
-    hh@couple_gender_distribution <- c(
+    STRUCTURE@couple_gender_distribution <- c(
       "Male|Female" = 1
     )
     
-    hh@couple_age_distribution <- c(
+    STRUCTURE@couple_age_distribution <- c(
       "-5-5" = 1
     )
     
-    hh@assigned_agents <- character()
+    STRUCTURE@assigned_agents <- character()
     
     #
     # Run R implementation
     #
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, nrow(pop))
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       couples,
       "object"
     )
@@ -109,7 +109,7 @@ test_that(
     expect_equal(
       
       sort(
-        updated_hh@assigned_agents
+        updated_STRUCTURE@assigned_agents
       ),
       
       sort(

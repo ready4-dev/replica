@@ -6,7 +6,8 @@
 \title{ReplicaGrouper Class}
 \description{
 Coordinates the generation of synthetic households from a
-synthetic population.
+synthetic population using one or more
+\code{\link{ReplicaStructure}} objects.
 }
 \details{
 A \code{ReplicaGrouper} object manages one or more
@@ -17,7 +18,7 @@ The class is responsible for:
 
 \itemize{
 \item Managing the synthetic population.
-\item Coordinating household generation workflows.
+\item Coordinating household-generation workflows.
 \item Applying household-generation rules within geographic
 or demographic groups.
 \item Assigning household identifiers.
@@ -30,10 +31,10 @@ Household generation typically proceeds as follows:
 \item Create a \code{ReplicaGrouper}.
 \item Create one or more
 \code{\link{ReplicaStructure}} objects.
-\item Register the household types using
+\item Register the structures using
 \code{\link{renew}}.
 \item Execute household generation using
-\code{\link{enhance}}.
+\code{\link{manufacture}}.
 }
 
 During execution:
@@ -76,7 +77,7 @@ Typical examples include:
 containing household-position classifications such as
 \code{"Parent"}, \code{"Child"} or \code{"SingleAdult"}.}
 
-\item{\code{household_types}}{List of
+\item{\code{structures}}{List of
 \code{\link{ReplicaStructure}} objects used during household
 generation.}
 }}
@@ -84,26 +85,31 @@ generation.}
 \examples{
 \dontrun{
 
-hg <- ReplicaGrouper(
+grouper <- ReplicaGrouper(
   population = pop,
   group_by = "neighb_code"
 )
 
-hg <- renew(
-  hg,
-  hh
+STRUCTURE <- ReplicaStructure(
+  household_type = "CoupleWithChildren"
+)
+
+grouper <- renew(
+  grouper,
+  STRUCTURE = STRUCTURE,
+  what = "structure"
 )
 
 result <- manufacture(
-  hg
+  grouper
 )
 
 }
 
 }
 \seealso{
-\code{\link{ReplicaGrouper}},
 \code{\link{ReplicaStructure}},
 \code{\link{manufacture}},
-\code{\link{renew}}
+\code{\link{renew}},
+\code{\link{procure}}
 }

@@ -30,7 +30,7 @@
 #' \dontrun{
 #'
 #' household_summary <- manufacture(
-#'   structure
+#'   STRUCTURE
 #' )
 #'
 #' household_summary
@@ -69,9 +69,9 @@ setMethod(
       
       function(hid) {
         
-        hh <- x@households[[hid]]
+        STRUCTURE <- x@households[[hid]]
         
-        first_agent <- hh$all[1]
+        first_agent <- STRUCTURE$all[1]
         
         if ("neighb_code" %in% names(x@population)) {
           
@@ -91,7 +91,7 @@ setMethod(
           household_id = hid,
           neighb_code = neighb_code,
           household_type = x@household_type,
-          household_size = length(hh$all),
+          household_size = length(STRUCTURE$all),
           stringsAsFactors = FALSE
         )
         
@@ -129,7 +129,7 @@ setMethod(
 #' \dontrun{
 #'
 #' procure(
-#'   structure,
+#'   STRUCTURE,
 #'   slot = "households"
 #' )
 #'
@@ -333,24 +333,24 @@ setMethod(
 #' @examples
 #' \dontrun{
 #'
-#' structure <- renew(
-#'   structure,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "positions",
 #'   household_position = "Parent",
 #'   position_identifier = "adult",
 #'   amount = 2
 #' )
 #'
-#' structure <- renew(
-#'   structure,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "state",
 #'   population = population,
 #'   position_column =
 #'     "household_position"
 #' )
 #'
-#' structure <- renew(
-#'   structure,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "households"
 #' )
 #'
@@ -606,10 +606,10 @@ setMethod(
         
         object@households,
         
-        function(hh) {
+        function(STRUCTURE) {
           
           if (
-            is.null(hh)
+            is.null(STRUCTURE)
           ) {
             
             return(
@@ -619,7 +619,7 @@ setMethod(
           }
           
           if (
-            is.null(hh$all)
+            is.null(STRUCTURE$all)
           ) {
             
             return(
@@ -628,7 +628,7 @@ setMethod(
             
           }
           
-          hh$all
+          STRUCTURE$all
           
         }
         
@@ -689,7 +689,7 @@ setMethod(
 #'
 #' @examples
 #' \dontrun{
-#' adult_mask <- getBaseAdultMask(hh)
+#' adult_mask <- getBaseAdultMask(STRUCTURE)
 #' }
 #'
 #' @keywords internal
@@ -767,7 +767,7 @@ setMethod(
 #'
 #' @examples
 #' \dontrun{
-#' child_mask <- getBaseChildMask(hh)
+#' child_mask <- getBaseChildMask(STRUCTURE)
 #' }
 #'
 #' @seealso
@@ -877,9 +877,9 @@ setMethod(
 #' @examples
 #' \dontrun{
 #' remaining <- maskWithRemainingAgents(
-#'   hh,
-#'   hh@population,
-#'   rep(TRUE, nrow(hh@population))
+#'   STRUCTURE,
+#'   STRUCTURE@population,
+#'   rep(TRUE, nrow(STRUCTURE@population))
 #' )
 #' }
 #'

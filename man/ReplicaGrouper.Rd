@@ -29,7 +29,7 @@ grouping combination.}
 \item{position_column}{Character string identifying the column
 containing household-position classifications.
 
-Typical values include:
+The specified column should contain values such as:
 
 \itemize{
 \item \code{"Parent"}
@@ -60,16 +60,17 @@ The constructor:
 \enumerate{
 \item Stores the synthetic population.
 \item Stores grouping information.
-\item Initializes the household-type list.
+\item Initializes an empty collection of
+\code{\link{ReplicaStructure}} objects.
 \item Creates an empty \code{household_id} column if one
 does not already exist.
 }
 
-Household types are subsequently registered using
-\code{\link{renew}}.
+\code{\link{ReplicaStructure}} objects are subsequently
+registered using \code{\link{renew}}.
 
-The resulting object is typically executed using
-\code{\link{enhance}}.
+Household generation is then executed using
+\code{\link{manufacture}}.
 }
 \examples{
 \dontrun{
@@ -85,7 +86,7 @@ pop <- data.table(
   )
 )
 
-hg <- ReplicaGrouper(
+grouper <- ReplicaGrouper(
   population = pop,
   group_by = "neighb_code"
 )
@@ -97,5 +98,6 @@ hg <- ReplicaGrouper(
 \code{\link{ReplicaGrouper-class}},
 \code{\link{ReplicaStructure}},
 \code{\link{renew}},
-\code{\link{enhance}}
+\code{\link{manufacture}},
+\code{\link{procure}}
 }

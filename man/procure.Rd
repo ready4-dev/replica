@@ -137,7 +137,7 @@ procure(
 \dontrun{
 
 procure(
-  structure,
+  STRUCTURE,
   slot = "households"
 )
 

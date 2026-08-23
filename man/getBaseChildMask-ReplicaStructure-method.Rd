@@ -32,7 +32,7 @@ position_identifier = "child"
 }
 \examples{
 \dontrun{
-child_mask <- getBaseChildMask(hh)
+child_mask <- getBaseChildMask(STRUCTURE)
 }
 
 }

@@ -70,12 +70,12 @@ test_that(
     # Create ReplicaStructure
     #
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleHousehold"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -83,11 +83,11 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@couple_gender_distribution <- c(
+    STRUCTURE@couple_gender_distribution <- c(
       "Male|Female" = 1
     )
     
-    hh@couple_age_distribution <- c(
+    STRUCTURE@couple_age_distribution <- c(
       "-5-5" = 1
     )
     
@@ -95,14 +95,15 @@ test_that(
     # Create ReplicaGrouper
     #
     
-    hg <- ReplicaGrouper(
+    GROUPER <- ReplicaGrouper(
       population = pop,
       group_by = "neighb_code"
     )
     
-    hg <- renew(
-      hg,
-      hh
+    GROUPER <- renew(
+      GROUPER,
+      STRUCTURE,
+      what = "structure"
     )
     
     #
@@ -110,7 +111,7 @@ test_that(
     #
     
     result <- manufacture(
-      hg
+      GROUPER
     )
     
     r_population <- result$synthetic_population

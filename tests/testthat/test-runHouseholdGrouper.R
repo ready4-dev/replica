@@ -49,12 +49,12 @@ pop <- data.table(
 # Create household type
 #
 
-hh <- ReplicaStructure(
+STRUCTURE <- ReplicaStructure(
   "CoupleHousehold"
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
@@ -66,11 +66,11 @@ hh <- renew(
 # Configure distributions
 #
 
-hh@couple_gender_distribution <- c(
+STRUCTURE@couple_gender_distribution <- c(
   "Male|Female" = 1
 )
 
-hh@couple_age_distribution <- c(
+STRUCTURE@couple_age_distribution <- c(
   "-5-5" = 1
 )
 test_that(
@@ -81,14 +81,15 @@ test_that(
     # Create grouper
     #
     
-    hg <- ReplicaGrouper(
+    GROUPER <- ReplicaGrouper(
       population = pop,
       group_by = "neighb_code"
     )
     
-    hg <- renew(
-      hg,
-      hh
+    GROUPER <- renew(
+      GROUPER,
+      STRUCTURE,
+      what = "structure"
     )
     
     #
@@ -96,7 +97,7 @@ test_that(
     #
     
     result <- manufacture(
-      hg
+      GROUPER
     )
     
     #
@@ -261,18 +262,19 @@ test_that(
   "run-ReplicaGrouper preserves all agents exactly once",
   {
     
-    hg <- ReplicaGrouper(
+    GROUPER <- ReplicaGrouper(
       population = population,
       group_by = "neighb_code"
     )
     
-    hg <- renew(
-      hg,
-      hh
+    GROUPER <- renew(
+      GROUPER,
+      STRUCTURE,
+      what = "structure"
     )
 
     result <- manufacture(
-      hg
+      GROUPER
     )
     
     expect_true(
@@ -292,18 +294,19 @@ test_that(
 test_that(
   "synthetic household table internally consistent",
   {
-    hg <- ReplicaGrouper(
+    GROUPER <- ReplicaGrouper(
       population = population,
       group_by = "neighb_code"
     )
     
-    hg <- renew(
-      hg,
-      hh
+    GROUPER <- renew(
+      GROUPER,
+      STRUCTURE,
+      what = "structure"
     )
     
     result <- manufacture(
-      hg
+      GROUPER
     )
     
     pop_households <-

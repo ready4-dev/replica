@@ -51,7 +51,7 @@ position_identifier = "adult"
 }
 \examples{
 \dontrun{
-adult_mask <- getBaseAdultMask(hh)
+adult_mask <- getBaseAdultMask(STRUCTURE)
 }
 
 }

@@ -420,6 +420,43 @@ update_contingency_table <- function(
   
 }
 
+#' @keywords internal
+update_slots <- function(x, dots) {
+  
+  valid_slots <- slotNames(x)
+  
+  for (nm in names(dots)) {
+    
+    if (!nm %in% valid_slots) {
+      
+      stop(
+        paste0(
+          "'",
+          nm,
+          "' is not a slot of ",
+          class(x),
+          ". Valid slots are: ",
+          paste(valid_slots,
+                collapse = ", ")
+        ),
+        call. = FALSE
+      )
+      
+    }
+    
+    x <- renewSlot(
+      x = x,
+      slot = nm,
+      value = dots[[nm]]
+    )
+    
+  }
+  
+  x
+  
+}
+
+
 #' Exchange Household Positions Between Agents
 #'
 #' Swaps household-position classifications between two agents
@@ -450,8 +487,8 @@ update_contingency_table <- function(
 #'
 #' @examples
 #' \dontrun{
-#' hh <- switchHouseholdPositions(
-#'   hh,
+#' STRUCTURE <- switchHouseholdPositions(
+#'   STRUCTURE,
 #'   "A001",
 #'   "A002"
 #' )

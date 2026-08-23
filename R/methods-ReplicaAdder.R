@@ -372,8 +372,32 @@ setMethod(
 #'
 #' @section ReplicaAdder Method:
 #'
-#' Updates a \code{ReplicaAdder} by adding or replacing
-#' marginal distributions.
+#' Updates a \code{ReplicaAdder}.
+#'
+#' By default, \code{renew()} updates one or more slots of a
+#' \code{ReplicaAdder} using named arguments supplied via
+#' \code{...}.
+#'
+#' For example:
+#'
+#' \preformatted{
+#' adder <- renew(
+#'   adder,
+#'   population = population
+#' )
+#' }
+#'
+#' Slot names must correspond to slots defined for the
+#' \code{ReplicaAdder} class.
+#'
+#' Alternatively, setting:
+#'
+#' \preformatted{
+#' what = "margins"
+#' }
+#'
+#' updates the marginal distributions used during attribute
+#' assignment.
 #'
 #' Marginal distributions provide additional information
 #' about known population totals and can be used alongside
@@ -383,12 +407,49 @@ setMethod(
 #' when margins are modified.
 #'
 #' @param x A \code{ReplicaAdder}.
+#'
 #' @param margins A list of marginal distributions.
-#' @param margins_names A list of names corresponding to the
-#' @param ... Additional arguments
-#' supplied margins.
+#'
+#' @param margins_names A list containing names
+#' corresponding to supplied marginal distributions.
+#'
+#' @param what Character string specifying the type of
+#' update to perform.
+#'
+#' Options are:
+#'
+#' \itemize{
+#'   \item \code{"slot"} updates one or more slots using
+#'   named arguments supplied via \code{...};
+#'   \item \code{"margins"} updates stored marginal
+#'   distributions.
+#' }
+#'
+#' @param ... Named slot updates when
+#' \code{what = "slot"}.
 #'
 #' @return An updated \code{ReplicaAdder}.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' ## Update a slot
+#'
+#' adder <- renew(
+#'   adder,
+#'   population = population
+#' )
+#'
+#' ## Update margins
+#'
+#' adder <- renew(
+#'   adder,
+#'   what = "margins",
+#'   margins = margins,
+#'   margins_names = margins_names
+#' )
+#'
+#' }
 #'
 #' @exportMethod renew
 setMethod(
@@ -397,30 +458,42 @@ setMethod(
   
   function(
     x,
-    margins,
-    margins_names,
+    margins = list(),
+    margins_names = list(), # character(0)
+    what = c("slot", "margins"),
     ...
   ) {
+    what <- match.arg(what)
+    dots <- list(...)
     
-    x@margins <- margins
-    
-    x@margins_names <- margins_names
-    
-    x@margins_group <-
-      unique(
-        unlist(
-          margins_names
+    if(what == "margins"){
+      x@margins <- margins
+      
+      x@margins_names <- margins_names
+      
+      x@margins_group <-
+        unique(
+          unlist(
+            margins_names
+          )
         )
-      )
-    
-    #
-    # Existing validation results are
-    # no longer guaranteed to be valid.
-    #
-    
-    x@validation_results <- list()
-    
+      
+      #
+      # Existing validation results are
+      # no longer guaranteed to be valid.
+      #
+      
+      x@validation_results <- list()
+      
+      return(x)
+    }else{
+      if(length(dots) == 0){
+        stop("No slot updates supplied.")
+      }
+      if(length(dots) > 0){
+      x <- update_slots(x = x, dots = dots)
+      }
+    }
     x
-    
   }
 )

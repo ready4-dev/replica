@@ -114,7 +114,7 @@ result$synthetic_households
 \dontrun{
 
 household_summary <- manufacture(
-  structure
+  STRUCTURE
 )
 
 household_summary

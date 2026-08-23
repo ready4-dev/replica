@@ -71,7 +71,7 @@ preferred age-gap range.
 \dontrun{
 
 candidates <- findCoupleCandidates(
-  object = hh,
+  object = STRUCTURE,
   mask = rep(
     TRUE,
     nrow(pop)

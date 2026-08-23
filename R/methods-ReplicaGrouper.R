@@ -58,7 +58,7 @@ setMethod(
     
     if (
       length(
-        x@household_types
+        x@structures
       ) == 0
     ) {
       
@@ -72,19 +72,19 @@ setMethod(
     
     for (
       i in seq_along(
-        x@household_types
+        x@structures
       )
     ) {
       # print("HOUSEHOLD TYPES")
-      # print(x@household_types)
+      # print(x@structures)
       # 
       # print("NAMES")
-      # print(names(x@household_types))
-      household_type <-
-        x@household_types[[i]]
+      # print(names(x@structures))
+      structure <-
+        x@structures[[i]]
       
-      household_type <- renew(
-        household_type,
+      structure <- renew(
+        structure,
         what = "state",
         population = x@population,
         position_column = x@position_column
@@ -133,38 +133,38 @@ setMethod(
         # print(class(result$x))
         
         result <- createFromMembers(
-          household_type,
+          structure,
           mask,
           offset
         )
         
-        household_type <- result$object
+        structure <- result$object
         
         offset <- result$id_offset
         
       }
       # print("DEBUG")
-      # print(household_type)
-      # print(class(household_type))
-      # str(household_type)
+      # print(structure)
+      # print(class(structure))
+      # str(structure)
       if (
-        ratify(household_type,
+        ratify(structure,
                output = "logical")
       ) {
         
-        household_type <-
+        structure <-
           renew(
-            household_type,
+            structure,
             what = "households"
           )
         
       }
       
       x@population <-
-        household_type@population
+        structure@population
       
-      x@household_types[[i]] <-
-        household_type
+      x@structures[[i]] <-
+        structure
       
     }
     
@@ -174,7 +174,7 @@ setMethod(
       
       lapply(
         
-        x@household_types,
+        x@structures,
         
         function(x)
           manufacture(x)
@@ -246,26 +246,77 @@ setMethod(
 #'
 #' @section ReplicaGrouper Method:
 #'
-#' Registers a \code{ReplicaStructure} with a
-#' \code{ReplicaGrouper}.
+#' Updates a \code{ReplicaGrouper}.
+#'
+#' By default, \code{renew()} updates one or more slots of a
+#' \code{ReplicaGrouper} using named arguments supplied via
+#' \code{...}.
+#'
+#' For example:
+#'
+#' \preformatted{
+#' grouper <- renew(
+#'   grouper,
+#'   population = population,
+#'   what = "structure"
+#' )
+#' }
+#'
+#' Slot names must correspond to slots defined for the
+#' \code{ReplicaGrouper} class.
+#'
+#' Alternatively, setting:
+#'
+#' \preformatted{
+#' what = "structure"
+#' }
+#'
+#' registers a \code{ReplicaStructure} with the grouper.
 #'
 #' Registered structures are subsequently used during
 #' household generation when \code{manufacture()} is
-#' called on the grouper.
+#' called.
 #'
 #' @param x A \code{ReplicaGrouper}.
 #'
-#' @param household_type A \code{ReplicaStructure}
-#' object to be registered.
+#' @param structure A \code{ReplicaStructure}
+#' object to be registered when
+#' \code{what = "structure"}.
+#'
+#' @param what Character string specifying the type of
+#' update to perform.
+#'
+#' Options are:
+#'
+#' \itemize{
+#'   \item \code{"slot"} updates one or more slots using
+#'   named arguments supplied via \code{...};
+#'   \item \code{"structure"} registers a
+#'   \code{ReplicaStructure}.
+#' }
+#'
+#' @param ... Named slot updates when
+#' \code{what = "slot"}.
 #'
 #' @return An updated \code{ReplicaGrouper}.
 #'
 #' @examples
 #' \dontrun{
 #'
+#' ## Update a slot
+#'
 #' grouper <- renew(
 #'   grouper,
-#'   household_type = structure
+#'   population = population
+#'   what = "structure"
+#' )
+#'
+#' ## Register a household type
+#'
+#' grouper <- renew(
+#'   grouper,
+#'   what = "structure",
+#'   structure = structure
 #' )
 #'
 #' }
@@ -277,16 +328,39 @@ setMethod(
   
   function(
     x,
-    household_type,
+    structure = NULL,
+    what = c("slot", "structure"),
     ...
   ) {
     
-    x@household_types <-
-      c(
-        x@household_types,
-        list(household_type)
+    what <- match.arg(what)
+    
+    dots <- list(...)
+    
+    if (what == "structure") {
+      
+      x@structures <-
+        c(
+          x@structures,
+          list(structure)
+        )
+      
+      return(x)
+      
+    } else {
+      
+      if (length(dots) == 0) {
+        stop("No slot updates supplied.")
+      }
+      
+      x <- update_slots(
+        x = x,
+        dots = dots
       )
+      
+    }
     
     x
+    
   }
 )

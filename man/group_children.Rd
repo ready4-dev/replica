@@ -67,12 +67,12 @@ score_sibling_age_suitability.
 \dontrun{
 
 child_position <- getPositionForName(
-  hh,
+  STRUCTURE,
   "child"
 )
 
 groups <- group_children(
-  hh,
+  STRUCTURE,
   mask = rep(
     TRUE,
     nrow(pop)

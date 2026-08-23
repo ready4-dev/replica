@@ -95,12 +95,12 @@ createFamilyHouseholdWithId <- function(
 #' @examples
 #' \dontrun{
 #'
-#' hh <- ReplicaStructure(
+#' STRUCTURE <- ReplicaStructure(
 #'   "CoupleOnly"
 #' )
 #'
-#' hh <- renew(
-#'   hh,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "positions",
 #'   household_position = "Parent",
 #'   position_identifier = "adult",
@@ -109,12 +109,12 @@ createFamilyHouseholdWithId <- function(
 #' )
 #'
 #' adult_position <- getPositionForName(
-#'   hh,
+#'   STRUCTURE,
 #'   "adult"
 #' )
 #'
-#' hh <- create_household_with_id(
-#'   hh,
+#' STRUCTURE <- create_household_with_id(
+#'   STRUCTURE,
 #'   position = adult_position,
 #'   id_offset = 1,
 #'   agents = c(
@@ -123,7 +123,7 @@ createFamilyHouseholdWithId <- function(
 #'   )
 #' )
 #'
-#' names(hh@households)
+#' names(STRUCTURE@households)
 #'
 #' }
 #'
@@ -382,12 +382,12 @@ getGroupMask <- function(
 #' \dontrun{
 #'
 #' child_position <- getPositionForName(
-#'   hh,
+#'   STRUCTURE,
 #'   "child"
 #' )
 #'
 #' groups <- group_children(
-#'   hh,
+#'   STRUCTURE,
 #'   mask = rep(
 #'     TRUE,
 #'     nrow(pop)
@@ -686,12 +686,12 @@ make_couple_household <- function(
     )
 ) {
   
-  hh <- ReplicaStructure(
+  STRUCTURE <- ReplicaStructure(
     "CoupleHousehold"
   )
   
-  hh <- renew(
-    hh,
+  STRUCTURE <- renew(
+    STRUCTURE,
     what = "positions",
     household_position = "Parent",
     position_identifier = "adult",
@@ -699,22 +699,22 @@ make_couple_household <- function(
     backup_position_identifiers = character()
   )
   
-  hh <- renew(
-    hh,
+  STRUCTURE <- renew(
+    STRUCTURE,
     what = "state",
     population = pop,
     position_column = "household_position"
   )
   
-  hh@couple_gender_distribution <-
+  STRUCTURE@couple_gender_distribution <-
     gender_distribution
   
-  hh@couple_age_distribution <-
+  STRUCTURE@couple_age_distribution <-
     age_distribution
   
-  hh@assigned_agents <- character()
+  STRUCTURE@assigned_agents <- character()
   
-  hh
+  STRUCTURE
   
 }
 make_household_population <- function() {
@@ -834,7 +834,7 @@ make_household_population <- function() {
 #' \dontrun{
 #'
 #' result <- matchAdultsWithChildren(
-#'   object = hh,
+#'   object = STRUCTURE,
 #'   parents = parents,
 #'   children = children,
 #'   id_offset = 1
@@ -1161,12 +1161,12 @@ matchAdultsWithChildren <- function(
 #' @examples
 #' \dontrun{
 #'
-#' hh <- ReplicaStructure(
+#' STRUCTURE <- ReplicaStructure(
 #'   "CoupleHousehold"
 #' )
 #'
-#' hh <- renew(
-#'   hh,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "positions",
 #'   household_position = "Parent",
 #'   position_identifier = "adult",
@@ -1174,16 +1174,16 @@ matchAdultsWithChildren <- function(
 #'   backup_position_identifiers = character()
 #' )
 #'
-#' hh@couple_gender_distribution <- c(
+#' STRUCTURE@couple_gender_distribution <- c(
 #'   "Male|Female" = 1
 #' )
 #'
-#' hh@couple_age_distribution <- c(
+#' STRUCTURE@couple_age_distribution <- c(
 #'   "-5-5" = 1
 #' )
 #'
 #' couples <- pair_partners(
-#'   hh,
+#'   STRUCTURE,
 #'   rep(TRUE, nrow(pop))
 #' )
 #'

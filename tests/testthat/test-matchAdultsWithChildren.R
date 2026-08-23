@@ -33,12 +33,12 @@ pop <- data.table(
   
 )
 
-hh <- ReplicaStructure(
+STRUCTURE <- ReplicaStructure(
   "Family"
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
@@ -46,8 +46,8 @@ hh <- renew(
   backup_position_identifiers = character()
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Child",
   position_identifier = "child",
@@ -55,14 +55,14 @@ hh <- renew(
   backup_position_identifiers = character()
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "state",
   population = pop,
   position_column = "household_position"
 )
 
-hh@parent_child_age_distribution <- c(
+STRUCTURE@parent_child_age_distribution <- c(
   "20-30" = 1
 )
 
@@ -99,7 +99,7 @@ test_that(
   {
     
     result <- matchAdultsWithChildren(
-      hh,
+      STRUCTURE,
       parents,
       children,
       id_offset = 1
@@ -124,7 +124,7 @@ test_that(
   {
     
     result <- matchAdultsWithChildren(
-      hh,
+      STRUCTURE,
       parents,
       children,
       id_offset = 1
@@ -187,7 +187,7 @@ test_that(
   {
     
     result <- matchAdultsWithChildren(
-      hh,
+      STRUCTURE,
       parents,
       children,
       id_offset = 1
@@ -233,7 +233,7 @@ test_that(
   {
     
     result <- matchAdultsWithChildren(
-      hh,
+      STRUCTURE,
       parents,
       children,
       id_offset = 1
@@ -261,7 +261,7 @@ test_that(
   {
     
     result <- matchAdultsWithChildren(
-      hh,
+      STRUCTURE,
       parents,
       children,
       id_offset = 1
@@ -295,7 +295,7 @@ test_that(
   {
     
     result <- matchAdultsWithChildren(
-      hh,
+      STRUCTURE,
       parents,
       children,
       id_offset = 1
@@ -330,7 +330,7 @@ test_that(
   {
     
     result <- matchAdultsWithChildren(
-      hh,
+      STRUCTURE,
       parents,
       children,
       id_offset = 1

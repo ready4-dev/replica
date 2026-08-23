@@ -363,7 +363,8 @@ setValidity(
 #' ReplicaGrouper Class
 #'
 #' Coordinates the generation of synthetic households from a
-#' synthetic population.
+#' synthetic population using one or more
+#' \code{\link{ReplicaStructure}} objects.
 #'
 #' A \code{ReplicaGrouper} object manages one or more
 #' \code{\link{ReplicaStructure}} objects and applies household
@@ -373,7 +374,7 @@ setValidity(
 #'
 #' \itemize{
 #'   \item Managing the synthetic population.
-#'   \item Coordinating household generation workflows.
+#'   \item Coordinating household-generation workflows.
 #'   \item Applying household-generation rules within geographic
 #'         or demographic groups.
 #'   \item Assigning household identifiers.
@@ -399,21 +400,22 @@ setValidity(
 #' containing household-position classifications such as
 #' \code{"Parent"}, \code{"Child"} or \code{"SingleAdult"}.
 #'
-#' @slot household_types List of
+#' @slot structures List of
 #' \code{\link{ReplicaStructure}} objects used during household
 #' generation.
 #'
 #' @details
+#'
 #' Household generation typically proceeds as follows:
 #'
 #' \enumerate{
 #'   \item Create a \code{ReplicaGrouper}.
 #'   \item Create one or more
 #'         \code{\link{ReplicaStructure}} objects.
-#'   \item Register the household types using
+#'   \item Register the structures using
 #'         \code{\link{renew}}.
 #'   \item Execute household generation using
-#'         \code{\link{enhance}}.
+#'         \code{\link{manufacture}}.
 #' }
 #'
 #' During execution:
@@ -437,27 +439,32 @@ setValidity(
 #' @examples
 #' \dontrun{
 #'
-#' hg <- ReplicaGrouper(
+#' grouper <- ReplicaGrouper(
 #'   population = pop,
 #'   group_by = "neighb_code"
 #' )
 #'
-#' hg <- renew(
-#'   hg,
-#'   hh
+#' STRUCTURE <- ReplicaStructure(
+#'   household_type = "CoupleWithChildren"
+#' )
+#'
+#' grouper <- renew(
+#'   grouper,
+#'   STRUCTURE = STRUCTURE,
+#'   what = "structure"
 #' )
 #'
 #' result <- manufacture(
-#'   hg
+#'   grouper
 #' )
 #'
 #' }
 #'
 #' @seealso
-#' \code{\link{ReplicaGrouper}},
 #' \code{\link{ReplicaStructure}},
 #' \code{\link{manufacture}},
-#' \code{\link{renew}}
+#' \code{\link{renew}},
+#' \code{\link{procure}}
 #'
 #' @export
 setClass(
@@ -471,7 +478,7 @@ setClass(
     
     position_column = "character",
     
-    household_types = "list"
+    structures = "list"
   )
 )
 setValidity(
@@ -535,17 +542,17 @@ setValidity(
     }
     
     #
-    # household_types must be a list
+    # structures must be a list
     #
     
     if (
       !is.list(
-        object@household_types
+        object@structures
       )
     ) {
       
       return(
-        "household_types must be a list"
+        "structures must be a list"
       )
       
     }
@@ -555,6 +562,7 @@ setValidity(
   }
   
 )
+
 #' Create a ReplicaGrouper Object
 #'
 #' Creates a new \code{ReplicaGrouper} used to generate
@@ -586,7 +594,7 @@ setValidity(
 #' @param position_column Character string identifying the column
 #' containing household-position classifications.
 #'
-#' Typical values include:
+#' The specified column should contain values such as:
 #'
 #' \itemize{
 #'   \item \code{"Parent"}
@@ -603,21 +611,23 @@ setValidity(
 #' @return A new \code{ReplicaGrouper} object.
 #'
 #' @details
+#'
 #' The constructor:
 #'
 #' \enumerate{
 #'   \item Stores the synthetic population.
 #'   \item Stores grouping information.
-#'   \item Initializes the household-type list.
+#'   \item Initializes an empty collection of
+#'         \code{\link{ReplicaStructure}} objects.
 #'   \item Creates an empty \code{household_id} column if one
 #'         does not already exist.
 #' }
 #'
-#' Household types are subsequently registered using
-#' \code{\link{renew}}.
+#' \code{\link{ReplicaStructure}} objects are subsequently
+#' registered using \code{\link{renew}}.
 #'
-#' The resulting object is typically executed using
-#' \code{\link{enhance}}.
+#' Household generation is then executed using
+#' \code{\link{manufacture}}.
 #'
 #' @examples
 #' \dontrun{
@@ -633,7 +643,7 @@ setValidity(
 #'   )
 #' )
 #'
-#' hg <- ReplicaGrouper(
+#' grouper <- ReplicaGrouper(
 #'   population = pop,
 #'   group_by = "neighb_code"
 #' )
@@ -644,7 +654,8 @@ setValidity(
 #' \code{\link{ReplicaGrouper-class}},
 #' \code{\link{ReplicaStructure}},
 #' \code{\link{renew}},
-#' \code{\link{enhance}}
+#' \code{\link{manufacture}},
+#' \code{\link{procure}}
 #'
 #' @export
 ReplicaGrouper <- function(
@@ -676,7 +687,7 @@ ReplicaGrouper <- function(
     
     position_column = position_column,
     
-    household_types = list()
+    structures = list()
   )
 }
 #' ReplicaStructure Class
@@ -767,35 +778,35 @@ ReplicaGrouper <- function(
 #' A typical workflow is:
 #'
 #' \preformatted{
-#' structure <- ReplicaStructure(
+#' STRUCTURE <- ReplicaStructure(
 #'   "CoupleHousehold"
 #' )
 #'
-#' structure <- renew(
-#'   structure,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "positions",
 #'   ...
 #' )
 #'
-#' structure <- ratify(
-#'   structure,
+#' STRUCTURE <- ratify(
+#'   STRUCTURE,
 #'   output = "self"
 #' )
 #'
 #' household_summary <- manufacture(
-#'   structure
+#'   STRUCTURE
 #' )
 #' }
 #'
 #' @examples
 #' \dontrun{
 #'
-#' hh <- ReplicaStructure(
+#' STRUCTURE <- ReplicaStructure(
 #'   "Family"
 #' )
 #'
-#' hh <- renew(
-#'   hh,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "positions",
 #'   household_position = "Parent",
 #'   position_identifier = "adult",
@@ -803,8 +814,8 @@ ReplicaGrouper <- function(
 #'   backup_position_identifiers = character()
 #' )
 #'
-#' hh <- renew(
-#'   hh,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "positions",
 #'   household_position = "Child",
 #'   position_identifier = "child",
@@ -1052,21 +1063,21 @@ setValidity(
 #' Example:
 #'
 #' \preformatted{
-#' hh <- ReplicaStructure(
+#' STRUCTURE <- ReplicaStructure(
 #'   "Family"
 #' )
 #'
-#' hh <- renew(
+#' STRUCTURE <- renew(
 #'   what = "positions",
-#'   hh,
+#'   STRUCTURE,
 #'   household_position = "Parent",
 #'   position_identifier = "adult",
 #'   amount = 2,
 #'   backup_position_identifiers = character()
 #' )
 #'
-#' hh <- renew(
-#'   hh,
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
 #'   what = "positions",
 #'   household_position = "Child",
 #'   position_identifier = "child",
@@ -1081,7 +1092,7 @@ setValidity(
 #' @examples
 #' \dontrun{
 #'
-#' hh <- ReplicaStructure(
+#' STRUCTURE <- ReplicaStructure(
 #'   household_type = "Family",
 #'   couple_gender_distribution = c(
 #'     "Male|Female" = 1

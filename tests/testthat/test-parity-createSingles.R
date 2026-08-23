@@ -36,12 +36,12 @@ test_that(
       
     )
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "SingleAdultHousehold"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position =
         "SingleAdult",
@@ -52,30 +52,30 @@ test_that(
         character()
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "state",
       population = pop,
       position_column = "household_position"
     )
     
-    hh@assigned_agents <- character()
+    STRUCTURE@assigned_agents <- character()
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
       )
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       result,
       "object"
     )
     
     expect_same_assigned_agents(
-      updated_hh@assigned_agents,
+      updated_STRUCTURE@assigned_agents,
       py$sampled_agents
     )
     

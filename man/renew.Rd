@@ -9,9 +9,15 @@
 \alias{renew}
 \title{Renew Replica Modules}
 \usage{
-\S4method{renew}{ReplicaAdder}(x, margins, margins_names, ...)
+\S4method{renew}{ReplicaAdder}(
+  x,
+  margins = list(),
+  margins_names = list(),
+  what = c("slot", "margins"),
+  ...
+)
 
-\S4method{renew}{ReplicaGrouper}(x, household_type, ...)
+\S4method{renew}{ReplicaGrouper}(x, structure = NULL, what = c("slot", "structure"), ...)
 
 \S4method{renew}{ReplicaStructure}(
   x,
@@ -30,12 +36,8 @@
 
 \item{margins}{A list of marginal distributions.}
 
-\item{margins_names}{A list of names corresponding to the}
-
-\item{...}{Additional arguments}
-
-\item{household_type}{A \code{ReplicaStructure}
-object to be registered.}
+\item{margins_names}{A list containing names
+corresponding to supplied marginal distributions.}
 
 \item{what}{Character string specifying which component
 of the structure should be updated.
@@ -47,6 +49,12 @@ Options include:
 \item \code{"state"}
 \item \code{"households"}
 }}
+
+\item{...}{Additional arguments}
+
+\item{structure}{A \code{ReplicaStructure}
+object to be registered when
+\code{what = "structure"}.}
 
 \item{household_position}{Household position category.}
 
@@ -109,8 +117,32 @@ populations; and
 \section{ReplicaAdder Method}{
 
 
-Updates a \code{ReplicaAdder} by adding or replacing
-marginal distributions.
+Updates a \code{ReplicaAdder}.
+
+By default, \code{renew()} updates one or more slots of a
+\code{ReplicaAdder} using named arguments supplied via
+\code{...}.
+
+For example:
+
+\preformatted{
+adder <- renew(
+  adder,
+  population = population
+)
+}
+
+Slot names must correspond to slots defined for the
+\code{ReplicaAdder} class.
+
+Alternatively, setting:
+
+\preformatted{
+what = "margins"
+}
+
+updates the marginal distributions used during attribute
+assignment.
 
 Marginal distributions provide additional information
 about known population totals and can be used alongside
@@ -123,12 +155,36 @@ when margins are modified.
 \section{ReplicaGrouper Method}{
 
 
-Registers a \code{ReplicaStructure} with a
-\code{ReplicaGrouper}.
+Updates a \code{ReplicaGrouper}.
+
+By default, \code{renew()} updates one or more slots of a
+\code{ReplicaGrouper} using named arguments supplied via
+\code{...}.
+
+For example:
+
+\preformatted{
+grouper <- renew(
+  grouper,
+  population = population,
+  what = "structure"
+)
+}
+
+Slot names must correspond to slots defined for the
+\code{ReplicaGrouper} class.
+
+Alternatively, setting:
+
+\preformatted{
+what = "structure"
+}
+
+registers a \code{ReplicaStructure} with the grouper.
 
 Registered structures are subsequently used during
 household generation when \code{manufacture()} is
-called on the grouper.
+called.
 }
 
 \section{ReplicaStructure Method}{
@@ -172,33 +228,64 @@ synthetic population stored by the structure.
 \examples{
 \dontrun{
 
-grouper <- renew(
-  grouper,
-  household_type = structure
+## Update a slot
+
+adder <- renew(
+  adder,
+  population = population
+)
+
+## Update margins
+
+adder <- renew(
+  adder,
+  what = "margins",
+  margins = margins,
+  margins_names = margins_names
 )
 
 }
 
 \dontrun{
 
-structure <- renew(
-  structure,
+## Update a slot
+
+grouper <- renew(
+  grouper,
+  population = population
+  what = "structure"
+)
+
+## Register a household type
+
+grouper <- renew(
+  grouper,
+  what = "structure",
+  structure = structure
+)
+
+}
+
+\dontrun{
+
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "Parent",
   position_identifier = "adult",
   amount = 2
 )
 
-structure <- renew(
-  structure,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "state",
   population = population,
   position_column =
     "household_position"
 )
 
-structure <- renew(
-  structure,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "households"
 )
 

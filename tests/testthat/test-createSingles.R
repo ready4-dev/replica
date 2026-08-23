@@ -29,12 +29,12 @@ pop <- data.table(
   
 )
 
-hh <- ReplicaStructure(
+STRUCTURE <- ReplicaStructure(
   "SingleAdultHousehold"
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "positions",
   household_position = "SingleAdult",
   position_identifier = "adult",
@@ -42,20 +42,20 @@ hh <- renew(
   backup_position_identifiers = character()
 )
 
-hh <- renew(
-  hh,
+STRUCTURE <- renew(
+  STRUCTURE,
   what = "state",
   population = pop,
   position_column = "household_position"
 )
 
-hh@assigned_agents <- character()
+STRUCTURE@assigned_agents <- character()
 test_that(
   "createSingles creates expected number of households",
   {
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
@@ -74,20 +74,20 @@ test_that(
   {
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
       )
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       result,
       "object"
     )
     
     expect_s4_class(
-      updated_hh,
+      updated_STRUCTURE,
       "ReplicaStructure"
     )
     
@@ -98,14 +98,14 @@ test_that(
   {
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
       )
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       result,
       "object"
     )
@@ -114,7 +114,7 @@ test_that(
       
       setequal(
         
-        updated_hh@assigned_agents,
+        updated_STRUCTURE@assigned_agents,
         
         pop$agent_id
         
@@ -129,14 +129,14 @@ test_that(
   {
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
       )
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       result,
       "object"
     )
@@ -144,13 +144,13 @@ test_that(
     expect_equal(
       
       length(
-        updated_hh@assigned_agents
+        updated_STRUCTURE@assigned_agents
       ),
       
       length(
         
         unique(
-          updated_hh@assigned_agents
+          updated_STRUCTURE@assigned_agents
         )
         
       )
@@ -164,20 +164,20 @@ test_that(
   {
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
       )
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       result,
       "object"
     )
     
     remaining <- getRemainingAgentsInPosition(
-      updated_hh,
+      updated_STRUCTURE,
       "SingleAdult"
     )
     
@@ -193,7 +193,7 @@ test_that(
   {
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
@@ -218,14 +218,14 @@ test_that(
   {
     
     result <- createSingles(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
       )
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       result,
       "object"
     )
@@ -234,7 +234,7 @@ test_that(
       
       setequal(
         
-        updated_hh@assigned_agents,
+        updated_STRUCTURE@assigned_agents,
         
         pop$agent_id
         
@@ -245,7 +245,7 @@ test_that(
     expect_equal(
       
       length(
-        updated_hh@assigned_agents
+        updated_STRUCTURE@assigned_agents
       ),
       
       3
@@ -256,7 +256,7 @@ test_that(
       
       length(
         unique(
-          updated_hh@assigned_agents
+          updated_STRUCTURE@assigned_agents
         )
       ),
       

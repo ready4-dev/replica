@@ -81,7 +81,7 @@ Household records are created using
 \dontrun{
 
 result <- matchAdultsWithChildren(
-  object = hh,
+  object = STRUCTURE,
   parents = parents,
   children = children,
   id_offset = 1

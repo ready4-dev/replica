@@ -5,10 +5,10 @@ test_that(
   "pair_partners creates expected number of couples",
   {
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
@@ -25,10 +25,10 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
@@ -48,22 +48,22 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       couples,
       "object"
     )
     
     expect_true(
       setequal(
-        updated_hh@assigned_agents,
-        hh@population$agent_id
+        updated_STRUCTURE@assigned_agents,
+        STRUCTURE@population$agent_id
       )
     )
     
@@ -75,14 +75,14 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       couples,
       "object"
     )
@@ -90,12 +90,12 @@ test_that(
     expect_equal(
       
       length(
-        updated_hh@assigned_agents
+        updated_STRUCTURE@assigned_agents
       ),
       
       length(
         unique(
-          updated_hh@assigned_agents
+          updated_STRUCTURE@assigned_agents
         )
       )
       
@@ -110,10 +110,10 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
@@ -137,10 +137,10 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
@@ -164,21 +164,21 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       couples,
       "object"
     )
     
     remaining <-
       getRemainingAgentsInPosition(
-        updated_hh,
+        updated_STRUCTURE,
         "Parent"
       )
     
@@ -195,10 +195,10 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
@@ -219,21 +219,21 @@ test_that(
   {
     
     pop <- make_household_population()
-    hh <- make_couple_household(pop)
+    STRUCTURE <- make_couple_household(pop)
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(TRUE, 4)
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       couples,
       "object"
     )
     
     expect_equal(
       length(
-        updated_hh@assigned_agents
+        updated_STRUCTURE@assigned_agents
       ),
       4
     )
@@ -241,7 +241,7 @@ test_that(
     expect_equal(
       length(
         unique(
-          updated_hh@assigned_agents
+          updated_STRUCTURE@assigned_agents
         )
       ),
       4
@@ -249,8 +249,8 @@ test_that(
     
     expect_true(
       setequal(
-        updated_hh@assigned_agents,
-        hh@population$agent_id
+        updated_STRUCTURE@assigned_agents,
+        STRUCTURE@population$agent_id
       )
     )
     
@@ -263,7 +263,7 @@ test_that(
     
     pop <- make_household_population()
 
-    hh <- make_couple_household(
+    STRUCTURE <- make_couple_household(
       pop,
       gender_distribution =
         c(
@@ -271,16 +271,17 @@ test_that(
         )
     )
     
-    hg <- ReplicaGrouper(
+    GROUPER <- ReplicaGrouper(
       population = pop,
       group_by = "neighb_code"
     )
     
-    hg <- renew(
-      hg,
-      hh
+    GROUPER <- renew(
+      GROUPER,
+      STRUCTURE,
+      what = "structure"
     )
-    result <- manufacture(hg)
+    result <- manufacture(GROUPER)
     
     expect_false(
       any(
@@ -291,7 +292,7 @@ test_that(
     )
     
     expect_true(
-      ratify(result$x@household_types[[1]], output = "logical")
+      ratify(result$x@structures[[1]], output = "logical")
     )
     
   }
@@ -324,12 +325,12 @@ test_that(
       
     )
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleHousehold"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -337,30 +338,30 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "state",
       population = pop,
       position_column = "household_position"
     )
     
-    hh@couple_gender_distribution <- c(
+    STRUCTURE@couple_gender_distribution <- c(
       "Female|Male" = 1
     )
     
-    hh@couple_age_distribution <- c(
+    STRUCTURE@couple_age_distribution <- c(
       "-5-5" = 1
     )
     
     couples <- replica:::pair_partners(
-      hh,
+      STRUCTURE,
       rep(
         TRUE,
         nrow(pop)
       )
     )
     
-    updated_hh <- attr(
+    updated_STRUCTURE <- attr(
       couples,
       "object"
     )
@@ -381,13 +382,13 @@ test_that(
     
     expect_equal(
       length(
-        updated_hh@assigned_agents
+        updated_STRUCTURE@assigned_agents
       ),
       0
     )
     
     expect_equal(
-      updated_hh@assigned_agents,
+      updated_STRUCTURE@assigned_agents,
       character()
     )
     

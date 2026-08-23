@@ -5,13 +5,13 @@ test_that(
   "valid ReplicaStructure passes validation",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "Family"
     )
     
     expect_true(
       validObject(
-        hh,
+        STRUCTURE,
         test = TRUE
       )
     )
@@ -97,14 +97,14 @@ test_that(
       
     )
     
-    hg <- ReplicaGrouper(
+    GROUPER <- ReplicaGrouper(
       population = pop,
       group_by = "neighb_code"
     )
     
     expect_true(
       validObject(
-        hg,
+        GROUPER,
         test = TRUE
       )
     )
@@ -291,13 +291,13 @@ test_that(
       
     )
     
-    hg <- ReplicaGrouper(
+    GROUPER <- ReplicaGrouper(
       population = pop,
       group_by = "neighb_code"
     )
     
     expect_error(
-      manufacture(hg)
+      manufacture(GROUPER)
     )
     
   }

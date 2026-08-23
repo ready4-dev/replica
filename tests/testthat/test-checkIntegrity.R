@@ -5,12 +5,12 @@ test_that(
   "ratify returns TRUE for valid households",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -18,7 +18,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -32,10 +32,10 @@ test_that(
       
     )
     
-    hh@position_column <-
+    STRUCTURE@position_column <-
       "household_position"
     
-    hh@households <- list(
+    STRUCTURE@households <- list(
       
       SSH000001 = list(
         all = c(
@@ -47,7 +47,7 @@ test_that(
     )
     
     expect_true(
-      ratify(hh, output = "logical")
+      ratify(STRUCTURE, output = "logical")
     )
     
   }
@@ -56,12 +56,12 @@ test_that(
   "ratify detects duplicate agents",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -69,7 +69,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -85,10 +85,10 @@ test_that(
       
     )
     
-    hh@position_column <-
+    STRUCTURE@position_column <-
       "household_position"
     
-    hh@households <- list(
+    STRUCTURE@households <- list(
       
       SSH000001 = list(
         all = c(
@@ -107,7 +107,7 @@ test_that(
     )
     
     expect_error(
-      ratify(hh, output = "logical")
+      ratify(STRUCTURE, output = "logical")
     )
     
   }
@@ -116,12 +116,12 @@ test_that(
   "ratify detects missing agents",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -129,7 +129,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -145,10 +145,10 @@ test_that(
       
     )
     
-    hh@position_column <-
+    STRUCTURE@position_column <-
       "household_position"
     
-    hh@households <- list(
+    STRUCTURE@households <- list(
       
       SSH000001 = list(
         all = c(
@@ -160,7 +160,7 @@ test_that(
     )
     
     expect_warning(
-      result <- ratify(hh, output = "logical")
+      result <- ratify(STRUCTURE, output = "logical")
     )
     
     expect_false(result)
@@ -171,12 +171,12 @@ test_that(
   "ratify handles empty household list",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -184,7 +184,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -198,13 +198,13 @@ test_that(
       
     )
     
-    hh@position_column <-
+    STRUCTURE@position_column <-
       "household_position"
     
-    hh@households <- list()
+    STRUCTURE@households <- list()
     
     expect_warning(
-      result <- ratify(hh, output = "logical")
+      result <- ratify(STRUCTURE, output = "logical")
     )
     
     expect_false(result)
@@ -215,12 +215,12 @@ test_that(
   "all expected agents appear exactly once",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -228,7 +228,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -242,7 +242,7 @@ test_that(
       
     )
     
-    hh@position_column <-
+    STRUCTURE@position_column <-
       "household_position"
     
     #
@@ -250,12 +250,12 @@ test_that(
     #
     
     adult_position <- replica:::getPositionForName(
-      hh,
+      STRUCTURE,
       "adult"
     )
     
-    hh <- create_household_with_id(
-      hh,
+    STRUCTURE <- create_household_with_id(
+      STRUCTURE,
       adult_position,
       1,
       c(
@@ -269,7 +269,7 @@ test_that(
     #
     
     all_agents <- getAllAgents(
-      hh
+      STRUCTURE
     )
     
     expect_equal(
@@ -299,7 +299,7 @@ test_that(
     #
     
     expect_true(
-      ratify(hh, output = "logical")
+      ratify(STRUCTURE, output = "logical")
     )
     
   }
@@ -308,12 +308,12 @@ test_that(
   "valid household assignments pass integrity check",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -321,7 +321,7 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -335,16 +335,16 @@ test_that(
       
     )
     
-    hh@position_column <-
+    STRUCTURE@position_column <-
       "household_position"
     
     adult_position <- replica:::getPositionForName(
-      hh,
+      STRUCTURE,
       "adult"
     )
     
-    hh <- create_household_with_id(
-      hh,
+    STRUCTURE <- create_household_with_id(
+      STRUCTURE,
       adult_position,
       1,
       c(
@@ -353,7 +353,7 @@ test_that(
       )
     )
     
-    all_agents <- getAllAgents(hh)
+    all_agents <- getAllAgents(STRUCTURE)
     
     expect_equal(
       length(all_agents),
@@ -376,7 +376,7 @@ test_that(
     )
     
     expect_true(
-      ratify(hh, output = "logical")
+      ratify(STRUCTURE, output = "logical")
     )
     
   }

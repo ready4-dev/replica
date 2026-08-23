@@ -127,7 +127,7 @@ extract_household_type_distribution <- function(
 #' \dontrun{
 #'
 #' candidates <- findCoupleCandidates(
-#'   object = hh,
+#'   object = STRUCTURE,
 #'   mask = rep(
 #'     TRUE,
 #'     nrow(pop)
@@ -268,7 +268,7 @@ findCoupleCandidates <- function(
 #' \dontrun{
 #' replacement <-
 #'   findOppositeGenderReplacementForCandidate(
-#'     hh,
+#'     STRUCTURE,
 #'     wrong_candidate,
 #'     mask,
 #'     "SingleAdult"
@@ -425,7 +425,7 @@ findOppositeGenderReplacementForCandidate <- function(
 #' \dontrun{
 #'
 #' candidate <- findPrimaryPartner(
-#'   hh,
+#'   STRUCTURE,
 #'   mask = rep(
 #'     TRUE,
 #'     nrow(pop)
@@ -567,7 +567,7 @@ findPrimaryPartner <- function(
 #' \dontrun{
 #'
 #' secondary_partner <- findSecondaryPartner(
-#'   object = hh,
+#'   object = STRUCTURE,
 #'   mask = rep(
 #'     TRUE,
 #'     nrow(pop)
@@ -1072,7 +1072,7 @@ get_margin_series_from_synthetic_population <- function(
 #' \dontrun{
 #'
 #' candidates <- getRemainingAgentsInPosition(
-#'   hh,
+#'   STRUCTURE,
 #'   "Parent"
 #' )
 #'
@@ -1084,7 +1084,7 @@ get_margin_series_from_synthetic_population <- function(
 #' \dontrun{
 #'
 #' candidates <- getRemainingAgentsInPosition(
-#'   hh,
+#'   STRUCTURE,
 #'   c(
 #'     "Parent",
 #'     "SingleAdult"
@@ -1097,7 +1097,7 @@ get_margin_series_from_synthetic_population <- function(
 #' \dontrun{
 #'
 #' candidates <- getRemainingAgentsInPosition(
-#'   hh,
+#'   STRUCTURE,
 #'   "Parent",
 #'   mask = age > 30
 #' )

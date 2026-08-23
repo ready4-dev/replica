@@ -5,12 +5,12 @@ test_that(
   "manufacture produces correct output",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -37,20 +37,20 @@ test_that(
       
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "state",
       population = pop,
       position_column = "household_position"
     )
     
     adult_position <- replica:::getPositionForName(
-      hh,
+      STRUCTURE,
       "adult"
     )
     
-    hh <- create_household_with_id(
-      hh,
+    STRUCTURE <- create_household_with_id(
+      STRUCTURE,
       adult_position,
       1,
       c(
@@ -59,8 +59,8 @@ test_that(
       )
     )
     
-    hh <- create_household_with_id(
-      hh,
+    STRUCTURE <- create_household_with_id(
+      STRUCTURE,
       adult_position,
       2,
       c(
@@ -70,7 +70,7 @@ test_that(
     )
     
     households <- manufacture(
-      hh
+      STRUCTURE
     )
     
     expect_equal(
@@ -131,11 +131,11 @@ test_that(
   "household sizes reflect membership counts",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "MixedHouseholds"
     )
     
-    hh@households <- list(
+    STRUCTURE@households <- list(
       
       SSH000001 = list(
         all = c(
@@ -161,7 +161,7 @@ test_that(
       
     )
     
-    hh@population <- data.table(
+    STRUCTURE@population <- data.table(
       
       agent_id = c(
         "A001",
@@ -186,11 +186,11 @@ test_that(
     )
     
     households <- manufacture(
-      hh
+      STRUCTURE
     )
     
     expected_sizes <- sapply(
-      hh@households,
+      STRUCTURE@households,
       function(x)
         length(x$all)
     )
@@ -202,7 +202,7 @@ test_that(
     
     expect_equal(
       nrow(households),
-      length(hh@households)
+      length(STRUCTURE@households)
     )
     
     expect_true(
@@ -215,14 +215,14 @@ test_that(
   "empty household list handled correctly",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh@households <- list()
+    STRUCTURE@households <- list()
     
     households <- manufacture(
-      hh
+      STRUCTURE
     )
     
     expect_equal(
@@ -248,16 +248,16 @@ test_that(
 test_that(
   "household_size matches stored household membership",
   {
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
     households <- manufacture(
-      hh
+      STRUCTURE
     )
     
     expected_sizes <- sapply(
-      hh@households,
+      STRUCTURE@households,
       function(x)
         length(x$all)
     )

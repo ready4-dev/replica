@@ -37,8 +37,8 @@ Both agents must belong to the same neighbourhood.
 }
 \examples{
 \dontrun{
-hh <- switchHouseholdPositions(
-  hh,
+STRUCTURE <- switchHouseholdPositions(
+  STRUCTURE,
   "A001",
   "A002"
 )

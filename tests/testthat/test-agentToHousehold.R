@@ -2,12 +2,12 @@ test_that(
   "renew assigns household IDs",
   {
     
-    hh <- ReplicaStructure(
+    STRUCTURE <- ReplicaStructure(
       "CoupleOnly"
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "positions",
       household_position = "Parent",
       position_identifier = "adult",
@@ -36,8 +36,8 @@ test_that(
       
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "state",
       population = pop,
       position_column = "household_position"
@@ -45,12 +45,12 @@ test_that(
     
     adult_position <-
       replica:::getPositionForName(
-        hh,
+        STRUCTURE,
         "adult"
       )
     
-    hh <- create_household_with_id(
-      hh,
+    STRUCTURE <- create_household_with_id(
+      STRUCTURE,
       adult_position,
       1,
       c(
@@ -59,8 +59,8 @@ test_that(
       )
     )
     
-    hh <- create_household_with_id(
-      hh,
+    STRUCTURE <- create_household_with_id(
+      STRUCTURE,
       adult_position,
       2,
       c(
@@ -69,8 +69,8 @@ test_that(
       )
     )
     
-    hh <- renew(
-      hh,
+    STRUCTURE <- renew(
+      STRUCTURE,
       what = "households"
     )
     
@@ -78,7 +78,7 @@ test_that(
       
       any(
         is.na(
-          hh@population$
+          STRUCTURE@population$
             household_id
         )
       )
@@ -89,7 +89,7 @@ test_that(
       
       length(
         unique(
-          hh@population$
+          STRUCTURE@population$
             household_id
         )
       ),

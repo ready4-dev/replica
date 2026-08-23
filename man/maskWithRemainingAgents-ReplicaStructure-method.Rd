@@ -41,9 +41,9 @@ routines throughout replica.
 \examples{
 \dontrun{
 remaining <- maskWithRemainingAgents(
-  hh,
-  hh@population,
-  rep(TRUE, nrow(hh@population))
+  STRUCTURE,
+  STRUCTURE@population,
+  rep(TRUE, nrow(STRUCTURE@population))
 )
 }
 
