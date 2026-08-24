@@ -84,7 +84,9 @@ exploratory purposes.</strong></p>
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
 <p>Generating a synthetic population is only part of the
-population-synthesis workflow.</p>
+population-synthesis workflow. It is equally important to assess whether
+generated populations reproduce the distributions used during their
+construction.</p>
 <p>It is equally important to assess whether the resulting population
 adequately reproduces the demographic distributions used during
 construction.</p>
@@ -107,23 +109,23 @@ construction.</p>
 <h2 id="workflow-overview">Workflow overview<a class="anchor" aria-label="anchor" href="#workflow-overview"></a>
 </h2>
 <p>This vignette focuses on the final stage of the replica workflow.</p>
-<p>Aggregate Counts</p>
-<p>         ↓</p>
-<p><code><a href="../reference/make_agents.html">make_agents()</a></code></p>
-<p>         ↓</p>
-<p>Synthetic Agents</p>
-<p>         ↓</p>
-<p><code>ReplicaAdder</code></p>
-<p>         ↓</p>
-<p>Enriched Population</p>
-<p>         ↓</p>
-<p><code>ReplicaStructure</code></p>
-<p>         +</p>
-<p><code>ReplicaGrouper</code></p>
-<p>         ↓</p>
-<p>Synthetic Households</p>
-<p>         ↓</p>
-<p>Validation</p>
+<pre class="text"><code>Aggregate Counts
+↓
+`make_agents()`
+↓
+Synthetic Agents
+↓
+`ReplicaAdder`
+↓
+`enhance()`
+↓
+`ratify()`
+↓
+`depict()`
+↓
+Validated Synthetic Population</code></pre>
+<p>Validation diagnostics can be assessed numerically using
+<code><a href="../reference/procure.html">procure()</a></code> and visually using <code><a href="../reference/depict.html">depict()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="create-population-to-be-evaluated">Create population to be evaluated<a class="anchor" aria-label="anchor" href="#create-population-to-be-evaluated"></a>
@@ -139,110 +141,59 @@ vignettes.</p>
 <div class="section level3">
 <h3 id="generate-agents">Generate agents<a class="anchor" aria-label="anchor" href="#generate-agents"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
+<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"65+"</span>,</span>
-<span>    <span class="st">"65+"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">10</span>,</span>
-<span>    <span class="fl">10</span>,</span>
-<span>    <span class="fl">10</span>,</span>
-<span>    <span class="fl">10</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
-<span>  <span class="va">age_gender</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="supply-reference-contingency-table">Supply reference contingency table<a class="anchor" aria-label="anchor" href="#supply-reference-contingency-table"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">education_contingency</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span></span>
-<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"65+"</span>,   <span class="st">"65+"</span>,</span>
-<span>    <span class="st">"65+"</span>,   <span class="st">"65+"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Male"</span>,   <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>, <span class="st">"Female"</span>,</span>
-<span>    <span class="st">"Male"</span>,   <span class="st">"Male"</span>,</span>
-<span>    <span class="st">"Female"</span>, <span class="st">"Female"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  education <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
-<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
-<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
-<span>    <span class="st">"Degree"</span>, <span class="st">"School"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span></span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">60</span>, <span class="fl">40</span>,</span>
-<span>    <span class="fl">55</span>, <span class="fl">45</span>,</span>
-<span>    <span class="fl">30</span>, <span class="fl">70</span>,</span>
-<span>    <span class="fl">25</span>, <span class="fl">75</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
+<span>                <span class="st">"65+"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
+<span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>,</span>
+<span>             <span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
+<span>  education <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Degree"</span>, <span class="st">"School"</span>, <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
+<span>                <span class="st">"Degree"</span>, <span class="st">"School"</span>, <span class="st">"Degree"</span>, <span class="st">"School"</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">45</span>,</span>
+<span>            <span class="fl">30</span>, <span class="fl">70</span>, <span class="fl">25</span>, <span class="fl">75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="enrich-population-with-additional-attribute">Enrich population with additional attribute<a class="anchor" aria-label="anchor" href="#enrich-population-with-additional-attribute"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span></span>
-<span></span>
-<span>  population <span class="op">=</span> <span class="va">population</span>,</span>
-<span></span>
-<span>  contingency_table <span class="op">=</span> <span class="va">education_contingency</span>,</span>
-<span></span>
-<span>  target_attribute <span class="op">=</span> <span class="st">"education"</span>,</span>
-<span></span>
-<span>  group_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"age_group"</span>,</span>
-<span>    <span class="st">"gender"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/enhance.html">enhance</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span>population <span class="op">=</span> <span class="va">population</span>,</span>
+<span>                      contingency_table <span class="op">=</span> <span class="va">education_contingency</span>,</span>
+<span>                      target_attribute <span class="op">=</span> <span class="st">"education"</span>,</span>
+<span>                      group_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/enhance.html">enhance</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span>
+<span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ratify.html">ratify</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="inspect-validation-results">Inspect validation results<a class="anchor" aria-label="anchor" href="#inspect-validation-results"></a>
 </h2>
-<p>Validation is automatically performed during attribute
-assignment.</p>
-<p>We can access the validation results using the procure method. For
-example, to see validation topics:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Validation diagnostics are generated using <code><a href="../reference/ratify.html">ratify()</a></code> and
+stored within the <code>ReplicaAdder</code>.</p>
+<p>These diagnostics can be inspected directly using
+<code><a href="../reference/procure.html">procure()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">validation_results_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">validation_results_ls</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "name"               "z_square"           "p_value"           </span></span>
 <span><span class="co">## [4] "degrees_of_freedom" "critical_value"     "warning_required"  </span></span>
 <span><span class="co">## [7] "details"</span></span></code></pre>
 <p>A subset of the summary statistics can be inspected directly.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_square"</span>,<span class="st">"p_value"</span>, </span>
-<span>                           <span class="st">"warning_required"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">validation_results_ls</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_square"</span>,</span>
+<span>                        <span class="st">"p_value"</span>, </span>
+<span>                        <span class="st">"warning_required"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $z_square</span></span>
 <span><span class="co">## [1] 2.155412</span></span>
 <span><span class="co">## </span></span>
@@ -253,6 +204,18 @@ example, to see validation topics:</p>
 <span><span class="co">## [1] FALSE</span></span></code></pre>
 <p>These values provide a high-level assessment of the match between the
 observed synthetic population and the target contingency table.</p>
+</div>
+<div class="section level2">
+<h2 id="validation-workflow-overview">Validation workflow overview<a class="anchor" aria-label="anchor" href="#validation-workflow-overview"></a>
+</h2>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Not run</span></span>
+<span><span class="co">## Generate diagnostics</span></span>
+<span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ratify.html">ratify</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span>
+<span><span class="co">## Inspect diagnostics</span></span>
+<span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span></span>
+<span><span class="co">## Visualise diagnostics</span></span>
+<span><span class="fu"><a href="../reference/depict.html">depict</a></span><span class="op">(</span><span class="va">ADDER</span>, type <span class="op">=</span> <span class="st">"distribution"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="interpreting-summary-statistics">Interpreting summary statistics<a class="anchor" aria-label="anchor" href="#interpreting-summary-statistics"></a>
 </h3>
@@ -283,8 +246,9 @@ versus expected distributions and percentage-point differences.</p>
 the most useful indication of whether a synthetic population is
 sufficiently accurate for its intended purpose. Therefore, the most
 useful columns may be:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">$</span><span class="va">details</span><span class="op">[</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, </span>
+<span>        <span class="st">"validation_results"</span><span class="op">)</span><span class="op">$</span><span class="va">details</span><span class="op">[</span></span>
 <span>  ,</span>
 <span>  <span class="fu">.</span><span class="op">(</span></span>
 <span>    <span class="va">age_group</span>,</span>
@@ -322,27 +286,27 @@ reproducing the target distribution successfully.</p>
 </h3>
 <p>The simplest way to assess synthetic population quality is to compare
 observed and expected percentages directly.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/depict.html">depict</a></span><span class="op">(</span><span class="va">ADDER</span>, type <span class="op">=</span> <span class="st">"distribution"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="V_04_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700">
+<p><img src="V_04_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="700">
 This figure compares observed and expected percentages within each
 conditioning group.</p>
 <p>When fit is good, the observed and expected values should be
 similar.</p>
 <p>Percentage-point differences are often the most useful diagnostic for
 identifying population mismatches.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/depict.html">depict</a></span><span class="op">(</span><span class="va">ADDER</span>, type <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="V_04_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="700">
+<p><img src="V_04_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="700">
 This plot highlights demographic groups that differ most from the target
 distribution.</p>
 <p>Groups with the largest positive or negative values contribute most
 to mismatch between observed and expected distributions.</p>
 <p>For larger validation exercises, a heatmap provides a compact summary
 of fit quality.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/depict.html">depict</a></span><span class="op">(</span><span class="va">ADDER</span>, type <span class="op">=</span> <span class="st">"heatmap"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="V_04_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="V_04_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="700"></p>
 <p>Heatmaps become increasingly useful as the number of conditioning
 variables grows.</p>
 <p>Values close to zero indicate a close match between observed and
@@ -352,7 +316,7 @@ further investigation.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="potential-validation-elements">Potential validation elements<a class="anchor" aria-label="anchor" href="#potential-validation-elements"></a>
+<h2 id="validation-steps">Validation steps<a class="anchor" aria-label="anchor" href="#validation-steps"></a>
 </h2>
 <p>All of the following steps can be used to validate a synthetic
 population:</p>
@@ -370,7 +334,12 @@ important.</p></li>
 </h2>
 <p>In this vignette we:</p>
 <ul>
-<li><p>inspected automatically generated validation results;</p></li>
+<li><p>generated validation diagnostics using
+<code><a href="../reference/ratify.html">ratify()</a></code>;</p></li>
+<li><p>retrieved validation results using
+<code><a href="../reference/procure.html">procure()</a></code>;</p></li>
+<li><p>visualised validation diagnostics using
+<code><a href="../reference/depict.html">depict()</a></code>;</p></li>
 <li><p>compared observed and expected distributions;</p></li>
 <li><p>visualised validation performance;</p></li>
 <li><p>interpreted percentage-point differences;</p></li>

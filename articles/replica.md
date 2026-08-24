@@ -54,15 +54,21 @@ Synthetic Agents
        ↓
 `ReplicaAdder`
        ↓
+`enhance()`
+       ↓
 Enriched Population
+       ↓
+`ratify()`
+       ↓
+`depict()`
        ↓
 `ReplicaStructure`
        +
 `ReplicaGrouper`
        ↓
-Synthetic Households
+`manufacture()`
        ↓
-Validation
+Synthetic Households
 ```
 
 Each stage is described in a dedicated vignette.
@@ -150,6 +156,16 @@ source distributions used during construction.
 
 - validation visualisations.
 
+Validation is typically performed using
+[`ratify()`](https://ready4-dev.github.io/replica/reference/ratify.md)
+and reviewed using
+[`procure()`](https://ready4-dev.github.io/replica/reference/procure.md)
+and
+[`depict()`](https://ready4-dev.github.io/replica/reference/depict.md).
+
+These tools help assess whether assigned attributes reproduce the target
+distributions used during population generation.
+
 ## Vignettes
 
 The package documentation follows the complete synthetic population
@@ -185,9 +201,43 @@ Households](https://ready4-dev.github.io/replica/articles/V_03.md):
 Quality](https://ready4-dev.github.io/replica/articles/V_04.md):
 
 - introduces
+  [`ratify()`](https://ready4-dev.github.io/replica/reference/ratify.md),
+  [`procure()`](https://ready4-dev.github.io/replica/reference/procure.md)
+  and
   [`depict()`](https://ready4-dev.github.io/replica/reference/depict.md);
+  and
 
-- demonstrates how synthetic populations can be assessed and validated.
+- demonstrates how synthetic populations can be assessed, inspected and
+  visualised.
+
+## Core Workflow Methods
+
+`replica` follows a ready4-style workflow in which modules are
+configured, executed, inspected and evaluated using a small set of
+generic methods.
+
+Key methods include:
+
+- [`procure()`](https://ready4-dev.github.io/replica/reference/procure.md)
+  for retrieving module contents;
+
+- [`renew()`](https://ready4-dev.github.io/replica/reference/renew.md)
+  for updating module contents;
+
+- [`enhance()`](https://ready4-dev.github.io/replica/reference/enhance.md)
+  for assigning attributes;
+
+- [`ratify()`](https://ready4-dev.github.io/replica/reference/ratify.md)
+  for generating validation diagnostics;
+
+- [`depict()`](https://ready4-dev.github.io/replica/reference/depict.md)
+  for visualising validation results; and
+
+- [`manufacture()`](https://ready4-dev.github.io/replica/reference/manufacture.md)
+  for generating household outputs.
+
+This reinforces the package design you’ve just spent considerable effort
+implementing.
 
 ## Example Workflow
 
@@ -230,6 +280,34 @@ ADDER <- enhance(ADDER)
 population <- procure(ADDER, "population")
 ```
 
+### Validate Attribute Assignment
+
+``` r
+
+ADDER <- ratify(ADDER)
+```
+
+``` r
+
+validation_results_ls <- procure(ADDER, "validation_results")
+validation_results_ls[c("z_square","p_value", "warning_required")]
+#> $z_square
+#> [1] 2.155412
+#> 
+#> $p_value
+#> [1] 0.9758728
+#> 
+#> $warning_required
+#> [1] FALSE
+```
+
+``` r
+
+depict(ADDER, type = "difference")
+```
+
+![](replica_files/figure-html/unnamed-chunk-7-1.png)
+
 ### Generate Households
 
 ``` r
@@ -244,7 +322,7 @@ population[age_group == "18-64",
 population[age_group == "65+", 
            age := sample(65:95,.N, replace = TRUE)]
 
-STRUCTURE <- ReplicaStructure("CoupleHousehold")
+STRUCTURE <- ReplicaStructure(household_type = "CoupleHousehold")
 
 STRUCTURE <- renew(STRUCTURE,
                    what = "positions",
@@ -302,29 +380,6 @@ head(households$synthetic_households)
 #> 5    SSH000005          N1 CoupleHousehold              2
 #> 6    SSH000006          N1 CoupleHousehold              2
 ```
-
-### Validate Attribute Assignment
-
-``` r
-
-procure(ADDER, "validation_results")[c("z_square","p_value", 
-                           "warning_required")]
-#> $z_square
-#> [1] 2.155412
-#> 
-#> $p_value
-#> [1] 0.9758728
-#> 
-#> $warning_required
-#> [1] FALSE
-```
-
-``` r
-
-plot_validation_differences(procure(ADDER, "validation_results"))
-```
-
-![](replica_files/figure-html/unnamed-chunk-9-1.png)
 
 This workflow demonstrates the complete progression from aggregate
 demographic data to synthetic agents, enriched populations, synthetic
