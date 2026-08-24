@@ -57,7 +57,7 @@ when margins overlap with the target attribute.
 \dontrun{
 
 fractions <- getGroupFractions(
-  adder,
+  ADDER,
   contingency_group
 )
 

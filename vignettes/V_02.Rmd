@@ -138,7 +138,7 @@ For example:
 The assignment workflow is controlled using a `ReplicaAdder`.
 
 ```{r}
-adder <- ReplicaAdder(population = population,
+ADDER <- ReplicaAdder(population = population,
                       contingency_table = contingency_table,
                       target_attribute = "education",
                       group_by = c("age_group", "gender"))
@@ -161,7 +161,7 @@ Real-world contingency tables often do not contain every combination of characte
 `replica` supports several strategies for handling missing groups. The selected strategy is stored in the `missing_group_strategy` slot.
 
 ```{r}
-procure(adder, "missing_group_strategy")
+procure(ADDER, "missing_group_strategy")
 ```
 
 In the above example, the strategy is "borrow" (which is selected by default) that borrows information from nearby groups.
@@ -175,7 +175,7 @@ The synthetic agents can now be enriched with an education attribute.
 The assignment is performed using:
 
 ```{r}
-adder <- enhance(adder)
+ADDER <- enhance(ADDER)
 ```
 
 The workflow:
@@ -190,20 +190,18 @@ The workflow:
 
 - validates the resulting distribution.
 
-The updated synthetic population is stored in `adder@population` which can be accessed with `procure`.
-
 
 ## Inspect the enriched population
-The synthetic population now contains the assigned `education` attribute.
+The synthetic population now contains the assigned `education` attribute. We can access the updated synthetic population with the `procure` method.
 
 ```{r}
-head(procure(adder, "population"))
+head(procure(ADDER, "population"))
 ```
 
 We can examine the distribution of education values.
 
 ```{r}
-transform_to_contingency(procure(adder, "population"), 
+transform_to_contingency(procure(ADDER, "population"), 
                          columns = "education")
 ```
 
@@ -212,7 +210,7 @@ The population has been enriched while preserving the demographic relationships 
 We can also reconstruct the resulting contingency table:
 
 ```{r}
-transform_to_contingency(procure(adder, "population"),
+transform_to_contingency(procure(ADDER, "population"),
                          columns = c("age_group", "gender", "education"))
 ```
 

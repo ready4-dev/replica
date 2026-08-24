@@ -33,7 +33,7 @@ The contents of the requested slot.
 The contents of the requested slot.
 }
 \description{
-Retrieves components stored within a replica module.
+Retrieves information stored within a replica module.
 }
 \details{
 The behaviour of \code{procure()} depends on the class of the
@@ -47,14 +47,19 @@ Methods are currently available for:
 \item \code{ReplicaGrouper}
 }
 
-\code{procure()} provides convenient access to information
-stored within replica-module slots.
+\code{procure()} is the primary method used to retrieve
+information from replica modules.
 
-It is intended as a user-friendly alternative to direct
-slot access and helps support a consistent ready4-style
-workflow.
+Components are retrieved by supplying the name of a
+module slot.
 
-Components are retrieved by supplying a slot name.
+It provides a consistent alternative to direct slot
+access and supports a ready4-style workflow for working
+with replica modules.
+
+Together with \code{\link{renew}}, \code{procure()} forms the
+primary interface for accessing and updating
+replica-module contents.
 }
 \section{ReplicaAdder Method}{
 
@@ -92,8 +97,14 @@ Retrieves components stored within a
 
 
 For a \code{ReplicaGrouper}, \code{procure()} can be used
-to retrieve stored grouping information and synthetic
-population data.
+to retrieve:
+
+\itemize{
+\item synthetic populations;
+\item grouping definitions;
+\item registered structures; and
+\item household-generation settings.
+}
 }
 
 \section{ReplicaStructure Method}{
@@ -111,7 +122,7 @@ used to retrieve stored information on:
 \item household definitions;
 \item household positions;
 \item household assignments; and
-\item assignment state.
+\item household-generation state.
 }
 }
 
@@ -119,7 +130,7 @@ used to retrieve stored information on:
 \dontrun{
 
 procure(
-  adder,
+  ADDER,
   slot = "validation_results"
 )
 
@@ -128,7 +139,7 @@ procure(
 \dontrun{
 
 procure(
-  grouper,
+  GROUPER,
   slot = "population"
 )
 
@@ -146,17 +157,17 @@ procure(
 \dontrun{
 
 procure(
-  adder,
+  ADDER,
   slot = "validation_results"
 )
 
 procure(
-  structure,
+  STRUCTURE,
   slot = "households"
 )
 
 procure(
-  grouper,
+  GROUPER,
   slot = "population"
 )
 

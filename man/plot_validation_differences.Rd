@@ -20,7 +20,7 @@ between observed and expected distributions.
 \examples{
 \dontrun{
 plot_validation_differences(
-  adder@validation_results
+  procure(ADDER, "validation_results")
 )
 }
 

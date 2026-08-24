@@ -45,7 +45,7 @@ test_that(
   "target attribute added",
   {
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -55,9 +55,9 @@ test_that(
       )
     )
     
-    adder <- enhance(adder)
+    ADDER <- enhance(ADDER)
     
-    result <- adder@population
+    result <- ADDER@population
     
     expect_true(
       "education" %in% names(result)
@@ -69,7 +69,7 @@ test_that(
   "all agents receive target attribute",
   {
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -79,9 +79,9 @@ test_that(
       )
     )
     
-    adder <- enhance(adder)
+    ADDER <- enhance(ADDER)
     
-    result <- adder@population
+    result <- ADDER@population
     
     expect_false(
       any(
@@ -97,7 +97,7 @@ test_that(
   "population size preserved",
   {
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -107,10 +107,10 @@ test_that(
       )
     )
     
-    adder <- enhance(adder)
+    ADDER <- enhance(ADDER)
     
     expect_equal(
-      nrow(adder@population),
+      nrow(ADDER@population),
       nrow(population)
     )
     
@@ -120,7 +120,7 @@ test_that(
   "assigned values account for every agent",
   {
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -130,9 +130,9 @@ test_that(
       )
     )
     
-    adder <- enhance(adder)
+    ADDER <- enhance(ADDER)
     
-    result <- adder@population
+    result <- ADDER@population
     
     expect_equal(
       
@@ -386,7 +386,7 @@ test_that(
   "ReplicaAdder runs end to end",
   {
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -399,10 +399,10 @@ test_that(
     )
     
     expect_silent(
-      adder <- enhance(adder)
+      ADDER <- enhance(ADDER)
     )
     
-    result <- adder@population
+    result <- ADDER@population
     
     expect_equal(
       nrow(result),
@@ -435,7 +435,7 @@ test_that(
   "borrow strategy assigns values to missing groups",
   {
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -447,9 +447,9 @@ test_that(
         "borrow"
     )
     
-    adder <- enhance(adder)
+    ADDER <- enhance(ADDER)
     
-    result <- adder@population
+    result <- ADDER@population
     
     female_agents <- result[
       gender == "Female"

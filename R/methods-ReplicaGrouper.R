@@ -40,7 +40,7 @@
 #' \dontrun{
 #'
 #' result <- manufacture(
-#'   grouper
+#'   GROUPER
 #' )
 #'
 #' result$synthetic_population
@@ -216,7 +216,7 @@ setMethod(
 #' \dontrun{
 #'
 #' procure(
-#'   grouper,
+#'   GROUPER,
 #'   slot = "population"
 #' )
 #'
@@ -255,8 +255,8 @@ setMethod(
 #' For example:
 #'
 #' \preformatted{
-#' grouper <- renew(
-#'   grouper,
+#' GROUPER <- renew(
+#'   GROUPER,
 #'   population = population,
 #'   what = "structure"
 #' )
@@ -305,18 +305,18 @@ setMethod(
 #'
 #' ## Update a slot
 #'
-#' grouper <- renew(
-#'   grouper,
+#' GROUPER <- renew(
+#'   GROUPER,
 #'   population = population
 #'   what = "structure"
 #' )
 #'
 #' ## Register a household type
 #'
-#' grouper <- renew(
-#'   grouper,
+#' GROUPER <- renew(
+#'   GROUPER,
 #'   what = "structure",
-#'   structure = structure
+#'   structure = STRUCTURE
 #' )
 #'
 #' }

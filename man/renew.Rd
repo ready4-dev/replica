@@ -21,7 +21,7 @@
 
 \S4method{renew}{ReplicaStructure}(
   x,
-  what = c("positions", "state", "households"),
+  what = c("slot", "positions", "state", "households"),
   household_position = NULL,
   position_identifier = NULL,
   amount = NULL,
@@ -39,18 +39,22 @@
 \item{margins_names}{A list containing names
 corresponding to supplied marginal distributions.}
 
-\item{what}{Character string specifying which component
-of the structure should be updated.
+\item{what}{Character string specifying which update
+operation should be performed.
 
 Options include:
 
 \itemize{
+\item \code{"slot"}
 \item \code{"positions"}
 \item \code{"state"}
 \item \code{"households"}
 }}
 
-\item{...}{Additional arguments}
+\item{...}{Additional arguments.
+
+When \code{what = "slot"}, named arguments are interpreted
+as slot updates.}
 
 \item{structure}{A \code{ReplicaStructure}
 object to be registered when
@@ -70,9 +74,8 @@ position is unavailable.}
 \item{population}{Synthetic population used for
 household generation.}
 
-\item{position_column}{Character string
-identifying the column containing household-position
-information.}
+\item{position_column}{Character string identifying the
+column containing household-position information.}
 }
 \value{
 An updated \code{ReplicaAdder}.
@@ -82,7 +85,8 @@ An updated \code{ReplicaGrouper}.
 An updated \code{ReplicaStructure}.
 }
 \description{
-Updates the configuration or state of a replica module.
+Updates the configuration, contents or state of a replica
+module.
 }
 \details{
 The behaviour of \code{renew()} depends on the class of the
@@ -96,23 +100,44 @@ Methods are currently available for:
 \item \code{ReplicaGrouper}
 }
 
-\code{renew()} is the primary method used to update replica
+\code{renew()} is the primary method used to modify replica
 modules while preserving their underlying class and
 structure.
 
-Depending on the supplied module, \code{renew()} can:
+Depending on the supplied module and arguments,
+\code{renew()} can be used to:
 
 \itemize{
+\item update one or more module slots;
 \item add marginal distributions to a
 \code{ReplicaAdder};
-\item define household-member roles in a
+\item define household-member requirements in a
 \code{ReplicaStructure};
-\item update internal household-generation state;
+\item update household-generation state;
 \item transfer household assignments to synthetic
 populations; and
-\item register household structures with a
+\item register \code{ReplicaStructure} objects with a
 \code{ReplicaGrouper}.
 }
+
+Slot updates are performed by supplying named arguments
+corresponding to valid module slots.
+
+For example:
+
+\preformatted{
+x <- renew(
+  x,
+  population = population
+)
+}
+
+Additional class-specific operations are available via
+the \code{what} argument.
+
+Together with \code{\link{procure}}, \code{renew()} forms the
+primary interface for reading and updating replica-module
+contents.
 }
 \section{ReplicaAdder Method}{
 
@@ -126,8 +151,8 @@ By default, \code{renew()} updates one or more slots of a
 For example:
 
 \preformatted{
-adder <- renew(
-  adder,
+ADDER <- renew(
+  ADDER,
   population = population
 )
 }
@@ -164,8 +189,8 @@ By default, \code{renew()} updates one or more slots of a
 For example:
 
 \preformatted{
-grouper <- renew(
-  grouper,
+GROUPER <- renew(
+  GROUPER,
   population = population,
   what = "structure"
 )
@@ -200,6 +225,12 @@ Supported options are:
 
 \describe{
 
+\item{\code{"slot"}}{
+Update one or more slots of a
+\code{ReplicaStructure} using named arguments supplied via
+\code{...}.
+}
+
 \item{\code{"positions"}}{
 Define or update household-member requirements.
 
@@ -230,15 +261,15 @@ synthetic population stored by the structure.
 
 ## Update a slot
 
-adder <- renew(
-  adder,
+ADDER <- renew(
+  ADDER,
   population = population
 )
 
 ## Update margins
 
-adder <- renew(
-  adder,
+ADDER <- renew(
+  ADDER,
   what = "margins",
   margins = margins,
   margins_names = margins_names
@@ -250,23 +281,32 @@ adder <- renew(
 
 ## Update a slot
 
-grouper <- renew(
-  grouper,
+GROUPER <- renew(
+  GROUPER,
   population = population
   what = "structure"
 )
 
 ## Register a household type
 
-grouper <- renew(
-  grouper,
+GROUPER <- renew(
+  GROUPER,
   what = "structure",
-  structure = structure
+  structure = STRUCTURE
 )
 
 }
 
 \dontrun{
+
+## Update a slot
+
+STRUCTURE <- renew(
+  STRUCTURE,
+  population = population
+)
+
+## Update positions
 
 STRUCTURE <- renew(
   STRUCTURE,
@@ -276,6 +316,8 @@ STRUCTURE <- renew(
   amount = 2
 )
 
+## Update state
+
 STRUCTURE <- renew(
   STRUCTURE,
   what = "state",
@@ -284,6 +326,8 @@ STRUCTURE <- renew(
     "household_position"
 )
 
+## Update household assignments
+
 STRUCTURE <- renew(
   STRUCTURE,
   what = "households"
@@ -291,4 +335,10 @@ STRUCTURE <- renew(
 
 }
 
+}
+\seealso{
+\code{\link{procure}},
+\code{\link{enhance}},
+\code{\link{ratify}},
+\code{\link{manufacture}}
 }

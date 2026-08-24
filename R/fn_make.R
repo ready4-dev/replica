@@ -1174,14 +1174,12 @@ matchAdultsWithChildren <- function(
 #'   backup_position_identifiers = character()
 #' )
 #'
-#' STRUCTURE@couple_gender_distribution <- c(
-#'   "Male|Female" = 1
-#' )
-#'
-#' STRUCTURE@couple_age_distribution <- c(
-#'   "-5-5" = 1
-#' )
-#'
+#' STRUCTURE <- renew(STRUCTURE, 
+#' couple_gender_distribution = c("Female|Male" = 1))
+#' 
+#' STRUCTURE <- renew(STRUCTURE, 
+#' couple_age_distribution = c("-5-5" = 1))
+#' 
 #' couples <- pair_partners(
 #'   STRUCTURE,
 #'   rep(TRUE, nrow(pop))

@@ -101,8 +101,6 @@ Learn how to compare synthetic populations with reference data and assess popula
 Key functions:
 
 ```r
-validate_synthetic_population_fit()
-
 plot_validation_distributions()
 
 plot_validation_differences()

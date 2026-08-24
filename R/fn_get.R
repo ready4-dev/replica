@@ -777,7 +777,7 @@ findSiblingFromPool <- function(
 #' \dontrun{
 #'
 #' fractions <- getGroupFractions(
-#'   adder,
+#'   ADDER,
 #'   contingency_group
 #' )
 #'

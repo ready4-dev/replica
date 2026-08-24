@@ -42,16 +42,16 @@
 #' A typical workflow is:
 #'
 #' \preformatted{
-#' adder <- ReplicaAdder(...)
+#' ADDER <- ReplicaAdder(...)
 #'
-#' adder <- renew(
-#'   adder,
+#' ADDER <- renew(
+#'   ADDER,
 #'   margins = ...
 #' )
 #'
-#' adder <- enhance(adder)
+#' ADDER <- enhance(ADDER)
 #'
-#' adder <- ratify(adder)
+#' ADDER <- ratify(ADDER)
 #' }
 #'
 #' @section Inheritance:
@@ -136,7 +136,7 @@ setClass(
 #'   count = c(60, 40)
 #' )
 #' 
-#' adder <- ReplicaAdder(
+#' ADDER <- ReplicaAdder(
 #'   population = population,
 #'   contingency_table = contingency_table,
 #'   target_attribute = "education",
@@ -439,7 +439,7 @@ setValidity(
 #' @examples
 #' \dontrun{
 #'
-#' grouper <- ReplicaGrouper(
+#' GROUPER <- ReplicaGrouper(
 #'   population = pop,
 #'   group_by = "neighb_code"
 #' )
@@ -448,14 +448,14 @@ setValidity(
 #'   household_type = "CoupleWithChildren"
 #' )
 #'
-#' grouper <- renew(
-#'   grouper,
+#' GROUPER <- renew(
+#'   GROUPER,
 #'   STRUCTURE = STRUCTURE,
 #'   what = "structure"
 #' )
 #'
 #' result <- manufacture(
-#'   grouper
+#'   GROUPER
 #' )
 #'
 #' }
@@ -643,7 +643,7 @@ setValidity(
 #'   )
 #' )
 #'
-#' grouper <- ReplicaGrouper(
+#' GROUPER <- ReplicaGrouper(
 #'   population = pop,
 #'   group_by = "neighb_code"
 #' )

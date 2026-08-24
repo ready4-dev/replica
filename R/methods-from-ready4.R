@@ -76,7 +76,7 @@ NULL
 
 #' Procure Components of Replica Modules
 #'
-#' Retrieves components stored within a replica module.
+#' Retrieves information stored within a replica module.
 #'
 #' The behaviour of `procure()` depends on the class of the
 #' supplied object.
@@ -91,14 +91,19 @@ NULL
 #'
 #' @details
 #'
-#' `procure()` provides convenient access to information
-#' stored within replica-module slots.
+#' `procure()` is the primary method used to retrieve
+#' information from replica modules.
 #'
-#' It is intended as a user-friendly alternative to direct
-#' slot access and helps support a consistent ready4-style
-#' workflow.
+#' Components are retrieved by supplying the name of a
+#' module slot.
 #'
-#' Components are retrieved by supplying a slot name.
+#' It provides a consistent alternative to direct slot
+#' access and supports a ready4-style workflow for working
+#' with replica modules.
+#'
+#' Together with \code{\link{renew}}, `procure()` forms the
+#' primary interface for accessing and updating
+#' replica-module contents.
 #'
 #' @section ReplicaAdder Method:
 #'
@@ -121,14 +126,20 @@ NULL
 #'   \item household definitions;
 #'   \item household positions;
 #'   \item household assignments; and
-#'   \item assignment state.
+#'   \item household-generation state.
 #' }
 #'
 #' @section ReplicaGrouper Method:
 #'
 #' For a \code{ReplicaGrouper}, \code{procure()} can be used
-#' to retrieve stored grouping information and synthetic
-#' population data.
+#' to retrieve:
+#'
+#' \itemize{
+#'   \item synthetic populations;
+#'   \item grouping definitions;
+#'   \item registered structures; and
+#'   \item household-generation settings.
+#' }
 #'
 #' @param x A replica module.
 #'
@@ -143,17 +154,17 @@ NULL
 #' \dontrun{
 #'
 #' procure(
-#'   adder,
+#'   ADDER,
 #'   slot = "validation_results"
 #' )
 #'
 #' procure(
-#'   structure,
+#'   STRUCTURE,
 #'   slot = "households"
 #' )
 #'
 #' procure(
-#'   grouper,
+#'   GROUPER,
 #'   slot = "population"
 #' )
 #'
@@ -206,7 +217,7 @@ NULL
 #' Validation results are stored in:
 #'
 #' \preformatted{
-#' x@validation_results
+#' procure(ADDER, "validation_results")
 #' }
 #'
 #' and include:
@@ -281,13 +292,13 @@ NULL
 #'
 #' ## Validate a ReplicaAdder
 #'
-#' adder <- enhance(adder)
+#' ADDER <- enhance(ADDER)
 #'
-#' adder <- ratify(
-#'   adder
+#' ADDER <- ratify(
+#'   ADDER
 #' )
 #'
-#' adder@validation_results
+#' procure(ADDER, "validation_results")
 #'
 #' ## Validate a ReplicaStructure
 #'
@@ -315,7 +326,8 @@ NULL
 
 #' Renew Replica Modules
 #'
-#' Updates the configuration or state of a replica module.
+#' Updates the configuration, contents or state of a replica
+#' module.
 #'
 #' The behaviour of `renew()` depends on the class of the
 #' supplied object.
@@ -330,23 +342,50 @@ NULL
 #'
 #' @details
 #'
-#' `renew()` is the primary method used to update replica
+#' `renew()` is the primary method used to modify replica
 #' modules while preserving their underlying class and
 #' structure.
 #'
-#' Depending on the supplied module, `renew()` can:
+#' Depending on the supplied module and arguments,
+#' `renew()` can be used to:
 #'
 #' \itemize{
+#'   \item update one or more module slots;
 #'   \item add marginal distributions to a
 #'   \code{ReplicaAdder};
-#'   \item define household-member roles in a
+#'   \item define household-member requirements in a
 #'   \code{ReplicaStructure};
-#'   \item update internal household-generation state;
+#'   \item update household-generation state;
 #'   \item transfer household assignments to synthetic
 #'   populations; and
-#'   \item register household structures with a
+#'   \item register \code{ReplicaStructure} objects with a
 #'   \code{ReplicaGrouper}.
 #' }
+#'
+#' Slot updates are performed by supplying named arguments
+#' corresponding to valid module slots.
+#'
+#' For example:
+#'
+#' \preformatted{
+#' x <- renew(
+#'   x,
+#'   population = population
+#' )
+#' }
+#'
+#' Additional class-specific operations are available via
+#' the \code{what} argument.
+#'
+#' Together with \code{\link{procure}}, `renew()` forms the
+#' primary interface for reading and updating replica-module
+#' contents.
+#'
+#' @seealso
+#' \code{\link{procure}},
+#' \code{\link{enhance}},
+#' \code{\link{ratify}},
+#' \code{\link{manufacture}}
 #'
 #' @name renew
 NULL

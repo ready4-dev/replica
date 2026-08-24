@@ -85,7 +85,7 @@ generation.}
 \examples{
 \dontrun{
 
-grouper <- ReplicaGrouper(
+GROUPER <- ReplicaGrouper(
   population = pop,
   group_by = "neighb_code"
 )
@@ -94,14 +94,14 @@ STRUCTURE <- ReplicaStructure(
   household_type = "CoupleWithChildren"
 )
 
-grouper <- renew(
-  grouper,
+GROUPER <- renew(
+  GROUPER,
   STRUCTURE = STRUCTURE,
   what = "structure"
 )
 
 result <- manufacture(
-  grouper
+  GROUPER
 )
 
 }

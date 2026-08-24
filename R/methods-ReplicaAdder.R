@@ -31,12 +31,12 @@
 #' @examples
 #' \dontrun{
 #'
-#' adder <- enhance(
-#'   adder
+#' ADDER <- enhance(
+#'   ADDER
 #' )
 #'
 #' head(
-#'   adder@population
+#'   ADDER@population
 #' )
 #'
 #' }
@@ -220,7 +220,7 @@ setMethod(
 #' \dontrun{
 #'
 #' procure(
-#'   adder,
+#'   ADDER,
 #'   slot = "validation_results"
 #' )
 #'
@@ -281,15 +281,15 @@ setMethod(
 #' @examples
 #' \dontrun{
 #'
-#' adder <- enhance(
-#'   adder
+#' ADDER <- enhance(
+#'   ADDER
 #' )
 #'
-#' adder <- ratify(
-#'   adder
+#' ADDER <- ratify(
+#'   ADDER
 #' )
 #'
-#' adder@validation_results
+#' procure(ADDER, "validation_results")
 #'
 #' }
 #'
@@ -381,8 +381,8 @@ setMethod(
 #' For example:
 #'
 #' \preformatted{
-#' adder <- renew(
-#'   adder,
+#' ADDER <- renew(
+#'   ADDER,
 #'   population = population
 #' )
 #' }
@@ -435,15 +435,15 @@ setMethod(
 #'
 #' ## Update a slot
 #'
-#' adder <- renew(
-#'   adder,
+#' ADDER <- renew(
+#'   ADDER,
 #'   population = population
 #' )
 #'
 #' ## Update margins
 #'
-#' adder <- renew(
-#'   adder,
+#' ADDER <- renew(
+#'   ADDER,
 #'   what = "margins",
 #'   margins = margins,
 #'   margins_names = margins_names

@@ -73,12 +73,12 @@ x@population
 \examples{
 \dontrun{
 
-adder <- enhance(
-  adder
+ADDER <- enhance(
+  ADDER
 )
 
 head(
-  adder@population
+  ADDER@population
 )
 
 }

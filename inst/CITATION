@@ -15,10 +15,8 @@ bibentry(
   paste0(sprintf("Version %s", meta$Version),"."),
   paste0("https://doi.org/",
   "10.5281/zenodo.XXXXXXX"),
-  paste0("Note: This R library is currently mostly a port of an existing python library: ",
-  "https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python/tree/main",
-  ". The authors of the underlying algorithm this library aims to translate should be the primary attribution. ",
-  "See their work at: https://link.springer.com/article/10.1007/s10458-024-09680-7"
+  paste0("For the underlying algorithm implemented by replica, cite the authors of that work: ",
+  "https://link.springer.com/article/10.1007/s10458-024-09680-7"
   )
   )
 )

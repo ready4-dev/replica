@@ -252,7 +252,7 @@ test_that(
       
     )
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -266,7 +266,7 @@ test_that(
     
     expect_true(
       validObject(
-        adder,
+        ADDER,
         test = TRUE
       )
     )

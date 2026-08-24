@@ -102,7 +102,7 @@ validation and downstream analysis.
 \dontrun{
 
 result <- manufacture(
-  grouper
+  GROUPER
 )
 
 result$synthetic_population

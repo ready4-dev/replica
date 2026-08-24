@@ -21,7 +21,7 @@ conditioning groups.
 \examples{
 \dontrun{
 plot_validation_heatmap(
-  adder@validation_results
+  procure(ADDER, "validation_results")
 )
 }
 

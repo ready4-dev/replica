@@ -104,7 +104,7 @@ diagnostics within the module.
 Validation results are stored in:
 
 \preformatted{
-x@validation_results
+procure(ADDER, "validation_results")
 }
 
 and include:
@@ -153,15 +153,15 @@ The method can return either:
 \examples{
 \dontrun{
 
-adder <- enhance(
-  adder
+ADDER <- enhance(
+  ADDER
 )
 
-adder <- ratify(
-  adder
+ADDER <- ratify(
+  ADDER
 )
 
-adder@validation_results
+procure(ADDER, "validation_results")
 
 }
 
@@ -169,13 +169,13 @@ adder@validation_results
 
 ## Validate a ReplicaAdder
 
-adder <- enhance(adder)
+ADDER <- enhance(ADDER)
 
-adder <- ratify(
-  adder
+ADDER <- ratify(
+  ADDER
 )
 
-adder@validation_results
+procure(ADDER, "validation_results")
 
 ## Validate a ReplicaStructure
 

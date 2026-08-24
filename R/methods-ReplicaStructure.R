@@ -271,6 +271,12 @@ setMethod(
 #'
 #' \describe{
 #'
+#' \item{\code{"slot"}}{
+#' Update one or more slots of a
+#' \code{ReplicaStructure} using named arguments supplied via
+#' \code{...}.
+#' }
+#'
 #' \item{\code{"positions"}}{
 #' Define or update household-member requirements.
 #'
@@ -297,12 +303,13 @@ setMethod(
 #'
 #' @param x A \code{ReplicaStructure}.
 #'
-#' @param what Character string specifying which component
-#' of the structure should be updated.
+#' @param what Character string specifying which update
+#' operation should be performed.
 #'
 #' Options include:
 #'
 #' \itemize{
+#'   \item \code{"slot"}
 #'   \item \code{"positions"}
 #'   \item \code{"state"}
 #'   \item \code{"households"}
@@ -322,16 +329,27 @@ setMethod(
 #' @param population Synthetic population used for
 #' household generation.
 #'
-#' @param position_column Character string
-#' identifying the column containing household-position
-#' information.
-#' 
-#' @param ... Additional arguments
+#' @param position_column Character string identifying the
+#' column containing household-position information.
+#'
+#' @param ... Additional arguments.
+#'
+#' When \code{what = "slot"}, named arguments are interpreted
+#' as slot updates.
 #'
 #' @return An updated \code{ReplicaStructure}.
 #'
 #' @examples
 #' \dontrun{
+#'
+#' ## Update a slot
+#'
+#' STRUCTURE <- renew(
+#'   STRUCTURE,
+#'   population = population
+#' )
+#'
+#' ## Update positions
 #'
 #' STRUCTURE <- renew(
 #'   STRUCTURE,
@@ -341,6 +359,8 @@ setMethod(
 #'   amount = 2
 #' )
 #'
+#' ## Update state
+#'
 #' STRUCTURE <- renew(
 #'   STRUCTURE,
 #'   what = "state",
@@ -348,6 +368,8 @@ setMethod(
 #'   position_column =
 #'     "household_position"
 #' )
+#'
+#' ## Update household assignments
 #'
 #' STRUCTURE <- renew(
 #'   STRUCTURE,
@@ -363,6 +385,7 @@ setMethod(
   function(
     x,
     what = c(
+      "slot",
       "positions",
       "state",
       "households"
@@ -376,7 +399,25 @@ setMethod(
     position_column = NULL,
     ...
   ) {
+    
     what <- match.arg(what)
+    
+    dots <- list(...)
+    
+    if (what == "slot") {
+      
+      if (length(dots) == 0) {
+        stop("No slot updates supplied.")
+      }
+      
+      x <- update_slots(
+        x = x,
+        dots = dots
+      )
+      
+      return(x)
+      
+    }
     
     switch(
       
@@ -385,19 +426,26 @@ setMethod(
       positions = {
         
         pos <- list(
-          position_identifier = position_identifier,
+          position_identifier =
+            position_identifier,
           
           position =
             if (is.character(household_position))
               household_position
           else
-            as.character(household_position),
+            as.character(
+              household_position
+            ),
           
           amount = amount,
           
-          backup_position_identifiers = backup_position_identifiers)
+          backup_position_identifiers =
+            backup_position_identifiers
+        )
         
-        x@positions[[length(x@positions) + 1]] <- pos
+        x@positions[[
+          length(x@positions) + 1
+        ]] <- pos
         
         x@position_identifiers[[position_identifier]] <- length(x@positions)
         
@@ -449,7 +497,6 @@ setMethod(
       
     )
     
-
   }
 )
 
@@ -878,8 +925,8 @@ setMethod(
 #' \dontrun{
 #' remaining <- maskWithRemainingAgents(
 #'   STRUCTURE,
-#'   STRUCTURE@population,
-#'   rep(TRUE, nrow(STRUCTURE@population))
+#'   procure(ADDER, "population"),
+#'   rep(TRUE, nrow(procure(ADDER, "population")))
 #' )
 #' }
 #'

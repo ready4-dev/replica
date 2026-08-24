@@ -210,11 +210,11 @@ For example, household formation may depend on:
 
 These demographic relationships are controlled using matching distributions.
 
-For simplicity, this illustrative example will generate Female - Male pairs in which the age gap between partners is within 5 years. We can use `renewSlot` for this purpose.
+For simplicity, this illustrative example will generate Female - Male pairs in which the age gap between partners is within 5 years. We can use `renew` for this purpose.
 
 ```{r}
-STRUCTURE <- renewSlot(STRUCTURE, "couple_gender_distribution", c("Female|Male" = 1))
-STRUCTURE <- renewSlot(STRUCTURE, "couple_age_distribution", c("-5-5" = 1))
+STRUCTURE <- renew(STRUCTURE, couple_gender_distribution = c("Female|Male" = 1))
+STRUCTURE <- renew(STRUCTURE, couple_age_distribution = c("-5-5" = 1))
 ```
 
 The above age distribution indicates that permissible partner age gaps range from five years younger to five years older.
@@ -259,7 +259,8 @@ For example, a realistic population might contain:
 Household types are registered using renew().
 
 ```{r}
-GROUPER <- renew(GROUPER, STRUCTURE, what = "structure")
+GROUPER <- renew(GROUPER, what = "structure",
+                 structure = STRUCTURE)
 ```
 
 The grouper now knows how to generate couple households.

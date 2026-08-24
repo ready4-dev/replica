@@ -51,7 +51,7 @@ test_that(
       
     )
     
-    adder <- ReplicaAdder(
+    ADDER <- ReplicaAdder(
       population = population,
       contingency_table = contingency_table,
       target_attribute = "education",
@@ -61,9 +61,9 @@ test_that(
       )
     )
     
-    adder <- enhance(adder)
+    ADDER <- enhance(ADDER)
     
-    r_result <- adder@population
+    r_result <- ADDER@population
     
     expect_same_contingency(
       

@@ -62,16 +62,16 @@ by \code{ratify()}.}
 A typical workflow is:
 
 \preformatted{
-adder <- ReplicaAdder(...)
+ADDER <- ReplicaAdder(...)
 
-adder <- renew(
-  adder,
+ADDER <- renew(
+  ADDER,
   margins = ...
 )
 
-adder <- enhance(adder)
+ADDER <- enhance(ADDER)
 
-adder <- ratify(adder)
+ADDER <- ratify(ADDER)
 }
 }
 

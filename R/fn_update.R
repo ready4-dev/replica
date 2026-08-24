@@ -446,8 +446,8 @@ update_slots <- function(x, dots) {
     
     x <- renewSlot(
       x = x,
-      slot = nm,
-      value = dots[[nm]]
+      slot_nm_1L_chr = nm,
+      new_val_xx = dots[[nm]]
     )
     
   }

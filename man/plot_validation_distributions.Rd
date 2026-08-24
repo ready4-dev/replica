@@ -22,7 +22,7 @@ percentages from a validation result.
 \examples{
 \dontrun{
 plot_validation_distributions(
-  adder@validation_results
+  procure(ADDER, "validation_results")
 )
 }
 

@@ -102,7 +102,7 @@ test_that(
     
     GROUPER <- renew(
       GROUPER,
-      STRUCTURE,
+      structure = STRUCTURE,
       what = "structure"
     )
     

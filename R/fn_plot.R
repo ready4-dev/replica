@@ -14,7 +14,7 @@
 #' @examples
 #' \dontrun{
 #' plot_validation_distributions(
-#'   adder@validation_results
+#'   procure(ADDER, "validation_results")
 #' )
 #' }
 #'
@@ -106,7 +106,7 @@ plot_validation_distributions <- function(
 #' @examples
 #' \dontrun{
 #' plot_validation_differences(
-#'   adder@validation_results
+#'   procure(ADDER, "validation_results")
 #' )
 #' }
 #'
@@ -204,7 +204,7 @@ plot_validation_differences <- function(
 #' @examples
 #' \dontrun{
 #' plot_validation_heatmap(
-#'   adder@validation_results
+#'   procure(ADDER, "validation_results")
 #' )
 #' }
 #'
