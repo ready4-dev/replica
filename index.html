@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,23 +88,21 @@
 <h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
 <p>The workflow supported by <code>replica</code> can be summarised as:</p>
-<pre class="text"><code>Aggregate Counts
-       ↓
-make_agents()
-       ↓
-Synthetic Agents
-       ↓
+<pre class="text"><code>make_agents()
+    ↓
 ReplicaAdder
-       ↓
-Enriched Population
-       ↓
+    ↓
+enhance()
+    ↓
+ratify()
+    ↓
+depict()
+    ↓
 ReplicaStructure
-       +
+    ↓
 ReplicaGrouper
-       ↓
-Synthetic Households
-       ↓
-Validation</code></pre>
+    ↓
+manufacture()</code></pre>
 </div>
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
@@ -144,13 +142,9 @@ Validation</code></pre>
 <h3 id="id_4-evaluating-synthetic-population-quality">4. Evaluating Synthetic Population Quality<a class="anchor" aria-label="anchor" href="#id_4-evaluating-synthetic-population-quality"></a>
 </h3>
 <p>Learn how to compare synthetic populations with reference data and assess population quality.</p>
-<p>Key functions:</p>
+<p>Key plotting method:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/plot_validation_distributions.html">plot_validation_distributions</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/plot_validation_differences.html">plot_validation_differences</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/plot_validation_heatmap.html">plot_validation_heatmap</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/depict.html">depict</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

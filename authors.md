@@ -12,10 +12,10 @@
 Source:
 [`inst/CITATION`](https://github.com/ready4-dev/replica/blob/main/inst/CITATION)
 
-Matthew Hamilton \<matthew.hamilton1@monash.edu\> \[aut and cre\]
+Matthew Hamilton \<matthew.hamilton1@monash.edu\> \[aut, cre, cph\]
 (\<https://orcid.org/0000-0001-7407-9194\>) (2026). replica: Create
 Synthetic Populations For Use In Mental Health Economic Models. Version
-0.0.0.9007. https://doi.org/10.5281/zenodo.XXXXXXX For the underlying
+0.0.0.9008. https://doi.org/10.5281/zenodo.XXXXXXX For the underlying
 algorithm implemented by replica, cite the authors of that work:
 https://link.springer.com/article/10.1007/s10458-024-09680-7
 
@@ -24,6 +24,6 @@ https://link.springer.com/article/10.1007/s10458-024-09680-7
       title = {replica: Create Synthetic Populations For Use In Mental Health Economic Models},
       author = {Matthew Hamilton <matthew.hamilton1@monash.edu [aut, cre, cph] (<https://orcid.org/0000-0001-7407-91940>)},
       year = {2026},
-      note = {R package version 0.0.0.9007},
+      note = {R package version 0.0.0.9008},
       url = {https://ready4-dev.github.io/replica/},
     }

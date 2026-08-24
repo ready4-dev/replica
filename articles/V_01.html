@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,27 +109,42 @@ can subsequently be enriched and grouped using the remainder of the
 </h2>
 <p>The workflow supported by <code>replica</code> can be summarised
 as:</p>
-<p>Aggregate Counts</p>
-<p>         ↓</p>
-<p><code><a href="../reference/make_agents.html">make_agents()</a></code></p>
-<p>         ↓</p>
-<p>Synthetic Agents</p>
-<p>         ↓</p>
-<p><code>ReplicaAdder</code></p>
-<p>         ↓</p>
-<p><code>ReplicaStructure</code></p>
-<p>         +</p>
-<p><code>ReplicaGrouper</code></p>
-<p>         ↓</p>
-<p>Validation</p>
+<pre class="text"><code>Aggregate Counts
+       ↓
+`make_agents()`
+       ↓
+Synthetic Agents
+       ↓
+`ReplicaAdder`
+       ↓
+Enriched Population
+       ↓
+`ReplicaStructure`
+       +
+`ReplicaGrouper`
+       ↓
+Synthetic Households
+       ↓
+Validation and Visualisation</code></pre>
 <p>This vignette focuses on the first stage: creating a synthetic
 population of individual agents.</p>
+<p>Subsequent stages of the <code>replica</code> workflow use:</p>
+<ul>
+<li><p><code><a href="../reference/renew.html">renew()</a></code> to update module contents;</p></li>
+<li><p><code><a href="../reference/procure.html">procure()</a></code> to retrieve module contents;</p></li>
+<li><p><code><a href="../reference/enhance.html">enhance()</a></code> to assign attributes;</p></li>
+<li><p><code><a href="../reference/ratify.html">ratify()</a></code> to validate results;</p></li>
+<li><p><code><a href="../reference/depict.html">depict()</a></code> to visualise validation outcomes;
+and</p></li>
+<li><p><code><a href="../reference/manufacture.html">manufacture()</a></code> to generate household
+outputs.</p></li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="example-1-creating-agents-from-a-spatial-marginal">Example 1: Creating agents from a spatial marginal<a class="anchor" aria-label="anchor" href="#example-1-creating-agents-from-a-spatial-marginal"></a>
 </h2>
 <p>Suppose we know the number of residents in each neighbourhood.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">neighbourhoods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>neighb_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"N1"</span>, <span class="st">"N2"</span>, <span class="st">"N3"</span> <span class="op">)</span>, </span>
 <span>                            count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">75</span> <span class="op">)</span> <span class="op">)</span> </span>
 <span><span class="va">neighbourhoods</span></span></code></pre></div>
@@ -139,7 +154,7 @@ population of individual agents.</p>
 <span><span class="co">## 3          N3    75</span></span></code></pre>
 <p>The table contains aggregate counts rather than individual agents. We
 can convert this table to a table of individual agents:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">neighbourhoods</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
@@ -153,12 +168,12 @@ can convert this table to a table of individual agents:</p>
 <span><span class="co">## 6: Agent_006          N1</span></span></code></pre>
 <p>Each row now represents a synthetic individual.</p>
 <p>We can confirm the number of generated agents:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 325</span></span></code></pre>
 <p>The generated population can also be aggregated back into a
 contingency table.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   neighb_code count</span></span>
 <span><span class="co">## 1          N1   100</span></span>
@@ -170,8 +185,9 @@ generate the agents.</p>
 <div class="section level2">
 <h2 id="example-2-creating-agents-from-an-age-marginal">Example 2: Creating agents from an age marginal<a class="anchor" aria-label="anchor" href="#example-2-creating-agents-from-an-age-marginal"></a>
 </h2>
-<p>The same function can be used with any marginal distribution.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p>The same <code><a href="../reference/make_agents.html">make_agents()</a></code> function can be used with any
+marginal distribution.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age_margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-17"</span>, <span class="st">"18-64"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
 <span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">600</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
@@ -180,7 +196,7 @@ generate the agents.</p>
 <span><span class="co">## 1      0-17   200</span></span>
 <span><span class="co">## 2     18-64   600</span></span>
 <span><span class="co">## 3       65+   200</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_margin</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
@@ -194,7 +210,7 @@ generate the agents.</p>
 <span><span class="co">## 6: Agent_0006      0-17</span></span></code></pre>
 <p>Each synthetic agent now contains an age-group assignment.</p>
 <p>Summarise the resulting population:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, <span class="st">"age_group"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group count</span></span>
 <span><span class="co">## 1      0-17   200</span></span>
@@ -206,7 +222,7 @@ generate the agents.</p>
 </h2>
 <p>More detailed synthetic populations can be generated from contingency
 tables.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-17"</span>, <span class="st">"0-17"</span>, <span class="st">"18-64"</span>,</span>
 <span>                <span class="st">"18-64"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
@@ -226,10 +242,10 @@ tables.</p>
 <span><span class="co">## 5       65+   Male   110</span></span>
 <span><span class="co">## 6       65+ Female   100</span></span></code></pre>
 <p>Generate agents:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
 <p>Inspect the resulting population:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      agent_id age_group gender</span></span>
 <span><span class="co">##        &lt;char&gt;    &lt;char&gt; &lt;char&gt;</span></span>
@@ -241,7 +257,7 @@ tables.</p>
 <span><span class="co">## 6: Agent_0006      0-17   Male</span></span></code></pre>
 <p>We can compare the generated population with the original contingency
 table.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, </span>
 <span>                         columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
@@ -253,26 +269,28 @@ table.</p>
 <span><span class="co">## 6       65+ Female   100</span></span></code></pre>
 <p>The reconstructed contingency table should reproduce the original
 counts exactly.</p>
-<p>This property makes make_agents() a useful foundation for more
-sophisticated synthetic-population workflows.</p>
+<p>This property makes <code><a href="../reference/make_agents.html">make_agents()</a></code> a useful foundation
+for more sophisticated synthetic-population workflows.</p>
 </div>
 <div class="section level2">
 <h2 id="add-agent-attributes">Add agent attributes<a class="anchor" aria-label="anchor" href="#add-agent-attributes"></a>
 </h2>
-<p>The agents created by make_agents() typically contain only a subset
-of the characteristics required by a simulation model.</p>
-<p>Additional attributes can be assigned using
-<code>ReplicaAdder</code>. The use of this class is demonstrated in the
-“Assigning Attributes Using Contingency Tables” vignette.</p>
+<p>The agents created by <code><a href="../reference/make_agents.html">make_agents()</a></code> typically contain
+only a subset of the characteristics required by a simulation model.</p>
+<p>Additional attributes can be assigned using <code>ReplicaAdder</code>
+and the <code><a href="../reference/enhance.html">enhance()</a></code> method. The use of this class is
+demonstrated in the “Assigning Attributes Using Contingency Tables”
+vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="assign-agents-to-households">Assign agents to households<a class="anchor" aria-label="anchor" href="#assign-agents-to-households"></a>
 </h2>
 <p>After additional attributes have been assigned, agents can be grouped
 into households.</p>
-<p>To do this, use the <code>ReplicaStructure</code> and
-<code>ReplicaGrouper</code> classes. These are described in another
-vignette.</p>
+<p>To do this, create the <code>ReplicaStructure</code> and
+<code>ReplicaGrouper</code> objects and use <code><a href="../reference/renew.html">renew()</a></code> and
+<code><a href="../reference/manufacture.html">manufacture()</a></code> to define and generate household structures.
+These methods are described in another vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="key-takeaways">Key takeaways<a class="anchor" aria-label="anchor" href="#key-takeaways"></a>
@@ -283,9 +301,12 @@ vignette.</p>
 <li><p>created agents from spatial marginals;</p></li>
 <li><p>created agents from demographic marginals;</p></li>
 <li><p>created agents from contingency tables;</p></li>
-<li><p>verified that aggregate distributions were preserved;</p></li>
-<li><p>connected agent generation to the broader <code>replica</code>
-workflow.</p></li>
+<li><p>verified that aggregate distributions were preserved;
+and</p></li>
+<li><ul>
+<li>introduced the broader <code>replica</code> workflow for attribute
+assignment, validation and household generation.</li>
+</ul></li>
 </ul>
 </div>
 <div class="section level2">

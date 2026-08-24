@@ -52,7 +52,7 @@ This function is used internally during household generation by:
 
 - `pair_partners`
 
-- [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
+- `matchAdultsWithChildren`
 
 The household is stored in the `households` slot.
 
@@ -74,7 +74,6 @@ Household identifiers are generated using:
 
 ## See also
 
-[`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
 [`ReplicaStructure`](https://ready4-dev.github.io/replica/reference/ReplicaStructure.md)
 
 ## Examples
@@ -110,7 +109,7 @@ STRUCTURE <- create_household_with_id(
   )
 )
 
-names(STRUCTURE@households)
+names(procure(STRUCTURE, "households"))
 
 } # }
 ```

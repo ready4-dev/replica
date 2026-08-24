@@ -29,23 +29,21 @@ workflows.
 The workflow supported by `replica` can be summarised as:
 
 ``` text
-Aggregate Counts
-       ↓
 make_agents()
-       ↓
-Synthetic Agents
-       ↓
+    ↓
 ReplicaAdder
-       ↓
-Enriched Population
-       ↓
+    ↓
+enhance()
+    ↓
+ratify()
+    ↓
+depict()
+    ↓
 ReplicaStructure
-       +
+    ↓
 ReplicaGrouper
-       ↓
-Synthetic Households
-       ↓
-Validation
+    ↓
+manufacture()
 ```
 
 ## Getting Started
@@ -105,15 +103,11 @@ ReplicaGrouper
 Learn how to compare synthetic populations with reference data and
 assess population quality.
 
-Key functions:
+Key plotting method:
 
 ``` r
 
-plot_validation_distributions()
-
-plot_validation_differences()
-
-plot_validation_heatmap()
+depict()
 ```
 
 ## Current Status

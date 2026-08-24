@@ -9,7 +9,7 @@ module."><meta property="og:image" content="https://ready4-dev.github.io/replica
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,8 +68,6 @@ module.</p>
 <span>  position_identifier <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  amount <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  backup_position_identifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  population <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  position_column <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -105,7 +103,13 @@ operation should be performed.</p>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments.</p>
 <p>When <code>what = "slot"</code>, named arguments are interpreted
-as slot updates.</p></dd>
+as slot updates.</p>
+<p>When <code>what = "state"</code>, named arguments should include:</p>
+<ul><li><p><code>population</code>: the synthetic population used
+during household generation;</p></li>
+<li><p><code>position_column</code>: the column containing
+household-position classifications.</p></li>
+</ul></dd>
 
 
 <dt id="arg-structure">structure<a class="anchor" aria-label="anchor" href="#arg-structure"></a></dt>
@@ -131,16 +135,6 @@ identifier used during household formation.</p></dd>
 <dd><p>Alternative
 position identifiers that may be used if the primary
 position is unavailable.</p></dd>
-
-
-<dt id="arg-population">population<a class="anchor" aria-label="anchor" href="#arg-population"></a></dt>
-<dd><p>Synthetic population used for
-household generation.</p></dd>
-
-
-<dt id="arg-position-column">position_column<a class="anchor" aria-label="anchor" href="#arg-position-column"></a></dt>
-<dd><p>Character string identifying the
-column containing household-position information.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -273,7 +267,12 @@ required.</p></dd>
 household generation.</p>
 <p>This operation stores the synthetic population and
 household-position column used by subsequent
-household-generation methods.</p></dd>
+household-generation methods.</p>
+<p>When <code>what = "state"</code>, the following named arguments
+should be supplied via <code>...</code>:</p>
+<ul><li><p><code>population</code></p></li>
+<li><p><code>position_column</code></p></li>
+</ul></dd>
 
 
 <dt><code>"households"</code></dt>

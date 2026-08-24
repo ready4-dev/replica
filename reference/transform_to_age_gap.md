@@ -71,7 +71,6 @@ Invalid age-gap strings generate an error.
 
 ## See also
 
-[`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md),
 [`calculate_age_range_from_gap`](https://ready4-dev.github.io/replica/reference/calculate_age_range_from_gap.md)
 
 ## Examples

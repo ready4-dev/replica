@@ -50,14 +50,13 @@ distributions must be converted into agent-level assignments.
 
 It is used by:
 
-- [`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
+- `matchAdultsWithChildren`
 
 - Conditional attribute assignment workflows
 
 ## See also
 
-[`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md),
-[`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
+[`calculate_fractions`](https://ready4-dev.github.io/replica/reference/calculate_fractions.md)
 
 ## Examples
 

@@ -36,14 +36,11 @@ registered under:
 
     position_identifier = "child"
 
-## See also
-
-[`matchAdultsWithChildren`](https://ready4-dev.github.io/replica/reference/matchAdultsWithChildren.md)
-
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 child_mask <- getBaseChildMask(STRUCTURE)
 } # }
+
 ```

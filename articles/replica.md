@@ -45,11 +45,25 @@ exploratory purposes.**
 
 The workflow supported by `replica` can be summarised as:
 
-Aggregate Counts ↓
-[`make_agents()`](https://ready4-dev.github.io/replica/reference/make_agents.md)
-↓ Synthetic Agents ↓ `ReplicaAdder` ↓ Enriched Population ↓
-`ReplicaStructure` + `ReplicaGrouper` ↓ Synthetic Households ↓
+``` text
+Aggregate Counts
+       ↓
+`make_agents()`
+       ↓
+Synthetic Agents
+       ↓
+`ReplicaAdder`
+       ↓
+Enriched Population
+       ↓
+`ReplicaStructure`
+       +
+`ReplicaGrouper`
+       ↓
+Synthetic Households
+       ↓
 Validation
+```
 
 Each stage is described in a dedicated vignette.
 
@@ -171,10 +185,7 @@ Households](https://ready4-dev.github.io/replica/articles/V_03.md):
 Quality](https://ready4-dev.github.io/replica/articles/V_04.md):
 
 - introduces
-  [`plot_validation_distributions()`](https://ready4-dev.github.io/replica/reference/plot_validation_distributions.md),
-  [`plot_validation_differences()`](https://ready4-dev.github.io/replica/reference/plot_validation_differences.md)
-  and
-  [`plot_validation_heatmap()`](https://ready4-dev.github.io/replica/reference/plot_validation_heatmap.md);
+  [`depict()`](https://ready4-dev.github.io/replica/reference/depict.md);
 
 - demonstrates how synthetic populations can be assessed and validated.
 

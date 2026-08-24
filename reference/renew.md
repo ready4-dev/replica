@@ -25,8 +25,6 @@ renew(
   position_identifier = NULL,
   amount = NULL,
   backup_position_identifiers = character(),
-  population = NULL,
-  position_column = NULL,
   ...
 )
 ```
@@ -67,6 +65,14 @@ renew(
 
   When `what = "slot"`, named arguments are interpreted as slot updates.
 
+  When `what = "state"`, named arguments should include:
+
+  - `population`: the synthetic population used during household
+    generation;
+
+  - `position_column`: the column containing household-position
+    classifications.
+
 - structure:
 
   A `ReplicaStructure` object to be registered when
@@ -88,15 +94,6 @@ renew(
 
   Alternative position identifiers that may be used if the primary
   position is unavailable.
-
-- population:
-
-  Synthetic population used for household generation.
-
-- position_column:
-
-  Character string identifying the column containing household-position
-  information.
 
 ## Value
 
@@ -244,6 +241,13 @@ Supported options are:
 
   This operation stores the synthetic population and household-position
   column used by subsequent household-generation methods.
+
+  When `what = "state"`, the following named arguments should be
+  supplied via `...`:
+
+  - `population`
+
+  - `position_column`
 
 - `"households"`:
 

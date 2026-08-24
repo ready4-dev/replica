@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,10 +114,23 @@ currently be used only for exploratory purposes.</strong></p>
 </h2>
 <p>The workflow supported by <code>replica</code> can be summarised
 as:</p>
-<p>Aggregate Counts ↓ <code><a href="../reference/make_agents.html">make_agents()</a></code> ↓ Synthetic Agents ↓
-<code>ReplicaAdder</code> ↓ Enriched Population ↓
-<code>ReplicaStructure</code> + <code>ReplicaGrouper</code> ↓ Synthetic
-Households ↓ Validation</p>
+<pre class="text"><code>Aggregate Counts
+       ↓
+`make_agents()`
+       ↓
+Synthetic Agents
+       ↓
+`ReplicaAdder`
+       ↓
+Enriched Population
+       ↓
+`ReplicaStructure`
+       +
+`ReplicaGrouper`
+       ↓
+Synthetic Households
+       ↓
+Validation</code></pre>
 <p>Each stage is described in a dedicated vignette.</p>
 </div>
 <div class="section level2">
@@ -131,7 +144,7 @@ synthetic population.</p>
 <p>The <code><a href="../reference/make_agents.html">make_agents()</a></code> function expands aggregate demographic
 counts into one row per synthetic individual.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"0-17"</span>,</span>
@@ -222,9 +235,7 @@ household structures.</p></li>
 <p><a href="V_04.html">Vignette 4: Evaluating Synthetic Population
 Quality</a>:</p>
 <ul>
-<li><p>introduces <code><a href="../reference/plot_validation_distributions.html">plot_validation_distributions()</a></code>,
-<code><a href="../reference/plot_validation_differences.html">plot_validation_differences()</a></code> and
-<code><a href="../reference/plot_validation_heatmap.html">plot_validation_heatmap()</a></code>;</p></li>
+<li><p>introduces <code><a href="../reference/depict.html">depict()</a></code>;</p></li>
 <li><p>demonstrates how synthetic populations can be assessed and
 validated.</p></li>
 </ul>
@@ -237,7 +248,7 @@ validated.</p></li>
 <div class="section level3">
 <h3 id="create-synthetic-agents">Create Synthetic Agents<a class="anchor" aria-label="anchor" href="#create-synthetic-agents"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>,<span class="st">"18-64"</span>,<span class="st">"65+"</span>,<span class="st">"65+"</span><span class="op">)</span>,</span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>,<span class="st">"Female"</span>,<span class="st">"Male"</span>,<span class="st">"Female"</span><span class="op">)</span>,</span>
@@ -248,7 +259,7 @@ validated.</p></li>
 <div class="section level2">
 <h2 id="assign-additional-attributes">Assign Additional Attributes<a class="anchor" aria-label="anchor" href="#assign-additional-attributes"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">education_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
 <span>                <span class="st">"65+"</span>,   <span class="st">"65+"</span>,  <span class="st">"65+"</span>,   <span class="st">"65+"</span><span class="op">)</span>,</span>
@@ -271,7 +282,7 @@ validated.</p></li>
 <div class="section level3">
 <h3 id="generate-households">Generate Households<a class="anchor" aria-label="anchor" href="#generate-households"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">population</span><span class="op">[</span>,<span class="va">neighb_code</span> <span class="op">:=</span> <span class="st">"N1"</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">population</span><span class="op">[</span>,<span class="va">household_position</span> <span class="op">:=</span> <span class="st">"Parent"</span><span class="op">]</span></span>
@@ -308,7 +319,7 @@ validated.</p></li>
 <div class="section level3">
 <h3 id="inspect-results">Inspect Results<a class="anchor" aria-label="anchor" href="#inspect-results"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">households</span><span class="op">$</span><span class="va">synthetic_population</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    agent_id age_group gender education neighb_code household_position   age</span></span>
 <span><span class="co">#&gt;      &lt;char&gt;    &lt;char&gt; &lt;char&gt;    &lt;char&gt;      &lt;char&gt;             &lt;char&gt; &lt;int&gt;</span></span>
@@ -326,7 +337,7 @@ validated.</p></li>
 <span><span class="co">#&gt; 4:    SSH000004</span></span>
 <span><span class="co">#&gt; 5:    SSH000002</span></span>
 <span><span class="co">#&gt; 6:    SSH000009</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">households</span><span class="op">$</span><span class="va">synthetic_households</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   household_id neighb_code  household_type household_size</span></span>
 <span><span class="co">#&gt; 1    SSH000001          N1 CoupleHousehold              2</span></span>
@@ -339,7 +350,7 @@ validated.</p></li>
 <div class="section level3">
 <h3 id="validate-attribute-assignment">Validate Attribute Assignment<a class="anchor" aria-label="anchor" href="#validate-attribute-assignment"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_square"</span>,<span class="st">"p_value"</span>, </span>
 <span>                           <span class="st">"warning_required"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $z_square</span></span>
@@ -350,7 +361,7 @@ validated.</p></li>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $warning_required</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_differences.html">plot_validation_differences</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="replica_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="700"></p>
 <p>This workflow demonstrates the complete progression from aggregate

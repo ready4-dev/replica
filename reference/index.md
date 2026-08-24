@@ -54,6 +54,8 @@
 
 ## Methods
 
+- [`depict(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/depict.md)
+  : Depict Replica Modules
 - [`enhance(`*`<ReplicaAdder>`*`)`](https://ready4-dev.github.io/replica/reference/enhance.md)
   : Enhance Replica Modules
 - [`manufacture(`*`<ReplicaGrouper>`*`)`](https://ready4-dev.github.io/replica/reference/manufacture.md)
