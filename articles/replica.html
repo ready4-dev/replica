@@ -151,22 +151,10 @@ synthetic population.</p>
 counts into one row per synthetic individual.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">age_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"0-17"</span>,</span>
-<span>    <span class="st">"18-64"</span>,</span>
-<span>    <span class="st">"65+"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="fl">200</span>,</span>
-<span>    <span class="fl">600</span>,</span>
-<span>    <span class="fl">200</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span></span>
-<span>  <span class="va">age_group</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">age_group_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-17"</span>, <span class="st">"18-64"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">600</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">population_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_group_df</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="attribute-assignment">Attribute Assignment<a class="anchor" aria-label="anchor" href="#attribute-assignment"></a>
@@ -269,8 +257,6 @@ and</p></li>
 <li><p><code><a href="../reference/manufacture.html">manufacture()</a></code> for generating household
 outputs.</p></li>
 </ul>
-<p>This reinforces the package design you’ve just spent considerable
-effort implementing.</p>
 </div>
 <div class="section level2">
 <h2 id="example-workflow">Example Workflow<a class="anchor" aria-label="anchor" href="#example-workflow"></a>
@@ -281,43 +267,39 @@ effort implementing.</p>
 <h3 id="create-synthetic-agents">Create Synthetic Agents<a class="anchor" aria-label="anchor" href="#create-synthetic-agents"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">age_gender_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>,<span class="st">"18-64"</span>,<span class="st">"65+"</span>,<span class="st">"65+"</span><span class="op">)</span>,</span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>,<span class="st">"Female"</span>,<span class="st">"Male"</span>,<span class="st">"Female"</span><span class="op">)</span>,</span>
 <span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">population_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender_df</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="assign-additional-attributes">Assign Additional Attributes<a class="anchor" aria-label="anchor" href="#assign-additional-attributes"></a>
 </h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">education_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">education_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
 <span>                <span class="st">"65+"</span>,   <span class="st">"65+"</span>,  <span class="st">"65+"</span>,   <span class="st">"65+"</span><span class="op">)</span>,</span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>,</span>
 <span>             <span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
 <span>  education <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Degree"</span>, <span class="st">"School"</span>,<span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
 <span>                <span class="st">"Degree"</span>, <span class="st">"School"</span>,<span class="st">"Degree"</span>, <span class="st">"School"</span><span class="op">)</span>,</span>
-<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">45</span>, <span class="fl">30</span>, <span class="fl">70</span>, <span class="fl">25</span>, <span class="fl">75</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span>
+<span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">45</span>, <span class="fl">30</span>, <span class="fl">70</span>, <span class="fl">25</span>, <span class="fl">75</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span></span>
-<span>  population <span class="op">=</span> <span class="va">agents</span>,</span>
-<span>  contingency_table <span class="op">=</span> <span class="va">education_table</span>,</span>
+<span>  population <span class="op">=</span> <span class="va">population_dt</span>,</span>
+<span>  contingency_table <span class="op">=</span> <span class="va">education_df</span>,</span>
 <span>  target_attribute <span class="op">=</span> <span class="st">"education"</span>,</span>
-<span>  group_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>,<span class="st">"gender"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">)</span></span>
+<span>  group_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>,<span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/enhance.html">enhance</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span>
-<span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"population"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">population_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, slot <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="validate-attribute-assignment">Validate Attribute Assignment<a class="anchor" aria-label="anchor" href="#validate-attribute-assignment"></a>
 </h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ratify.html">ratify</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">validation_results_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">validation_results_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, slot <span class="op">=</span> <span class="st">"validation_results"</span><span class="op">)</span></span>
 <span><span class="va">validation_results_ls</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_square"</span>,<span class="st">"p_value"</span>, <span class="st">"warning_required"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $z_square</span></span>
 <span><span class="co">#&gt; [1] 2.155412</span></span>
@@ -335,14 +317,14 @@ effort implementing.</p>
 <h3 id="generate-households">Generate Households<a class="anchor" aria-label="anchor" href="#generate-households"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">population</span><span class="op">[</span>,<span class="va">neighb_code</span> <span class="op">:=</span> <span class="st">"N1"</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">population_dt</span><span class="op">[</span>,<span class="va">neighb_code</span> <span class="op">:=</span> <span class="st">"N1"</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">population</span><span class="op">[</span>,<span class="va">household_position</span> <span class="op">:=</span> <span class="st">"Parent"</span><span class="op">]</span></span>
+<span><span class="va">population_dt</span><span class="op">[</span>,<span class="va">household_position</span> <span class="op">:=</span> <span class="st">"Parent"</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">population</span><span class="op">[</span><span class="va">age_group</span> <span class="op">==</span> <span class="st">"18-64"</span>,</span>
+<span><span class="va">population_dt</span><span class="op">[</span><span class="va">age_group</span> <span class="op">==</span> <span class="st">"18-64"</span>,</span>
 <span>           <span class="va">age</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">18</span><span class="op">:</span><span class="fl">64</span>, <span class="va">.N</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">population</span><span class="op">[</span><span class="va">age_group</span> <span class="op">==</span> <span class="st">"65+"</span>, </span>
+<span><span class="va">population_dt</span><span class="op">[</span><span class="va">age_group</span> <span class="op">==</span> <span class="st">"65+"</span>, </span>
 <span>           <span class="va">age</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">65</span><span class="op">:</span><span class="fl">95</span>,<span class="va">.N</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">STRUCTURE</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaStructure.html">ReplicaStructure</a></span><span class="op">(</span>household_type <span class="op">=</span> <span class="st">"CoupleHousehold"</span><span class="op">)</span></span>
@@ -360,19 +342,19 @@ effort implementing.</p>
 <span><span class="va">STRUCTURE</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span><span class="va">STRUCTURE</span>, </span>
 <span>                   couple_age_distribution <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-5-5"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">GROUPER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaGrouper.html">ReplicaGrouper</a></span><span class="op">(</span>population <span class="op">=</span> <span class="va">population</span>,</span>
+<span><span class="va">GROUPER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaGrouper.html">ReplicaGrouper</a></span><span class="op">(</span>population <span class="op">=</span> <span class="va">population_dt</span>,</span>
 <span>                       group_by <span class="op">=</span> <span class="st">"neighb_code"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">GROUPER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/renew.html">renew</a></span><span class="op">(</span><span class="va">GROUPER</span>, what <span class="op">=</span> <span class="st">"structure"</span>,</span>
 <span>                 structure <span class="op">=</span> <span class="va">STRUCTURE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">households</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/manufacture.html">manufacture</a></span><span class="op">(</span><span class="va">GROUPER</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/manufacture.html">manufacture</a></span><span class="op">(</span><span class="va">GROUPER</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="inspect-results">Inspect Results<a class="anchor" aria-label="anchor" href="#inspect-results"></a>
 </h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">households</span><span class="op">$</span><span class="va">synthetic_population</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_ls</span><span class="op">$</span><span class="va">synthetic_population</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    agent_id age_group gender education neighb_code household_position   age</span></span>
 <span><span class="co">#&gt;      &lt;char&gt;    &lt;char&gt; &lt;char&gt;    &lt;char&gt;      &lt;char&gt;             &lt;char&gt; &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1: Agent_01     18-64   Male    Degree          N1             Parent    18</span></span>
@@ -390,7 +372,7 @@ effort implementing.</p>
 <span><span class="co">#&gt; 5:    SSH000002</span></span>
 <span><span class="co">#&gt; 6:    SSH000009</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">households</span><span class="op">$</span><span class="va">synthetic_households</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_ls</span><span class="op">$</span><span class="va">synthetic_households</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   household_id neighb_code  household_type household_size</span></span>
 <span><span class="co">#&gt; 1    SSH000001          N1 CoupleHousehold              2</span></span>
 <span><span class="co">#&gt; 2    SSH000002          N1 CoupleHousehold              2</span></span>

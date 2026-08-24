@@ -145,19 +145,19 @@ outputs.</p></li>
 </h2>
 <p>Suppose we know the number of residents in each neighbourhood.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">neighbourhoods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>neighb_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"N1"</span>, <span class="st">"N2"</span>, <span class="st">"N3"</span> <span class="op">)</span>, </span>
+<code class="sourceCode R"><span><span class="va">neighbourhoods_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>neighb_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"N1"</span>, <span class="st">"N2"</span>, <span class="st">"N3"</span> <span class="op">)</span>, </span>
 <span>                            count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">75</span> <span class="op">)</span> <span class="op">)</span> </span>
-<span><span class="va">neighbourhoods</span></span></code></pre></div>
+<span><span class="va">neighbourhoods_df</span></span></code></pre></div>
 <pre><code><span><span class="co">##   neighb_code count</span></span>
 <span><span class="co">## 1          N1   100</span></span>
 <span><span class="co">## 2          N2   150</span></span>
 <span><span class="co">## 3          N3    75</span></span></code></pre>
 <p>The table contains aggregate counts rather than individual agents. We
-can convert this table to a table of individual agents:</p>
+can convert this <code>data.frame</code> of aggregates to a
+<code>data.table</code> of individual agents:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">neighbourhoods</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">popultation_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">neighbourhoods_df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">popultation_dt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     agent_id neighb_code</span></span>
 <span><span class="co">##       &lt;char&gt;      &lt;char&gt;</span></span>
 <span><span class="co">## 1: Agent_001          N1</span></span>
@@ -169,12 +169,12 @@ can convert this table to a table of individual agents:</p>
 <p>Each row now represents a synthetic individual.</p>
 <p>We can confirm the number of generated agents:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">popultation_dt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 325</span></span></code></pre>
 <p>The generated population can also be aggregated back into a
 contingency table.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">popultation_dt</span>, <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   neighb_code count</span></span>
 <span><span class="co">## 1          N1   100</span></span>
 <span><span class="co">## 2          N2   150</span></span>
@@ -188,18 +188,17 @@ generate the agents.</p>
 <p>The same <code><a href="../reference/make_agents.html">make_agents()</a></code> function can be used with any
 marginal distribution.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">age_margin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">age_margin_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-17"</span>, <span class="st">"18-64"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
 <span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">600</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">age_margin</span></span></code></pre></div>
+<span><span class="va">age_margin_df</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group count</span></span>
 <span><span class="co">## 1      0-17   200</span></span>
 <span><span class="co">## 2     18-64   600</span></span>
 <span><span class="co">## 3       65+   200</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_margin</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">popultation_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_margin_df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">popultation_dt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      agent_id age_group</span></span>
 <span><span class="co">##        &lt;char&gt;    &lt;char&gt;</span></span>
 <span><span class="co">## 1: Agent_0001      0-17</span></span>
@@ -211,7 +210,7 @@ marginal distribution.</p>
 <p>Each synthetic agent now contains an age-group assignment.</p>
 <p>Summarise the resulting population:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, <span class="st">"age_group"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">popultation_dt</span>, <span class="st">"age_group"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group count</span></span>
 <span><span class="co">## 1      0-17   200</span></span>
 <span><span class="co">## 2     18-64   600</span></span>
@@ -223,17 +222,14 @@ marginal distribution.</p>
 <p>More detailed synthetic populations can be generated from contingency
 tables.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">age_gender_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"0-17"</span>, <span class="st">"0-17"</span>, <span class="st">"18-64"</span>,</span>
 <span>                <span class="st">"18-64"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
-<span></span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span>,<span class="st">"Male"</span>,</span>
 <span>             <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
-<span></span>
 <span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">90</span>, <span class="fl">310</span>, </span>
 <span>            <span class="fl">290</span>, <span class="fl">110</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">age_gender</span></span></code></pre></div>
+<span><span class="va">age_gender_df</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
 <span><span class="co">## 1      0-17   Male   100</span></span>
 <span><span class="co">## 2      0-17 Female    90</span></span>
@@ -243,10 +239,10 @@ tables.</p>
 <span><span class="co">## 6       65+ Female   100</span></span></code></pre>
 <p>Generate agents:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">agents</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">popultation_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender_df</span><span class="op">)</span></span></code></pre></div>
 <p>Inspect the resulting population:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">agents</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">popultation_dt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##      agent_id age_group gender</span></span>
 <span><span class="co">##        &lt;char&gt;    &lt;char&gt; &lt;char&gt;</span></span>
 <span><span class="co">## 1: Agent_0001      0-17   Male</span></span>
@@ -258,7 +254,7 @@ tables.</p>
 <p>We can compare the generated population with the original contingency
 table.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">agents</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">popultation_dt</span>, </span>
 <span>                         columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
 <span><span class="co">## 1      0-17   Male   100</span></span>

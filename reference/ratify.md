@@ -96,7 +96,7 @@ assignment and stores validation diagnostics within the module.
 Validation results are stored in:
 
 
-    procure(ADDER, "validation_results")
+    procure(ADDER, slot = "validation_results")
 
 and include:
 
@@ -160,7 +160,7 @@ ADDER <- ratify(
   ADDER
 )
 
-procure(ADDER, "validation_results")
+procure(ADDER, slot = "validation_results")
 
 } # }
 
@@ -174,7 +174,7 @@ ADDER <- ratify(
   ADDER
 )
 
-procure(ADDER, "validation_results")
+procure(ADDER, slot = "validation_results")
 
 ## Validate a ReplicaStructure
 

@@ -153,14 +153,14 @@ Tables” vignettes.</p>
 <p>For simplicity, this example uses a small illustrative population
 containing four adults living in the same neighbourhood.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">population_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span>
 <span>  agent_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A001"</span>, <span class="st">"A002"</span>, <span class="st">"A003"</span>, <span class="st">"A004"</span><span class="op">)</span>,</span>
 <span>  neighb_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"N1"</span>, <span class="st">"N1"</span>, <span class="st">"N1"</span>, <span class="st">"N1"</span><span class="op">)</span>,</span>
 <span>  age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">35</span>, <span class="fl">50</span>, <span class="fl">45</span><span class="op">)</span>,</span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
 <span>  household_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Parent"</span>, <span class="st">"Parent"</span>, <span class="st">"Parent"</span>, <span class="st">"Parent"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pop</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">population_dt</span></span></code></pre></div>
 <pre><code><span><span class="co">##    agent_id neighb_code   age gender household_position</span></span>
 <span><span class="co">##      &lt;char&gt;      &lt;char&gt; &lt;num&gt; &lt;char&gt;             &lt;char&gt;</span></span>
 <span><span class="co">## 1:     A001          N1    40   Male             Parent</span></span>
@@ -264,7 +264,7 @@ specified above.</p>
 <p>A ReplicaGrouper coordinates household generation across an entire
 synthetic population.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">GROUPER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaGrouper.html">ReplicaGrouper</a></span><span class="op">(</span>population <span class="op">=</span> <span class="va">pop</span>,</span>
+<code class="sourceCode R"><span><span class="va">GROUPER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaGrouper.html">ReplicaGrouper</a></span><span class="op">(</span>population <span class="op">=</span> <span class="va">population_dt</span>,</span>
 <span>                          group_by <span class="op">=</span> <span class="st">"neighb_code"</span><span class="op">)</span></span></code></pre></div>
 <p>The group_by argument determines the geographic or administrative
 boundaries within which household generation will occur.</p>
@@ -295,7 +295,8 @@ for geographically explicit simulation models.</p>
 using <code><a href="../reference/procure.html">procure()</a></code>. In this example only one structure has
 been registered.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">structures_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">GROUPER</span>, <span class="st">"structures"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">structures_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">GROUPER</span>, </span>
+<span>                         slot <span class="op">=</span> <span class="st">"structures"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">structures_ls</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -311,7 +312,7 @@ been registered.</p>
 household-generation workflow can be executed using
 <code><a href="../reference/manufacture.html">manufacture()</a></code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/manufacture.html">manufacture</a></span><span class="op">(</span><span class="va">GROUPER</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">results_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/manufacture.html">manufacture</a></span><span class="op">(</span><span class="va">GROUPER</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="../reference/manufacture.html">manufacture()</a></code> method executes the complete
 household-generation workflow.</p>
 <p>For each grouping region (<code>neighb_code</code> in this example),
@@ -335,9 +336,9 @@ household-level outputs.</p>
 <p>The result now contains both agent-level and household-level
 outputs.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">synthetic_population</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">synthetic_population</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">synthetic_population</span> <span class="op">&lt;-</span> <span class="va">results_ls</span><span class="op">$</span><span class="va">synthetic_population</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">synthetic_households</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">$</span><span class="va">synthetic_households</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">synthetic_households</span> <span class="op">&lt;-</span> <span class="va">results_ls</span><span class="op">$</span><span class="va">synthetic_households</span></span></code></pre></div>
 <p>The household-generation workflow produces two complementary
 outputs.</p>
 <p><code>synthetic_population</code> contains one row per agent and

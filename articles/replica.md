@@ -89,22 +89,10 @@ Example:
 
 ``` r
 
-age_group <- data.frame(
-  age_group = c(
-    "0-17",
-    "18-64",
-    "65+"
-  ),
-  count = c(
-    200,
-    600,
-    200
-  )
-)
-
-agents <- make_agents(
-  age_group
-)
+age_group_df <- data.frame(
+  age_group = c("0-17", "18-64", "65+"),
+  count = c(200, 600, 200))
+population_dt <- make_agents(age_group_df)
 ```
 
 ### Attribute Assignment
@@ -236,9 +224,6 @@ Key methods include:
 - [`manufacture()`](https://ready4-dev.github.io/replica/reference/manufacture.md)
   for generating household outputs.
 
-This reinforces the package design you’ve just spent considerable effort
-implementing.
-
 ## Example Workflow
 
 The following example illustrates how the major components of `replica`
@@ -248,36 +233,32 @@ fit together.
 
 ``` r
 
-age_gender <- data.frame(
+age_gender_df <- data.frame(
   age_group = c("18-64","18-64","65+","65+"),
   gender = c("Male","Female","Male","Female"),
   count = c(10, 10, 10, 10))
-agents <- make_agents(age_gender)
+population_dt <- make_agents(age_gender_df)
 ```
 
 ## Assign Additional Attributes
 
 ``` r
 
-education_table <- data.frame(
+education_df <- data.frame(
   age_group = c("18-64", "18-64", "18-64", "18-64",
                 "65+",   "65+",  "65+",   "65+"),
   gender = c("Male", "Male", "Female", "Female",
              "Male", "Male", "Female", "Female"),
   education = c("Degree", "School","Degree", "School",
                 "Degree", "School","Degree", "School"),
-  count = c(60, 40, 55, 45, 30, 70, 25, 75)
-
-)
+  count = c(60, 40, 55, 45, 30, 70, 25, 75))
 ADDER <- ReplicaAdder(
-  population = agents,
-  contingency_table = education_table,
+  population = population_dt,
+  contingency_table = education_df,
   target_attribute = "education",
-  group_by = c("age_group","gender")
-
-)
+  group_by = c("age_group","gender"))
 ADDER <- enhance(ADDER)
-population <- procure(ADDER, "population")
+population_dt <- procure(ADDER, slot = "population")
 ```
 
 ### Validate Attribute Assignment
@@ -289,7 +270,7 @@ ADDER <- ratify(ADDER)
 
 ``` r
 
-validation_results_ls <- procure(ADDER, "validation_results")
+validation_results_ls <- procure(ADDER, slot = "validation_results")
 validation_results_ls[c("z_square","p_value", "warning_required")]
 #> $z_square
 #> [1] 2.155412
@@ -312,14 +293,14 @@ depict(ADDER, type = "difference")
 
 ``` r
 
-population[,neighb_code := "N1"]
+population_dt[,neighb_code := "N1"]
 
-population[,household_position := "Parent"]
+population_dt[,household_position := "Parent"]
 
-population[age_group == "18-64",
+population_dt[age_group == "18-64",
            age := sample(18:64, .N, replace = TRUE)]
 
-population[age_group == "65+", 
+population_dt[age_group == "65+", 
            age := sample(65:95,.N, replace = TRUE)]
 
 STRUCTURE <- ReplicaStructure(household_type = "CoupleHousehold")
@@ -337,20 +318,20 @@ STRUCTURE <- renew(STRUCTURE,
 STRUCTURE <- renew(STRUCTURE, 
                    couple_age_distribution = c("-5-5" = 1))
 
-GROUPER <- ReplicaGrouper(population = population,
+GROUPER <- ReplicaGrouper(population = population_dt,
                        group_by = "neighb_code")
 
 GROUPER <- renew(GROUPER, what = "structure",
                  structure = STRUCTURE)
 
-households <- manufacture(GROUPER)
+results_ls <- manufacture(GROUPER)
 ```
 
 ### Inspect Results
 
 ``` r
 
-head(households$synthetic_population)
+head(results_ls$synthetic_population)
 #>    agent_id age_group gender education neighb_code household_position   age
 #>      <char>    <char> <char>    <char>      <char>             <char> <int>
 #> 1: Agent_01     18-64   Male    Degree          N1             Parent    18
@@ -371,7 +352,7 @@ head(households$synthetic_population)
 
 ``` r
 
-head(households$synthetic_households)
+head(results_ls$synthetic_households)
 #>   household_id neighb_code  household_type household_size
 #> 1    SSH000001          N1 CoupleHousehold              2
 #> 2    SSH000002          N1 CoupleHousehold              2

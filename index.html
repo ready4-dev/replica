@@ -73,14 +73,13 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p><code>replica</code> is an R library for generating synthetic populations of individual agents and households from aggregated demographic data.</p>
-<p>The library replica extends the ready4 framework developed by Hamilton et al. (2024) by providing tools for:</p>
+<p>The <code>replica</code> package extends the ready4 framework developed by Hamilton et al. (2024) by providing tools for:</p>
 <ul>
 <li><p>creating synthetic agents from marginal distributions and contingency tables;</p></li>
 <li><p>assigning additional attributes using demographic reference data;</p></li>
 <li><p>generating synthetic households;</p></li>
-<li><p>validating synthetic population quality; and</p></li>
-<li><p>visualising goodness-of-fit.</p></li>
+<li><p>validating synthetic population quality using <code><a href="reference/ratify.html">ratify()</a></code>; and</p></li>
+<li><p>visualising validation diagnostics using <code><a href="reference/depict.html">depict()</a></code>.</p></li>
 </ul>
 <p>The package implements and extends synthetic population generation methods described by de Mooij et al. (2024) and is designed to support health-economic microsimulation modelling and other simulation workflows.</p>
 </div>
@@ -88,7 +87,11 @@
 <h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
 </h2>
 <p>The workflow supported by <code>replica</code> can be summarised as:</p>
-<pre class="text"><code>make_agents()
+<pre class="text"><code>Aggregate Counts
+    ↓
+make_agents()
+    ↓
+Synthetic Agents
     ↓
 ReplicaAdder
     ↓
@@ -98,60 +101,99 @@ ratify()
     ↓
 depict()
     ↓
-ReplicaStructure
+Enriched Population
     ↓
+ReplicaStructure
+    +
 ReplicaGrouper
     ↓
-manufacture()</code></pre>
+manufacture()
+    ↓
+Synthetic Households</code></pre>
 </div>
 <div class="section level2">
-<h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<h2 id="core-workflow-methods">Core workflow methods<a class="anchor" aria-label="anchor" href="#core-workflow-methods"></a>
+</h2>
+<p><code>replica</code> follows a ready4-style workflow centred on a small number of generic methods:</p>
+<ul>
+<li><p><code><a href="reference/procure.html">procure()</a></code> for retrieving module contents;</p></li>
+<li><p><code><a href="reference/renew.html">renew()</a></code> for updating module contents;</p></li>
+<li><p><code><a href="reference/enhance.html">enhance()</a></code> for assigning attributes;</p></li>
+<li><p><code><a href="reference/ratify.html">ratify()</a></code> for generating validation diagnostics;</p></li>
+<li><p><code><a href="reference/depict.html">depict()</a></code> for visualising validation results; and</p></li>
+<li><p><code><a href="reference/manufacture.html">manufacture()</a></code> for generating household outputs.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="accessing-and-updating-module-contents">Accessing and updating module contents<a class="anchor" aria-label="anchor" href="#accessing-and-updating-module-contents"></a>
+</h2>
+<p>Module contents can be retrieved using:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, slot <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span></span></code></pre></div>
+<p>and updated using:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/renew.html">renew</a></span><span class="op">(</span><span class="va">ADDER</span>, population <span class="op">=</span> <span class="va">population_dt</span><span class="op">)</span></span></code></pre></div>
+<p>Together, <code><a href="reference/procure.html">procure()</a></code> and <code><a href="reference/renew.html">renew()</a></code> provide a consistent interface for reading and updating replica modules.</p>
+</div>
+<div class="section level2">
+<h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
 <p><code>replica</code> documentation is organised around the complete synthetic-population workflow.</p>
 <p>To install a development version of replica, run the following commands in your R console:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ready4-dev/replica"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
-<h3 id="id_1-creating-synthetic-agents">1. Creating Synthetic Agents<a class="anchor" aria-label="anchor" href="#id_1-creating-synthetic-agents"></a>
+<h3 id="id_1-creating-synthetic-agents">1. Creating synthetic agents<a class="anchor" aria-label="anchor" href="#id_1-creating-synthetic-agents"></a>
 </h3>
 <p>Learn how to create individual synthetic agents from aggregate count data.</p>
 <p>Key function:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_2-assigning-attributes-using-contingency-tables">2. Assigning Attributes Using Contingency Tables<a class="anchor" aria-label="anchor" href="#id_2-assigning-attributes-using-contingency-tables"></a>
+<h3 id="id_2-assigning-attributes-using-contingency-tables">2. Assigning attributes using contingency tables<a class="anchor" aria-label="anchor" href="#id_2-assigning-attributes-using-contingency-tables"></a>
 </h3>
 <p>Learn how to enrich synthetic agents using demographic contingency tables.</p>
 <p>Key class:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ReplicaAdder</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_3-generating-synthetic-households">3. Generating Synthetic Households<a class="anchor" aria-label="anchor" href="#id_3-generating-synthetic-households"></a>
+<h3 id="id_3-generating-synthetic-households">3. Generating synthetic households<a class="anchor" aria-label="anchor" href="#id_3-generating-synthetic-households"></a>
 </h3>
 <p>Learn how to transform enriched agents into realistic household structures.</p>
 <p>Key classes:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ReplicaStructure</span></span>
 <span><span class="va">ReplicaGrouper</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_4-evaluating-synthetic-population-quality">4. Evaluating Synthetic Population Quality<a class="anchor" aria-label="anchor" href="#id_4-evaluating-synthetic-population-quality"></a>
+<h3 id="id_4-evaluating-synthetic-population-quality">4. Evaluating synthetic population quality<a class="anchor" aria-label="anchor" href="#id_4-evaluating-synthetic-population-quality"></a>
 </h3>
 <p>Learn how to compare synthetic populations with reference data and assess population quality.</p>
-<p>Key plotting method:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/depict.html">depict</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Key methods:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/ratify.html">ratify</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/procure.html">procure</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/depict.html">depict</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Validation diagnostics can be generated using:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ratify.html">ratify</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span></code></pre></div>
+<p>inspected using:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, slot <span class="op">=</span> <span class="st">"validation_results"</span><span class="op">)</span></span></code></pre></div>
+<p>and visualised using:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/depict.html">depict</a></span><span class="op">(</span><span class="va">ADDER</span>, type <span class="op">=</span> <span class="st">"difference"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="current-status">Current Status<a class="anchor" aria-label="anchor" href="#current-status"></a>
+<h2 id="current-status">Current status<a class="anchor" aria-label="anchor" href="#current-status"></a>
 </h2>
-<p><code>replica</code> is under active development.</p>
-<p>Library classes, syntax, documentation and workflows continue to evolve as additional functionality is implemented and tested.</p>
+<p><code>replica</code> is under active initial development.</p>
+<p><strong>Library classes, syntax, documentation and workflows are evolving without the use of deprecation conventions.</strong></p>
 <p>This library should currently be used only for exploratory purposes.</p>
 </div>
 <div class="section level2">

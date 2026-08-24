@@ -23,7 +23,7 @@ plot_validation_differences(validation_results, ...)
 
       procure(
         ADDER,
-        "validation_results"
+        slot = "validation_results"
       )
 
 - ...:
@@ -41,7 +41,7 @@ if (FALSE) { # \dontrun{
 plot_validation_differences(
   procure(
     ADDER,
-    "validation_results"
+    slot = "validation_results"
   )
 )
 } # }

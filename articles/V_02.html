@@ -136,12 +136,12 @@ group and gender contingency table using the approach demonstrated in
 the “Generating Synthetic Populations from Aggregated Data”
 vignette.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">age_gender</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">age_gender_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="st">"18-64"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
 <span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">age_gender</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">age_gender_df</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
 <span><span class="co">## 1     18-64   Male    10</span></span>
 <span><span class="co">## 2     18-64 Female    10</span></span>
@@ -150,11 +150,11 @@ vignette.</p>
 <p>We can now generate the basic seed population of synthetic
 agents:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">population_dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_agents.html">make_agents</a></span><span class="op">(</span><span class="va">age_gender_df</span><span class="op">)</span></span></code></pre></div>
 <p>The generated seed population now contains one row per synthetic
 agent.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">population</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">population_dt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    agent_id age_group gender</span></span>
 <span><span class="co">##      &lt;char&gt;    &lt;char&gt; &lt;char&gt;</span></span>
 <span><span class="co">## 1: Agent_01     18-64   Male</span></span>
@@ -166,7 +166,7 @@ agent.</p>
 <p>We can verify that the generated population preserves the source
 distribution.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">population</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="va">population_dt</span>, </span>
 <span>                         columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender count</span></span>
 <span><span class="co">## 1     18-64   Male    10</span></span>
@@ -187,15 +187,13 @@ sources (e.g., census data) representative of our regions of interest.
 In this example, we will generate an illustrative contingency table
 using hypothetical values.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contingency_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">education_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  age_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"18-64"</span>, <span class="st">"18-64"</span>,<span class="st">"18-64"</span>, <span class="st">"18-64"</span>,</span>
 <span>                <span class="st">"65+"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span>, <span class="st">"65+"</span><span class="op">)</span>,</span>
 <span>  gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>,</span>
 <span>             <span class="st">"Male"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span><span class="op">)</span>,</span>
-<span></span>
 <span>  education <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Degree"</span>, <span class="st">"School"</span>, <span class="st">"Degree"</span>, <span class="st">"School"</span>,</span>
 <span>                <span class="st">"Degree"</span>, <span class="st">"School"</span>, <span class="st">"Degree"</span>, <span class="st">"School"</span><span class="op">)</span>,</span>
-<span></span>
 <span>  count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">45</span>, </span>
 <span>            <span class="fl">30</span>, <span class="fl">70</span>, <span class="fl">25</span>, <span class="fl">75</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The contingency table defines the expected education distribution
@@ -210,8 +208,8 @@ within each age-group and gender combination.</p>
 <p>The assignment workflow is controlled using a
 <code>ReplicaAdder</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span>population <span class="op">=</span> <span class="va">population</span>,</span>
-<span>                      contingency_table <span class="op">=</span> <span class="va">contingency_table</span>,</span>
+<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span>population <span class="op">=</span> <span class="va">population_dt</span>,</span>
+<span>                      contingency_table <span class="op">=</span> <span class="va">education_df</span>,</span>
 <span>                      target_attribute <span class="op">=</span> <span class="st">"education"</span>,</span>
 <span>                      group_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The object contains:</p>
@@ -233,7 +231,7 @@ in the source data.</p>
 groups. The selected strategy is stored in the
 <code>missing_group_strategy</code> slot.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"missing_group_strategy"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, slot <span class="op">=</span> <span class="st">"missing_group_strategy"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "borrow"</span></span></code></pre>
 <p>In the above example, the strategy is “borrow” (which is selected by
 default) that borrows information from nearby groups.</p>
@@ -265,7 +263,7 @@ attribute.</p>
 <code>education</code> attribute. We can access the updated synthetic
 population with the <code>procure</code> method.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, slot <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    agent_id age_group gender education</span></span>
 <span><span class="co">##      &lt;char&gt;    &lt;char&gt; &lt;char&gt;    &lt;char&gt;</span></span>
 <span><span class="co">## 1: Agent_01     18-64   Male    Degree</span></span>
@@ -276,7 +274,8 @@ population with the <code>procure</code> method.</p>
 <span><span class="co">## 6: Agent_06     18-64   Male    School</span></span></code></pre>
 <p>We can examine the distribution of education values.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"population"</span><span class="op">)</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, </span>
+<span>                                 slot <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span>, </span>
 <span>                         columns <span class="op">=</span> <span class="st">"education"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   education count</span></span>
 <span><span class="co">## 1    Degree    17</span></span>
@@ -285,7 +284,7 @@ population with the <code>procure</code> method.</p>
 relationships specified in the reference contingency table.</p>
 <p>We can also reconstruct the resulting contingency table:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"population"</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/transform_to_contingency.html">transform_to_contingency</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, slot <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span>,</span>
 <span>                         columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_group"</span>, <span class="st">"gender"</span>, <span class="st">"education"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   age_group gender education count</span></span>
 <span><span class="co">## 1     18-64   Male    Degree     6</span></span>
