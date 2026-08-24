@@ -1,9 +1,9 @@
 cff-version: 1.2.0
-message: "Matthew Hamilton (2026). replica: Create Synthetic Populations For Use In Mental Health Economic Models. Version 0.0.0.9007. "
+message: "Matthew Hamilton (2026). replica: Create Synthetic Populations For Use In Mental Health Economic Models. Version 0.0.0.9008. "
 authors:
   - family-names: "Hamilton"
     given-names: "Matthew"
 title: "replica: Create Synthetic Populations For Use In Mental Health Economic Models"
-version: 0.0.0.9007
+version: 0.0.0.9008
 date-released: 2026-08-24
 url: "https://ready4-dev.github.io/replica/"
