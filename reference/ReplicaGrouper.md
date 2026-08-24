@@ -106,7 +106,7 @@ pop <- data.table(
   )
 )
 
-grouper <- ReplicaGrouper(
+GROUPER <- ReplicaGrouper(
   population = pop,
   group_by = "neighb_code"
 )

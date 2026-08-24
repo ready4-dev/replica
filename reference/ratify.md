@@ -96,7 +96,7 @@ assignment and stores validation diagnostics within the module.
 Validation results are stored in:
 
 
-    x@validation_results
+    procure(ADDER, "validation_results")
 
 and include:
 
@@ -152,15 +152,15 @@ The method can return either:
 ``` r
 if (FALSE) { # \dontrun{
 
-adder <- enhance(
-  adder
+ADDER <- enhance(
+  ADDER
 )
 
-adder <- ratify(
-  adder
+ADDER <- ratify(
+  ADDER
 )
 
-adder@validation_results
+procure(ADDER, "validation_results")
 
 } # }
 
@@ -168,13 +168,13 @@ if (FALSE) { # \dontrun{
 
 ## Validate a ReplicaAdder
 
-adder <- enhance(adder)
+ADDER <- enhance(ADDER)
 
-adder <- ratify(
-  adder
+ADDER <- ratify(
+  ADDER
 )
 
-adder@validation_results
+procure(ADDER, "validation_results")
 
 ## Validate a ReplicaStructure
 

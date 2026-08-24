@@ -171,7 +171,6 @@ Households](https://ready4-dev.github.io/replica/articles/V_03.md):
 Quality](https://ready4-dev.github.io/replica/articles/V_04.md):
 
 - introduces
-  [`validate_synthetic_population_fit()`](https://ready4-dev.github.io/replica/reference/validate_synthetic_population_fit.md),
   [`plot_validation_distributions()`](https://ready4-dev.github.io/replica/reference/plot_validation_distributions.md),
   [`plot_validation_differences()`](https://ready4-dev.github.io/replica/reference/plot_validation_differences.md)
   and
@@ -209,15 +208,15 @@ education_table <- data.frame(
   count = c(60, 40, 55, 45, 30, 70, 25, 75)
 
 )
-adder <- ReplicaAdder(
+ADDER <- ReplicaAdder(
   population = agents,
   contingency_table = education_table,
   target_attribute = "education",
   group_by = c("age_group","gender")
 
 )
-adder <- enhance(adder)
-population <- adder@population
+ADDER <- enhance(ADDER)
+population <- procure(ADDER, "population")
 ```
 
 ### Generate Households
@@ -237,20 +236,23 @@ population[age_group == "65+",
 STRUCTURE <- ReplicaStructure("CoupleHousehold")
 
 STRUCTURE <- renew(STRUCTURE,
-            what = "positions",
-            household_position = "Parent",
-            position_identifier = "adult",
-            amount = 2,
-            backup_position_identifiers = character())
+                   what = "positions",
+                   household_position = "Parent",
+                   position_identifier = "adult",
+                   amount = 2,
+                   backup_position_identifiers = character())
 
-STRUCTURE@couple_gender_distribution <- c("Female|Male" = 1)
+STRUCTURE <- renew(STRUCTURE, 
+                   couple_gender_distribution = c("Female|Male" = 1))
 
-STRUCTURE@couple_age_distribution <- c("-5-5" = 1)
+STRUCTURE <- renew(STRUCTURE, 
+                   couple_age_distribution = c("-5-5" = 1))
 
 GROUPER <- ReplicaGrouper(population = population,
                        group_by = "neighb_code")
 
-GROUPER <- renew(GROUPER, STRUCTURE, what = "structure")
+GROUPER <- renew(GROUPER, what = "structure",
+                 structure = STRUCTURE)
 
 households <- manufacture(GROUPER)
 ```
@@ -294,7 +296,7 @@ head(households$synthetic_households)
 
 ``` r
 
-adder@validation_results[c("z_square","p_value", 
+procure(ADDER, "validation_results")[c("z_square","p_value", 
                            "warning_required")]
 #> $z_square
 #> [1] 2.155412
@@ -308,7 +310,7 @@ adder@validation_results[c("z_square","p_value",
 
 ``` r
 
-plot_validation_differences(adder@validation_results)
+plot_validation_differences(procure(ADDER, "validation_results"))
 ```
 
 ![](replica_files/figure-html/unnamed-chunk-9-1.png)

@@ -1,6 +1,6 @@
 # Renew Replica Modules
 
-Updates the configuration or state of a replica module.
+Updates the configuration, contents or state of a replica module.
 
 ## Usage
 
@@ -20,7 +20,7 @@ renew(x, structure = NULL, what = c("slot", "structure"), ...)
 # S4 method for class 'ReplicaStructure'
 renew(
   x,
-  what = c("positions", "state", "households"),
+  what = c("slot", "positions", "state", "households"),
   household_position = NULL,
   position_identifier = NULL,
   amount = NULL,
@@ -48,10 +48,12 @@ renew(
 
 - what:
 
-  Character string specifying which component of the structure should be
-  updated.
+  Character string specifying which update operation should be
+  performed.
 
   Options include:
+
+  - `"slot"`
 
   - `"positions"`
 
@@ -61,7 +63,9 @@ renew(
 
 - ...:
 
-  Additional arguments
+  Additional arguments.
+
+  When `what = "slot"`, named arguments are interpreted as slot updates.
 
 - structure:
 
@@ -114,20 +118,42 @@ Methods are currently available for:
 
 - `ReplicaGrouper`
 
-`renew()` is the primary method used to update replica modules while
+`renew()` is the primary method used to modify replica modules while
 preserving their underlying class and structure.
 
-Depending on the supplied module, `renew()` can:
+Depending on the supplied module and arguments, `renew()` can be used
+to:
+
+- update one or more module slots;
 
 - add marginal distributions to a `ReplicaAdder`;
 
-- define household-member roles in a `ReplicaStructure`;
+- define household-member requirements in a `ReplicaStructure`;
 
-- update internal household-generation state;
+- update household-generation state;
 
 - transfer household assignments to synthetic populations; and
 
-- register household structures with a `ReplicaGrouper`.
+- register `ReplicaStructure` objects with a `ReplicaGrouper`.
+
+Slot updates are performed by supplying named arguments corresponding to
+valid module slots.
+
+For example:
+
+
+    x <- renew(
+      x,
+      population = population
+    )
+
+Additional class-specific operations are available via the `what`
+argument.
+
+Together with
+[`procure`](https://ready4-dev.github.io/replica/reference/procure.md),
+`renew()` forms the primary interface for reading and updating
+replica-module contents.
 
 ## ReplicaAdder Method
 
@@ -139,8 +165,8 @@ using named arguments supplied via `...`.
 For example:
 
 
-    adder <- renew(
-      adder,
+    ADDER <- renew(
+      ADDER,
       population = population
     )
 
@@ -171,8 +197,8 @@ using named arguments supplied via `...`.
 For example:
 
 
-    grouper <- renew(
-      grouper,
+    GROUPER <- renew(
+      GROUPER,
       population = population,
       what = "structure"
     )
@@ -200,6 +226,11 @@ The operation performed is determined by the `what` argument.
 
 Supported options are:
 
+- `"slot"`:
+
+  Update one or more slots of a `ReplicaStructure` using named arguments
+  supplied via `...`.
+
 - `"positions"`:
 
   Define or update household-member requirements.
@@ -218,5 +249,12 @@ Supported options are:
 
   Transfer generated household assignments into the synthetic population
   stored by the structure.
+
+## See also
+
+[`procure`](https://ready4-dev.github.io/replica/reference/procure.md),
+[`enhance`](https://ready4-dev.github.io/replica/reference/enhance.md),
+[`ratify`](https://ready4-dev.github.io/replica/reference/ratify.md),
+[`manufacture`](https://ready4-dev.github.io/replica/reference/manufacture.md)
 
 ## Examples

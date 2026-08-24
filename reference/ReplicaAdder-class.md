@@ -68,16 +68,16 @@ and are stored in the `validation_results` slot.
 A typical workflow is:
 
 
-    adder <- ReplicaAdder(...)
+    ADDER <- ReplicaAdder(...)
 
-    adder <- renew(
-      adder,
+    ADDER <- renew(
+      ADDER,
       margins = ...
     )
 
-    adder <- enhance(adder)
+    ADDER <- enhance(ADDER)
 
-    adder <- ratify(adder)
+    ADDER <- ratify(ADDER)
 
 ## Inheritance
 

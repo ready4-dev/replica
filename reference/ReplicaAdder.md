@@ -85,7 +85,7 @@ contingency_table <- data.frame(
   count = c(60, 40)
 )
 
-adder <- ReplicaAdder(
+ADDER <- ReplicaAdder(
   population = population,
   contingency_table = contingency_table,
   target_attribute = "education",

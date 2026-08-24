@@ -89,12 +89,12 @@ The updated synthetic population is stored in:
 ``` r
 if (FALSE) { # \dontrun{
 
-adder <- enhance(
-  adder
+ADDER <- enhance(
+  ADDER
 )
 
 head(
-  adder@population
+  ADDER@population
 )
 
 } # }

@@ -9,7 +9,7 @@ validity criteria."><meta property="og:image" content="https://ready4-dev.github
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,7 +128,7 @@ quality of attribute assignment and stores validation
 diagnostics within the module.</p>
 <p>Validation results are stored in:</p>
 <div class="sourceCode"><pre><code><span></span>
-<span><span class="va">x</span><span class="op">@</span><span class="va">validation_results</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span></span></code></pre></div>
 
 <p>and include:</p>
 <ul><li><p>z-squared statistics;</p></li>
@@ -176,15 +176,15 @@ household, a warning is issued.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="enhance.html">enhance</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">adder</span></span></span>
+<span class="r-in"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="enhance.html">enhance</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">ADDER</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu">ratify</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">adder</span></span></span>
+<span class="r-in"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu">ratify</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">ADDER</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -192,13 +192,13 @@ household, a warning is issued.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Validate a ReplicaAdder</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="enhance.html">enhance</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="enhance.html">enhance</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu">ratify</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">adder</span></span></span>
+<span class="r-in"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu">ratify</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">ADDER</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">adder</span><span class="op">@</span><span class="va">validation_results</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Validate a ReplicaStructure</span></span></span>
 <span class="r-in"><span></span></span>

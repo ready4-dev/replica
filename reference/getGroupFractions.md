@@ -72,7 +72,7 @@ overlap with the target attribute.
 if (FALSE) { # \dontrun{
 
 fractions <- getGroupFractions(
-  adder,
+  ADDER,
   contingency_group
 )
 

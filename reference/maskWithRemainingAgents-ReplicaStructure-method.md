@@ -57,8 +57,8 @@ throughout replica.
 if (FALSE) { # \dontrun{
 remaining <- maskWithRemainingAgents(
   STRUCTURE,
-  STRUCTURE@population,
-  rep(TRUE, nrow(STRUCTURE@population))
+  procure(ADDER, "population"),
+  rep(TRUE, nrow(procure(ADDER, "population")))
 )
 } # }
 ```

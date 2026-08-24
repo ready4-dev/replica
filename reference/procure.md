@@ -1,6 +1,6 @@
 # Procure Components of Replica Modules
 
-Retrieves components stored within a replica module.
+Retrieves information stored within a replica module.
 
 ## Usage
 
@@ -52,13 +52,18 @@ Methods are currently available for:
 
 - `ReplicaGrouper`
 
-`procure()` provides convenient access to information stored within
-replica-module slots.
+`procure()` is the primary method used to retrieve information from
+replica modules.
 
-It is intended as a user-friendly alternative to direct slot access and
-helps support a consistent ready4-style workflow.
+Components are retrieved by supplying the name of a module slot.
 
-Components are retrieved by supplying a slot name.
+It provides a consistent alternative to direct slot access and supports
+a ready4-style workflow for working with replica modules.
+
+Together with
+[`renew`](https://ready4-dev.github.io/replica/reference/renew.md),
+`procure()` forms the primary interface for accessing and updating
+replica-module contents.
 
 ## ReplicaAdder Method
 
@@ -87,8 +92,15 @@ components such as:
 
 Retrieves components stored within a `ReplicaGrouper`.
 
-For a `ReplicaGrouper`, `procure()` can be used to retrieve stored
-grouping information and synthetic population data.
+For a `ReplicaGrouper`, `procure()` can be used to retrieve:
+
+- synthetic populations;
+
+- grouping definitions;
+
+- registered structures; and
+
+- household-generation settings.
 
 ## ReplicaStructure Method
 
@@ -103,7 +115,7 @@ information on:
 
 - household assignments; and
 
-- assignment state.
+- household-generation state.
 
 ## See also
 
@@ -124,7 +136,7 @@ information on:
 if (FALSE) { # \dontrun{
 
 procure(
-  adder,
+  ADDER,
   slot = "validation_results"
 )
 
@@ -133,7 +145,7 @@ procure(
 if (FALSE) { # \dontrun{
 
 procure(
-  grouper,
+  GROUPER,
   slot = "population"
 )
 
@@ -151,17 +163,17 @@ procure(
 if (FALSE) { # \dontrun{
 
 procure(
-  adder,
+  ADDER,
   slot = "validation_results"
 )
 
 procure(
-  structure,
+  STRUCTURE,
   slot = "households"
 )
 
 procure(
-  grouper,
+  GROUPER,
   slot = "population"
 )
 

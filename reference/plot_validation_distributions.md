@@ -27,7 +27,7 @@ A ggplot object.
 ``` r
 if (FALSE) { # \dontrun{
 plot_validation_distributions(
-  adder@validation_results
+  procure(ADDER, "validation_results")
 )
 } # }
 ```

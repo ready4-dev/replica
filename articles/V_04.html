@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">replica</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -209,7 +209,7 @@ vignettes.</p>
 <h3 id="enrich-population-with-additional-attribute">Enrich population with additional attribute<a class="anchor" aria-label="anchor" href="#enrich-population-with-additional-attribute"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ReplicaAdder.html">ReplicaAdder</a></span><span class="op">(</span></span>
 <span></span>
 <span>  population <span class="op">=</span> <span class="va">population</span>,</span>
 <span></span>
@@ -224,7 +224,7 @@ vignettes.</p>
 <span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">adder</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/enhance.html">enhance</a></span><span class="op">(</span><span class="va">adder</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ADDER</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/enhance.html">enhance</a></span><span class="op">(</span><span class="va">ADDER</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -232,17 +232,16 @@ vignettes.</p>
 </h2>
 <p>Validation is automatically performed during attribute
 assignment.</p>
-<p>Validation results are stored in
-<code>adder@validation_results</code> that includes the following
-elements:</p>
+<p>We can access the validation results using the procure method. For
+example, to see validation topics:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">adder</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "name"               "z_square"           "p_value"           </span></span>
 <span><span class="co">## [4] "degrees_of_freedom" "critical_value"     "warning_required"  </span></span>
 <span><span class="co">## [7] "details"</span></span></code></pre>
 <p>A subset of the summary statistics can be inspected directly.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">adder</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_square"</span>,<span class="st">"p_value"</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"z_square"</span>,<span class="st">"p_value"</span>, </span>
 <span>                           <span class="st">"warning_required"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $z_square</span></span>
 <span><span class="co">## [1] 2.155412</span></span>
@@ -279,13 +278,13 @@ versus expected distributions and percentage-point differences.</p>
 <h3 id="interpreting-the-validation-detail-table">Interpreting the validation detail table<a class="anchor" aria-label="anchor" href="#interpreting-the-validation-detail-table"></a>
 </h3>
 <p>Detailed validation results are available via
-<code>head(adder@validation_results$details)</code>.</p>
+<code>procure(ADDER, "validation_results")$details</code>.</p>
 <p>In many practical applications, percentage-point differences provide
 the most useful indication of whether a synthetic population is
 sufficiently accurate for its intended purpose. Therefore, the most
 useful columns may be:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">adder</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">$</span><span class="va">details</span><span class="op">[</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">$</span><span class="va">details</span><span class="op">[</span></span>
 <span>  ,</span>
 <span>  <span class="fu">.</span><span class="op">(</span></span>
 <span>    <span class="va">age_group</span>,</span>
@@ -324,7 +323,7 @@ reproducing the target distribution successfully.</p>
 <p>The simplest way to assess synthetic population quality is to compare
 observed and expected percentages directly.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_distributions.html">plot_validation_distributions</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">adder</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_distributions.html">plot_validation_distributions</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V_04_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700">
 This figure compares observed and expected percentages within each
 conditioning group.</p>
@@ -333,7 +332,7 @@ similar.</p>
 <p>Percentage-point differences are often the most useful diagnostic for
 identifying population mismatches.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_differences.html">plot_validation_differences</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">adder</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_differences.html">plot_validation_differences</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V_04_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="700">
 This plot highlights demographic groups that differ most from the target
 distribution.</p>
@@ -342,7 +341,7 @@ to mismatch between observed and expected distributions.</p>
 <p>For larger validation exercises, a heatmap provides a compact summary
 of fit quality.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_heatmap.html">plot_validation_heatmap</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">adder</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_validation_heatmap.html">plot_validation_heatmap</a></span><span class="op">(</span><span class="fu"><a href="../reference/procure.html">procure</a></span><span class="op">(</span><span class="va">ADDER</span>, <span class="st">"validation_results"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="V_04_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="700"></p>
 <p>Heatmaps become increasingly useful as the number of conditioning
 variables grows.</p>

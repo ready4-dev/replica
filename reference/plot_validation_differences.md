@@ -25,7 +25,7 @@ A ggplot object.
 ``` r
 if (FALSE) { # \dontrun{
 plot_validation_differences(
-  adder@validation_results
+  procure(ADDER, "validation_results")
 )
 } # }
 ```

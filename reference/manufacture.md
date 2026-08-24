@@ -113,7 +113,7 @@ analysis.
 if (FALSE) { # \dontrun{
 
 result <- manufacture(
-  grouper
+  GROUPER
 )
 
 result$synthetic_population
