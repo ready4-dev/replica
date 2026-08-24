@@ -78,7 +78,7 @@ ADDER <- enhance(
 )
 
 head(
-  procure(ADDER, "population")
+  procure(ADDER, slot = "population")
 )
 
 }

@@ -951,8 +951,9 @@ setMethod(
 #' \dontrun{
 #' remaining <- maskWithRemainingAgents(
 #'   STRUCTURE,
-#'   procure(ADDER, "population"),
-#'   rep(TRUE, nrow(procure(ADDER, "population")))
+#'   procure(ADDER, slot = "population"),
+#'   rep(TRUE, nrow(procure(ADDER, 
+#'   slot = "population")))
 #' )
 #' }
 #'

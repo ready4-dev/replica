@@ -63,7 +63,7 @@ test_that(
     
     ADDER <- enhance(ADDER)
     
-    r_result <- procure(ADDER, "population")
+    r_result <- procure(ADDER, slot = "population")
     
     expect_same_contingency(
       

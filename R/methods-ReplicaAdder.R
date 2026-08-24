@@ -167,7 +167,7 @@ setMethod(
 #' )
 #'
 #' head(
-#'   procure(ADDER, "population")
+#'   procure(ADDER, slot = "population")
 #' )
 #'
 #' }
@@ -420,7 +420,7 @@ setMethod(
 #'   ADDER
 #' )
 #'
-#' procure(ADDER, "validation_results")
+#' procure(ADDER, slot = "validation_results")
 #'
 #' }
 #'

@@ -66,32 +66,32 @@ We begin with a basic synthetic population that lacks the target attribute.
 For this example, we will create a basic seed population from an age group and gender contingency table using the approach demonstrated in the "Generating Synthetic Populations from Aggregated Data" vignette. 
 
 ```{r}
-age_gender <- data.frame(
+age_gender_df <- data.frame(
   age_group = c("18-64", "18-64", "65+", "65+"),
   gender = c("Male", "Female", "Male", "Female"),
   count = c(10, 10, 10, 10))
 ```
 
 ```{r}
-age_gender
+age_gender_df
 ```
 
 We can now generate the basic seed population of synthetic agents:
 
 ```{r}
-population <- make_agents(age_gender)
+population_dt <- make_agents(age_gender_df)
 ```
 
 The generated seed population now contains one row per synthetic agent.
 
 ```{r}
-head(population)
+head(population_dt)
 ```
 
 We can verify that the generated population preserves the source distribution.
 
 ```{r}
-transform_to_contingency(population, 
+transform_to_contingency(population_dt, 
                          columns = c("age_group", "gender"))
 ```
 
@@ -103,15 +103,13 @@ Our goal is to assign education values while preserving known demographic relati
 The reference distribution is supplied as a contingency table. In real use, we would source contingency tables from high quality data sources (e.g., census data) representative of our regions of interest. In this example, we will generate an illustrative contingency table using hypothetical values.
 
 ```{r}
-contingency_table <- data.frame(
+education_df <- data.frame(
   age_group = c("18-64", "18-64","18-64", "18-64",
                 "65+", "65+", "65+", "65+"),
   gender = c("Male", "Male", "Female", "Female",
              "Male", "Male", "Female", "Female"),
-
   education = c("Degree", "School", "Degree", "School",
                 "Degree", "School", "Degree", "School"),
-
   count = c(60, 40, 55, 45, 
             30, 70, 25, 75))
 ```
@@ -134,8 +132,8 @@ For example:
 The assignment workflow is controlled using a `ReplicaAdder`.
 
 ```{r}
-ADDER <- ReplicaAdder(population = population,
-                      contingency_table = contingency_table,
+ADDER <- ReplicaAdder(population = population_dt,
+                      contingency_table = education_df,
                       target_attribute = "education",
                       group_by = c("age_group", "gender"))
 ```
@@ -157,7 +155,7 @@ Real-world contingency tables often do not contain every combination of characte
 `replica` supports several strategies for handling missing groups. The selected strategy is stored in the `missing_group_strategy` slot.
 
 ```{r}
-procure(ADDER, "missing_group_strategy")
+procure(ADDER, slot = "missing_group_strategy")
 ```
 
 In the above example, the strategy is "borrow" (which is selected by default) that borrows information from nearby groups.
@@ -189,13 +187,14 @@ The workflow:
 The synthetic population now contains the assigned `education` attribute. We can access the updated synthetic population with the `procure` method.
 
 ```{r}
-head(procure(ADDER, "population"))
+head(procure(ADDER, slot = "population"))
 ```
 
 We can examine the distribution of education values.
 
 ```{r}
-transform_to_contingency(procure(ADDER, "population"), 
+transform_to_contingency(procure(ADDER, 
+                                 slot = "population"), 
                          columns = "education")
 ```
 
@@ -204,7 +203,7 @@ The population has been enriched while preserving the demographic relationships 
 We can also reconstruct the resulting contingency table:
 
 ```{r}
-transform_to_contingency(procure(ADDER, "population"),
+transform_to_contingency(procure(ADDER, slot = "population"),
                          columns = c("age_group", "gender", "education"))
 ```
 

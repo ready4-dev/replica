@@ -57,7 +57,7 @@ test_that(
     
     ADDER <- enhance(ADDER)
     
-    result <- procure(ADDER, "population")
+    result <- procure(ADDER, slot = "population")
     
     expect_true(
       "education" %in% names(result)
@@ -81,7 +81,7 @@ test_that(
     
     ADDER <- enhance(ADDER)
     
-    result <- procure(ADDER, "population")
+    result <- procure(ADDER, slot = "population")
     
     expect_false(
       any(
@@ -110,7 +110,7 @@ test_that(
     ADDER <- enhance(ADDER)
     
     expect_equal(
-      nrow(procure(ADDER, "population")),
+      nrow(procure(ADDER, slot = "population")),
       nrow(population)
     )
     
@@ -132,7 +132,7 @@ test_that(
     
     ADDER <- enhance(ADDER)
     
-    result <- procure(ADDER, "population")
+    result <- procure(ADDER, slot = "population")
     
     expect_equal(
       
@@ -402,7 +402,7 @@ test_that(
       ADDER <- enhance(ADDER)
     )
     
-    result <- procure(ADDER, "population")
+    result <- procure(ADDER, slot = "population")
     
     expect_equal(
       nrow(result),
@@ -449,7 +449,7 @@ test_that(
     
     ADDER <- enhance(ADDER)
     
-    result <- procure(ADDER, "population")
+    result <- procure(ADDER, slot = "population")
     
     female_agents <- result[
       gender == "Female"

@@ -16,7 +16,7 @@ These results are typically retrieved using:
 \preformatted{
 procure(
   ADDER,
-  "validation_results"
+  slot = "validation_results"
 )
 }}
 
@@ -34,7 +34,7 @@ between observed and expected distributions.
 plot_validation_differences(
   procure(
     ADDER,
-    "validation_results"
+    slot = "validation_results"
   )
 )
 }

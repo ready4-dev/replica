@@ -16,7 +16,7 @@ These results are typically retrieved using:
 \preformatted{
 procure(
   ADDER,
-  "validation_results"
+  slot = "validation_results"
 )
 }}
 
@@ -34,7 +34,7 @@ percentages from validation results.
 plot_validation_distributions(
   procure(
     ADDER,
-    "validation_results"
+    slot = "validation_results"
   )
 )
 }

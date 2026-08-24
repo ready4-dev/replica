@@ -256,7 +256,7 @@ NULL
 #' Validation results are stored in:
 #'
 #' \preformatted{
-#' procure(ADDER, "validation_results")
+#' procure(ADDER, slot = "validation_results")
 #' }
 #'
 #' and include:
@@ -337,7 +337,7 @@ NULL
 #'   ADDER
 #' )
 #'
-#' procure(ADDER, "validation_results")
+#' procure(ADDER, slot = "validation_results")
 #'
 #' ## Validate a ReplicaStructure
 #'

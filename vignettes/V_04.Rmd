@@ -75,18 +75,17 @@ We begin by creating a simple synthetic population.
 ### Generate agents
 
 ```{r}
-age_gender <- data.frame(
+age_gender_df <- data.frame(
   age_group = c("18-64", "18-64", "65+", "65+"),
   gender = c("Male", "Female", "Male", "Female"),
   count = c(10, 10, 10, 10))
-
-population <- make_agents(age_gender)
+population_dt <- make_agents(age_gender_df)
 ```
 
 ### Supply reference contingency table
 
 ```{r}
-education_contingency <- data.frame(
+education_df <- data.frame(
   age_group = c("18-64", "18-64", "18-64", "18-64",
                 "65+", "65+", "65+", "65+"),
   gender = c("Male", "Male", "Female", "Female",
@@ -100,8 +99,8 @@ education_contingency <- data.frame(
 ### Enrich population with additional attribute
 
 ```{r}
-ADDER <- ReplicaAdder(population = population,
-                      contingency_table = education_contingency,
+ADDER <- ReplicaAdder(population = population_dt,
+                      contingency_table = education_df,
                       target_attribute = "education",
                       group_by = c("age_group", "gender"))
 ADDER <- enhance(ADDER)
@@ -114,7 +113,8 @@ Validation diagnostics are generated using `ratify()` and stored within the `Rep
 These diagnostics can be inspected directly using `procure()`.
 
 ```{r}
-validation_results_ls <- procure(ADDER, "validation_results")
+validation_results_ls <- procure(ADDER, 
+                                 slot = "validation_results")
 ```
 
 
@@ -138,7 +138,7 @@ These values provide a high-level assessment of the match between the observed s
 ## Generate diagnostics
 ADDER <- ratify(ADDER)
 ## Inspect diagnostics
-procure(ADDER, "validation_results")
+procure(ADDER, slot = "validation_results")
 ## Visualise diagnostics
 depict(ADDER, type = "distribution")
 ```
@@ -161,13 +161,12 @@ For this reason it is generally advisable to review goodness-of-fit statistics i
 
 
 ### Interpreting the validation detail table
-Detailed validation results are available via `procure(ADDER, "validation_results")$details`.
+Detailed validation results are available via `procure(ADDER, slot = "validation_results")$details`.
 
 In many practical applications, percentage-point differences provide the most useful indication of whether a synthetic population is sufficiently accurate for its intended purpose. Therefore, the most useful columns may be:
 
 ```{r}
-procure(ADDER, 
-        "validation_results")$details[
+validation_results_ls$details[
   ,
   .(
     age_group,

@@ -16,7 +16,7 @@ These results are typically retrieved using:
 \preformatted{
 procure(
   ADDER,
-  "validation_results"
+  slot = "validation_results"
 )
 }}
 
@@ -35,7 +35,7 @@ conditioning groups.
 plot_validation_heatmap(
   procure(
     ADDER,
-    "validation_results"
+    slot = "validation_results"
   )
 )
 }

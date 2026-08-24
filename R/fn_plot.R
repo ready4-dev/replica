@@ -13,7 +13,7 @@
 #' \preformatted{
 #' procure(
 #'   ADDER,
-#'   "validation_results"
+#'   slot = "validation_results"
 #' )
 #' }
 #'
@@ -26,7 +26,7 @@
 #' plot_validation_distributions(
 #'   procure(
 #'     ADDER,
-#'     "validation_results"
+#'     slot = "validation_results"
 #'   )
 #' )
 #' }
@@ -121,7 +121,7 @@ plot_validation_distributions <- function(
 #' \preformatted{
 #' procure(
 #'   ADDER,
-#'   "validation_results"
+#'   slot = "validation_results"
 #' )
 #' }
 #'
@@ -134,7 +134,7 @@ plot_validation_distributions <- function(
 #' plot_validation_differences(
 #'   procure(
 #'     ADDER,
-#'     "validation_results"
+#'     slot = "validation_results"
 #'   )
 #' )
 #' }
@@ -236,7 +236,7 @@ plot_validation_differences <- function(
 #' \preformatted{
 #' procure(
 #'   ADDER,
-#'   "validation_results"
+#'   slot = "validation_results"
 #' )
 #' }
 #'
@@ -249,7 +249,7 @@ plot_validation_differences <- function(
 #' plot_validation_heatmap(
 #'   procure(
 #'     ADDER,
-#'     "validation_results"
+#'     slot = "validation_results"
 #'   )
 #' )
 #' }

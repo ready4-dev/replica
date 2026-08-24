@@ -78,7 +78,7 @@ test_that(
       
       any(
         is.na(
-          procure(STRUCTURE, "population")$
+          procure(STRUCTURE, slot = "population")$
             household_id
         )
       )
@@ -89,7 +89,7 @@ test_that(
       
       length(
         unique(
-          procure(STRUCTURE, "population")$
+          procure(STRUCTURE, slot = "population")$
             household_id
         )
       ),

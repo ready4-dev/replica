@@ -82,7 +82,7 @@ In practice such a population would typically have been generated using the work
 For simplicity, this example uses a small illustrative population containing four adults living in the same neighbourhood.
 
 ```{r}
-pop <- data.table(
+population_dt <- data.table(
   agent_id = c("A001", "A002", "A003", "A004"),
   neighb_code = c("N1", "N1", "N1", "N1"),
   age = c(40, 35, 50, 45),
@@ -91,7 +91,7 @@ pop <- data.table(
 ```
 
 ```{r}
-pop
+population_dt
 ```
 
 
@@ -194,7 +194,7 @@ rules specified above.
 A ReplicaGrouper coordinates household generation across an entire synthetic population.
 
 ```{r}
-GROUPER <- ReplicaGrouper(population = pop,
+GROUPER <- ReplicaGrouper(population = population_dt,
                           group_by = "neighb_code")
 ```
 
@@ -230,7 +230,8 @@ The grouper now knows how to generate couple households.
 We can retrieve the list of all structures registered with a grouper using `procure()`. In this example only one structure has been registered.
 
 ```{r}
-structures_ls <- procure(GROUPER, "structures")
+structures_ls <- procure(GROUPER, 
+                         slot = "structures")
 length(structures_ls)
 ```
 ```{r}
@@ -243,7 +244,7 @@ class(structures_ls[[1]])
 Once household types have been registered, the complete household-generation workflow can be executed using `manufacture()`.
 
 ```{r}
-result <- manufacture(GROUPER)
+results_ls <- manufacture(GROUPER)
 ```
 
 The `manufacture()` method executes the complete household-generation workflow.
@@ -268,11 +269,11 @@ The result is returned as a list containing both agent-level and household-level
 The result now contains both agent-level and household-level outputs. 
 
 ```{r}
-synthetic_population <- result$synthetic_population
+synthetic_population <- results_ls$synthetic_population
 ```
 
 ```{r}
-synthetic_households <- result$synthetic_households
+synthetic_households <- results_ls$synthetic_households
 ```
 
 The household-generation workflow produces two complementary outputs.
