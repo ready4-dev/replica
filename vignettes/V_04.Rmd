@@ -19,7 +19,7 @@ library(replica)
 
 ## Motivation
 
-Generating a synthetic population is only part of the population-synthesis workflow.
+Generating a synthetic population is only part of the population-synthesis workflow. It is equally important to assess whether generated populations reproduce the distributions used during their construction.
 
 It is equally important to assess whether the resulting population adequately reproduces the demographic distributions used during construction.
 
@@ -46,44 +46,28 @@ This vignette demonstrates how to:
 ## Workflow overview
 This vignette focuses on the final stage of the replica workflow.
 
+```text
 Aggregate Counts
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+↓
 `make_agents()`
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+↓
 Synthetic Agents
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+↓
 `ReplicaAdder`
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
-Enriched Population
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
-`ReplicaStructure`
-       
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +
-       
-`ReplicaGrouper`
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
-Synthetic Households
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
-Validation
+↓
+`enhance()`
+↓
+`ratify()`
+↓
+`depict()`
+↓
+Validated Synthetic Population
+```
+
+Validation diagnostics can be assessed numerically using `procure()` and visually using `depict()`.
 
 ## Create population to be evaluated
 To demonstrate the validation workflow we first create a simple synthetic population using functionality introduced in previous vignettes.
-
-
 
 ##  Example data generation process
 We begin by creating a simple synthetic population.
@@ -92,108 +76,72 @@ We begin by creating a simple synthetic population.
 
 ```{r}
 age_gender <- data.frame(
+  age_group = c("18-64", "18-64", "65+", "65+"),
+  gender = c("Male", "Female", "Male", "Female"),
+  count = c(10, 10, 10, 10))
 
-  age_group = c(
-    "18-64",
-    "18-64",
-    "65+",
-    "65+"
-  ),
-
-  gender = c(
-    "Male",
-    "Female",
-    "Male",
-    "Female"
-  ),
-
-  count = c(
-    10,
-    10,
-    10,
-    10
-  )
-
-)
-
-population <- make_agents(
-  age_gender
-)
+population <- make_agents(age_gender)
 ```
 
 ### Supply reference contingency table
 
 ```{r}
 education_contingency <- data.frame(
-
-  age_group = c(
-    "18-64", "18-64",
-    "18-64", "18-64",
-    "65+",   "65+",
-    "65+",   "65+"
-  ),
-
-  gender = c(
-    "Male",   "Male",
-    "Female", "Female",
-    "Male",   "Male",
-    "Female", "Female"
-  ),
-
-  education = c(
-    "Degree", "School",
-    "Degree", "School",
-    "Degree", "School",
-    "Degree", "School"
-  ),
-
-  count = c(
-    60, 40,
-    55, 45,
-    30, 70,
-    25, 75
-  )
-
-)
+  age_group = c("18-64", "18-64", "18-64", "18-64",
+                "65+", "65+", "65+", "65+"),
+  gender = c("Male", "Male", "Female", "Female",
+             "Male", "Male", "Female", "Female"),
+  education = c("Degree", "School", "Degree", "School",
+                "Degree", "School", "Degree", "School"),
+  count = c(60, 40, 55, 45,
+            30, 70, 25, 75))
 ```
 
 ### Enrich population with additional attribute
 
 ```{r}
-ADDER <- ReplicaAdder(
-
-  population = population,
-
-  contingency_table = education_contingency,
-
-  target_attribute = "education",
-
-  group_by = c(
-    "age_group",
-    "gender"
-  )
-
-)
-
+ADDER <- ReplicaAdder(population = population,
+                      contingency_table = education_contingency,
+                      target_attribute = "education",
+                      group_by = c("age_group", "gender"))
 ADDER <- enhance(ADDER)
+ADDER <- ratify(ADDER)
 ```
 
 ## Inspect validation results
-Validation is automatically performed during attribute assignment.
+Validation diagnostics are generated using `ratify()` and stored within the `ReplicaAdder`.
 
-We can access the validation results using the procure method. For example, to see validation topics:
+These diagnostics can be inspected directly using `procure()`.
 
 ```{r}
-names(procure(ADDER, "validation_results"))
+validation_results_ls <- procure(ADDER, "validation_results")
+```
+
+
+```{r}
+names(validation_results_ls)
 ```
 
 A subset of the summary statistics can be inspected directly.
 
 ```{r}
-procure(ADDER, "validation_results")[c("z_square","p_value", 
-                           "warning_required")]
+validation_results_ls[c("z_square",
+                        "p_value", 
+                        "warning_required")]
 ```
 These values provide a high-level assessment of the match between the observed synthetic population and the target contingency table.
+
+## Validation workflow overview
+
+```{r eval=FALSE}
+# Not run
+## Generate diagnostics
+ADDER <- ratify(ADDER)
+## Inspect diagnostics
+procure(ADDER, "validation_results")
+## Visualise diagnostics
+depict(ADDER, type = "distribution")
+```
 
 ### Interpreting summary statistics
 
@@ -218,7 +166,8 @@ Detailed validation results are available via `procure(ADDER, "validation_result
 In many practical applications, percentage-point differences provide the most useful indication of whether a synthetic population is sufficiently accurate for its intended purpose. Therefore, the most useful columns may be:
 
 ```{r}
-procure(ADDER, "validation_results")$details[
+procure(ADDER, 
+        "validation_results")$details[
   ,
   .(
     age_group,
@@ -278,7 +227,7 @@ Values close to zero indicate a close match between observed and expected distri
 
 Larger positive or negative values identify groups that may require further investigation.
 
-## Potential validation elements
+## Validation steps
 All of the following steps can be used to validate a synthetic population:
 
 - compare observed and expected distributions;
@@ -295,7 +244,11 @@ All of the following steps can be used to validate a synthetic population:
 
 In this vignette we:
 
-- inspected automatically generated validation results;
+- generated validation diagnostics using `ratify()`;
+
+- retrieved validation results using `procure()`;
+
+- visualised validation diagnostics using `depict()`;
 
 - compared observed and expected distributions;
 

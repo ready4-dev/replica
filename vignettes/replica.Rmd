@@ -53,15 +53,21 @@ Synthetic Agents
        ↓
 `ReplicaAdder`
        ↓
+`enhance()`
+       ↓
 Enriched Population
+       ↓
+`ratify()`
+       ↓
+`depict()`
        ↓
 `ReplicaStructure`
        +
 `ReplicaGrouper`
        ↓
-Synthetic Households
+`manufacture()`
        ↓
-Validation
+Synthetic Households
 ```
 
 
@@ -140,6 +146,10 @@ Synthetic populations should be evaluated to ensure they reproduce the source di
 
 - validation visualisations.
 
+Validation is typically performed using `ratify()` and reviewed using `procure()` and `depict()`.
+
+These tools help assess whether assigned attributes reproduce the target distributions used during population generation.
+
 ## Vignettes
 
 The package documentation follows the complete synthetic population generation workflow.
@@ -164,9 +174,29 @@ The package documentation follows the complete synthetic population generation w
 
 [Vignette 4: Evaluating Synthetic Population Quality](V_04.html):
 
-- introduces `depict()`;
+- introduces `ratify()`, `procure()` and `depict()`; and
 
-- demonstrates how synthetic populations can be assessed and validated.
+- demonstrates how synthetic populations can be assessed, inspected and visualised.
+
+## Core Workflow Methods
+
+`replica` follows a ready4-style workflow in which modules are configured, executed, inspected and evaluated using a small set of generic methods.
+
+Key methods include:
+
+- `procure()` for retrieving module contents;
+
+- `renew()` for updating module contents;
+
+- `enhance()` for assigning attributes;
+
+- `ratify()` for generating validation diagnostics;
+
+- `depict()` for visualising validation results; and
+
+- `manufacture()` for generating household outputs.
+
+This reinforces the package design you've just spent considerable effort implementing.
 
 ## Example Workflow
 
@@ -206,6 +236,22 @@ ADDER <- enhance(ADDER)
 population <- procure(ADDER, "population")
 ```
 
+### Validate Attribute Assignment
+
+```{r}
+ADDER <- ratify(ADDER)
+```
+
+```{r}
+validation_results_ls <- procure(ADDER, "validation_results")
+validation_results_ls[c("z_square","p_value", "warning_required")]
+```
+
+
+```{r}
+depict(ADDER, type = "difference")
+```
+
 ### Generate Households
 
 ```{r}
@@ -219,7 +265,7 @@ population[age_group == "18-64",
 population[age_group == "65+", 
            age := sample(65:95,.N, replace = TRUE)]
 
-STRUCTURE <- ReplicaStructure("CoupleHousehold")
+STRUCTURE <- ReplicaStructure(household_type = "CoupleHousehold")
 
 STRUCTURE <- renew(STRUCTURE,
                    what = "positions",
@@ -253,16 +299,7 @@ head(households$synthetic_population)
 head(households$synthetic_households)
 ```
 
-### Validate Attribute Assignment
 
-```{r}
-procure(ADDER, "validation_results")[c("z_square","p_value", 
-                           "warning_required")]
-```
-
-```{r}
-plot_validation_differences(procure(ADDER, "validation_results"))
-```
 
 This workflow demonstrates the complete progression from aggregate demographic data to synthetic agents, enriched populations, synthetic households and validation outputs.
 
