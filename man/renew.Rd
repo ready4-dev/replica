@@ -26,8 +26,6 @@
   position_identifier = NULL,
   amount = NULL,
   backup_position_identifiers = character(),
-  population = NULL,
-  position_column = NULL,
   ...
 )
 }
@@ -54,7 +52,16 @@ Options include:
 \item{...}{Additional arguments.
 
 When \code{what = "slot"}, named arguments are interpreted
-as slot updates.}
+as slot updates.
+
+When \code{what = "state"}, named arguments should include:
+
+\itemize{
+\item \code{population}: the synthetic population used
+during household generation;
+\item \code{position_column}: the column containing
+household-position classifications.
+}}
 
 \item{structure}{A \code{ReplicaStructure}
 object to be registered when
@@ -70,12 +77,6 @@ identifier used during household formation.}
 \item{backup_position_identifiers}{Alternative
 position identifiers that may be used if the primary
 position is unavailable.}
-
-\item{population}{Synthetic population used for
-household generation.}
-
-\item{position_column}{Character string identifying the
-column containing household-position information.}
 }
 \value{
 An updated \code{ReplicaAdder}.
@@ -246,6 +247,14 @@ household generation.
 This operation stores the synthetic population and
 household-position column used by subsequent
 household-generation methods.
+
+When \code{what = "state"}, the following named arguments
+should be supplied via \code{...}:
+
+\itemize{
+\item \code{population}
+\item \code{position_column}
+}
 }
 
 \item{\code{"households"}}{

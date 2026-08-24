@@ -52,7 +52,7 @@ assignments.
 It is used by:
 
 \itemize{
-\item \code{\link{matchAdultsWithChildren}}
+\item \code{matchAdultsWithChildren}
 \item Conditional attribute assignment workflows
 }
 }
@@ -81,6 +81,5 @@ calculate_group_counts(
 
 }
 \seealso{
-\code{\link{calculate_fractions}},
-\code{\link{matchAdultsWithChildren}}
+\code{\link{calculate_fractions}}
 }

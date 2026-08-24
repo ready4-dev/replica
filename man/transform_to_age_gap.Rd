@@ -85,6 +85,5 @@ transform_to_age_gap("-10-5")
 
 }
 \seealso{
-\code{\link{matchAdultsWithChildren}},
 \code{\link{calculate_age_range_from_gap}}
 }

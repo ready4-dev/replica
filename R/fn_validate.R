@@ -328,3 +328,22 @@ validate_synthetic_population_fit <- function(
   )
   
 }
+
+validate_validation_results <- function(
+    validation_results
+) {
+  
+  if (
+    is.null(validation_results) ||
+    length(validation_results) == 0
+  ) {
+    
+    stop(
+      "No validation results available. Run ratify() before calling depict()."
+    )
+    
+  }
+  
+  invisible(TRUE)
+  
+}

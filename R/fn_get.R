@@ -1145,10 +1145,10 @@ getRemainingAgentsInPosition <- function( # Make method
   
 }
 get_validation_structure <- function(
-    validation_result
+    validation_results
 ) {
   
-  details <- validation_result$details
+  details <- validation_results$details
   
   metric_columns <- c(
     "count_x",

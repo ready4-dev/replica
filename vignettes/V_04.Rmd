@@ -250,7 +250,7 @@ Negative values indicate under-representation.
 The simplest way to assess synthetic population quality is to compare observed and expected percentages directly.
 
 ```{r}
-plot_validation_distributions(procure(ADDER, "validation_results"))
+depict(ADDER, type = "distribution")
 ```
 This figure compares observed and expected percentages within each conditioning group.
 
@@ -260,7 +260,7 @@ Percentage-point differences are often the most useful diagnostic for identifyin
 
 
 ```{r}
-plot_validation_differences(procure(ADDER, "validation_results"))
+depict(ADDER, type = "difference")
 ```
 This plot highlights demographic groups that differ most from the target distribution.
 
@@ -269,7 +269,7 @@ Groups with the largest positive or negative values contribute most to mismatch 
 For larger validation exercises, a heatmap provides a compact summary of fit quality.
 
 ```{r}
-plot_validation_heatmap(procure(ADDER, "validation_results"))
+depict(ADDER, type = "heatmap")
 ```
 
 Heatmaps become increasingly useful as the number of conditioning variables grows.

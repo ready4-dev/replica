@@ -54,7 +54,7 @@ createFamilyHouseholdWithId <- function(
 #'
 #' \itemize{
 #'   \item \code{pair_partners}
-#'   \item \code{\link{matchAdultsWithChildren}}
+#'   \item \code{matchAdultsWithChildren}
 #' }
 #'
 #' @param object A \code{ReplicaStructure} object.
@@ -123,17 +123,15 @@ createFamilyHouseholdWithId <- function(
 #'   )
 #' )
 #'
-#' names(STRUCTURE@households)
+#' names(procure(STRUCTURE, "households"))
 #'
 #' }
 #'
 #' @seealso
-#' \code{\link{matchAdultsWithChildren}},
 #' \code{\link{ReplicaStructure}}
 #'
 #' @export
 create_household_with_id <- function(
-    #create_household_with_id() is currently storing the entire household under the "child" slot when called from matchAdultsWithChildren(). REFACTOR
   object,
   position,
   id_offset,
@@ -400,7 +398,6 @@ getGroupMask <- function(
 #' }
 #'
 #' @seealso
-#' \code{\link{matchAdultsWithChildren}},
 #' \code{\link{ReplicaStructure}}
 #' @keywords internal
 group_children <- function(

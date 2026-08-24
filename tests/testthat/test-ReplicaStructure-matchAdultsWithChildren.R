@@ -62,9 +62,11 @@ STRUCTURE <- renew(
   position_column = "household_position"
 )
 
-STRUCTURE@parent_child_age_distribution <- c(
+STRUCTURE <- renew(
+  STRUCTURE,
+  parent_child_age_distribution = c(
   "20-30" = 1
-)
+))
 
 parents <- list(
   

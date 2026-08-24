@@ -292,6 +292,14 @@ setMethod(
 #' This operation stores the synthetic population and
 #' household-position column used by subsequent
 #' household-generation methods.
+#'
+#' When \code{what = "state"}, the following named arguments
+#' should be supplied via \code{...}:
+#'
+#' \itemize{
+#'   \item \code{population}
+#'   \item \code{position_column}
+#' }
 #' }
 #'
 #' \item{\code{"households"}}{
@@ -326,16 +334,19 @@ setMethod(
 #' position identifiers that may be used if the primary
 #' position is unavailable.
 #'
-#' @param population Synthetic population used for
-#' household generation.
-#'
-#' @param position_column Character string identifying the
-#' column containing household-position information.
-#'
 #' @param ... Additional arguments.
 #'
 #' When \code{what = "slot"}, named arguments are interpreted
 #' as slot updates.
+#'
+#' When \code{what = "state"}, named arguments should include:
+#'
+#' \itemize{
+#'   \item \code{population}: the synthetic population used
+#'   during household generation;
+#'   \item \code{position_column}: the column containing
+#'   household-position classifications.
+#' }
 #'
 #' @return An updated \code{ReplicaStructure}.
 #'
@@ -395,8 +406,6 @@ setMethod(
     amount = NULL,
     backup_position_identifiers =
       character(),
-    population = NULL,
-    position_column = NULL,
     ...
   ) {
     
@@ -455,13 +464,32 @@ setMethod(
       
       state = {
         
+        if (is.null(dots$population)) {
+          
+          stop(
+            "population must be supplied when what = 'state'"
+          )
+          
+        }
+        
+        if (is.null(dots$position_column)) {
+          
+          stop(
+            paste(
+              "position_column must be supplied",
+              "when what = 'state'"
+            )
+          )
+          
+        }
+        
         x@population <-
           data.table::as.data.table(
-            population
+            dots$population
           )
         
         x@position_column <-
-          position_column
+          dots$position_column
         
         x
         
@@ -817,8 +845,6 @@ setMethod(
 #' child_mask <- getBaseChildMask(STRUCTURE)
 #' }
 #'
-#' @seealso
-#' \code{\link{matchAdultsWithChildren}}
 #'
 #' @keywords internal
 setMethod(

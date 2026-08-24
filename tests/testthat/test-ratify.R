@@ -18,24 +18,26 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    STRUCTURE@population <- data.table(
-      
-      agent_id = c(
-        "A001",
-        "A002"
-      ),
-      
-      household_position = c(
-        "Parent",
-        "Parent"
-      )
-      
-    )
+    STRUCTURE <- renew(STRUCTURE, 
+                       population = data.table(
+                         
+                         agent_id = c(
+                           "A001",
+                           "A002"
+                         ),
+                         
+                         household_position = c(
+                           "Parent",
+                           "Parent"
+                         )
+                         
+                       ))
     
-    STRUCTURE@position_column <-
-      "household_position"
+    STRUCTURE <- renew(STRUCTURE, 
+                       position_column = "household_position")
     
-    STRUCTURE@households <- list(
+    STRUCTURE <- renew(STRUCTURE, 
+                       households = list(
       
       SSH000001 = list(
         all = c(
@@ -44,7 +46,7 @@ test_that(
         )
       )
       
-    )
+    ))
     
     expect_true(
       ratify(STRUCTURE, output = "logical")
@@ -69,7 +71,8 @@ test_that(
       backup_position_identifiers = character()
     )
     
-    STRUCTURE@population <- data.table(
+    STRUCTURE <- renew(STRUCTURE, 
+                       population = data.table(
       
       agent_id = c(
         "A001",
@@ -83,12 +86,13 @@ test_that(
         "Parent"
       )
       
-    )
+    ))
     
-    STRUCTURE@position_column <-
-      "household_position"
+    STRUCTURE <- renew(STRUCTURE, 
+                       position_column = "household_position")
     
-    STRUCTURE@households <- list(
+    STRUCTURE <- renew(STRUCTURE, 
+                       households = list(
       
       SSH000001 = list(
         all = c(
@@ -104,7 +108,7 @@ test_that(
         )
       )
       
-    )
+    ))
     
     expect_error(
       ratify(STRUCTURE, output = "logical")

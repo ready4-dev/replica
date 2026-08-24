@@ -8,7 +8,7 @@ bibentry(
   year     = "2026",
   note     = sprintf("R package version %s", meta$Version),
   url      = "https://ready4-dev.github.io/replica/",
-  textVersion = paste("Matthew Hamilton <matthew.hamilton1@monash.edu> [aut and cre] (<https://orcid.org/0000-0001-7407-9194>) ",
+  textVersion = paste("Matthew Hamilton <matthew.hamilton1@monash.edu> [aut, cre, cph] (<https://orcid.org/0000-0001-7407-9194>) ",
   "(2026).",
   paste0(meta$Package,": ",meta$Title,
   "."),

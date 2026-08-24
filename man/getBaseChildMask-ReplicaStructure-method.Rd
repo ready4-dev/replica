@@ -35,8 +35,6 @@ position_identifier = "child"
 child_mask <- getBaseChildMask(STRUCTURE)
 }
 
-}
-\seealso{
-\code{\link{matchAdultsWithChildren}}
+
 }
 \keyword{internal}

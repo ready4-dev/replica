@@ -48,7 +48,7 @@ by:
 
 \itemize{
 \item \code{pair_partners}
-\item \code{\link{matchAdultsWithChildren}}
+\item \code{matchAdultsWithChildren}
 }
 
 The household is stored in the \code{households} slot.
@@ -102,12 +102,11 @@ STRUCTURE <- create_household_with_id(
   )
 )
 
-names(STRUCTURE@households)
+names(procure(STRUCTURE, "households"))
 
 }
 
 }
 \seealso{
-\code{\link{matchAdultsWithChildren}},
 \code{\link{ReplicaStructure}}
 }

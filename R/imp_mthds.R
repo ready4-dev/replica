@@ -1,6 +1,7 @@
 #' @import methods
 NULL
 
+#' @importFrom ready4 depict
 #' @importFrom ready4 enhance
 #' @importFrom ready4 manufacture
 #' @importFrom ready4 procure

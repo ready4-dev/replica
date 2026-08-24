@@ -1,3 +1,134 @@
+#' @rdname depict
+#'
+#' @section ReplicaAdder Method:
+#'
+#' Creates graphical summaries of validation results stored
+#' within a \code{ReplicaAdder}.
+#'
+#' Validation results must first be generated using
+#' \code{\link{ratify}}.
+#'
+#' Supported visualisations include:
+#'
+#' \itemize{
+#'   \item \code{"distribution"}: observed versus expected
+#'   distributions;
+#'   \item \code{"difference"}: percentage-point differences;
+#'   \item \code{"heatmap"}: differences displayed as a
+#'   heatmap.
+#' }
+#'
+#' @param x A \code{ReplicaAdder}.
+#'
+#' @param type Character string specifying the type of
+#' visualisation to create.
+#'
+#' Options are:
+#'
+#' \itemize{
+#'   \item \code{"distribution"}
+#'   \item \code{"difference"}
+#'   \item \code{"heatmap"}
+#' }
+#'
+#' @param ... Additional arguments passed to the underlying
+#' plotting function.
+#'
+#' @return A graphical object.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' ADDER <- enhance(
+#'   ADDER
+#' )
+#'
+#' ADDER <- ratify(
+#'   ADDER
+#' )
+#'
+#' depict(
+#'   ADDER,
+#'   type = "distribution"
+#' )
+#'
+#' depict(
+#'   ADDER,
+#'   type = "difference"
+#' )
+#'
+#' depict(
+#'   ADDER,
+#'   type = "heatmap"
+#' )
+#'
+#' }
+#'
+#' @seealso
+#' \code{\link{ratify}},
+#' \code{\link{plot_validation_distributions}},
+#' \code{\link{plot_validation_differences}},
+#' \code{\link{plot_validation_heatmap}}
+#'
+#' @exportMethod depict
+setMethod(
+  "depict",
+  signature(x = "ReplicaAdder"),
+  
+  function(
+    x,
+    type = c(
+      "distribution",
+      "difference",
+      "heatmap"
+    ),
+    ...
+  ) {
+    
+    type <- match.arg(type)
+    
+    validation_results <-
+      procure(
+        x,
+        slot = "validation_results"
+      )
+    validate_validation_results(validation_results)
+    
+    switch(
+      
+      type,
+      
+      distribution =
+        
+        plot_validation_distributions(
+          validation_results =
+            validation_results,
+          ...
+        ),
+      
+      difference =
+        
+        plot_validation_differences(
+          validation_results =
+            validation_results,
+          ...
+        ),
+      
+      heatmap =
+        
+        plot_validation_heatmap(
+          validation_results =
+            validation_results,
+          ...
+        )
+      
+    )
+    
+  }
+  
+)
+
+
 #' @rdname enhance
 #'
 #' @section ReplicaAdder Method:
@@ -36,7 +167,7 @@
 #' )
 #'
 #' head(
-#'   ADDER@population
+#'   procure(ADDER, "population")
 #' )
 #'
 #' }

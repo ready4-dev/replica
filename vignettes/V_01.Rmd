@@ -38,34 +38,41 @@ This vignette demonstrates how to create synthetic agents from marginal distribu
 ## Introduction
 The workflow supported by `replica` can be summarised as:
 
+```text
 Aggregate Counts
-       
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+       ↓
 `make_agents()`
-       
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+       ↓
 Synthetic Agents
-       
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+       ↓
 `ReplicaAdder`
-       
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-
+       ↓
+Enriched Population
+       ↓
 `ReplicaStructure`
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +
-
+       +
 `ReplicaGrouper`
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
-Validation
+       ↓
+Synthetic Households
+       ↓
+Validation and Visualisation
+```
 
 This vignette focuses on the first stage: creating a synthetic population of individual agents.
 
+Subsequent stages of the `replica` workflow use:
+
+- `renew()` to update module contents;
+
+- `procure()` to retrieve module contents;
+
+- `enhance()` to assign attributes;
+
+- `ratify()` to validate results;
+
+- `depict()` to visualise validation outcomes; and
+
+- `manufacture()` to generate household outputs.
 
 
 ## Example 1: Creating agents from a spatial marginal
@@ -103,7 +110,7 @@ transform_to_contingency(agents, "neighb_code")
 The reconstructed counts should match the source table used to generate the agents.
 
 ## Example 2: Creating agents from an age marginal
-The same function can be used with any marginal distribution.
+The same `make_agents()` function can be used with any marginal distribution.
 
 ```{r}
 age_margin <- data.frame(
@@ -165,17 +172,17 @@ transform_to_contingency(agents,
 
 The reconstructed contingency table should reproduce the original counts exactly.
 
-This property makes make_agents() a useful foundation for more sophisticated synthetic-population workflows.
+This property makes `make_agents()` a useful foundation for more sophisticated synthetic-population workflows.
 
 ## Add agent attributes
-The agents created by make_agents() typically contain only a subset of the characteristics required by a simulation model.
+The agents created by `make_agents()` typically contain only a subset of the characteristics required by a simulation model.
 
-Additional attributes can be assigned using `ReplicaAdder`. The use of this class is demonstrated in the "Assigning Attributes Using Contingency Tables" vignette.
+Additional attributes can be assigned using `ReplicaAdder` and the `enhance()` method. The use of this class is demonstrated in the "Assigning Attributes Using Contingency Tables" vignette.
 
 ## Assign agents to households
 After additional attributes have been assigned, agents can be grouped into households.
 
-To do this, use the `ReplicaStructure` and `ReplicaGrouper` classes. These are described in another vignette.
+To do this, create the `ReplicaStructure` and `ReplicaGrouper` objects and use `renew()` and `manufacture()` to define and generate household structures. These methods are described in another vignette.
 
 
 ## Key takeaways
@@ -190,9 +197,9 @@ In this vignette we:
 
 - created agents from contingency tables;
 
-- verified that aggregate distributions were preserved;
+- verified that aggregate distributions were preserved; and
 
-- connected agent generation to the broader `replica` workflow.
+- - introduced the broader `replica` workflow for attribute assignment, validation and household generation.
 
 
 ## References

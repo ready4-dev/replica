@@ -86,7 +86,6 @@ groups
 
 }
 \seealso{
-\code{\link{matchAdultsWithChildren}},
 \code{\link{ReplicaStructure}}
 }
 \keyword{internal}

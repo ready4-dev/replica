@@ -78,7 +78,7 @@ ADDER <- enhance(
 )
 
 head(
-  ADDER@population
+  procure(ADDER, "population")
 )
 
 }

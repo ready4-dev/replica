@@ -40,9 +40,9 @@ reference:
   - ReplicaStructure-class
 - title: "Methods"
 - contents:
-  - enhance,ReplicaAdder-method
-  - manufacture,ReplicaGrouper-method
-  - manufacture,ReplicaStructure-method
+  - starts_with("depict")
+  - starts_with("enhance")
+  - starts_with("manufacture")
   - starts_with("procure")
   - starts_with("ratify")
   - starts_with("renew")

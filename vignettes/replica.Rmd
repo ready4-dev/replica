@@ -44,6 +44,7 @@ This development version of `replica` has been made available as part of the pro
 
 The workflow supported by `replica` can be summarised as:
 
+```text
 Aggregate Counts
        ↓
 `make_agents()`
@@ -61,6 +62,7 @@ Enriched Population
 Synthetic Households
        ↓
 Validation
+```
 
 
 Each stage is described in a dedicated vignette.
@@ -162,7 +164,7 @@ The package documentation follows the complete synthetic population generation w
 
 [Vignette 4: Evaluating Synthetic Population Quality](V_04.html):
 
-- introduces `plot_validation_distributions()`, `plot_validation_differences()` and `plot_validation_heatmap()`;
+- introduces `depict()`;
 
 - demonstrates how synthetic populations can be assessed and validated.
 
