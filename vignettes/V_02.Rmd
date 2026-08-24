@@ -41,27 +41,23 @@ This vignette demonstrates how to assign an education attribute while preserving
 ## Workflow
 The workflow demonstrated in this vignette can be summarised as:
 
+```text
 Age-Gender Counts
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+      ↓
 `make_agents()`
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+      ↓
 Synthetic Agents
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+      ↓
 `ReplicaAdder`
-      
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
-Education Assignment
-    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓
-       
+      ↓
+`enhance()`
+      ↓
 Enriched Synthetic Population
+      ↓
+`ratify()`
+      ↓
+`depict()`
+```
 
 ## Supply a seed synthetic population of individual agents
 
@@ -184,11 +180,9 @@ The workflow:
 
 - calculates group-specific proportions;
 
-- converts proportions into agent assignments;
+- converts proportions into agent assignments;  and
 
-- assigns attribute values; and
-
-- validates the resulting distribution.
+- assigns attribute values.
 
 
 ## Inspect the enriched population
@@ -216,6 +210,23 @@ transform_to_contingency(procure(ADDER, "population"),
 
 The assigned education values approximately reproduce the proportions defined in the reference contingency table.
 
+## Validate assignment quality
+The quality of assigned attributes can be evaluated using the validation tools provided by `replica`.
+
+Validation diagnostics are generated using:
+
+```{r}
+ADDER <- ratify(ADDER)
+```
+
+and can be visualised using:
+
+```{r}
+depict(ADDER, type = "heatmap")
+```
+
+These tools are described in detail in the "Evaluating Synthetic Population Quality" vignette.
+
 ## Key takeaways
 
 In this vignette we:
@@ -230,9 +241,9 @@ In this vignette we:
 
 - explored strategies for handling missing groups;
 
-- added marginal distributions; and
+- verified the resulting synthetic population; and
 
-- verified the resulting synthetic population.
+- introduced the validation workflow based on `ratify()` and `depict()`.
 
 These tools provide a flexible framework for enriching synthetic populations using aggregate demographic data.
 
