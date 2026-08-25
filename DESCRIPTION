@@ -2,9 +2,8 @@ Package: replica
 Title: Create Synthetic Populations For Use In Mental Health Economic Models
 Version: 0.0.0.9008
 Authors@R: c(
-    person("Matthew", "Hamilton", , "matthew.hamilton1@monash.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-7407-9194")),
-    person("CopyrightHolder", role = "cph")
+    person("Matthew", "Hamilton", , "matthew.hamilton1@monash.edu", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-7407-9194"))
   )
 Description: A work in progress library that currently mainly just ports third party work to R.
     Future iterations are planned to integrate with the ready4 framework
