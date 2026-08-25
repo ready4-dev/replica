@@ -2,10 +2,8 @@
 
 ## Authors
 
-- **Matthew Hamilton**. Author, maintainer.
+- **Matthew Hamilton**. Author, maintainer, copyright holder.
   [](https://orcid.org/0000-0001-7407-9194)
-
-- **CopyrightHolder**. Copyright holder.
 
 ## Citation
 

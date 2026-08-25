@@ -35,8 +35,4 @@ Useful links:
 ## Author
 
 **Maintainer**: Matthew Hamilton <matthew.hamilton1@monash.edu>
-([ORCID](https://orcid.org/0000-0001-7407-9194))
-
-Other contributors:
-
-- CopyrightHolder \[copyright holder\]
+([ORCID](https://orcid.org/0000-0001-7407-9194)) \[copyright holder\]
