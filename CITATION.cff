@@ -5,5 +5,6 @@ authors:
     given-names: "Matthew"
 title: "replica: Create Synthetic Populations For Use In Mental Health Economic Models"
 version: 0.0.0.9008
+doi: 10.5281/zenodo.22088406
 date-released: 2026-08-24
 url: "https://ready4-dev.github.io/replica/"
