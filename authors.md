@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/ready4-dev/replica/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/ready4-dev/replica/blob/Documentation_0.0/inst/CITATION)
 
 Matthew Hamilton \<matthew.hamilton1@monash.edu\> \[aut, cre, cph\]
 (\<https://orcid.org/0000-0001-7407-9194\>) (2026). replica: Create
