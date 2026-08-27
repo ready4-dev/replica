@@ -413,6 +413,9 @@ transform_to_combinations <- function(
 #'
 #' @param columns Character vector identifying the variables to
 #' include in the contingency table.
+#' 
+#' @param output Character vector identifying the type of output
+#' class - options are "data.frame" or "data.table".
 #'
 #' If \code{NULL}, all available variables are used.
 #'
@@ -489,9 +492,12 @@ transform_to_combinations <- function(
 transform_to_contingency <- function(
     df_synthetic_population,
     columns = NULL,
-    full_crosstab = FALSE
+    full_crosstab = FALSE,
+    output = c("data.frame", "data.table")
+    
 ) {
-  
+  output <- match.arg(output)
+
   if (is.null(columns)) {
     columns <- names(df_synthetic_population)
   }
@@ -507,37 +513,46 @@ transform_to_contingency <- function(
       by = columns
     ]
   
-  if (!full_crosstab) {
-    return(
-      as.data.frame(contingency)
+  # if (!full_crosstab) {
+  #   return(
+  #     as.data.frame(contingency)
+  #   )
+  # }
+  if(full_crosstab){
+    all_levels <- lapply(
+      columns,
+      function(col) {
+        sort(unique(dt[[col]]))
+      }
     )
+    
+    names(all_levels) <- columns
+    
+    full_grid <- do.call(
+      data.table::CJ,
+      c(all_levels, sorted = FALSE)
+    )
+    
+    contingency <- merge(
+      full_grid,
+      contingency,
+      by = columns,
+      all.x = TRUE
+    )
+    # print(nrow(contingency))
+    contingency[
+      is.na(count),
+      count := 0
+    ]
+    # print(nrow(contingency))
   }
-  
-  all_levels <- lapply(
-    columns,
-    function(col) {
-      sort(unique(dt[[col]]))
-    }
-  )
-  
-  names(all_levels) <- columns
-  
-  full_grid <- do.call(
-    data.table::CJ,
-    c(all_levels, sorted = FALSE)
-  )
-  
-  contingency <- merge(
-    full_grid,
-    contingency,
-    by = columns,
-    all.x = TRUE
-  )
-  
-  contingency[
-    is.na(count),
-    count := 0
-  ]
-  
-  as.data.frame(contingency)
+  # print(nrow(contingency))
+  if(output == "data.frame"){
+    contingency <- as.data.frame(contingency)
+  }
+  # print(nrow(contingency))
+  # if(output == "data.table"){
+  #   contingency <- data.table::as.data.table(contingency)
+  # }
+  return(contingency)
 }

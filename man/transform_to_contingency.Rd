@@ -7,7 +7,8 @@
 transform_to_contingency(
   df_synthetic_population,
   columns = NULL,
-  full_crosstab = FALSE
+  full_crosstab = FALSE,
+  output = c("data.frame", "data.table")
 )
 }
 \arguments{
@@ -15,9 +16,7 @@ transform_to_contingency(
 as a data.frame or \code{data.table}.}
 
 \item{columns}{Character vector identifying the variables to
-include in the contingency table.
-
-If \code{NULL}, all available variables are used.}
+include in the contingency table.}
 
 \item{full_crosstab}{Logical value indicating whether all
 possible combinations of factor levels should be represented.
@@ -34,6 +33,11 @@ Missing combinations are included with
 \code{count = 0}.
 }
 }}
+
+\item{output}{Character vector identifying the type of output
+class - options are "data.frame" or "data.table".
+
+If \code{NULL}, all available variables are used.}
 }
 \value{
 A contingency table containing the supplied

@@ -17,6 +17,8 @@ library(data.table)
 
 **Note - the replica library is currently very experimental. It is still undergoing active development and testing. Function, class and method names, arguments and syntax may change without the use of deprecation conventions. This library should currently be used only for exploratory purposes.**
 
+**The functionality demonstrated in this vignette requires significant work to be fit for purposes other than this illustrative example. This vignette will be updated once this work is complete.**
+
 ## Motivation
 
 In the "Assigning Attributes Using Contingency Tables" vignette we used `ReplicaAdder` to enrich a synthetic population with additional demographic attributes.
