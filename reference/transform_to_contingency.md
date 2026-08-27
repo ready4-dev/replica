@@ -8,7 +8,8 @@ Converts an agent-level synthetic population into a contingency table.
 transform_to_contingency(
   df_synthetic_population,
   columns = NULL,
-  full_crosstab = FALSE
+  full_crosstab = FALSE,
+  output = c("data.frame", "data.table")
 )
 ```
 
@@ -22,8 +23,6 @@ transform_to_contingency(
 
   Character vector identifying the variables to include in the
   contingency table.
-
-  If `NULL`, all available variables are used.
 
 - full_crosstab:
 
@@ -39,6 +38,13 @@ transform_to_contingency(
   `TRUE`
 
   :   Missing combinations are included with `count = 0`.
+
+- output:
+
+  Character vector identifying the type of output class - options are
+  "data.frame" or "data.table".
+
+  If `NULL`, all available variables are used.
 
 ## Value
 
